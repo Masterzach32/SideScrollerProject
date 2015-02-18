@@ -1,11 +1,8 @@
 package net.masterzach32.sidescroller.assets.sfx;
 
-
 import javax.sound.sampled.*;
 
 public class AudioPlayer {
-	
-	// NOT COMPLETE
 	
 	private Clip clip;
 	

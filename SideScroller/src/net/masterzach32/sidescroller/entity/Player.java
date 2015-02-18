@@ -2,12 +2,11 @@ package net.masterzach32.sidescroller.entity;
 
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
 import net.masterzach32.sidescroller.tilemap.*;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -84,23 +83,17 @@ public class Player extends MapObject {
 		
 		// load sprites
 		try {
-			
 			BufferedImage spritesheet = Assets.player;
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			for(int i = 0; i < 7; i++) {
-				
 				BufferedImage[] bi = new BufferedImage[numFrames[i]];
-				
 				for(int j = 0; j < numFrames[i]; j++) {
-					
 					if(i != SCRATCHING) {
 						bi[j] = spritesheet.getSubimage(j * width, i * height, width, height);
-					}
-					else {
+					} else {
 						bi[j] = spritesheet.getSubimage(j * width * 2, i * height, width * 2, height);
 					}
-					
 				}
 				sprites.add(bi);
 			}
@@ -115,8 +108,8 @@ public class Player extends MapObject {
 		animation.setDelay(400);
 		
 		sfx = new HashMap<String, AudioPlayer>();
-		//sfx.put("jump", new AudioPlayer(Assets.jump));
-		//sfx.put("scratch", new AudioPlayer(Assets.scratch));
+		sfx.put("jump", new AudioPlayer(Assets.jump));
+		sfx.put("scratch", new AudioPlayer(Assets.scratch));
 		
 	}
 	
@@ -153,12 +146,9 @@ public class Player extends MapObject {
 	 * @param enemies
 	 */
 	public void checkAttack(ArrayList<Enemy> enemies) {
-		
 		// loop through enemies
 		for(int i = 0; i < enemies.size(); i++) {
-			
 			Enemy e = enemies.get(i);
-			
 			// scratch attack
 			if(scratching) {
 				if(facingRight) {
@@ -171,7 +161,6 @@ public class Player extends MapObject {
 					}
 				}
 			}
-			
 			// fireballs
 			for(int j = 0; j < fireBalls.size(); j++) {
 				if(fireBalls.get(j).intersects(e)) {
@@ -180,14 +169,11 @@ public class Player extends MapObject {
 					break;
 				}
 			}
-			
 			// check enemy collision
 			if(intersects(e)) {
 				hit(e.getDamage());
-			}
-			
+			}	
 		}
-		
 	}
 	
 	/**
@@ -204,7 +190,6 @@ public class Player extends MapObject {
 	}
 	
 	private void getNextPosition() {
-		
 		// movement
 		if(left) {
 			dx -= moveSpeed;
@@ -257,13 +242,10 @@ public class Player extends MapObject {
 			if(dy < 0 && !jumping) dy += stopJumpSpeed;
 			
 			if(dy > maxFallSpeed) dy = maxFallSpeed;
-			
 		}
-		
 	}
 	
 	public void tick() {
-		
 		// update position
 		getNextPosition();
 		checkTileMapCollision();
@@ -300,8 +282,7 @@ public class Player extends MapObject {
 		
 		// check done flinching
 		if(flinching) {
-			long elapsed =
-				(System.nanoTime() - flinchTimer) / 1000000;
+			long elapsed =(System.nanoTime() - flinchTimer) / 1000000;
 			if(elapsed > 1000) {
 				flinching = false;
 			}
@@ -310,7 +291,7 @@ public class Player extends MapObject {
 		// set animation
 		if(scratching) {
 			if(currentAction != SCRATCHING) {
-				//sfx.get("scratch").play();
+				sfx.get("scratch").play();
 				currentAction = SCRATCHING;
 				animation.setFrames(sprites.get(SCRATCHING));
 				animation.setDelay(50);
@@ -318,6 +299,7 @@ public class Player extends MapObject {
 			}
 		} else if(firing) {
 			if(currentAction != FIREBALL) {
+				//sfx.get("fire").play();
 				currentAction = FIREBALL;
 				animation.setFrames(sprites.get(FIREBALL));
 				animation.setDelay(100);
@@ -339,6 +321,7 @@ public class Player extends MapObject {
 			}
 		} else if(dy < 0) {
 			if(currentAction != JUMPING) {
+				sfx.get("jump").play();
 				currentAction = JUMPING;
 				animation.setFrames(sprites.get(JUMPING));
 				animation.setDelay(-1);
@@ -367,7 +350,6 @@ public class Player extends MapObject {
 			if(right) facingRight = true;
 			if(left) facingRight = false;
 		}
-		
 	}
 	
 	public void render(Graphics2D g) {

@@ -2,14 +2,17 @@ package net.masterzach32.sidescroller.gamestate;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.assets.gfx.HUD;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.*;
 import net.masterzach32.sidescroller.entity.enemy.*;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Level1State extends GameState {
 	
@@ -23,15 +26,16 @@ public class Level1State extends GameState {
 	
 	private HUD hud;
 	
+	private int levelcomplete = 3046;
+	
 	private AudioPlayer bgMusic;
 	
-	public Level1State(GameStateManager gsm) {
-		this.gsm = gsm;
+	public Level1State(SideScroller game) {
+		super(game);
 		init();
 	}
 	
 	public void init() {
-		
 		tileMap = new TileMap(30);
 		tileMap.loadTiles(Assets.grasstileset);
 		tileMap.loadMap(Assets.level1_1);
@@ -49,23 +53,31 @@ public class Level1State extends GameState {
 		
 		hud = new HUD(player);
 		
-		//bgMusic = new AudioPlayer(Assets.level1_1m);
+		bgMusic = new AudioPlayer(Assets.level1_1m);
+	}
+	
+	protected void load() {
 		//bgMusic.play();
-		
+	}
+	
+	protected void unload() {
+		//bgMusic.stop();
+	}
+	
+	public void levelCompleted() {
+		GameState.setState(SideScroller.level2);
 	}
 	
 	private void populateEnemies() {
-		
 		enemies = new ArrayList<Enemy>();
 		
 		Slugger s;
-		Point[] points = new Point[] {new Point(200, 100), new Point(860, 200), new Point(1525, 200), new Point(1680, 200), new Point(1800, 200)};
+		Point[] points = new Point[] {new Point(200, 100), new Point(860, 300), new Point(1525, 300), new Point(1680, 300), new Point(1800, 300)};
 		for(int i = 0; i < points.length; i++) {
 			s = new Slugger(tileMap);
 			s.setPosition(points[i].x, points[i].y);
 			enemies.add(s);
 		}
-		
 	}
 	
 	public void tick() {
@@ -86,8 +98,7 @@ public class Level1State extends GameState {
 			if(e.isDead()) {
 				enemies.remove(i);
 				i--;
-				explosions.add(
-					new Explosion(e.getx(), e.gety()));
+				explosions.add(new Explosion(e.getx(), e.gety()));
 			}
 		}
 		
@@ -100,6 +111,7 @@ public class Level1State extends GameState {
 			}
 		}
 		
+		if (player.getx() >= levelcomplete) levelCompleted();
 	}
 	
 	public void render(Graphics2D g) {
@@ -119,8 +131,7 @@ public class Level1State extends GameState {
 		
 		// draw explosions
 		for(int i = 0; i < explosions.size(); i++) {
-			explosions.get(i).setMapPosition(
-				(int)tileMap.getx(), (int)tileMap.gety());
+			explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
 			explosions.get(i).render(g);
 		}
 		
@@ -129,22 +140,29 @@ public class Level1State extends GameState {
 	}
 	
 	public void keyPressed(int k) {
-		if(k == KeyEvent.VK_LEFT) player.setLeft(true);
-		if(k == KeyEvent.VK_RIGHT) player.setRight(true);
-		if(k == KeyEvent.VK_UP) player.setUp(true);
-		if(k == KeyEvent.VK_DOWN) player.setDown(true);
+		if(k == KeyEvent.VK_A) player.setLeft(true);
+		if(k == KeyEvent.VK_D) player.setRight(true);
+		if(k == KeyEvent.VK_W) player.setUp(true);
+		if(k == KeyEvent.VK_S) player.setDown(true);
 		if(k == KeyEvent.VK_W) player.setJumping(true);
+		if(k == KeyEvent.VK_SPACE) player.setJumping(true);
 		if(k == KeyEvent.VK_E) player.setGliding(true);
 		if(k == KeyEvent.VK_R) player.setScratching();
 		if(k == KeyEvent.VK_F) player.setFiring();
 	}
 	
 	public void keyReleased(int k) {
-		if(k == KeyEvent.VK_LEFT) player.setLeft(false);
-		if(k == KeyEvent.VK_RIGHT) player.setRight(false);
-		if(k == KeyEvent.VK_UP) player.setUp(false);
-		if(k == KeyEvent.VK_DOWN) player.setDown(false);
+		if(k == KeyEvent.VK_A) player.setLeft(false);
+		if(k == KeyEvent.VK_D) player.setRight(false);
+		if(k == KeyEvent.VK_W) player.setUp(false);
+		if(k == KeyEvent.VK_S) player.setDown(false);
 		if(k == KeyEvent.VK_W) player.setJumping(false);
+		if(k == KeyEvent.VK_SPACE) player.setJumping(false);
 		if(k == KeyEvent.VK_E) player.setGliding(false);
 	}
+
+	public void mousePressed(MouseEvent e) {}
+
+	public void mouseReleased(MouseEvent e) {}
+
 }

@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
 
-import javax.imageio.ImageIO;
-
 import net.masterzach32.sidescroller.main.SideScroller;
 
 public class TileMap {
@@ -160,18 +158,9 @@ public class TileMap {
 	}
 	
 	public void render(Graphics2D g) {
-		for(
-			int row = rowOffset;
-			row < rowOffset + numRowsToDraw;
-			row++) {
-			
+		for(int row = rowOffset; row < rowOffset + numRowsToDraw; row++) {
 			if(row >= numRows) break;
-			
-			for(
-				int col = colOffset;
-				col < colOffset + numColsToDraw;
-				col++) {
-				
+			for(int col = colOffset; col < colOffset + numColsToDraw; col++) {
 				if(col >= numCols) break;
 				
 				if(map[row][col] == 0) continue;

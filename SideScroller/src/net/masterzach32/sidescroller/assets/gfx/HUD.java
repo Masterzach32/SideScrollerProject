@@ -1,9 +1,10 @@
-package net.masterzach32.sidescroller.entity;
+package net.masterzach32.sidescroller.assets.gfx;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.entity.Player;
 
 public class HUD {
 	

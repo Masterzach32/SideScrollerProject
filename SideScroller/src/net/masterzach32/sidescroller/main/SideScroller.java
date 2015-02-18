@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.gfx.ImageLoader;
 import net.masterzach32.sidescroller.assets.sfx.AudioLoader;
-import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
-import net.masterzach32.sidescroller.gamestate.GameStateManager;
+import net.masterzach32.sidescroller.gamestate.*;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 @SuppressWarnings("serial")
 public class SideScroller extends JPanel implements Runnable, KeyListener, MouseListener {
@@ -31,8 +31,11 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	private BufferedImage image;
 	private Graphics2D g;
 	
-	// game state manager
-	private GameStateManager gsm;
+	// states
+	public static MenuState menuState;
+	public static Level1State level1;
+	public static Level2State level2;
+	
 	public static ImageLoader im = new ImageLoader();
 	public static AudioLoader am = new AudioLoader();
 	
@@ -52,22 +55,32 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		}
 	}
 	
+	/**
+	 * Called once before the game runs, Initializes objects and assets
+	 */
 	private void init() {
+		LogHelper.logInfo("Launching Game");
+		LogHelper.logInfo("OS: " + System.getProperty("os.name"));
+		LogHelper.logInfo("OS Version: " + System.getProperty("os.version"));
+		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch"));
+		LogHelper.logInfo("Java Version: " + System.getProperty("java.version"));
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
 		
 		running = true;
 		
-		gsm = new GameStateManager();
+		Assets.init(); 
 		
-		//im = new ImageLoader();
-		//am = new AudioLoader();
-		
-		Assets.init();
+		menuState = new MenuState(this);
+		level1 = new Level1State(this);
+		level2 = new Level2State(this);
+		GameState.setState(menuState);
 	}
 	
+	/**
+	 * Game loop
+	 */
 	public void run() {
-		
 		init();
 		
 		long start;
@@ -87,24 +100,23 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 			
 			wait = targetTime - elapsed / 1000000;
 			if(wait < 0) wait = 5;
-			
 			try {
 				Thread.sleep(wait);
 			}
 			catch(Exception e) {
 				e.printStackTrace();
-			}
-			
+			}	
 		}
-		
 	}
 	
 	private void tick() {
-		gsm.tick();
+		if(GameState.getState() != null)
+			GameState.getState().tick();
 	}
 	
 	private void render() {
-		gsm.render(g);
+		if(GameState.getState() != null)
+			GameState.getState().render(g);
 	}
 	
 	private void renderToScreen() {
@@ -114,10 +126,13 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	}
 	
 	public void keyPressed(KeyEvent key) {
-		gsm.keyPressed(key.getKeyCode());
+		if(GameState.getState() != null)
+			GameState.getState().keyPressed(key.getKeyCode());
 	}
+	
 	public void keyReleased(KeyEvent key) {
-		gsm.keyReleased(key.getKeyCode());
+		if(GameState.getState() != null)
+			GameState.getState().keyReleased(key.getKeyCode());
 	}
 	
 	public void keyTyped(KeyEvent key) {}
@@ -131,5 +146,4 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public void mouseEntered(MouseEvent e) {}
 
 	public void mouseExited(MouseEvent e) {}
-
 }

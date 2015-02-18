@@ -2,8 +2,11 @@ package net.masterzach32.sidescroller.gamestate;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
+import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 
 public class MenuState extends GameState {
@@ -19,26 +22,39 @@ public class MenuState extends GameState {
 	private Font font;
 	private Font selectfont;
 	
-	public MenuState(GameStateManager gsm) {
-		this.gsm = gsm;
+	private AudioPlayer bgMusic;
+	
+	public MenuState(SideScroller game) {
+		super(game);
 		init();		
 	}
 	
 	public void init() {
 		try {
 			bg = new Background(Assets.menubg, 1);
-			bg.setVector(-0.5, 0);
+			bg.setVector(-0.2, 0);
 			
 			titleColor = new Color(128, 0, 0);
-			titleFont = new Font("Century Gothic", Font.PLAIN, 64);
+			titleFont = new Font("Century Gothic", Font.PLAIN, 32);
 			
-			font = new Font("Arial", Font.PLAIN, 24);
-			selectfont = new Font("Arial", Font.PLAIN, 28);
+			font = new Font("Arial", Font.PLAIN, 12);
+			selectfont = new Font("Arial", Font.PLAIN, 14);
+			bgMusic = new AudioPlayer(Assets.level1_1m);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	protected void load() {
+		bgMusic.play();
+	}
+	
+	protected void unload() {
+		//bgMusic.stop();
+	}
+	
+	public void levelCompleted() {}
 	
 	public void tick() {
 		bg.tick();
@@ -50,8 +66,8 @@ public class MenuState extends GameState {
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("SideScroller RPG", 390, 90);
-		g.drawString("", 450, 150);
+		g.drawString("SideScroller RPG", 195, 45);
+		g.drawString("", 225, 75);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {
@@ -62,19 +78,19 @@ public class MenuState extends GameState {
 				g.setFont(font);
 				g.setColor(Color.RED);
 			}
-			g.drawString(options[i], 10, 545 + i * 30);
-		}
+			g.drawString(options[i], 5, (590 + i * 30)/2);
+		}	
 	}
 	
 	private void select() {
 		if(currentChoice == 0)
-			gsm.setState(GameStateManager.LEVEL1STATE);
+			GameState.setState(SideScroller.level1);
 		if(currentChoice == 1)
-			gsm.setState(GameStateManager.MENUSTATE);
+			GameState.setState(SideScroller.menuState); // Help
 		if(currentChoice == 2)
-			gsm.setState(GameStateManager.MENUSTATE); // About
+			GameState.setState(SideScroller.menuState); // About
 		if(currentChoice == 3)
-			gsm.setState(GameStateManager.MENUSTATE); // Options
+			GameState.setState(SideScroller.menuState); // Options
 		if(currentChoice == 4)
 			System.exit(0);
 	}
@@ -98,4 +114,8 @@ public class MenuState extends GameState {
 	}
 	
 	public void keyReleased(int k) {}
+
+	public void mousePressed(MouseEvent e) {}
+
+	public void mouseReleased(MouseEvent e) {}
 }

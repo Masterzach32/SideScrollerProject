@@ -3,8 +3,6 @@ package net.masterzach32.sidescroller.entity.enemy;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 
-import javax.imageio.ImageIO;
-
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.*;
 import net.masterzach32.sidescroller.tilemap.TileMap;
@@ -14,7 +12,6 @@ public class Slugger extends Enemy {
 	private BufferedImage[] sprites;
 	
 	public Slugger(TileMap tm) {
-		
 		super(tm);
 		
 		moveSpeed = 0.3;

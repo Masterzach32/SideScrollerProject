@@ -3,8 +3,6 @@ package net.masterzach32.sidescroller.entity;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.imageio.ImageIO;
-
 import net.masterzach32.sidescroller.assets.Assets;
 
 public class Explosion {
@@ -31,15 +29,12 @@ public class Explosion {
 		height = 30;
 		
 		try {
-			
 			BufferedImage spritesheet = Assets.explosion;
-			
 			
 			sprites = new BufferedImage[6];
 			for(int i = 0; i < sprites.length; i++) {
 				sprites[i] = spritesheet.getSubimage(i * width, 0, width, height);
 			}
-			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -78,5 +73,4 @@ public class Explosion {
 	public void render(Graphics2D g) {
 		g.drawImage(animation.getImage(), x + xmap - width / 2, y + ymap - height / 2, null);
 	}
-	
 }

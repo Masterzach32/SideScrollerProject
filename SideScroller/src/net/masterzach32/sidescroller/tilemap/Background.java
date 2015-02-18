@@ -3,8 +3,6 @@ package net.masterzach32.sidescroller.tilemap;
 import java.awt.*;
 import java.awt.image.*;
 
-import javax.imageio.ImageIO;
-
 import net.masterzach32.sidescroller.main.SideScroller;
 
 public class Background {
@@ -47,13 +45,13 @@ public class Background {
 	
 	public void render(Graphics2D g) {
 		
-		g.drawImage(image, (int)x, (int)y, null);
+		g.drawImage(image, (int)x, (int)y, SideScroller.WIDTH, SideScroller.HEIGHT,  null);
 		
 		if(x < 0) {
-			g.drawImage(image, (int)x + SideScroller.WIDTH, (int)y, null);
+			g.drawImage(image, (int)x + SideScroller.WIDTH, (int)y, SideScroller.WIDTH, SideScroller.HEIGHT, null);
 		}
 		if(x > 0) {
-			g.drawImage(image, (int)x - SideScroller.WIDTH, (int)y, null);
+			g.drawImage(image, (int)x - SideScroller.WIDTH, (int)y, SideScroller.WIDTH, SideScroller.HEIGHT, null);
 		}
 	}
 }

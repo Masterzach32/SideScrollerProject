@@ -3,8 +3,6 @@ package net.masterzach32.sidescroller.entity;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import javax.imageio.ImageIO;
-
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
@@ -16,12 +14,11 @@ public class FireBall extends MapObject {
 	private BufferedImage[] hitSprites;
 	
 	public FireBall(TileMap tm, boolean right) {
-		
 		super(tm);
 		
 		facingRight = right;
 		
-		moveSpeed = 3.8;
+		moveSpeed = 3.5;
 		if(right) dx = moveSpeed;
 		else dx = -moveSpeed;
 		
@@ -47,7 +44,6 @@ public class FireBall extends MapObject {
 			animation = new Animation();
 			animation.setFrames(sprites);
 			animation.setDelay(70);
-			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
