@@ -57,11 +57,11 @@ public class Level1State extends GameState {
 	}
 	
 	protected void load() {
-		//bgMusic.play();
+		bgMusic.play();
 	}
 	
 	protected void unload() {
-		//bgMusic.stop();
+		bgMusic.stop();
 	}
 	
 	public void levelCompleted() {

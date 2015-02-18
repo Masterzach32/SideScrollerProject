@@ -51,7 +51,7 @@ public class MenuState extends GameState {
 	}
 	
 	protected void unload() {
-		//bgMusic.stop();
+		bgMusic.stop();
 	}
 	
 	public void levelCompleted() {}
