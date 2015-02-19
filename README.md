@@ -7,7 +7,7 @@ This game is being designed by me and a group of friends. Its going to be a futu
 ### Changelog: 
 
 --
-*Nightly build changelog can be found on the wiki. These are the large updates.*
+*Weekly build changelog can be found on the wiki (soon). These are the large updates.*
 
 --
 
