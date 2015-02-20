@@ -17,7 +17,6 @@ public class Background {
 	private double moveScale;
 	
 	public Background(BufferedImage i, double ms) {
-		
 		try {
 			image = i;
 			moveScale = ms;
@@ -25,14 +24,23 @@ public class Background {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
+	/**
+	 * Sets the backgrounds position on the screen
+	 * @param x
+	 * @param y
+	 */
 	public void setPosition(double x, double y) {
 		this.x = (x * moveScale) % SideScroller.WIDTH;
 		this.y = (y * moveScale) % SideScroller.HEIGHT;
 	}
 	
+	/**
+	 * Sets the speed and direction that the background moves
+	 * @param dx
+	 * @param dy
+	 */
 	public void setVector(double dx, double dy) {
 		this.dx = dx;
 		this.dy = dy;
@@ -44,7 +52,6 @@ public class Background {
 	}
 	
 	public void render(Graphics2D g) {
-		
 		g.drawImage(image, (int)x, (int)y, SideScroller.WIDTH, SideScroller.HEIGHT,  null);
 		
 		if(x < 0) {

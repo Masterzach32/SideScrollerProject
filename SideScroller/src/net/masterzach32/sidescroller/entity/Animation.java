@@ -44,7 +44,6 @@ public class Animation {
 	}
 	
 	public void tick() {
-		
 		if(delay == -1) return;
 		
 		long elapsed = (System.nanoTime() - startTime) / 1000000;
@@ -82,5 +81,4 @@ public class Animation {
 	public boolean hasPlayedOnce() { 
 		return playedOnce; 
 	}
-	
 }

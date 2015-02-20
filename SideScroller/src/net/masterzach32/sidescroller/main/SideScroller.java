@@ -10,7 +10,7 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.gfx.ImageLoader;
 import net.masterzach32.sidescroller.assets.sfx.AudioLoader;
 import net.masterzach32.sidescroller.gamestate.*;
-import net.masterzach32.sidescroller.util.LogHelper;
+import net.masterzach32.sidescroller.util.*;
 
 @SuppressWarnings("serial")
 public class SideScroller extends JPanel implements Runnable, KeyListener, MouseListener {
@@ -19,7 +19,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = 360;
 	public static final int SCALE = 2;
-	public static final String VERSION = "0.0.1.045";
+	public static final String VERSION = "0.0.1.060";
 	
 	// game thread
 	private Thread thread;

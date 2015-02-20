@@ -53,7 +53,6 @@ public class Player extends MapObject {
 	private HashMap<String, AudioPlayer> sfx;
 	
 	public Player(TileMap tm) {
-		
 		super(tm);
 		
 		width = 30;
@@ -80,7 +79,6 @@ public class Player extends MapObject {
 		
 		scratchDamage = 8;
 		scratchRange = 40;
-		
 		// load sprites
 		try {
 			BufferedImage spritesheet = Assets.player;
@@ -110,7 +108,6 @@ public class Player extends MapObject {
 		sfx = new HashMap<String, AudioPlayer>();
 		sfx.put("jump", new AudioPlayer(Assets.jump));
 		sfx.put("scratch", new AudioPlayer(Assets.scratch));
-		
 	}
 	
 	public int getHealth() { 
@@ -196,21 +193,18 @@ public class Player extends MapObject {
 			if(dx < -maxSpeed) {
 				dx = -maxSpeed;
 			}
-		}
-		else if(right) {
+		} else if(right) {
 			dx += moveSpeed;
 			if(dx > maxSpeed) {
 				dx = maxSpeed;
 			}
-		}
-		else {
+		} else {
 			if(dx > 0) {
 				dx -= stopSpeed;
 				if(dx < 0) {
 					dx = 0;
 				}
-			}
-			else if(dx < 0) {
+			} else if(dx < 0) {
 				dx += stopSpeed;
 				if(dx > 0) {
 					dx = 0;
@@ -219,9 +213,7 @@ public class Player extends MapObject {
 		}
 		
 		// cannot move while attacking, except in air
-		if(
-		(currentAction == SCRATCHING || currentAction == FIREBALL) &&
-		!(jumping || falling)) {
+		if((currentAction == SCRATCHING || currentAction == FIREBALL) && !(jumping || falling)) {
 			dx = 0;
 		}
 		
@@ -234,7 +226,6 @@ public class Player extends MapObject {
 		
 		// falling
 		if(falling) {
-			
 			if(dy > 0 && gliding) dy += fallSpeed * 0.1;
 			else dy += fallSpeed;
 			

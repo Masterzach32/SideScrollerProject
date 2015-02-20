@@ -95,7 +95,6 @@ public abstract class MapObject {
 	 * @param y
 	 */
 	public void calculateCorners(double x, double y) {
-		
 		int leftTile = (int)(x - cwidth / 2) / tileSize;
 		int rightTile = (int)(x + cwidth / 2 - 1) / tileSize;
 		int topTile = (int)(y - cheight / 2) / tileSize;
@@ -110,14 +109,12 @@ public abstract class MapObject {
 		topRight = tr == Tile.BLOCKED;
 		bottomLeft = bl == Tile.BLOCKED;
 		bottomRight = br == Tile.BLOCKED;
-		
 	}
 	
 	/**
 	 * Checks to see if the mapobject is coliding with the terrain
 	 */
 	public void checkTileMapCollision() {
-		
 		currCol = (int)x / tileSize;
 		currRow = (int)y / tileSize;
 		
@@ -132,8 +129,7 @@ public abstract class MapObject {
 			if(topLeft || topRight) {
 				dy = 0;
 				ytemp = currRow * tileSize + cheight / 2;
-			}
-			else {
+			} else {
 				ytemp += dy;
 			}
 		}
@@ -153,8 +149,7 @@ public abstract class MapObject {
 			if(topLeft || bottomLeft) {
 				dx = 0;
 				xtemp = currCol * tileSize + cwidth / 2;
-			}
-			else {
+			} else {
 				xtemp += dx;
 			}
 		}
@@ -162,8 +157,7 @@ public abstract class MapObject {
 			if(topRight || bottomRight) {
 				dx = 0;
 				xtemp = (currCol + 1) * tileSize - cwidth / 2;
-			}
-			else {
+			} else {
 				xtemp += dx;
 			}
 		}
@@ -235,6 +229,11 @@ public abstract class MapObject {
 		jumping = b; 
 	}
 	
+	/**
+	 * Currently does not work
+	 * @return
+	 */
+	@Deprecated
 	public boolean notOnScreen() {
 		return x + xmap + width < 0 || x + xmap - width > SideScroller.WIDTH || y + ymap + height < 0 || y + ymap - height > SideScroller.HEIGHT;
 	}

@@ -139,7 +139,6 @@ public class TileMap {
 	}
 	
 	public void setPosition(double x, double y) {
-		
 		this.x += (x - this.x) * tween;
 		this.y += (y - this.y) * tween;
 		
@@ -147,7 +146,6 @@ public class TileMap {
 		
 		colOffset = (int)-this.x / tileSize;
 		rowOffset = (int)-this.y / tileSize;
-		
 	}
 	
 	private void fixBounds() {

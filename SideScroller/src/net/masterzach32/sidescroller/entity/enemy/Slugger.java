@@ -48,11 +48,9 @@ public class Slugger extends Enemy {
 		
 		right = true;
 		facingRight = true;
-		
 	}
 	
 	private void getNextPosition() {
-		
 		// movement
 		if(left) {
 			dx -= moveSpeed;
@@ -71,7 +69,6 @@ public class Slugger extends Enemy {
 		if(falling) {
 			dy += fallSpeed;
 		}
-		
 	}
 	
 	public void tick() {

@@ -21,7 +21,6 @@ public class Explosion {
 	private boolean remove;
 	
 	public Explosion(int x, int y) {
-		
 		this.x = x;
 		this.y = y;
 		
