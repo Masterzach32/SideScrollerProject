@@ -6,7 +6,7 @@ Arrow Keys: Move map
 
 Left Click: Place tile on map/Select tile from tileset
 
-Right Click: Place tile 0 on map (I usually use a clear tile for tile 0, so right click acts as erase)
+Right Click: Place tile 0 on map (acts as erase)
 
 Middle Click + Drag: Move map
 
