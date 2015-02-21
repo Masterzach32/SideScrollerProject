@@ -160,4 +160,14 @@ public class Level1State extends GameState {
 		if(k == KeyEvent.VK_SPACE) player.setJumping(false);
 		if(k == KeyEvent.VK_E) player.setGliding(false);
 	}
+
+	@Override
+	public void mousePressed(int k) {
+		if(k == MouseEvent.BUTTON1_MASK) player.setScratching();
+		if(k == MouseEvent.BUTTON3_MASK) player.setFiring();
+	}
+
+	@Override
+	public void mouseReleased(int k) {}
+	
 }

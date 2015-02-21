@@ -27,4 +27,9 @@ public class Level2State extends GameState {
 	public void keyPressed(int k) {}
 	
 	public void keyReleased(int k) {}
+
+	public void mousePressed(int k) {}
+
+	public void mouseReleased(int k) {}
+	
 }

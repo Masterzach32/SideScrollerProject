@@ -13,13 +13,13 @@ import net.masterzach32.sidescroller.gamestate.*;
 import net.masterzach32.sidescroller.util.*;
 
 @SuppressWarnings("serial")
-public class SideScroller extends JPanel implements Runnable, KeyListener {
+public class SideScroller extends JPanel implements Runnable, KeyListener, MouseListener {
 	
 	// dimensions
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = 360;
 	public static final int SCALE = 2;
-	public static final String VERSION = "0.0.1.065";
+	public static final String VERSION = "0.0.1.070";
 	
 	// game thread
 	private Thread thread;
@@ -51,6 +51,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener {
 		if(thread == null) {
 			thread = new Thread(this);
 			addKeyListener(this);
+			addMouseListener(this);
 			thread.start();
 		}
 	}
@@ -124,16 +125,32 @@ public class SideScroller extends JPanel implements Runnable, KeyListener {
 		g.dispose();
 	}
 	
-	public void keyPressed(KeyEvent key) {
+	public void keyPressed(KeyEvent e) {
 		if(GameState.getState() != null) 
-			GameState.getState().keyPressed(key.getKeyCode());
+			GameState.getState().keyPressed(e.getKeyCode());
 	}
 	
-	public void keyReleased(KeyEvent key) {
+	public void keyReleased(KeyEvent e) {
 		if(GameState.getState() != null) 
-			GameState.getState().keyReleased(key.getKeyCode());
+			GameState.getState().keyReleased(e.getKeyCode());
+	}
+	
+	public void mousePressed(MouseEvent e) {
+		if(GameState.getState() != null) 
+			GameState.getState().mousePressed(e.getModifiers());
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		if(GameState.getState() != null) 
+			GameState.getState().mouseReleased(e.getModifiers());
 	}
 	
 	public void keyTyped(KeyEvent key) {}
+
+	public void mouseClicked(MouseEvent e) {}
+
+	public void mouseEntered(MouseEvent e) {}
+
+	public void mouseExited(MouseEvent e) {}
 	
 }

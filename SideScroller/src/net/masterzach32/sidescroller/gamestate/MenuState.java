@@ -115,4 +115,8 @@ public class MenuState extends GameState {
 	
 	public void keyReleased(int k) {}
 
+	public void mousePressed(int k) {}
+
+	public void mouseReleased(int k) {}
+
 }

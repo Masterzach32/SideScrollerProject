@@ -25,18 +25,16 @@ public class Slugger extends Enemy {
 		cheight = 20;
 		
 		health = maxHealth = 10;
-		damage = 1;
+		damage = 3;
 		
 		// load sprites
 		try {
-			
 			BufferedImage spritesheet = Assets.slugger;
 			
 			sprites = new BufferedImage[3];
 			for(int i = 0; i < sprites.length; i++) {
 				sprites[i] = spritesheet.getSubimage(i * width, 0, width, height);
 			}
-			
 		}
 		catch(Exception e) {
 			e.printStackTrace();

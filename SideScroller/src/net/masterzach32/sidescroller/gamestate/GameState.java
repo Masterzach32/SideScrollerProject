@@ -30,6 +30,10 @@ public abstract class GameState {
 	
 	public abstract void keyReleased(int k);
 	
+	public abstract void mousePressed(int k);
+	
+	public abstract void mouseReleased(int k);
+	
 	private static void unloadState() {
 		if(state != null) state.unload();
 		state = null;
