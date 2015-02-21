@@ -6,12 +6,12 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
 import net.masterzach32.sidescroller.tilemap.*;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+@SuppressWarnings("unused")
 public class Player extends MapObject {
 	
 	// player stuff

@@ -145,7 +145,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 			GameState.getState().mouseReleased(e.getModifiersEx());
 	}
 	
-	public void keyTyped(KeyEvent key) {}
+	public void keyTyped(KeyEvent e) {}
 
 	public void mouseClicked(MouseEvent e) {}
 

@@ -1,7 +1,6 @@
 package net.masterzach32.sidescroller.gamestate;
 
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
 
 import net.masterzach32.sidescroller.main.SideScroller;
 
