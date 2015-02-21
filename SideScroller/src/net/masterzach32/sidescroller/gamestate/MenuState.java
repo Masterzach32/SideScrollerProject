@@ -32,7 +32,7 @@ public class MenuState extends GameState {
 	public void init() {
 		try {
 			bg = new Background(Assets.menubg, 1);
-			bg.setVector(-0.2, 0);
+			bg.setVector(-0.3, 0);
 			
 			titleColor = new Color(128, 0, 0);
 			titleFont = new Font("Century Gothic", Font.PLAIN, 32);
@@ -115,7 +115,4 @@ public class MenuState extends GameState {
 	
 	public void keyReleased(int k) {}
 
-	public void mousePressed(MouseEvent e) {}
-
-	public void mouseReleased(MouseEvent e) {}
 }

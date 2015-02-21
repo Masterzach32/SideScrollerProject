@@ -13,13 +13,13 @@ import net.masterzach32.sidescroller.gamestate.*;
 import net.masterzach32.sidescroller.util.*;
 
 @SuppressWarnings("serial")
-public class SideScroller extends JPanel implements Runnable, KeyListener, MouseListener {
+public class SideScroller extends JPanel implements Runnable, KeyListener {
 	
 	// dimensions
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = 360;
 	public static final int SCALE = 2;
-	public static final String VERSION = "0.0.1.060";
+	public static final String VERSION = "0.0.1.065";
 	
 	// game thread
 	private Thread thread;
@@ -89,7 +89,6 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		
 		// game loop
 		while(running) {
-			
 			start = System.nanoTime();
 			
 			tick();
@@ -126,24 +125,15 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	}
 	
 	public void keyPressed(KeyEvent key) {
-		if(GameState.getState() != null)
+		if(GameState.getState() != null) 
 			GameState.getState().keyPressed(key.getKeyCode());
 	}
 	
 	public void keyReleased(KeyEvent key) {
-		if(GameState.getState() != null)
+		if(GameState.getState() != null) 
 			GameState.getState().keyReleased(key.getKeyCode());
 	}
 	
 	public void keyTyped(KeyEvent key) {}
-
-	public void mouseClicked(MouseEvent e) {}
-
-	public void mousePressed(MouseEvent e) {}
-
-	public void mouseReleased(MouseEvent e) {}
-
-	public void mouseEntered(MouseEvent e) {}
-
-	public void mouseExited(MouseEvent e) {}
+	
 }

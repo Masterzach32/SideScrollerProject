@@ -70,14 +70,14 @@ public class Player extends MapObject {
 		
 		facingRight = true;
 		
-		health = maxHealth = 5;
+		health = maxHealth = 25;
 		fire = maxFire = 2500;
 		
 		fireCost = 200;
-		fireBallDamage = 5;
+		fireBallDamage = 4;
 		fireBalls = new ArrayList<FireBall>();
 		
-		scratchDamage = 8;
+		scratchDamage = 7;
 		scratchRange = 40;
 		// load sprites
 		try {
@@ -228,10 +228,8 @@ public class Player extends MapObject {
 		if(falling) {
 			if(dy > 0 && gliding) dy += fallSpeed * 0.1;
 			else dy += fallSpeed;
-			
 			if(dy > 0) jumping = false;
 			if(dy < 0 && !jumping) dy += stopJumpSpeed;
-			
 			if(dy > maxFallSpeed) dy = maxFallSpeed;
 		}
 	}

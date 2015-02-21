@@ -14,8 +14,8 @@ public class Slugger extends Enemy {
 	public Slugger(TileMap tm) {
 		super(tm);
 		
-		moveSpeed = 0.3;
-		maxSpeed = 0.3;
+		moveSpeed = 0.4;
+		maxSpeed = 0.4;
 		fallSpeed = 0.2;
 		maxFallSpeed = 10.0;
 		
@@ -24,7 +24,7 @@ public class Slugger extends Enemy {
 		cwidth = 20;
 		cheight = 20;
 		
-		health = maxHealth = 2;
+		health = maxHealth = 10;
 		damage = 1;
 		
 		// load sprites

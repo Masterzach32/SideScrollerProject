@@ -160,9 +160,4 @@ public class Level1State extends GameState {
 		if(k == KeyEvent.VK_SPACE) player.setJumping(false);
 		if(k == KeyEvent.VK_E) player.setGliding(false);
 	}
-
-	public void mousePressed(MouseEvent e) {}
-
-	public void mouseReleased(MouseEvent e) {}
-
 }
