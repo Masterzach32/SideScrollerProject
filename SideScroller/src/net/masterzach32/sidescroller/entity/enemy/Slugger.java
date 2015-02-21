@@ -35,8 +35,7 @@ public class Slugger extends Enemy {
 			for(int i = 0; i < sprites.length; i++) {
 				sprites[i] = spritesheet.getSubimage(i * width, 0, width, height);
 			}
-		}
-		catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -77,8 +76,7 @@ public class Slugger extends Enemy {
 		
 		// check flinching
 		if(flinching) {
-			long elapsed =
-				(System.nanoTime() - flinchTimer) / 1000000;
+			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
 			if(elapsed > 400) {
 				flinching = false;
 			}
@@ -89,8 +87,7 @@ public class Slugger extends Enemy {
 			right = false;
 			left = true;
 			facingRight = false;
-		}
-		else if(left && dx == 0) {
+		} else if(left && dx == 0) {
 			right = true;
 			left = false;
 			facingRight = true;

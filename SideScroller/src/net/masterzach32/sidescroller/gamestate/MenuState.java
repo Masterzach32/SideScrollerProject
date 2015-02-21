@@ -2,7 +2,6 @@ package net.masterzach32.sidescroller.gamestate;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
@@ -30,20 +29,15 @@ public class MenuState extends GameState {
 	}
 	
 	public void init() {
-		try {
-			bg = new Background(Assets.menubg, 1);
-			bg.setVector(-0.3, 0);
+		bg = new Background(Assets.menubg, 1);
+		bg.setVector(-0.3, 0);
 			
-			titleColor = new Color(128, 0, 0);
-			titleFont = new Font("Century Gothic", Font.PLAIN, 32);
+		titleColor = new Color(128, 0, 0);
+		titleFont = new Font("Century Gothic", Font.PLAIN, 32);
 			
-			font = new Font("Arial", Font.PLAIN, 12);
-			selectfont = new Font("Arial", Font.PLAIN, 14);
-			bgMusic = new AudioPlayer(Assets.level1_1m);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+		font = new Font("Arial", Font.PLAIN, 12);
+		selectfont = new Font("Arial", Font.PLAIN, 14);
+		bgMusic = new AudioPlayer(Assets.level1_1m);
 	}
 	
 	protected void load() {
@@ -78,7 +72,7 @@ public class MenuState extends GameState {
 				g.setFont(font);
 				g.setColor(Color.RED);
 			}
-			g.drawString(options[i], 5, (590 + i * 30)/2);
+			g.drawString(options[i], 5, (590 + i * 30) / 2);
 		}	
 	}
 	
