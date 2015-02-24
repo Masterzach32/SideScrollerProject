@@ -13,11 +13,10 @@ import net.masterzach32.sidescroller.entity.enemy.*;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
 
-public class Level1State extends GameState {
+public class Level1State extends LevelState {
 	
 	private TileMap tileMap;
 	private Background bg;
-	
 	private Player player;
 	
 	private ArrayList<Enemy> enemies;
@@ -35,6 +34,7 @@ public class Level1State extends GameState {
 	}
 	
 	public void init() {
+		// load map
 		tileMap = new TileMap(30);
 		tileMap.loadTiles(Assets.grasstileset);
 		tileMap.loadMap(Assets.level1_1);
@@ -43,13 +43,16 @@ public class Level1State extends GameState {
 		
 		bg = new Background(Assets.level1_1bg, 0.1);
 		
+		// load player
 		player = new Player(tileMap);
 		player.setPosition(100, 100);
 		
+		// load enemies
 		populateEnemies();
 		
 		explosions = new ArrayList<Explosion>();
 		
+		// load assets
 		hud = new HUD(player);
 		
 		bgMusic = new AudioPlayer(Assets.level1_1m);
@@ -67,7 +70,7 @@ public class Level1State extends GameState {
 		GameState.setState(SideScroller.level2);
 	}
 	
-	private void populateEnemies() {
+	protected void populateEnemies() {
 		enemies = new ArrayList<Enemy>();
 		
 		Slugger s;
@@ -82,13 +85,11 @@ public class Level1State extends GameState {
 	public void tick() {
 		// update player
 		player.tick();
-		tileMap.setPosition(SideScroller.WIDTH / 2 - player.getx(), SideScroller.HEIGHT / 2 - player.gety());
+		player.checkAttack(enemies);
 		
 		// set background
+		tileMap.setPosition(SideScroller.WIDTH / 2 - player.getx(), SideScroller.HEIGHT / 2 - player.gety());
 		bg.setPosition(tileMap.getx(), tileMap.gety());
-		
-		// attack enemies
-		player.checkAttack(enemies);
 		
 		// update all enemies
 		for(int i = 0; i < enemies.size(); i++) {
