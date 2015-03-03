@@ -64,6 +64,8 @@ public abstract class MapObject {
 	protected double jumpStart;
 	protected double stopJumpSpeed;
 	
+	private int i = 0;
+	
 	// constructor
 	public MapObject(TileMap tm) {
 		tileMap = tm;
@@ -168,6 +170,23 @@ public abstract class MapObject {
 				falling = true;
 			}
 		}
+	}
+	
+	/**
+	 * Does health regeneration. Only works with the player right now
+	 * @param e
+	 * @param tick
+	 */
+	public void doHealing(Player e, int tick) {
+		if(i == 60) {
+			if(e.getHealth() < e.getMaxHealth()) {
+				e.setHealth(e.getHealth() + 1);
+				i = 0;
+			} else {
+				i = 0;
+			}
+		}
+		i++; 
 	}
 	
 	public int getx() { 

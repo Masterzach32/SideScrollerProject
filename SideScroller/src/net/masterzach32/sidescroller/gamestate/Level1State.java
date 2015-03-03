@@ -39,7 +39,7 @@ public class Level1State extends LevelState {
 		tileMap.loadTiles(Assets.grasstileset);
 		tileMap.loadMap(Assets.level1_1);
 		tileMap.setPosition(0, 0);
-		tileMap.setTween(1);
+		tileMap.setTween(0.7);
 		
 		bg = new Background(Assets.level1_1bg, 0.1);
 		
@@ -86,6 +86,8 @@ public class Level1State extends LevelState {
 		// update player
 		player.tick();
 		player.checkAttack(enemies);
+		if (player.isDead())
+			explosions.add(new Explosion(player.getx(), player.gety()));
 		
 		// set background
 		tileMap.setPosition(SideScroller.WIDTH / 2 - player.getx(), SideScroller.HEIGHT / 2 - player.gety());

@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-@SuppressWarnings("unused")
 public class Player extends MapObject {
 	
 	// player stuff
@@ -118,12 +117,20 @@ public class Player extends MapObject {
 		return maxHealth; 
 	}
 	
+	public void setHealth(int h) {
+		health = h;
+	}
+	
 	public int getFire() { 
 		return fire; 
 	}
 	
 	public int getMaxFire() { 
 		return maxFire; 
+	}
+	
+	public boolean isDead() {
+		return dead;
 	}
 	
 	public void setFiring() { 
@@ -339,6 +346,13 @@ public class Player extends MapObject {
 			if(right) facingRight = true;
 			if(left) facingRight = false;
 		}
+		
+		// check to see if the player is dead or not
+		if(health == 0) this.dead = true;
+		if(health > 0) this.dead = false;
+		
+		// health regeneration
+		doHealing(this, 60);
 	}
 	
 	public void render(Graphics2D g) {
