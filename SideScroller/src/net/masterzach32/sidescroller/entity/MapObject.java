@@ -178,7 +178,7 @@ public abstract class MapObject {
 	 * @param tick
 	 */
 	public void doHealing(Player e, int tick) {
-		if(i == 60) {
+		if(i == tick) {
 			if(e.getHealth() < e.getMaxHealth()) {
 				e.setHealth(e.getHealth() + 1);
 				i = 0;
