@@ -5,6 +5,7 @@ import java.awt.image.*;
 import java.io.*;
 
 import net.masterzach32.sidescroller.main.SideScroller;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 public class TileMap {
 	
@@ -128,6 +129,16 @@ public class TileMap {
 	}
 	
 	public int getType(int row, int col) {
+		// return Tile.BLOCKED if row or col are outside the map[][]
+		if (row >= numRows || row < 0) {
+			// LogHelper.logError("Parameter row is out of bounds: " + row);
+			return Tile.BLOCKED;
+		}
+		if (col >= numCols || col < 0) {
+			// LogHelper.logError("Parameter col is out of bounds: " + col);
+			return Tile.BLOCKED;
+		}
+
 		int rc = map[row][col];
 		int r = rc / numTilesAcross;
 		int c = rc % numTilesAcross;
