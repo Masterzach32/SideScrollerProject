@@ -64,7 +64,6 @@ public abstract class MapObject {
 	protected double jumpStart;
 	protected double stopJumpSpeed;
 	
-	private int i = 0;
 	
 	// constructor
 	public MapObject(TileMap tm) {
@@ -177,16 +176,14 @@ public abstract class MapObject {
 	 * @param e
 	 * @param tick
 	 */
+	@Deprecated
 	public void doHealing(Player e, int tick) {
-		if(i == tick) {
-			if(e.getHealth() < e.getMaxHealth()) {
-				e.setHealth(e.getHealth() + 1);
-				i = 0;
-			} else {
-				i = 0;
-			}
+		/*healingTimer.tick();
+		if(healingTimer.getIsDone()) {
+			e.setHealth(e.getHealth() + 1);
+			if (e.getHealth() < e.getMaxHealth()) e.setHealth(e.getMaxHealth());
 		}
-		i++; 
+		*/
 	}
 	
 	public int getx() { 

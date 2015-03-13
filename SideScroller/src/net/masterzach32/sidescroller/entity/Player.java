@@ -352,7 +352,7 @@ public class Player extends MapObject {
 		if(health > 0) this.dead = false;
 		
 		// health regeneration
-		doHealing(this, 60);
+		//doHealing(this, 60);
 	}
 	
 	public void render(Graphics2D g) {

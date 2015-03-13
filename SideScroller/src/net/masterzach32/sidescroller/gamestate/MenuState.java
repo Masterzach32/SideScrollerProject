@@ -30,7 +30,7 @@ public class MenuState extends GameState {
 	
 	public void init() {
 		bg = new Background(Assets.menubg, 1);
-		bg.setVector(-0.3, 0);
+		bg.setVector(-0.5, 0);
 			
 		titleColor = new Color(128, 0, 0);
 		titleFont = new Font("Century Gothic", Font.PLAIN, 32);

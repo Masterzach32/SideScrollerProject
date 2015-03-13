@@ -24,8 +24,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	// game thread
 	private Thread thread;
 	private boolean running;
-	private int FPS = 60;
-	private long targetTime = 1000 / FPS;
+	private int fps;
+	private int fpsupdate = 2;
 	
 	// image
 	private BufferedImage image;
@@ -61,8 +61,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	 */
 	private void init() {
 		LogHelper.logInfo("Launching Game");
-		LogHelper.logInfo("OS: " + System.getProperty("os.name"));
-		LogHelper.logInfo("OS Version: " + System.getProperty("os.version"));
+		LogHelper.logInfo("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version"));
 		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch"));
 		LogHelper.logInfo("Java Version: " + System.getProperty("java.version"));
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -84,28 +83,32 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public void run() {
 		init();
 		
-		long start;
-		long elapsed;
-		long wait;
-		
-		// game loop
-		while(running) {
-			start = System.nanoTime();
-			
-			tick();
-			render();
-			renderToScreen();
-			
-			elapsed = System.nanoTime() - start;
-			
-			wait = targetTime - elapsed / 1000000;
-			if(wait < 0) wait = 5;
-			try {
-				Thread.sleep(wait);
+		// Ticks
+		long lastTime = System.nanoTime();
+		final double amountOfTicks = 60;
+		double ns = 1000000000 / amountOfTicks;
+		double delta = 0;
+				
+		// FPS
+		long lastTime2 = System.nanoTime();
+		int frames = 0;
+		while(running){
+			long time = System.nanoTime();
+			delta += (time - lastTime) / ns;
+			lastTime = time;
+			if(delta >= 1) {
+				tick();
+				delta--;
 			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}	
+			frames += 1 * fpsupdate;
+			if(System.nanoTime() - lastTime2 >= (1000000000L / fpsupdate) /*|| frames == maxfps*/) {
+				fps = frames;
+				frames = 0;
+				lastTime2 = System.nanoTime();
+				//LogHelper.logInfo("FPS: " + fps);
+			}
+		render();
+		renderToScreen();
 		}
 	}
 	

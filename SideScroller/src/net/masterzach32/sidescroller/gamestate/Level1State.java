@@ -12,6 +12,7 @@ import net.masterzach32.sidescroller.entity.*;
 import net.masterzach32.sidescroller.entity.enemy.*;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Level1State extends LevelState {
 	
@@ -67,7 +68,8 @@ public class Level1State extends LevelState {
 	}
 	
 	public void levelCompleted() {
-		GameState.setState(SideScroller.level2);
+		LogHelper.logInfo("Level 1 Completed!");
+		//GameState.setState(SideScroller.level2);
 	}
 	
 	protected void populateEnemies() {
