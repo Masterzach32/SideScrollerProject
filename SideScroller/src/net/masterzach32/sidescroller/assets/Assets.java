@@ -15,7 +15,7 @@ public class Assets {
 	/** Backgrounds */
 	public static BufferedImage menubg, level1_1bg;
 	/** Sfx and Music */
-	public static AudioInputStream level1_1m, jump, scratch;
+	public static AudioInputStream level1_1m, jump, scratch, endgame;
 	/** Maps */
 	public static String level1_1, level1_2, level1_3;
 	
@@ -36,6 +36,7 @@ public class Assets {
 		
 		// Audio
 		level1_1m = SideScroller.am.load("/music/gamebosstheme.mp3");
+		endgame = SideScroller.am.load("/music/warriors.mp3");
 		jump = SideScroller.am.load("/SFX/jump.mp3");
 		scratch = SideScroller.am.load("/SFX/scratch.mp3");
 		

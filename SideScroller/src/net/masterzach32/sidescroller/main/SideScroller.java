@@ -35,6 +35,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static MenuState menuState;
 	public static Level1State level1;
 	public static Level2State level2;
+	public static EndState endgame;
 	
 	public static ImageLoader im = new ImageLoader();
 	public static AudioLoader am = new AudioLoader();
@@ -74,6 +75,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		menuState = new MenuState(this);
 		level1 = new Level1State(this);
 		level2 = new Level2State(this);
+		endgame = new EndState(this);
 		GameState.setState(menuState);
 	}
 	
