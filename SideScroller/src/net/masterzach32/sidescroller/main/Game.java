@@ -16,7 +16,7 @@ public class Game {
 		window.setResizable(false);
 		window.pack();
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		window.setLocation(dim.width/2-(window.getSize().width * SideScroller.SCALE)/2, dim.height/2-(window.getSize().height * SideScroller.SCALE)/2);
+		//window.setLocation(dim.width/2-(window.getSize().width * SideScroller.SCALE)/2, dim.height/2-(window.getSize().height * SideScroller.SCALE)/2);
 		window.setVisible(true);		
 	}
 	

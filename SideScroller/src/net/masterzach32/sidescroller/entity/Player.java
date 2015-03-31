@@ -59,25 +59,25 @@ public class Player extends MapObject {
 		cwidth = 20;
 		cheight = 20;
 		
-		moveSpeed = 0.3;
-		maxSpeed = 1.6;
-		stopSpeed = 0.4;
+		moveSpeed = 0.4;
+		maxSpeed = 1.5;
+		stopSpeed = 0.5;
 		fallSpeed = 0.15;
-		maxFallSpeed = 4.0;
+		maxFallSpeed = 10.0;
 		jumpStart = -4.8;
 		stopJumpSpeed = 0.3;
 		
 		facingRight = true;
 		
-		health = maxHealth = 25;
+		health = maxHealth = 50;
 		fire = maxFire = 2500;
 		
 		fireCost = 200;
-		fireBallDamage = 4;
+		fireBallDamage = 6;
 		fireBalls = new ArrayList<FireBall>();
 		
-		scratchDamage = 7;
-		scratchRange = 40;
+		scratchDamage = 10;
+		scratchRange = 30;
 		// load sprites
 		try {
 			BufferedImage spritesheet = Assets.player;

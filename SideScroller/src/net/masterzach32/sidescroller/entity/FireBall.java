@@ -18,7 +18,7 @@ public class FireBall extends MapObject {
 		
 		facingRight = right;
 		
-		moveSpeed = 3.5;
+		moveSpeed = 6.5;
 		if(right) dx = moveSpeed;
 		else dx = -moveSpeed;
 		

@@ -19,13 +19,13 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = 360;
 	public static final int SCALE = 2;
-	public static final String VERSION = "0.0.1.085";
+	public static final String VERSION = "0.0.2.090";
 	
 	// game thread
 	private Thread thread;
 	private boolean running;
-	private int fps;
-	private int fpsupdate = 2;
+	public static int fps;
+	private int fpsupdate = 1;
 	
 	// image
 	private BufferedImage image;
@@ -107,7 +107,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 				fps = frames;
 				frames = 0;
 				lastTime2 = System.nanoTime();
-				//LogHelper.logInfo("FPS: " + fps);
+				LogHelper.logInfo("FPS: " + fps);
 			}
 		render();
 		renderToScreen();
