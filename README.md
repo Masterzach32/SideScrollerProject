@@ -1,4 +1,4 @@
-# SideScrollerGame - Alpha Build 0.0.1.085
+# SideScrollerGame - Alpha Build 0.0.2.090
 
 This game is being designed by me and a group of friends. Its going to be a futuristic sidescroller like combination of Final Fantasy and Starbound. More descripiton coming soon!
 
@@ -13,12 +13,16 @@ Alpha access will be given soon!
 
 --
 
-0.0.2: Coming to a computer near you in march!
+0.0.2: Coming to a computer near you in April!
 - Fixed all rendering issues
 - State system has been redesigned
-- Sword swing *(scratch)* range reduced to 40
-- Bullet speed *(fireball speed)* increased by over 300%
+- Sword swing *(scratch)* range reduced to 30 and damage increased to 10
+- Bullet speed *(fireball speed)* increased by over 300% and damage increased to 6
 - Basic enemies have had their health and damage doubled
-- Player health greatly increased
+- Player health increased to 50
 - Mouse Input for attacks
+- FPS counter added
 - More changes to come before the update is released!
+
+### Issues:
+- Audio switching issue (see issue on github issues page)
