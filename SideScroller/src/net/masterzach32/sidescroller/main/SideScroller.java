@@ -61,7 +61,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	 * Called once before the game runs, Initializes objects and assets
 	 */
 	private void init() {
-		LogHelper.logInfo("Launching Game");
+		LogHelper.logInfo("Launching SideScroller Game - Version " + VERSION);
 		LogHelper.logInfo("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version"));
 		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch"));
 		LogHelper.logInfo("Java Version: " + System.getProperty("java.version"));
@@ -107,7 +107,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 				fps = frames;
 				frames = 0;
 				lastTime2 = System.nanoTime();
-				LogHelper.logInfo("FPS: " + fps);
+				//LogHelper.logInfo("FPS: " + fps);
 			}
 		render();
 		renderToScreen();

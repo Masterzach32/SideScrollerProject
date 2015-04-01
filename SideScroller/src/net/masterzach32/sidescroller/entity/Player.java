@@ -72,11 +72,11 @@ public class Player extends MapObject {
 		health = maxHealth = 50;
 		fire = maxFire = 2500;
 		
-		fireCost = 200;
-		fireBallDamage = 6;
+		fireCost = 400;
+		fireBallDamage = 8;
 		fireBalls = new ArrayList<FireBall>();
 		
-		scratchDamage = 10;
+		scratchDamage = 12;
 		scratchRange = 30;
 		// load sprites
 		try {
