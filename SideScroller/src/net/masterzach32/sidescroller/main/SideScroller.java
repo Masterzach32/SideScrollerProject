@@ -56,7 +56,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 			thread.start();
 		}
 	}
-	
+
 	/**
 	 * Called once before the game runs, Initializes objects and assets
 	 */
@@ -65,6 +65,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		LogHelper.logInfo("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version"));
 		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch"));
 		LogHelper.logInfo("Java Version: " + System.getProperty("java.version"));
+		
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
 		
@@ -77,6 +78,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		level2 = new Level2State(this);
 		endgame = new EndState(this);
 		GameState.setState(menuState);
+		
+		LogHelper.logInfo("Loading Complete!");
 	}
 	
 	/**

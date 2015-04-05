@@ -171,21 +171,6 @@ public abstract class MapObject {
 		}
 	}
 	
-	/**
-	 * Does health regeneration. Only works with the player right now
-	 * @param e
-	 * @param tick
-	 */
-	@Deprecated
-	public void doHealing(Player e, int tick) {
-		/*healingTimer.tick();
-		if(healingTimer.getIsDone()) {
-			e.setHealth(e.getHealth() + 1);
-			if (e.getHealth() < e.getMaxHealth()) e.setHealth(e.getMaxHealth());
-		}
-		*/
-	}
-	
 	public int getx() { 
 		return (int)x; 
 	}

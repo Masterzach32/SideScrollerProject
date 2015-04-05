@@ -27,11 +27,11 @@ public class HUD {
 	}
 	
 	public void render(Graphics2D g) {
-		g.drawImage(image, 0, 10, null);
+		g.drawImage(image, 0, 15, null);
 		g.drawString("FPS: " + SideScroller.fps, 1, 11);
 		g.setFont(font);
 		g.setColor(Color.WHITE);
-		g.drawString(player.getHealth() + "/" + player.getMaxHealth(), 30, 25);
-		g.drawString(player.getFire() / 100 + "/" + player.getMaxFire() / 100, 30, 45);
+		g.drawString(player.getHealth() + "/" + player.getMaxHealth(), 30, 30);
+		g.drawString(player.getFire() / 100 + "/" + player.getMaxFire() / 100, 30, 50);
 	}
 }

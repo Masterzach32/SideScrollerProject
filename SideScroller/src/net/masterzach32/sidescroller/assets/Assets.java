@@ -32,7 +32,6 @@ public class Assets {
 		
 		// Backgrounds
 		menubg = SideScroller.im.load("/backgrounds/grassbg1.gif");
-		level1_1bg = menubg;
 		
 		// Audio
 		level1_1m = SideScroller.am.load("/music/gamebosstheme.mp3");

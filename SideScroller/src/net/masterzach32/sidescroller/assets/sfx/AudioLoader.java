@@ -9,6 +9,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import net.masterzach32.sidescroller.util.LogHelper;
 
 public class AudioLoader {
+	
+	private String s = "[SFX] ";
 
 	/**
 	 * Loads the given audio file
@@ -19,13 +21,14 @@ public class AudioLoader {
 		AudioInputStream ais;
 		try {
 			ais = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(path));
+			LogHelper.logInfo(s + "Loaded asset: " + path);
 			return ais;
 		} catch (UnsupportedAudioFileException e) {
-			LogHelper.logError("Unsupported Audio File: " + path);
+			LogHelper.logError(s + "Unsupported Audio File: " + path);
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			LogHelper.logError("Missing Audio File: " + path);
+			LogHelper.logError(s + "Missing Audio File: " + path);
 			e.printStackTrace();
 			return null;
 		}

@@ -42,7 +42,7 @@ public class Level1State extends LevelState {
 		tileMap.setPosition(0, 0);
 		tileMap.setTween(0.7);
 		
-		bg = new Background(Assets.level1_1bg, 0.1);
+		bg = new Background(Assets.menubg, 0.1);
 		
 		// load player
 		player = new Player(tileMap);
