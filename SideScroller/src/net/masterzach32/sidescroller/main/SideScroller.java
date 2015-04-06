@@ -24,6 +24,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	// game thread
 	private Thread thread;
 	private boolean running;
+	private int FPS = 60;
+	private long targetTime = 1000 / FPS;
 	public static int fps;
 	private int fpsupdate = 1;
 	
@@ -88,33 +90,28 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public void run() {
 		init();
 		
-		// Ticks
-		long lastTime = System.nanoTime();
-		final double amountOfTicks = 60;
-		double ns = 1000000000 / amountOfTicks;
-		double delta = 0;
-				
-		// FPS
-		long lastTime2 = System.nanoTime();
-		int frames = 0;
-		while(running){
-			long time = System.nanoTime();
-			delta += (time - lastTime) / ns;
-			lastTime = time;
-			if(delta >= 1) {
-				tick();
-				delta--;
+		long start;
+		long elapsed;
+		long wait;
+		
+		// game loop
+		while(running) {
+			start = System.nanoTime();
+			
+			tick();
+			render();
+			renderToScreen();
+		
+			elapsed = System.nanoTime() - start;
+		
+			wait = targetTime - elapsed / 1000000;
+			if(wait < 0) wait = 5;
+				try {
+					Thread.sleep(wait);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
-			frames += 1 * fpsupdate;
-			if(System.nanoTime() - lastTime2 >= (1000000000L / fpsupdate) /*|| frames == maxfps*/) {
-				fps = frames;
-				frames = 0;
-				lastTime2 = System.nanoTime();
-				//LogHelper.logInfo("FPS: " + fps);
-			}
-		render();
-		renderToScreen();
-		}
 	}
 	
 	private void tick() {

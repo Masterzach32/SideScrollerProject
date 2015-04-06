@@ -6,6 +6,7 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
 import net.masterzach32.sidescroller.tilemap.*;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -26,6 +27,7 @@ public class Player extends MapObject {
 	private boolean firing;
 	private int fireCost;
 	private int fireBallDamage;
+	private ArrayList<Explosion> explosions;
 	private ArrayList<FireBall> fireBalls;
 	
 	// scratch
@@ -75,9 +77,10 @@ public class Player extends MapObject {
 		fireCost = 400;
 		fireBallDamage = 8;
 		fireBalls = new ArrayList<FireBall>();
+		explosions = new ArrayList<Explosion>();
 		
 		scratchDamage = 12;
-		scratchRange = 30;
+		scratchRange = 35;
 		// load sprites
 		try {
 			BufferedImage spritesheet = Assets.player;
@@ -107,6 +110,7 @@ public class Player extends MapObject {
 		sfx = new HashMap<String, AudioPlayer>();
 		sfx.put("jump", new AudioPlayer(Assets.jump));
 		sfx.put("scratch", new AudioPlayer(Assets.scratch));
+		sfx.put("fire", new AudioPlayer(Assets.fire));
 	}
 	
 	public int getHealth() { 
@@ -186,6 +190,7 @@ public class Player extends MapObject {
 	 */
 	public void hit(int damage) {
 		if(flinching) return;
+		explosions.add(new Explosion(this.getx(), this.gety()));
 		health -= damage;
 		if(health < 0) health = 0;
 		if(health == 0) dead = true;
@@ -264,6 +269,8 @@ public class Player extends MapObject {
 				FireBall fb = new FireBall(tileMap, facingRight);
 				fb.setPosition(x, y);
 				fireBalls.add(fb);
+			} else {
+				LogHelper.logInfo("Not Enough Fire!");
 			}
 		}
 		
@@ -272,6 +279,15 @@ public class Player extends MapObject {
 			fireBalls.get(i).tick();
 			if(fireBalls.get(i).shouldRemove()) {
 				fireBalls.remove(i);
+				i--;
+			}
+		}
+		
+		// update explosions
+		for(int i = 0; i < explosions.size(); i++) {
+			explosions.get(i).tick();
+			if(explosions.get(i).shouldRemove()) {
+				explosions.remove(i);
 				i--;
 			}
 		}
@@ -295,7 +311,7 @@ public class Player extends MapObject {
 			}
 		} else if(firing) {
 			if(currentAction != FIREBALL) {
-				//sfx.get("fire").play();
+				sfx.get("fire").play();
 				currentAction = FIREBALL;
 				animation.setFrames(sprites.get(FIREBALL));
 				animation.setDelay(100);
@@ -350,9 +366,6 @@ public class Player extends MapObject {
 		// check to see if the player is dead or not
 		if(health == 0) this.dead = true;
 		if(health > 0) this.dead = false;
-		
-		// health regeneration
-		//doHealing(this, 60);
 	}
 	
 	public void render(Graphics2D g) {
@@ -371,5 +384,11 @@ public class Player extends MapObject {
 			}
 		}
 		super.render(g);
+		
+		// draw explosions
+		for(int i = 0; i < explosions.size(); i++) {
+			explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
+			explosions.get(i).render(g);
+		}		
 	}
 }

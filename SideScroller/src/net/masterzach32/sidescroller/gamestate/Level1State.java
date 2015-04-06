@@ -88,8 +88,7 @@ public class Level1State extends LevelState {
 		// update player
 		player.tick();
 		player.checkAttack(enemies);
-		if (player.isDead())
-			explosions.add(new Explosion(player.getx(), player.gety()));
+		if (player.isDead()) explosions.add(new Explosion(player.getx(), player.gety()));
 		
 		// set background
 		tileMap.setPosition(SideScroller.WIDTH / 2 - player.getx(), SideScroller.HEIGHT / 2 - player.gety());

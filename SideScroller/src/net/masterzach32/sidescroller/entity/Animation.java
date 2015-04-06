@@ -28,7 +28,7 @@ public class Animation {
 	}
 	
 	/**
-	 * Sets the delay between each frame
+	 * Sets the delay between each frame, set to -1 for no delay.
 	 * @param d
 	 */
 	public void setDelay(long d) { 

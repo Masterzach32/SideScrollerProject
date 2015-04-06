@@ -2,6 +2,7 @@ package net.masterzach32.sidescroller.entity.enemy;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.*;
@@ -38,6 +39,8 @@ public class Slugger extends Enemy {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		explosions = new ArrayList<Explosion>();
 		
 		animation = new Animation();
 		animation.setFrames(sprites);
@@ -82,6 +85,15 @@ public class Slugger extends Enemy {
 			}
 		}
 		
+		// update explosions
+		for(int i = 0; i < explosions.size(); i++) {
+			explosions.get(i).tick();
+			if(explosions.get(i).shouldRemove()) {
+				explosions.remove(i);
+				i--;
+			}
+		}
+		
 		// if it hits a wall, go other direction
 		if(right && dx == 0) {
 			right = false;
@@ -98,10 +110,14 @@ public class Slugger extends Enemy {
 	}
 	
 	public void render(Graphics2D g) {
-		//if(notOnScreen()) return;
-		
 		setMapPosition();
 		
 		super.render(g);	
+		
+		// draw explosions
+		for(int i = 0; i < explosions.size(); i++) {
+			explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
+			explosions.get(i).render(g);
+		}
 	}
 }
