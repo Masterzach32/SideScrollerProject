@@ -10,7 +10,7 @@ import net.masterzach32.sidescroller.util.LogHelper;
 
 public class ImageLoader {
 	
-	private String s = "[VFX] ";
+	private String s = "[ASSETS] ";
 
 	/**
 	 * Loads an image from the assets folder
@@ -23,14 +23,14 @@ public class ImageLoader {
 			URL imageLocation = getClass().getResource(path);
 			if(imageLocation != null) {
 				bi = ImageIO.read(imageLocation);
-				LogHelper.logInfo(s + "Loaded asset: " + path);
+				LogHelper.logInfo(s + "Loaded Asset: " + path);
 				return bi;
 			} else {
 				LogHelper.logWarning(s + "Missing image: " + path);
 				return null;
 			}
 		} catch (IOException e) {
-			LogHelper.logWarning(s + "Missing image: " + path);
+			LogHelper.logError(s + "Missing image: " + path);
 			e.printStackTrace();
 			return null;
 		}

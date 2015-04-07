@@ -11,7 +11,7 @@ import net.masterzach32.sidescroller.util.LogHelper;
 
 public class AudioLoader {
 	
-	private String s = "[SFX] ";
+	private String s = "[ASSETS] ";
 
 	/**
 	 * Loads the given audio file
@@ -24,7 +24,7 @@ public class AudioLoader {
 			URL imageLocation = getClass().getResource(path);
 			if(imageLocation != null) {
 				ais = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(path));
-				LogHelper.logInfo(s + "Loaded asset: " + path);
+				LogHelper.logInfo(s + "Loaded Asset: " + path);
 				return ais;
 			} else {
 				LogHelper.logWarning(s + "Missing Audio File: " + path);

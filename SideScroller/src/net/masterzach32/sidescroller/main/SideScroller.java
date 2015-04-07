@@ -24,10 +24,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	// game thread
 	private Thread thread;
 	private boolean running;
-	private int FPS = 60;
+	public static int FPS = 60;
 	private long targetTime = 1000 / FPS;
-	public static int fps;
-	private int fpsupdate = 1;
 	
 	// image
 	private BufferedImage image;

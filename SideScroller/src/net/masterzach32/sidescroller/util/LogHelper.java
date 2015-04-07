@@ -7,7 +7,7 @@ public class LogHelper {
 	}
 	
 	public static void logWarning(String s) {
-		System.out.println("[ERROR] " + s);
+		System.out.println("[WARNING] " + s);
 	}
 	
 	public static void logError(String s) {

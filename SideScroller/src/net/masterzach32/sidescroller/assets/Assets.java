@@ -23,9 +23,10 @@ public class Assets {
 		// Images
 		explosion = SideScroller.im.load("/sprites/enemies/explosion.gif");
 		fireball = SideScroller.im.load("/sprites/player/fireball.gif");
-		hud = SideScroller.im.load("/hud/hud.gif");
 		player = SideScroller.im.load("/sprites/player/playersprites.gif");
 		slugger = SideScroller.im.load("/sprites/enemies/slugger.gif");
+		
+		hud = SideScroller.im.load("/hud/hud.gif");
 		
 		// Tile Sets
 		grasstileset = SideScroller.im.load("/tilesets/grasstileset.gif");
@@ -36,6 +37,7 @@ public class Assets {
 		// Audio
 		level1_1m = SideScroller.am.load("/music/gamebosstheme.mp3");
 		endgame = SideScroller.am.load("/music/warriors.mp3");
+		
 		jump = SideScroller.am.load("/SFX/jump.mp3");
 		scratch = SideScroller.am.load("/SFX/scratch.mp3");
 		fire = SideScroller.am.load("/SFX/fire.mp3");

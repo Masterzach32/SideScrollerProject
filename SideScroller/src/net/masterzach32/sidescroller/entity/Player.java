@@ -15,8 +15,8 @@ import java.util.HashMap;
 public class Player extends MapObject {
 	
 	// player stuff
-	private int health;
-	private int maxHealth;
+	private float health;
+	private float maxHealth;
 	private int fire;
 	private int maxFire;
 	private boolean dead;
@@ -81,6 +81,7 @@ public class Player extends MapObject {
 		
 		scratchDamage = 12;
 		scratchRange = 35;
+		
 		// load sprites
 		try {
 			BufferedImage spritesheet = Assets.player;
@@ -113,11 +114,11 @@ public class Player extends MapObject {
 		sfx.put("fire", new AudioPlayer(Assets.fire));
 	}
 	
-	public int getHealth() { 
+	public float getHealth() { 
 		return health; 
 	}
 	
-	public int getMaxHealth() {
+	public float getMaxHealth() {
 		return maxHealth; 
 	}
 	
@@ -363,9 +364,15 @@ public class Player extends MapObject {
 			if(left) facingRight = false;
 		}
 		
+		
 		// check to see if the player is dead or not
 		if(health == 0) this.dead = true;
-		if(health > 0) this.dead = false;
+		if(health > 0) {
+			this.dead = false;
+			if(health < maxHealth){
+				health += 0.008;
+			}
+		}
 	}
 	
 	public void render(Graphics2D g) {
@@ -375,11 +382,16 @@ public class Player extends MapObject {
 		for(int i = 0; i < fireBalls.size(); i++) {
 			fireBalls.get(i).render(g);
 		}
-		
+			
 		// draw player
 		if(flinching) {
 			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
 			if(elapsed / 100 % 2 == 0) {
+				// draw explosions
+				for(int i = 0; i < explosions.size(); i++) {
+					explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
+					explosions.get(i).render(g);
+				}
 				return;
 			}
 		}
@@ -389,6 +401,7 @@ public class Player extends MapObject {
 		for(int i = 0; i < explosions.size(); i++) {
 			explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
 			explosions.get(i).render(g);
-		}		
+		}
+					
 	}
 }
