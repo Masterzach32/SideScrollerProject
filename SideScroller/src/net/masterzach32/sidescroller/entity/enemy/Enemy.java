@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Enemy extends MapObject {
 	
@@ -30,7 +31,7 @@ public class Enemy extends MapObject {
 		return damage; 
 	}
 	
-	public void hit(int damage) {
+	public void hit(int damage, String type, MapObject source) {
 		if(dead || flinching) return;
 		explosions.add(new Explosion(this.getx(), this.gety()));
 		health -= damage;
@@ -38,6 +39,7 @@ public class Enemy extends MapObject {
 		if(health == 0) dead = true;
 		flinching = true;
 		flinchTimer = System.nanoTime();
+		LogHelper.logInfo(this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}
 	
 	public void tick() {}

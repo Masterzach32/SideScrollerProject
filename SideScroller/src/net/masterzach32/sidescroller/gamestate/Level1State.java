@@ -18,7 +18,7 @@ public class Level1State extends LevelState {
 	
 	private TileMap tileMap;
 	private Background bg;
-	private Player player;
+	private EntityPlayer player;
 	
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;
@@ -45,7 +45,7 @@ public class Level1State extends LevelState {
 		bg = new Background(Assets.menubg, 0.1);
 		
 		// load player
-		player = new Player(tileMap);
+		player = new EntityPlayer(tileMap);
 		player.setPosition(100, 100);
 		
 		// load enemies
@@ -60,7 +60,7 @@ public class Level1State extends LevelState {
 	}
 	
 	protected void load() {
-		bgMusic.play();
+		//bgMusic.play();
 	}
 	
 	protected void unload() {

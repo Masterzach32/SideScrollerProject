@@ -4,17 +4,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
-import net.masterzach32.sidescroller.entity.Player;
+import net.masterzach32.sidescroller.entity.EntityPlayer;
 import net.masterzach32.sidescroller.main.SideScroller;
 
 public class HUD {
 	
-	private Player player;
+	private EntityPlayer player;
 	
 	private BufferedImage image;
 	private Font font;
 	
-	public HUD(Player p) {
+	public HUD(EntityPlayer p) {
 		player = p;
 		try {
 			image = Assets.hud;

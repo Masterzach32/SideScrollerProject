@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import net.masterzach32.sidescroller.assets.gfx.HUD;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Explosion;
-import net.masterzach32.sidescroller.entity.Player;
+import net.masterzach32.sidescroller.entity.EntityPlayer;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
@@ -17,7 +17,7 @@ public class Level2State extends LevelState {
 	
 	private TileMap tileMap;
 	private Background bg;
-	private Player player;
+	private EntityPlayer player;
 	
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;

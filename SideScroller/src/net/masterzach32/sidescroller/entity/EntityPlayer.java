@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-public class Player extends MapObject {
+public class EntityPlayer extends MapObject {
 	
 	// player stuff
 	private float health;
@@ -53,7 +53,7 @@ public class Player extends MapObject {
 	
 	private HashMap<String, AudioPlayer> sfx;
 	
-	public Player(TileMap tm) {
+	public EntityPlayer(TileMap tm) {
 		super(tm);
 		
 		width = 30;
@@ -162,25 +162,25 @@ public class Player extends MapObject {
 			if(scratching) {
 				if(facingRight) {
 					if(e.getx() > x && e.getx() < x + scratchRange && e.gety() > y - height / 2 && e.gety() < y + height / 2) {
-						e.hit(scratchDamage);
+						e.hit(scratchDamage, "Scratch", this);
 					}
 				} else {
 					if(e.getx() < x && e.getx() > x - scratchRange && e.gety() > y - height / 2 && e.gety() < y + height / 2) {
-						e.hit(scratchDamage);
+						e.hit(scratchDamage, "Scratch", this);
 					}
 				}
 			}
 			// fireballs
 			for(int j = 0; j < fireBalls.size(); j++) {
 				if(fireBalls.get(j).intersects(e)) {
-					e.hit(fireBallDamage);
+					e.hit(fireBallDamage, "FireBall", this);
 					fireBalls.get(j).setHit();
 					break;
 				}
 			}
 			// check enemy collision
 			if(intersects(e)) {
-				hit(e.getDamage());
+				hit(e.getDamage(), "Collision", e);
 			}	
 		}
 	}
@@ -188,8 +188,9 @@ public class Player extends MapObject {
 	/**
 	 * Deals damage to the entity
 	 * @param damage
+	 * @param source (should always be <code>this</code>)
 	 */
-	public void hit(int damage) {
+	public void hit(int damage, String type, MapObject source) {
 		if(flinching) return;
 		explosions.add(new Explosion(this.getx(), this.gety()));
 		health -= damage;
@@ -197,6 +198,7 @@ public class Player extends MapObject {
 		if(health == 0) dead = true;
 		flinching = true;
 		flinchTimer = System.nanoTime();
+		LogHelper.logInfo(this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}
 	
 	private void getNextPosition() {
@@ -370,7 +372,7 @@ public class Player extends MapObject {
 		if(health > 0) {
 			this.dead = false;
 			if(health < maxHealth){
-				health += 0.008;
+				health += 0.01;
 			}
 		}
 	}
