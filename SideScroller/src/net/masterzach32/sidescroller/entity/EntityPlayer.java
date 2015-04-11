@@ -43,13 +43,7 @@ public class EntityPlayer extends MapObject {
 	private final int[] numFrames = {2, 8, 1, 2, 4, 2, 5};
 	
 	// animation actions
-	private static final int IDLE = 0;
-	private static final int WALKING = 1;
-	private static final int JUMPING = 2;
-	private static final int FALLING = 3;
-	private static final int GLIDING = 4;
-	private static final int FIREBALL = 5;
-	private static final int SCRATCHING = 6;
+	private static final int IDLE = 0, WALKING = 1, JUMPING = 2, FALLING = 3, GLIDING = 4, FIREBALL = 5, SCRATCHING = 6;
 	
 	private HashMap<String, AudioPlayer> sfx;
 	
@@ -198,7 +192,7 @@ public class EntityPlayer extends MapObject {
 		if(health == 0) dead = true;
 		flinching = true;
 		flinchTimer = System.nanoTime();
-		LogHelper.logInfo(this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
+		LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}
 	
 	private void getNextPosition() {

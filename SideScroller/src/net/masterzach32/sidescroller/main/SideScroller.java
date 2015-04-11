@@ -62,6 +62,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	 */
 	private void init() {
 		LogHelper.logInfo("Launching SideScroller Game - Version " + VERSION);
+		LogHelper.logInfo("Date: " + Utilities.getTime());
 		LogHelper.logInfo("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version"));
 		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch"));
 		LogHelper.logInfo("Java Version: " + System.getProperty("java.version"));

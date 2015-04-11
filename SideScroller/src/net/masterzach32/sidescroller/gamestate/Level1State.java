@@ -60,7 +60,7 @@ public class Level1State extends LevelState {
 	}
 	
 	protected void load() {
-		//bgMusic.play();
+		bgMusic.play();
 	}
 	
 	protected void unload() {
