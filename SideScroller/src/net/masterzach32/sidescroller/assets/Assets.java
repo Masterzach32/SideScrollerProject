@@ -29,7 +29,8 @@ public class Assets {
 		hud = SideScroller.im.load("/hud/hud.gif");
 		
 		// Tile Sets
-		grasstileset = SideScroller.im.load("/tilesets/grasstileset.gif");
+		grasstileset = SideScroller.im.load("/tilesets/grasstileset.png");
+		metaltileset = SideScroller.im.load("/tilesets/placeholder_metaltileset.png");
 		
 		// Backgrounds
 		menubg = SideScroller.im.load("/backgrounds/grassbg1.gif");
