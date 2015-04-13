@@ -29,7 +29,7 @@ public class MenuState extends GameState {
 	}
 	
 	public void init() {
-		bg = new Background(Assets.menubg, 1);
+		bg = new Background(Assets.getImageAsset("grassbg"), 1);
 		bg.setVector(-0.25, 0);
 			
 		titleColor = new Color(128, 0, 0);
@@ -37,7 +37,7 @@ public class MenuState extends GameState {
 			
 		font = new Font("Arial", Font.PLAIN, 12);
 		selectfont = new Font("Arial", Font.PLAIN, 14);
-		bgMusic = new AudioPlayer(Assets.level1_1m);
+		bgMusic = new AudioPlayer(Assets.getSoundAsset("warriors"));
 	}
 	
 	protected void load() {

@@ -28,7 +28,7 @@ public class Explosion {
 		height = 30;
 		
 		try {
-			BufferedImage spritesheet = Assets.explosion;
+			BufferedImage spritesheet = Assets.getImageAsset("explosion");
 			
 			sprites = new BufferedImage[6];
 			for(int i = 0; i < sprites.length; i++) {

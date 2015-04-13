@@ -30,7 +30,7 @@ public class Slugger extends Enemy {
 		
 		// load sprites
 		try {
-			BufferedImage spritesheet = Assets.slugger;
+			BufferedImage spritesheet = Assets.getImageAsset("slugger");
 			
 			sprites = new BufferedImage[3];
 			for(int i = 0; i < sprites.length; i++) {

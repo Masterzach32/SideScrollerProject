@@ -29,7 +29,7 @@ public class FireBall extends MapObject {
 		
 		// load sprites
 		try {
-			BufferedImage spritesheet = Assets.fireball;
+			BufferedImage spritesheet = Assets.getImageAsset("fireball");
 			
 			sprites = new BufferedImage[4];
 			for(int i = 0; i < sprites.length; i++) {

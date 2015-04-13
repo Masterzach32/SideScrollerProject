@@ -78,7 +78,7 @@ public class EntityPlayer extends MapObject {
 		
 		// load sprites
 		try {
-			BufferedImage spritesheet = Assets.player;
+			BufferedImage spritesheet = Assets.getImageAsset("player");
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			for(int i = 0; i < 7; i++) {
@@ -103,9 +103,9 @@ public class EntityPlayer extends MapObject {
 		animation.setDelay(400);
 		
 		sfx = new HashMap<String, AudioPlayer>();
-		sfx.put("jump", new AudioPlayer(Assets.jump));
-		sfx.put("scratch", new AudioPlayer(Assets.scratch));
-		sfx.put("fire", new AudioPlayer(Assets.fire));
+		sfx.put("jump", new AudioPlayer(Assets.getSoundAsset("jump")));
+		sfx.put("scratch", new AudioPlayer(Assets.getSoundAsset("scratch")));
+		sfx.put("fire", new AudioPlayer(Assets.getSoundAsset("fire")));
 	}
 	
 	public float getHealth() { 

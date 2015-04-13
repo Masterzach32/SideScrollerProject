@@ -37,12 +37,12 @@ public class Level1State extends LevelState {
 	public void init() {
 		// load map
 		tileMap = new TileMap(30);
-		tileMap.loadTiles(Assets.grasstileset);
-		tileMap.loadMap(Assets.level1_1);
+		tileMap.loadTiles(Assets.getImageAsset("grasstileset"));
+		tileMap.loadMap(Assets.getMapAsset("level1_1"));
 		tileMap.setPosition(0, 0);
 		tileMap.setTween(0.7);
 		
-		bg = new Background(Assets.menubg, 0.1);
+		bg = new Background(Assets.getImageAsset("grassbg"), 0.1);
 		
 		// load player
 		player = new EntityPlayer(tileMap);
@@ -56,7 +56,7 @@ public class Level1State extends LevelState {
 		// load assets
 		hud = new HUD(player);
 		
-		bgMusic = new AudioPlayer(Assets.endgame);
+		bgMusic = new AudioPlayer(Assets.getSoundAsset("gamebosstheme"));
 	}
 	
 	protected void load() {

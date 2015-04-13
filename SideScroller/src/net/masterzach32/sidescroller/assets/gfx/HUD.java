@@ -17,7 +17,7 @@ public class HUD {
 	public HUD(EntityPlayer p) {
 		player = p;
 		try {
-			image = Assets.hud;
+			image = Assets.getImageAsset("hud");
 			
 			font = new Font("Arial", Font.PLAIN, 14);
 		}

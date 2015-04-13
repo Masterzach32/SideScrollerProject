@@ -136,7 +136,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		Point p = new Point(0, 0); //e.getPoint();
 		int x = p.x;
 		int y = p.y;
-		g.drawImage(Assets.mouse, x, y, null);
+		g.drawImage(Assets.getImageAsset("mouse"), x, y, null);
 	}
 	
 	public void keyPressed(KeyEvent e) {

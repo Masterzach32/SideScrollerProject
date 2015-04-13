@@ -18,10 +18,10 @@ public class EndState extends GameState {
 
 	@Override
 	public void init() {
-		bg = new Background(Assets.menubg, 1);
+		bg = new Background(Assets.getImageAsset("grassbg"), 1);
 		bg.setVector(-0.25, 0);
 		
-		bgMusic = new AudioPlayer(Assets.endgame);
+		bgMusic = new AudioPlayer(Assets.getSoundAsset("warriors"));
 	}
 
 	@Override
