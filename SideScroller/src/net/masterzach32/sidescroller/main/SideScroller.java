@@ -27,6 +27,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int FPS = 60;
 	private long targetTime = 1000 / FPS;
 	
+	private boolean mouseOnScreen = false;
+	
 	// image
 	private BufferedImage image;
 	private Graphics2D g;
@@ -100,6 +102,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 			tick();
 			render();
 			renderToScreen();
+			if(mouseOnScreen) renderMouse();
 		
 			elapsed = System.nanoTime() - start;
 		
@@ -129,6 +132,13 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		g.dispose();
 	}
 	
+	private void renderMouse() {
+		Point p = new Point(0, 0); //e.getPoint();
+		int x = p.x;
+		int y = p.y;
+		g.drawImage(Assets.mouse, x, y, null);
+	}
+	
 	public void keyPressed(KeyEvent e) {
 		if(GameState.getState() != null) 
 			GameState.getState().keyPressed(e.getKeyCode());
@@ -153,8 +163,12 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 
 	public void mouseClicked(MouseEvent e) {}
 
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {
+		mouseOnScreen = true;
+	}
 
-	public void mouseExited(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {
+		mouseOnScreen = false;
+	}
 	
 }
