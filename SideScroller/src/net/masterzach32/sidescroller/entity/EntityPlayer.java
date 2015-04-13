@@ -228,7 +228,7 @@ public class EntityPlayer extends MapObject {
 		
 		// jumping
 		if(jumping && !falling) {
-			//sfx.get("jump").play();
+			sfx.get("jump").play();
 			dy = jumpStart;
 			falling = true;
 		}

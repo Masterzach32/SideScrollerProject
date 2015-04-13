@@ -56,7 +56,7 @@ public class Level1State extends LevelState {
 		// load assets
 		hud = new HUD(player);
 		
-		bgMusic = new AudioPlayer(Assets.getSoundAsset("gamebosstheme"));
+		bgMusic = new AudioPlayer(Assets.getSoundAsset("level1_1"));
 	}
 	
 	protected void load() {

@@ -42,6 +42,7 @@ public class Assets {
 		// Audio
 		sounds.put("gamebosstheme", SideScroller.am.load("/music/gamebosstheme.mp3"));
 		sounds.put("warriors", SideScroller.am.load("/music/warriors.mp3"));
+		sounds.put("level1_1", SideScroller.am.load("/music/level1_1theme.mp3"));
 		
 		sounds.put("jump", SideScroller.am.load("/SFX/jump.mp3"));
 		sounds.put("scratch", SideScroller.am.load("/SFX/scratch.mp3"));
