@@ -15,13 +15,13 @@ public class MenuState extends GameState {
 	public static int currentChoice = 0;
 	public static String[] options = {"Play", "Help", "About", "Options", "Quit"};
 	
-	private Color titleColor;
-	private Font titleFont;
+	protected Color titleColor;
+	protected Font titleFont;
 	
-	private Font font;
-	private Font selectfont;
+	protected Font font;
+	protected Font selectfont;
 	
-	private AudioPlayer bgMusic;
+	protected AudioPlayer bgMusic;
 	
 	public MenuState(SideScroller game) {
 		super(game);
@@ -72,7 +72,7 @@ public class MenuState extends GameState {
 				g.setFont(font);
 				g.setColor(Color.RED);
 			}
-			g.drawString(options[i], 5, (590 + i * 30) / 2);
+			g.drawString(options[i], 5, (560 + i * 30) / 2);
 		}	
 	}
 	
@@ -80,11 +80,11 @@ public class MenuState extends GameState {
 		if(currentChoice == 0)
 			GameState.setState(SideScroller.level1);
 		if(currentChoice == 1)
-			GameState.setState(SideScroller.menuState); // Help
+			GameState.setState(SideScroller.helpState); // Help
 		if(currentChoice == 2)
 			GameState.setState(SideScroller.menuState); // About
 		if(currentChoice == 3)
-			GameState.setState(SideScroller.menuState); // Options
+			GameState.setState(SideScroller.optionsState); // Options
 		if(currentChoice == 4)
 			System.exit(0);
 	}

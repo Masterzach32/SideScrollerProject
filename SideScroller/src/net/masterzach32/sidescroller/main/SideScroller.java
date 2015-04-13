@@ -16,9 +16,9 @@ import net.masterzach32.sidescroller.util.*;
 public class SideScroller extends JPanel implements Runnable, KeyListener, MouseListener {
 	
 	// dimensions
-	public static final int WIDTH = 640;
-	public static final int HEIGHT = 360;
-	public static final int SCALE = 2;
+	public static int WIDTH = 640;
+	public static int HEIGHT = 360;
+	public static int SCALE = 1;
 	public static final String VERSION = "0.0.2.090";
 	
 	// game thread
@@ -35,6 +35,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	
 	// states
 	public static MenuState menuState;
+	public static HelpState helpState;
+	public static OptionsState optionsState;
 	public static Level1State level1;
 	public static Level2State level2;
 	public static EndState endgame;
@@ -77,6 +79,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		Assets.init(); 
 		
 		menuState = new MenuState(this);
+		helpState = new HelpState(this);
+		optionsState = new OptionsState(this);
 		level1 = new Level1State(this);
 		level2 = new Level2State(this);
 		endgame = new EndState(this);
@@ -169,6 +173,5 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 
 	public void mouseExited(MouseEvent e) {
 		mouseOnScreen = false;
-	}
-	
+	}	
 }
