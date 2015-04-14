@@ -37,7 +37,7 @@ public class MenuState extends GameState {
 			
 		font = new Font("Arial", Font.PLAIN, 12);
 		selectfont = new Font("Arial", Font.PLAIN, 14);
-		bgMusic = new AudioPlayer(Assets.getSoundAsset("warriors"));
+		bgMusic = new AudioPlayer(Assets.getAudioAsset("warriors"));
 	}
 	
 	protected void load() {
@@ -78,7 +78,7 @@ public class MenuState extends GameState {
 	
 	private void select() {
 		if(currentChoice == 0)
-			GameState.setState(SideScroller.level1);
+			GameState.setState(SideScroller.level1_1);
 		if(currentChoice == 1)
 			GameState.setState(SideScroller.helpState); // Help
 		if(currentChoice == 2)

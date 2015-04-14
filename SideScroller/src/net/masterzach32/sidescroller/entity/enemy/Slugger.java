@@ -3,10 +3,8 @@ package net.masterzach32.sidescroller.entity.enemy;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import net.masterzach32.sidescroller.assets.Assets;
-import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.*;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 

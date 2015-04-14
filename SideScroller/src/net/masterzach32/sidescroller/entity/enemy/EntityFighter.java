@@ -105,9 +105,9 @@ public class EntityFighter extends Enemy {
 		animation.setDelay(400);
 		
 		sfx = new HashMap<String, AudioPlayer>();
-		sfx.put("jump", new AudioPlayer(Assets.getSoundAsset("jump")));
-		sfx.put("scratch", new AudioPlayer(Assets.getSoundAsset("scratch")));
-		sfx.put("fire", new AudioPlayer(Assets.getSoundAsset("fire")));
+		sfx.put("jump", new AudioPlayer(Assets.getAudioAsset("jump")));
+		sfx.put("scratch", new AudioPlayer(Assets.getAudioAsset("scratch")));
+		sfx.put("fire", new AudioPlayer(Assets.getAudioAsset("fire")));
 	}
 	
 	public float getHealth() { 

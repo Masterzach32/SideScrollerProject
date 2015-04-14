@@ -17,9 +17,9 @@ public class Assets {
 	
 	public static void init() {
 		// initialize hashmaps
-		images = new HashMap<String, BufferedImage>();
-		sounds = new HashMap<String, AudioInputStream>();
-		maps = new HashMap<String, String>();
+		images = new HashMap<String, BufferedImage>(1024);
+		sounds = new HashMap<String, AudioInputStream>(1024);
+		maps = new HashMap<String, String>(1024);
 		// load into hashmap
 		// Images
 		images.put("explosion", SideScroller.im.load("/sprites/enemies/explosion.gif"));
@@ -43,6 +43,7 @@ public class Assets {
 		sounds.put("gamebosstheme", SideScroller.am.load("/music/gamebosstheme.mp3"));
 		sounds.put("warriors", SideScroller.am.load("/music/warriors.mp3"));
 		sounds.put("level1_1", SideScroller.am.load("/music/level1_1theme.mp3"));
+		sounds.put("level1_2", SideScroller.am.load("/music/gamebosstheme.mp3"));
 		
 		sounds.put("jump", SideScroller.am.load("/SFX/jump.mp3"));
 		sounds.put("scratch", SideScroller.am.load("/SFX/scratch.mp3"));
@@ -64,11 +65,11 @@ public class Assets {
 	}
 	
 	/**
-	 * Returns the given sound asset
+	 * Returns the given audio asset
 	 * @param s
 	 * @return AudioInputStream
 	 */
-	public static AudioInputStream getSoundAsset(String s) {
+	public static AudioInputStream getAudioAsset(String s) {
 		return sounds.get(s);
 	}
 	

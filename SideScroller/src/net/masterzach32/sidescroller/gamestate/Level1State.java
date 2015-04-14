@@ -46,7 +46,6 @@ public class Level1State extends LevelState {
 		
 		// load player
 		player = new EntityPlayer(tileMap);
-		player.setPosition(100, 100);
 		
 		// load enemies
 		populateEnemies();
@@ -56,10 +55,11 @@ public class Level1State extends LevelState {
 		// load assets
 		hud = new HUD(player);
 		
-		bgMusic = new AudioPlayer(Assets.getSoundAsset("level1_1"));
+		bgMusic = new AudioPlayer(Assets.getAudioAsset("level1_1"));
 	}
 	
 	protected void load() {
+		player.setPosition(100, 100);
 		bgMusic.play();
 	}
 	
@@ -69,7 +69,7 @@ public class Level1State extends LevelState {
 	
 	public void levelCompleted() {
 		LogHelper.logInfo("Level 1 Completed!");
-		GameState.setState(SideScroller.endgame);
+		GameState.setState(SideScroller.level1_2);
 	}
 	
 	protected void populateEnemies() {

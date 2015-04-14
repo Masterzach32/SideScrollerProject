@@ -21,7 +21,7 @@ public class EndState extends GameState {
 		bg = new Background(Assets.getImageAsset("grassbg"), 1);
 		bg.setVector(-0.25, 0);
 		
-		bgMusic = new AudioPlayer(Assets.getSoundAsset("warriors"));
+		bgMusic = new AudioPlayer(Assets.getAudioAsset("warriors"));
 	}
 
 	@Override

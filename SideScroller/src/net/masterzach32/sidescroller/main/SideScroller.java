@@ -18,8 +18,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	// dimensions
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
-	public static int SCALE = 1;
-	public static final String VERSION = "0.0.2.100";
+	public static int SCALE = 2;
+	public static final String VERSION = "0.0.2.102";
 	
 	// game thread
 	private Thread thread;
@@ -37,8 +37,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static MenuState menuState;
 	public static HelpState helpState;
 	public static OptionsState optionsState;
-	public static Level1State level1;
-	public static Level2State level2;
+	public static Level1State level1_1;
+	public static Level2State level1_2;
 	public static EndState endgame;
 	
 	public static ImageLoader im = new ImageLoader();
@@ -81,8 +81,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		menuState = new MenuState(this);
 		helpState = new HelpState(this);
 		optionsState = new OptionsState(this);
-		level1 = new Level1State(this);
-		level2 = new Level2State(this);
+		level1_1 = new Level1State(this);
+		level1_2 = new Level2State(this);
 		endgame = new EndState(this);
 		GameState.setState(menuState);
 		
