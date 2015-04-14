@@ -91,12 +91,23 @@ public class OptionsState extends MenuState {
 			Game.getFrame().setBounds(0, 0, SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE);
 			LogHelper.logInfo("Scale changed to " + SideScroller.SCALE);
 		}
-		if(currentChoice == 1)
+		if(currentChoice == 1) {
+			if(SideScroller.WIDTH == 640) {
+				SideScroller.WIDTH = 512;
+				SideScroller.HEIGHT = 384;
+			} else {
+				SideScroller.WIDTH = 640;
+				SideScroller.HEIGHT = 360;
+			}
+			Game.getFrame().setBounds(0, 0, SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE);
+			LogHelper.logInfo("Resolution changed to (" + SideScroller.WIDTH + "x" + SideScroller.HEIGHT + ")");
+		}
+		if(currentChoice == 2) {
 			// do somthing
-		if(currentChoice == 2)
+		}
+		if(currentChoice == 3) {
 			// do somthing
-		if(currentChoice == 3) {}
-			// do somthing
+		}
 	}
 
 	public void keyPressed(int k) {
