@@ -18,7 +18,7 @@ public class OptionsState extends MenuState {
 	private Font subtitleFont;
 	
 	public static int currentChoice = 0;
-	public static String[] options = {"Scale:", "Resolution:", "Controls: (WIP)", "FPS: (broken)"};
+	public static String[] options = new String[6]; 
 	
 	public OptionsState(SideScroller game) {
 		super(game);
@@ -51,6 +51,15 @@ public class OptionsState extends MenuState {
 	}
 
 	public void render(Graphics2D g) {
+		options[0] = "Scale: " + "(" + SideScroller.SCALE + "x)"; 
+		options[1] = "Resolution: " + "(" + SideScroller.WIDTH * SideScroller.SCALE + "x" + SideScroller.HEIGHT * SideScroller.SCALE + ")";
+		if(SideScroller.isSoundEnabled) 
+			options[2] = "Sound: (ON)";
+		else 
+			options[2] = "Sound: (OFF)";
+		options[3] = "FPS (broken): (" + SideScroller.FPS + ")";
+		options[4] = "Controls Menu (WIP)";
+		options[5] = "Back";
 		// draw bg
 		bg.render(g);						
 		// draw title
@@ -73,11 +82,7 @@ public class OptionsState extends MenuState {
 				g.setFont(font);
 				g.setColor(Color.RED);
 			}
-			g.drawString(options[i], 215, (360 + i * 30) / 2);
-			g.setFont(selectfont);
-			g.setColor(Color.BLACK);
-			g.drawString("(" + SideScroller.SCALE + "x)", 395, (360 + 0 * 30) / 2);
-			g.drawString("(" + SideScroller.WIDTH * SideScroller.SCALE + "x" + SideScroller.HEIGHT * SideScroller.SCALE + ")", 356, (360 + 1 * 30) / 2);
+			g.drawString(options[i], 258, (360 + i * 30) / 2);
 		}	
 	}
 	
@@ -103,10 +108,20 @@ public class OptionsState extends MenuState {
 			LogHelper.logInfo("Resolution changed to (" + SideScroller.WIDTH + "x" + SideScroller.HEIGHT + ")");
 		}
 		if(currentChoice == 2) {
-			// do somthing
+			if (SideScroller.isSoundEnabled) {
+				SideScroller.isSoundEnabled = false;
+			} else {
+				SideScroller.isSoundEnabled = true;
+			}
 		}
 		if(currentChoice == 3) {
 			// do somthing
+		}
+		if(currentChoice == 4) {
+			// do somthing
+		}
+		if(currentChoice == 5) {
+			GameState.setState(SideScroller.menuState);
 		}
 	}
 

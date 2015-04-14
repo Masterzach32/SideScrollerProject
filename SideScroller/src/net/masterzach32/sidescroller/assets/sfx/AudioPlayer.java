@@ -2,6 +2,8 @@ package net.masterzach32.sidescroller.assets.sfx;
 
 import javax.sound.sampled.*;
 
+import net.masterzach32.sidescroller.main.SideScroller;
+
 public class AudioPlayer {
 	
 	private Clip clip;
@@ -21,17 +23,29 @@ public class AudioPlayer {
 	
 	public void play() {
 		if(clip == null) return;
-		stop();
-		clip.setFramePosition(0);
-		clip.start();
+		if(!SideScroller.isSoundEnabled) {
+			return;
+		} else {
+			stop();
+			clip.setFramePosition(0);
+			clip.start();
+		}
 	}
 	
 	public void stop() {
-		if(clip.isRunning()) clip.stop();
+		if(!SideScroller.isSoundEnabled) {
+			return;
+		} else {
+			if(clip.isRunning()) clip.stop();
+		}
 	}
 	
 	public void close() {
-		stop();
-		clip.close();
+		if(!SideScroller.isSoundEnabled) {
+			return;
+		} else {
+			stop();
+			clip.close();
+		}
 	}
 }

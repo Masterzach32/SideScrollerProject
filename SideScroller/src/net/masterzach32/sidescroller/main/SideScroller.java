@@ -19,7 +19,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.2.103";
+	public static final String VERSION = "0.0.2.104";
 	
 	// game thread
 	private Thread thread;
@@ -28,6 +28,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	private long targetTime = 1000 / FPS;
 	
 	private boolean mouseOnScreen = false;
+	public static boolean isSoundEnabled = true;
 	
 	// image
 	private BufferedImage image;
