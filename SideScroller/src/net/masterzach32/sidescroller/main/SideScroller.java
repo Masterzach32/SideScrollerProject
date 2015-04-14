@@ -19,7 +19,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.2.104";
+	public static final String VERSION = "0.0.2.105";
 	
 	// game thread
 	private Thread thread;
@@ -138,7 +138,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	}
 	
 	private void renderMouse() {
-		Point p = new Point(0, 0); //e.getPoint();
+		Point p = Game.getFrame().getMousePosition();
 		int x = p.x;
 		int y = p.y;
 		g.drawImage(Assets.getImageAsset("mouse"), x, y, null);

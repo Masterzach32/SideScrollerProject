@@ -93,7 +93,7 @@ public class OptionsState extends MenuState {
 			} else {
 				SideScroller.SCALE += 1;
 			}
-			Game.getFrame().setBounds(0, 0, SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE);
+			Game.getFrame().setSize(SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE);
 			LogHelper.logInfo("Scale changed to " + SideScroller.SCALE);
 		}
 		if(currentChoice == 1) {
@@ -104,7 +104,7 @@ public class OptionsState extends MenuState {
 				SideScroller.WIDTH = 640;
 				SideScroller.HEIGHT = 360;
 			}
-			Game.getFrame().setBounds(0, 0, SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE);
+			Game.getFrame().setSize(SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE);
 			LogHelper.logInfo("Resolution changed to (" + SideScroller.WIDTH + "x" + SideScroller.HEIGHT + ")");
 		}
 		if(currentChoice == 2) {
