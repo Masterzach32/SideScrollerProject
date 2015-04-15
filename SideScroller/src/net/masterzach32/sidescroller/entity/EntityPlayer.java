@@ -17,6 +17,9 @@ public class EntityPlayer extends MapObject {
 	// player stuff
 	private float health;
 	private float maxHealth;
+	private float exp;
+	private float maxExp;
+	private int level;
 	private int fire;
 	private int maxFire;
 	private boolean dead;
@@ -66,6 +69,8 @@ public class EntityPlayer extends MapObject {
 		facingRight = true;
 		
 		health = maxHealth = 50;
+		level = 1;
+		maxExp = 100;
 		fire = maxFire = 2500;
 		
 		fireCost = 400;
@@ -120,6 +125,26 @@ public class EntityPlayer extends MapObject {
 		health = h;
 	}
 	
+	public float getExp() {
+		return exp;
+	}
+
+	public void setExp(float exp) {
+		this.exp = exp;
+	}
+
+	public float getMaxExp() {
+		return maxExp;
+	}
+
+	public void setMaxExp(float maxExp) {
+		this.maxExp = maxExp;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
 	public int getFire() { 
 		return fire; 
 	}
@@ -368,6 +393,11 @@ public class EntityPlayer extends MapObject {
 			if(health < maxHealth){
 				health += 0.01;
 			}
+		}
+		
+		if(exp >= maxExp) {
+			level += 1;
+			maxExp += maxExp * 1.1;
 		}
 	}
 	

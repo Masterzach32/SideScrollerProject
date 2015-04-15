@@ -57,7 +57,7 @@ public class OptionsState extends MenuState {
 			options[2] = "Sound: (ON)";
 		else 
 			options[2] = "Sound: (OFF)";
-		options[3] = "FPS: (" + SideScroller.FPS + ")";
+		options[3] = "FPS (broken): (" + SideScroller.FPS + ")";
 		options[4] = "Controls Menu (WIP)";
 		options[5] = "Back";
 		// draw bg
@@ -94,7 +94,6 @@ public class OptionsState extends MenuState {
 				SideScroller.SCALE += 1;
 			}
 			Game.getFrame().setSize(SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE);
-			LogHelper.logInfo("Scale changed to " + SideScroller.SCALE);
 		}
 		if(currentChoice == 1) {
 			if(SideScroller.WIDTH == 640) {
@@ -105,7 +104,6 @@ public class OptionsState extends MenuState {
 				SideScroller.HEIGHT = 360;
 			}
 			Game.getFrame().setSize(SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE);
-			LogHelper.logInfo("Resolution changed to (" + SideScroller.WIDTH + "x" + SideScroller.HEIGHT + ")");
 		}
 		if(currentChoice == 2) {
 			if (SideScroller.isSoundEnabled) {
@@ -116,12 +114,12 @@ public class OptionsState extends MenuState {
 		}
 		if(currentChoice == 3) {
 			SideScroller.FPS += 20;
-			if (SideScroller.FPS >= 140) {
-				SideScroller.FPS = 40;
+			if (SideScroller.FPS >= 300) {
+				SideScroller.FPS = 20;
 			}
 		}
 		if(currentChoice == 4) {
-			// do somthing
+			//GameState.setState(SideScroller.controlState);
 		}
 		if(currentChoice == 5) {
 			GameState.setState(SideScroller.menuState);

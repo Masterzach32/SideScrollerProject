@@ -33,5 +33,6 @@ public class HUD {
 		g.setColor(Color.WHITE);
 		g.drawString((int) (player.getHealth()) + "/" + (int) (player.getMaxHealth()), 30, 30);
 		g.drawString(player.getFire() / 100 + "/" + player.getMaxFire() / 100, 30, 50);
+		g.drawString(player.getLevel() + " - " + (int) player.getExp() + "/" + (int) player.getMaxExp(), 1, 70);
 	}
 }
