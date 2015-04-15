@@ -56,7 +56,6 @@ public class Background {
 		g.drawImage(image, (int)x, (int)y, SideScroller.WIDTH, SideScroller.HEIGHT,  null);
 		
 		if(x < 0) {
-			LogHelper.logInfo(x + "-" + y);
 			g.drawImage(image, (int)x + SideScroller.WIDTH, (int)y, SideScroller.WIDTH, SideScroller.HEIGHT, null);
 		}
 		if(x > 0) {
