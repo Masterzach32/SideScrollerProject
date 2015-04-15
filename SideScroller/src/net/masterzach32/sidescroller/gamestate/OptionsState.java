@@ -67,7 +67,7 @@ public class OptionsState extends MenuState {
 		g.setFont(titleFont);
 		g.drawString("SideScroller RPG", 195, 45);
 		g.setFont(subtitleFont);
-		g.drawString("Options", 280, 75);
+		g.drawString("Options", 282, 75);
 		
 		g.setFont(selectfont);
 		g.setColor(Color.BLACK);
