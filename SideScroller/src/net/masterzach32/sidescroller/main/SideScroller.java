@@ -79,6 +79,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		
 		Assets.init(); 
 		
+		LevelState.loadLevels();
+		
 		menuState = new MenuState(this);
 		helpState = new HelpState(this);
 		optionsState = new OptionsState(this);

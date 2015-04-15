@@ -16,9 +16,7 @@ import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Level1State extends LevelState {
 	
-	private TileMap tileMap;
 	private Background bg;
-	private EntityPlayer player;
 	
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;
@@ -35,22 +33,12 @@ public class Level1State extends LevelState {
 	}
 	
 	public void init() {
-		// load map
-		tileMap = new TileMap(30);
-		tileMap.loadTiles(Assets.getImageAsset("grasstileset"));
-		tileMap.loadMap(Assets.getMapAsset("level1_1"));
-		tileMap.setPosition(0, 0);
-		tileMap.setTween(0.7);
-		
 		bg = new Background(Assets.getImageAsset("grassbg"), 0.1);
 		
-		// load player
-		player = new EntityPlayer(tileMap);
+		explosions = new ArrayList<Explosion>();
 		
 		// load enemies
 		populateEnemies();
-		
-		explosions = new ArrayList<Explosion>();
 		
 		// load assets
 		hud = new HUD(player);
@@ -60,6 +48,13 @@ public class Level1State extends LevelState {
 	
 	protected void load() {
 		player.setPosition(100, 100);
+		
+		// load map
+		tileMap.loadTiles(Assets.getImageAsset("grasstileset"));
+		tileMap.loadMap(Assets.getMapAsset("level1_1"));
+		tileMap.setPosition(0, 0);
+		tileMap.setTween(0.3);
+		
 		bgMusic.play();
 	}
 	
