@@ -57,7 +57,6 @@ public class Level2State extends LevelState {
 		tileMap.loadTiles(Assets.getImageAsset("grasstileset"));
 		tileMap.loadMap(Assets.getMapAsset("level1_2"));
 		tileMap.setPosition(0, 0);
-		tileMap.setTween(0.3);
 		
 		bgMusic.play();
 	}

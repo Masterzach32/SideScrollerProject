@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
+import net.masterzach32.sidescroller.main.Game;
+import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
 import net.masterzach32.sidescroller.util.LogHelper;
 
@@ -217,7 +219,7 @@ public class EntityPlayer extends MapObject {
 		if(health == 0) dead = true;
 		flinching = true;
 		flinchTimer = System.nanoTime();
-		LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
+		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}
 	
 	private void getNextPosition() {
@@ -287,10 +289,16 @@ public class EntityPlayer extends MapObject {
 		if(fire > maxFire) fire = maxFire;
 		if(firing && currentAction != FIREBALL) {
 			if(fire > fireCost) {
-				fire -= fireCost;
-				FireBall fb = new FireBall(tileMap, facingRight);
-				fb.setPosition(x, y);
-				fireBalls.add(fb);
+				if(SideScroller.isMouseOnScreen()) {
+					//fire -= fireCost;
+					Point p = Game.getFrame().getMousePosition();
+					double px = p.x;
+					double py = p.y;
+					LogHelper.logInfo(px + "-" + py);
+					FireBall fb = new FireBall(tileMap, px, py, facingRight);
+					fb.setPosition(x, y);
+					fireBalls.add(fb);
+				}
 			} else {
 				LogHelper.logInfo("Not Enough Fire!");
 			}

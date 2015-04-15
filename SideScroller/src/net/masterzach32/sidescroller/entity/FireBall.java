@@ -13,14 +13,24 @@ public class FireBall extends MapObject {
 	private BufferedImage[] sprites;
 	private BufferedImage[] hitSprites;
 	
-	public FireBall(TileMap tm, boolean right) {
+	private double px, py, sx, sy;
+	private double slope;
+	
+	public FireBall(TileMap tm, double vx, double vy, boolean right) {
 		super(tm);
 		
-		facingRight = right;
-		
 		moveSpeed = 7.5;
-		if(right) dx = moveSpeed;
+		
+		facingRight = right;
+		if(facingRight) dx = moveSpeed;
 		else dx = -moveSpeed;
+		
+		px = vx;
+		py = vy;
+		// calculate the slope
+		sy = py - y;
+		sx = px - x;
+		slope = sy/sx;
 		
 		width = 30;
 		height = 30;
@@ -70,7 +80,16 @@ public class FireBall extends MapObject {
 		return remove; 
 	}
 	
+	private void getNextPosition() {
+		// use point slope formula to find next y value
+		// (y-y1) = a(x-x1)
+		// y = a(x-x1) + y1
+		// x + dx = new x coordinate, px and py are original mouse point.
+		dy = slope*(x+dx-px) + py;
+	}
+	
 	public void tick() {
+		getNextPosition();
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);
 		
