@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.*;
 
 import net.masterzach32.sidescroller.main.SideScroller;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Background {
 	
@@ -55,10 +56,12 @@ public class Background {
 		g.drawImage(image, (int)x, (int)y, SideScroller.WIDTH, SideScroller.HEIGHT,  null);
 		
 		if(x < 0) {
+			LogHelper.logInfo(x + "-" + y);
 			g.drawImage(image, (int)x + SideScroller.WIDTH, (int)y, SideScroller.WIDTH, SideScroller.HEIGHT, null);
 		}
 		if(x > 0) {
 			g.drawImage(image, (int)x - SideScroller.WIDTH, (int)y, SideScroller.WIDTH, SideScroller.HEIGHT, null);
 		}
+		if(x >= 640 || x == -640) x = 0;
 	}
 }

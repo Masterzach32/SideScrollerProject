@@ -57,7 +57,7 @@ public class OptionsState extends MenuState {
 			options[2] = "Sound: (ON)";
 		else 
 			options[2] = "Sound: (OFF)";
-		options[3] = "FPS (broken): (" + SideScroller.FPS + ")";
+		options[3] = "FPS: (" + SideScroller.FPS + ")";
 		options[4] = "Controls Menu (WIP)";
 		options[5] = "Back";
 		// draw bg
@@ -115,7 +115,10 @@ public class OptionsState extends MenuState {
 			}
 		}
 		if(currentChoice == 3) {
-			// do somthing
+			SideScroller.FPS += 20;
+			if (SideScroller.FPS >= 140) {
+				SideScroller.FPS = 40;
+			}
 		}
 		if(currentChoice == 4) {
 			// do somthing
