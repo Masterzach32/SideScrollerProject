@@ -13,7 +13,8 @@ public class FireBall extends MapObject {
 	private BufferedImage[] sprites;
 	private BufferedImage[] hitSprites;
 	
-	private double px, py, sx, sy;
+	/** mouse point: (px,py), sx,sy change in x and change in y, new coordinate of fireball (nx,ny) */
+	private double px, py, sx, sy, nx, ny;
 	private double slope;
 	
 	public FireBall(TileMap tm, double vx, double vy, boolean right) {
@@ -70,6 +71,7 @@ public class FireBall extends MapObject {
 		animation.setFrames(hitSprites);
 		animation.setDelay(70);
 		dx = 0;
+		dy = 0;
 	}
 	
 	/**
@@ -85,7 +87,9 @@ public class FireBall extends MapObject {
 		// (y-y1) = a(x-x1)
 		// y = a(x-x1) + y1
 		// x + dx = new x coordinate, px and py are original mouse point.
-		dy = slope*(x + dx-px) + py;
+		nx = x + dx;
+		ny = slope*(nx-px) + py;
+		dy = ny - y;
 	}
 	
 	public void tick() {
