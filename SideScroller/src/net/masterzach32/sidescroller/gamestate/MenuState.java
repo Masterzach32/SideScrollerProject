@@ -62,6 +62,9 @@ public class MenuState extends GameState {
 		g.setFont(titleFont);
 		g.drawString("SideScroller RPG", 195, 45);
 		g.drawString("", 225, 75);
+		
+		g.setFont(selectfont);
+		g.drawString("FIREBALLS ARE CURRENTLY BROKEN", 192, 150);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {

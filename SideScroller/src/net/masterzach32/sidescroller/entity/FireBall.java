@@ -85,7 +85,7 @@ public class FireBall extends MapObject {
 		// (y-y1) = a(x-x1)
 		// y = a(x-x1) + y1
 		// x + dx = new x coordinate, px and py are original mouse point.
-		dy = slope*(x+dx-px) + py;
+		dy = slope*(x + dx-px) + py;
 	}
 	
 	public void tick() {
