@@ -1,7 +1,6 @@
 package net.masterzach32.sidescroller.gamestate;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -11,7 +10,6 @@ import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class OptionsState extends MenuState {
 

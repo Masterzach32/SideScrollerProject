@@ -5,7 +5,6 @@ import java.awt.image.*;
 import java.io.*;
 
 import net.masterzach32.sidescroller.main.SideScroller;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class TileMap {
 	

@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.image.*;
 
 import net.masterzach32.sidescroller.main.SideScroller;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Background {
 	

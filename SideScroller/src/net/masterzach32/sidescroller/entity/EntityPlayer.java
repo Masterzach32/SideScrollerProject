@@ -294,7 +294,7 @@ public class EntityPlayer extends MapObject {
 					Point p = Game.getFrame().getMousePosition();
 					double px = p.x;
 					double py = p.y;
-					LogHelper.logInfo(px + "-" + py);
+					//LogHelper.logInfo(px + "-" + py);
 					FireBall fb = new FireBall(tileMap, px, py, facingRight);
 					fb.setPosition(x, y);
 					fireBalls.add(fb);

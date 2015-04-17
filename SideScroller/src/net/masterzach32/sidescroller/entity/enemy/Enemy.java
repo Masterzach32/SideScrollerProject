@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.tilemap.TileMap;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Enemy extends MapObject {
 	

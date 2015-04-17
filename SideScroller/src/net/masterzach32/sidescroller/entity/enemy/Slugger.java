@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.*;
 import net.masterzach32.sidescroller.tilemap.TileMap;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Slugger extends Enemy {
 	
