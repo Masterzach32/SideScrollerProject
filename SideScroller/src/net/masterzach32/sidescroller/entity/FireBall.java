@@ -97,7 +97,7 @@ public class FireBall extends MapObject {
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);
 		
-		if(dx == 0 && !hit) {
+		if(dx == 0 || dy == 0 && !hit) {
 			setHit();
 		}
 		

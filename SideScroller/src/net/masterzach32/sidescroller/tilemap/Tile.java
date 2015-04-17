@@ -10,6 +10,7 @@ public class Tile {
 	// tile types
 	public static final int NORMAL = 0;
 	public static final int BLOCKED = 1;
+	public static final int SPECIAL = 2;
 	
 	public Tile(BufferedImage image, int type) {
 		this.image = image;

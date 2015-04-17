@@ -72,11 +72,11 @@ public class TileMap {
 	
 	/**
 	 * Loads the map from a .map file
-	 * @param s
+	 * @param level
 	 */
-	public void loadMap(String s) {
+	public void loadMap(String level) {
 		try {
-			InputStream in = getClass().getResourceAsStream(s);
+			InputStream in = getClass().getResourceAsStream(level);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			
 			numCols = Integer.parseInt(br.readLine());

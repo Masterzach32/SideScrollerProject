@@ -1,6 +1,8 @@
 package net.masterzach32.sidescroller.assets;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import javax.sound.sampled.AudioInputStream;
@@ -50,9 +52,9 @@ public class Assets {
 		sounds.put("fire", SideScroller.am.load("/SFX/fire.mp3"));
 		
 		// Maps
-		maps.put("level1_1", "/maps/level1-1.map");
-		maps.put("level1_2", "/maps/level1-2.map");
-		maps.put("level1_3", "/maps/level1-3.map");
+		maps.put("level1_1", SideScroller.in.load("/maps/level1-1.map"));
+		maps.put("level1_2", SideScroller.in.load("/maps/level1-1.map"));
+		maps.put("level1_3", SideScroller.in.load("/maps/level1-1.map"));
 	}
 	
 	/**
