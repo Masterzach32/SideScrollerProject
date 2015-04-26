@@ -89,7 +89,7 @@ public class MenuState extends GameState {
 		if(currentChoice == 3)
 			GameState.setState(SideScroller.optionsState); // Options
 		if(currentChoice == 4)
-			System.exit(0);
+			SideScroller.stop();
 	}
 	
 	public void keyPressed(int k) {

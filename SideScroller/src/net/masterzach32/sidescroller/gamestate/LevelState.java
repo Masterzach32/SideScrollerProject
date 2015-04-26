@@ -16,6 +16,7 @@ public abstract class LevelState extends GameState {
 	public static void loadLevels() {
 		tileMap = new TileMap(30);
 		player = new EntityPlayer(tileMap);
+		player.loadSave();
 	}
 	
 	/**
@@ -28,4 +29,7 @@ public abstract class LevelState extends GameState {
 	 */
 	protected abstract void populateEnemies();
 	
+	public static EntityPlayer getPlayer() {
+		return player;
+	}
 }

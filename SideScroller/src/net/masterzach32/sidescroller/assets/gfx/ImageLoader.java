@@ -6,6 +6,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
+import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.util.LogHelper;
 
 public class ImageLoader {
@@ -23,15 +24,17 @@ public class ImageLoader {
 			URL imageLocation = getClass().getResource(path);
 			if(imageLocation != null) {
 				bi = ImageIO.read(imageLocation);
-				LogHelper.logInfo(s + "Loaded Asset: " + path);
+				LogHelper.logInfo(s + "Loaded Image: " + path);
 				return bi;
 			} else {
-				LogHelper.logWarning(s + "Missing image: " + path);
+				LogHelper.logWarning(s + "Missing Image: " + path);
+				Assets.grabMissingAsset(path, "Image");
 				return null;
 			}
 		} catch (IOException e) {
-			LogHelper.logError(s + "Missing image: " + path);
+			LogHelper.logError(s + "Missing Image: " + path);
 			e.printStackTrace();
+			Assets.grabMissingAsset(path, "Image");
 			return null;
 		}
 	}

@@ -9,6 +9,7 @@ import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
 import net.masterzach32.sidescroller.util.LogHelper;
+import net.masterzach32.sidescroller.util.Save;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -436,6 +437,31 @@ public class EntityPlayer extends MapObject {
 			explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
 			explosions.get(i).render(g);
 		}
-					
+	}
+	
+	public void writeSaveFile() {
+		String path = "/Assets/saves/player.txt";
+		String[] save = new String[16];
+		save[0] = "" + health;
+		save[1] = "" + maxHealth;
+		save[2] = "" + exp;
+		save[3] = "" + maxExp;
+		save[4] = "" + level;
+		save[5] = "" + fire;
+		save[6] = "" + maxFire;
+		Save.writeToSave(path, save);
+	}
+	
+	public void loadSave() {
+		String path = "/Assets/saves/player.txt";
+		String[] save = Save.readFromSave(path);
+		if(save == null) return;
+		health = Integer.parseInt(save[0]);
+		maxHealth = Integer.parseInt(save[1]);
+		exp = Integer.parseInt(save[2]);
+		maxExp = Integer.parseInt(save[3]);
+		level = Integer.parseInt(save[4]);
+		fire = Integer.parseInt(save[5]);
+		maxFire = Integer.parseInt(save[6]);
 	}
 }

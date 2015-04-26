@@ -11,10 +11,11 @@ public class MapLoader {
 	public String load(String path) {
 		URL imageLocation = getClass().getResource(path);
 		if(imageLocation != null) {
-			LogHelper.logInfo(s + "Loaded Asset: " + path);
+			LogHelper.logInfo(s + "Loaded Map: " + path);
 			return path;
 		} else {
-			LogHelper.logWarning(s + "Missing asset: " + path);
+			LogHelper.logWarning(s + "Missing Asset: " + path);
+			Assets.grabMissingAsset(path, "Image");
 			return null;
 		}
 	}

@@ -20,7 +20,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.2.109";
+	public static final String VERSION = "0.0.2.110";
 	
 	// game thread
 	private Thread thread;
@@ -63,12 +63,17 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 			thread.start();
 		}
 	}
+	
+	public static void stop() {
+		LevelState.getPlayer().writeSaveFile();
+		System.exit(0);
+	}
 
 	/**
 	 * Called once before the game runs, Initializes objects and assets
 	 */
 	private void init() {
-		LogHelper.logInfo("Launching SideScroller Game - Version " + VERSION);
+		LogHelper.logInfo("Launching SideScroller Game - Build " + VERSION);
 		LogHelper.logInfo("Date: " + Utilities.getTime());
 		LogHelper.logInfo("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version"));
 		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch"));

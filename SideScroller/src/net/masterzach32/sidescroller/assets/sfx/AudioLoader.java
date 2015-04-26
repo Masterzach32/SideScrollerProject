@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.util.LogHelper;
 
 public class AudioLoader {
@@ -24,10 +25,11 @@ public class AudioLoader {
 			URL imageLocation = getClass().getResource(path);
 			if(imageLocation != null) {
 				ais = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(path));
-				LogHelper.logInfo(s + "Loaded Asset: " + path);
+				LogHelper.logInfo(s + "Loaded Audio File: " + path);
 				return ais;
 			} else {
 				LogHelper.logWarning(s + "Missing Audio File: " + path);
+				Assets.grabMissingAsset(path, "Audio");
 				return null;
 			}
 		} catch (UnsupportedAudioFileException e) {
@@ -37,6 +39,7 @@ public class AudioLoader {
 		} catch (IOException e) {
 			LogHelper.logError(s + "Missing Audio File: " + path);
 			e.printStackTrace();
+			Assets.grabMissingAsset(path, "Audio");
 			return null;
 		}
 	}
