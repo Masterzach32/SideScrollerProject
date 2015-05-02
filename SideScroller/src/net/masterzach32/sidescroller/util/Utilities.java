@@ -114,8 +114,8 @@ public class Utilities {
 			in.close();
 			LogHelper.logInfo("Sucesfully downloaded " + url1);
 		} catch(Exception e) { 
-			JOptionPane.showConfirmDialog((Component) null, e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION); 
-			LogHelper.logInfo("Error occured while downloading " + url1);
+			JOptionPane.showConfirmDialog((Component) null, "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION); 
+			LogHelper.logInfo("An error occured while downloading: " + url1);
 		}
 		frame.setVisible(false);
 		frame.dispose();
