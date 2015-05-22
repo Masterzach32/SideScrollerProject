@@ -23,8 +23,6 @@ public class Level2State extends LevelState {
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;
 	
-	private HUD hud;
-	
 	private int levelcomplete = 3046;
 	
 	private AudioPlayer bgMusic;
@@ -41,8 +39,6 @@ public class Level2State extends LevelState {
 		
 		// load enemies
 		populateEnemies();
-		
-		// load assetsplayer);
 		
 		bgMusic = new AudioPlayer(Assets.getAudioAsset("level1_2"));
 	}

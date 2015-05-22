@@ -1,5 +1,6 @@
 package net.masterzach32.sidescroller.gamestate;
 
+import net.masterzach32.sidescroller.assets.gfx.HUD;
 import net.masterzach32.sidescroller.entity.EntityPlayer;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.TileMap;
@@ -8,6 +9,8 @@ public abstract class LevelState extends GameState {
 	
 	protected static EntityPlayer player;
 	protected static TileMap tileMap;
+	
+	protected static HUD hud;
 
 	public LevelState(SideScroller game) {
 		super(game);
@@ -17,6 +20,9 @@ public abstract class LevelState extends GameState {
 		tileMap = new TileMap(30);
 		player = new EntityPlayer(tileMap);
 		player.loadSave();
+		
+		// load assets
+		hud = new HUD(player);
 	}
 	
 	/**

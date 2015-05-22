@@ -20,7 +20,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.3.112";
+	public static final String VERSION = "0.0.3.113";
 	
 	// game thread
 	private Thread thread;
@@ -36,6 +36,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	private Graphics2D g;
 	
 	// states
+	public static LoadingState load;
 	public static MenuState menuState;
 	public static HelpState helpState;
 	public static OptionsState optionsState;
@@ -86,6 +87,10 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		
 		Assets.init(); 
 		
+		load = new LoadingState(this);
+		GameState.setState(load);
+		render();
+		
 		LevelState.loadLevels();
 		
 		menuState = new MenuState(this);
@@ -122,12 +127,12 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		
 			wait = targetTime - elapsed / 1000000;
 			if(wait < 0) wait = 5;
-				try {
-					Thread.sleep(wait);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
+			try {
+				Thread.sleep(wait);
+			} catch(Exception e) {
+				e.printStackTrace();
 			}
+		}
 	}
 	
 	private void tick() {

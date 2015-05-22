@@ -75,8 +75,8 @@ public class Utilities {
     	return null;
 	}
 	
-	public static void download(String url1, String location) {
-		String site = url1; 
+	public static void download(String url, String location) {
+		String site = url; 
 		String filename = location; 
 		JFrame frame = new JFrame("Updating..."); 
 		JProgressBar current = new JProgressBar(0, 100); 
@@ -94,8 +94,8 @@ public class Utilities {
 		frame.setLocation(dim2.width/2-frame.getSize().width/2, dim2.height/2-frame.getSize().height/2);
 		frame.setVisible(true); 
 		try { 
-			URL url = new URL(site); 
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
+			URL path = new URL(site); 
+			HttpURLConnection connection = (HttpURLConnection) path.openConnection(); 
 			int filesize = connection.getContentLength(); 
 			float totalDataRead = 0; 
 			BufferedInputStream in = new BufferedInputStream(connection.getInputStream()); 
@@ -112,10 +112,10 @@ public class Utilities {
 			}	
 			bout.close(); 
 			in.close();
-			LogHelper.logInfo("Sucesfully downloaded " + url1);
+			LogHelper.logInfo("Sucesfully downloaded " + url);
 		} catch(Exception e) { 
-			JOptionPane.showConfirmDialog((Component) null, "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION); 
-			LogHelper.logInfo("An error occured while downloading: " + url1);
+			//JOptionPane.showConfirmDialog((Component) null, "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION); 
+			LogHelper.logInfo("An error occured while downloading: " + url);
 		}
 		frame.setVisible(false);
 		frame.dispose();
