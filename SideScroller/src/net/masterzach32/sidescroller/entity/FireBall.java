@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.gamestate.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class FireBall extends MapObject {
@@ -19,6 +20,9 @@ public class FireBall extends MapObject {
 	
 	public FireBall(TileMap tm, double vx, double vy, boolean right) {
 		super(tm);
+		
+		x = LevelState.getPlayer().getx();
+		y = LevelState.getPlayer().gety();
 		
 		moveSpeed = 7.5;
 		

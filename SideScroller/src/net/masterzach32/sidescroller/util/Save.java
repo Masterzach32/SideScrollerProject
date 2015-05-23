@@ -39,7 +39,7 @@ public class Save {
 			contents = lines.toArray(new String[lines.size()]);
 			return contents;
 		} catch (IOException e) {
-			LogHelper.logInfo("IO Exception while reading save file: " + save);
+			LogHelper.logError("IO Exception while reading save file: " + save);
 			e.printStackTrace();
 			return null;
 		}

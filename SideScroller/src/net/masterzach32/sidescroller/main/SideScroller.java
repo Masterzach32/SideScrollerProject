@@ -7,9 +7,9 @@ import java.awt.event.*;
 import javax.swing.JPanel;
 
 import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.assets.AudioLoader;
+import net.masterzach32.sidescroller.assets.ImageLoader;
 import net.masterzach32.sidescroller.assets.MapLoader;
-import net.masterzach32.sidescroller.assets.gfx.ImageLoader;
-import net.masterzach32.sidescroller.assets.sfx.AudioLoader;
 import net.masterzach32.sidescroller.gamestate.*;
 import net.masterzach32.sidescroller.util.*;
 
@@ -24,6 +24,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	
 	// game thread
 	private Thread thread;
+	private static SideScroller game;
 	private boolean running;
 	public static int FPS = 60;
 	private long targetTime = 1000 / FPS;
@@ -74,34 +75,41 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	 * Called once before the game runs, Initializes objects and assets
 	 */
 	private void init() {
+		game = this;
 		LogHelper.logInfo("Launching SideScroller Game - Build " + VERSION);
-		LogHelper.logInfo("Date: " + Utilities.getTime());
+		//LogHelper.logInfo("Date: " + Utilities.getTime());
 		LogHelper.logInfo("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version"));
 		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch"));
 		LogHelper.logInfo("Java Version: " + System.getProperty("java.version"));
 		
+		LogHelper.logInfo("Loading Java Graphics");
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
 		
 		running = true;
 		
+		LogHelper.logInfo("Loading Assets");
 		Assets.init(); 
 		
-		load = new LoadingState(this);
+		LogHelper.logInfo("Creating Loading Screen");
+		load = new LoadingState(game);
 		GameState.setState(load);
 		render();
 		
+		LogHelper.logInfo("Creating Player");
 		LevelState.loadLevels();
 		
-		menuState = new MenuState(this);
-		helpState = new HelpState(this);
-		optionsState = new OptionsState(this);
-		level1_1 = new Level1State(this);
-		level1_2 = new Level2State(this);
-		endgame = new EndState(this);
+		LogHelper.logInfo("Loading Menus");
+		menuState = new MenuState(game);
+		helpState = new HelpState(game);
+		optionsState = new OptionsState(game);
+		LogHelper.logInfo("Loading Levels");
+		level1_1 = new Level1State(game);
+		level1_2 = new Level2State(game);
+		endgame = new EndState(game);
 		GameState.setState(menuState);
 		
-		LogHelper.logInfo("Loading Complete!");
+		LogHelper.logInfo("Loading Complete");
 	}
 	
 	/**
@@ -161,6 +169,14 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	
 	public static boolean isMouseOnScreen() {
 		return mouseOnScreen;
+	}
+	
+	public static SideScroller getGame() {
+		return game;
+	}
+	
+	public Thread getThread() {
+		return thread;
 	}
 	
 	public void keyPressed(KeyEvent e) {

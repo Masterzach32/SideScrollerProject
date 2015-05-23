@@ -1,4 +1,4 @@
-package net.masterzach32.sidescroller.assets.gfx;
+package net.masterzach32.sidescroller.assets;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -6,7 +6,6 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.util.LogHelper;
 
 public class ImageLoader {
@@ -27,12 +26,12 @@ public class ImageLoader {
 				LogHelper.logInfo(s + "Loaded Image: " + path);
 				return bi;
 			} else {
-				LogHelper.logWarning(s + "Missing Image: " + path);
+				LogHelper.logWarning(s + "Missing Image: " + path + ". Will attempt to download.");
 				Assets.grabMissingAsset(path, "Image");
 				return null;
 			}
 		} catch (IOException e) {
-			LogHelper.logError(s + "Missing Image: " + path);
+			LogHelper.logError(s + "Missing Image: " + path + ". Will attempt to download.");
 			e.printStackTrace();
 			Assets.grabMissingAsset(path, "Image");
 			return null;

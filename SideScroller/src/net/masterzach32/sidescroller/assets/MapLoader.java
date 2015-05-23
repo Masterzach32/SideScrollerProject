@@ -14,7 +14,7 @@ public class MapLoader {
 			LogHelper.logInfo(s + "Loaded Map: " + path);
 			return path;
 		} else {
-			LogHelper.logWarning(s + "Missing Asset: " + path);
+			LogHelper.logWarning(s + "Missing Asset: " + path + ". Will attempt to download.");
 			Assets.grabMissingAsset(path, "Image");
 			return null;
 		}

@@ -1,6 +1,5 @@
 package net.masterzach32.sidescroller.util;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -19,7 +18,6 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 public class Utilities {
@@ -115,7 +113,7 @@ public class Utilities {
 			LogHelper.logInfo("Sucesfully downloaded " + url);
 		} catch(Exception e) { 
 			//JOptionPane.showConfirmDialog((Component) null, "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION); 
-			LogHelper.logInfo("An error occured while downloading: " + url);
+			LogHelper.logError("An error occured while downloading: " + url);
 		}
 		frame.setVisible(false);
 		frame.dispose();

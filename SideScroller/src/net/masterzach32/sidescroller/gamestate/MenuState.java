@@ -65,6 +65,10 @@ public class MenuState extends GameState {
 		
 		g.setFont(selectfont);
 		g.drawString("FIREBALLS ARE CURRENTLY BROKEN", 192, 150);
+		
+		// draw news
+		//g.drawString("Updates:", 450, 150);
+		//g.drawString("Fireballs are currently being reworked", 1, 1);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {
