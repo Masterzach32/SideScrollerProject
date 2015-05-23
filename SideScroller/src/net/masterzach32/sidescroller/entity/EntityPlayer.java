@@ -189,7 +189,7 @@ public class EntityPlayer extends MapObject {
 					}
 				} else {
 					if(e.getx() < x && e.getx() > x - scratchRange && e.gety() > y - height / 2 && e.gety() < y + height / 2) {
-						e.hit(scratchDamage / 2, "Scratch", this);
+						e.hit(scratchDamage, "Scratch", this);
 					}
 				}
 			}
@@ -197,7 +197,7 @@ public class EntityPlayer extends MapObject {
 			for(int j = 0; j < fireBalls.size(); j++) {
 				if(fireBalls.get(j).intersects(e)) {
 					if(e instanceof Slugger)
-						e.hit(fireBallDamage * 2, "FireBall", this);
+						e.hit((int) (fireBallDamage * 1.5), "FireBall", this);
 					else
 						e.hit(fireBallDamage, "FireBall", this);
 					fireBalls.get(j).setHit();

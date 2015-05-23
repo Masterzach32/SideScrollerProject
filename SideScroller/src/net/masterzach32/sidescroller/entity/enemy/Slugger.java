@@ -29,7 +29,7 @@ public class Slugger extends Enemy {
 		health = maxHealth = 24;
 		damage = 6;
 		
-		armor = 65;
+		armor = 70;
 		damageMultiplier = (double) (100) / (100 + armor);
 		
 		// load sprites
