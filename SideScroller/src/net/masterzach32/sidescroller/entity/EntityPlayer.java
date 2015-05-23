@@ -23,7 +23,9 @@ public class EntityPlayer extends MapObject {
 	private float maxHealth;
 	private float exp;
 	private float maxExp;
+	private int damage;
 	private int level;
+	private double levelMultiplier = 0.1;
 	private int fire;
 	private int maxFire;
 	private boolean dead;
@@ -74,15 +76,18 @@ public class EntityPlayer extends MapObject {
 		
 		health = maxHealth = 50;
 		level = 1;
+		levelMultiplier = 0.1;
 		maxExp = 100;
 		fire = maxFire = 2500;
 		
+		damage = 10;
+		
 		fireCost = 400;
-		fireBallDamage = 8;
+		fireBallDamage = (int)(damage * 0.8);
 		fireBalls = new ArrayList<FireBall>();
 		explosions = new ArrayList<Explosion>();
 		
-		scratchDamage = 15;
+		scratchDamage = (int)(damage * 1.5);
 		scratchRange = 35;
 		
 		// load sprites
@@ -409,8 +414,7 @@ public class EntityPlayer extends MapObject {
 		}
 		
 		if(exp >= maxExp) {
-			level += 1;
-			maxExp += maxExp * 1.1;
+			levelUp();
 		}
 	}
 	
@@ -441,6 +445,14 @@ public class EntityPlayer extends MapObject {
 			explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
 			explosions.get(i).render(g);
 		}
+	}
+	
+	private void levelUp() {
+		level += 1;
+		maxExp += maxExp*1.1;
+		damage = (int)(damage*1.1);
+		scratchDamage = (int)(damage*1.5);
+		fireBallDamage = (int)(damage*0.8);
 	}
 	
 	public void writeSaveFile() {
