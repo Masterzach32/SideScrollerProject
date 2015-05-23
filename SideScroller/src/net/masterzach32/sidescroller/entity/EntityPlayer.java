@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
+import net.masterzach32.sidescroller.entity.enemy.Slugger;
 import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
@@ -81,7 +82,7 @@ public class EntityPlayer extends MapObject {
 		fireBalls = new ArrayList<FireBall>();
 		explosions = new ArrayList<Explosion>();
 		
-		scratchDamage = 12;
+		scratchDamage = 15;
 		scratchRange = 35;
 		
 		// load sprites
@@ -188,14 +189,17 @@ public class EntityPlayer extends MapObject {
 					}
 				} else {
 					if(e.getx() < x && e.getx() > x - scratchRange && e.gety() > y - height / 2 && e.gety() < y + height / 2) {
-						e.hit(scratchDamage, "Scratch", this);
+						e.hit(scratchDamage / 2, "Scratch", this);
 					}
 				}
 			}
 			// fireballs
 			for(int j = 0; j < fireBalls.size(); j++) {
 				if(fireBalls.get(j).intersects(e)) {
-					e.hit(fireBallDamage, "FireBall", this);
+					if(e instanceof Slugger)
+						e.hit(fireBallDamage * 2, "FireBall", this);
+					else
+						e.hit(fireBallDamage, "FireBall", this);
 					fireBalls.get(j).setHit();
 					break;
 				}

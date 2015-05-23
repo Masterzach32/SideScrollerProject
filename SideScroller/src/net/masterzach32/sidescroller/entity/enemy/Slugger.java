@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.*;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Slugger extends Enemy {
 	
@@ -27,6 +28,9 @@ public class Slugger extends Enemy {
 		
 		health = maxHealth = 24;
 		damage = 6;
+		
+		armor = 65;
+		damageMultiplier = (double) (100) / (100 + armor);
 		
 		// load sprites
 		try {
