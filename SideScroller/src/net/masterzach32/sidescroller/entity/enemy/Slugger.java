@@ -12,8 +12,10 @@ import net.masterzach32.sidescroller.util.LogHelper;
 public class Slugger extends Enemy {
 	
 	private BufferedImage[] sprites;
+	
+	private int exp;
 
-	public Slugger(TileMap tm) {
+	public Slugger(TileMap tm, int level) {
 		super(tm);
 		
 		moveSpeed = 0.3;
@@ -26,10 +28,12 @@ public class Slugger extends Enemy {
 		cwidth = 20;
 		cheight = 20;
 		
-		health = maxHealth = 24;
-		damage = 6;
+		health = maxHealth = (18) + (6*level);
+		damage = (3) + (3*level);
 		
-		armor = 70;
+		exp = (15) + (5*level);
+		
+		armor = 60 + (5*level);
 		damageMultiplier = (double) (100) / (100 + armor);
 		
 		// load sprites
@@ -123,5 +127,9 @@ public class Slugger extends Enemy {
 			explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
 			explosions.get(i).render(g);
 		}
+	}
+	
+	public int getXpGain() {
+		return exp;
 	}
 }

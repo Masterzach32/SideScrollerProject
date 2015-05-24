@@ -62,11 +62,10 @@ public class Level1State extends LevelState {
 	
 	protected void populateEnemies() {
 		enemies = new ArrayList<Enemy>();
-		
 		Slugger s;
 		Point[] points = new Point[] {new Point(200, 100), new Point(860, 300), new Point(1525, 300), new Point(1680, 300), new Point(1800, 300)};
 		for(int i = 0; i < points.length; i++) {
-			s = new Slugger(tileMap);
+			s = new Slugger(tileMap, 1);
 			s.setPosition(points[i].x, points[i].y);
 			enemies.add(s);
 		}
