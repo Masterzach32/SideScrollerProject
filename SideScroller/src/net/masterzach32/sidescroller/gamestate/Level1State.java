@@ -86,8 +86,8 @@ public class Level1State extends LevelState {
 			Enemy e = enemies.get(i);
 			e.tick();
 			if(e.isDead()) {
+				player.setExp(player.getExp() + e.getXpGain());
 				enemies.remove(i);
-				player.setExp(player.getExp() + 20);
 				i--;
 				explosions.add(new Explosion(e.getx(), e.gety()));
 			}

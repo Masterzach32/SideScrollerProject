@@ -449,7 +449,7 @@ public class EntityPlayer extends MapObject {
 	
 	private void levelUp() {
 		level += 1;
-		maxExp += maxExp*1.1;
+		maxExp += maxExp*1.125;
 		damage += 2;
 		scratchDamage = (int)(damage*1.5);
 		fireBallDamage = (int)(damage*0.8);

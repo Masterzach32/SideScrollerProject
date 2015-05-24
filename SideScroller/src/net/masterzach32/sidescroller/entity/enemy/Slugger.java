@@ -12,8 +12,6 @@ import net.masterzach32.sidescroller.util.LogHelper;
 public class Slugger extends Enemy {
 	
 	private BufferedImage[] sprites;
-	
-	private int exp;
 
 	public Slugger(TileMap tm, int level) {
 		super(tm);

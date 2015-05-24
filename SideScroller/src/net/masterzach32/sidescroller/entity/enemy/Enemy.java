@@ -14,6 +14,7 @@ public class Enemy extends MapObject {
 	protected int damage;
 	protected int armor; 
 	protected double damageMultiplier;
+	protected int exp;
 	
 	protected boolean flinching;
 	protected long flinchTimer;
@@ -48,5 +49,9 @@ public class Enemy extends MapObject {
 	
 	protected ArrayList<Explosion> getExplosions() {
 		return explosions;
+	}
+	
+	public int getXpGain() {
+		return exp;
 	}
 }
