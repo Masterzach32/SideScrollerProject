@@ -25,7 +25,7 @@ public class EntityPlayer extends MapObject {
 	private float maxExp;
 	private int damage;
 	private int level;
-	private double levelMultiplier = 0.1;
+	//private double levelMultiplier = 0.1;
 	private int fire;
 	private int maxFire;
 	private boolean dead;
@@ -76,7 +76,6 @@ public class EntityPlayer extends MapObject {
 		
 		health = maxHealth = 50;
 		level = 1;
-		levelMultiplier = 0.1;
 		maxExp = 100;
 		fire = maxFire = 2500;
 		
@@ -450,7 +449,7 @@ public class EntityPlayer extends MapObject {
 	private void levelUp() {
 		level += 1;
 		maxExp += maxExp*1.1;
-		damage = (int)(damage*1.1);
+		damage = (int)(damage*1.25);
 		scratchDamage = (int)(damage*1.5);
 		fireBallDamage = (int)(damage*0.8);
 	}
