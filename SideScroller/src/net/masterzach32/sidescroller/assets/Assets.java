@@ -27,6 +27,7 @@ public class Assets {
 		images.put("fireball", SideScroller.il.load("/sprites/player/fireball.gif"));
 		images.put("orb", SideScroller.il.load("/sprites/player/orb.png"));
 		images.put("player", SideScroller.il.load("/sprites/player/playersprites.gif"));
+		images.put("player_blue", SideScroller.il.load("/sprites/player/player.png"));
 		images.put("slugger", SideScroller.il.load("/sprites/enemies/slugger.gif"));
 		
 		images.put("mouse", SideScroller.il.load("/hud/mouse.png"));

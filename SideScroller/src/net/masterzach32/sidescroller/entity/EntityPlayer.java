@@ -84,7 +84,7 @@ public class EntityPlayer extends MapObject {
 		
 		fireCost = 400;
 		fireBallDamage = (int)(damage * 0.8);
-		orbDamage = (int)(damage*0.6);
+		orbDamage = (int)(damage*0.5);
 		explosions = new ArrayList<Explosion>();
 		orbs = new ArrayList<Orb>();
 		
@@ -93,7 +93,7 @@ public class EntityPlayer extends MapObject {
 		
 		// load sprites
 		try {
-			BufferedImage spritesheet = Assets.getImageAsset("player");
+			BufferedImage spritesheet = Assets.getImageAsset("player_blue");
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			for(int i = 0; i < 7; i++) {
@@ -458,7 +458,7 @@ public class EntityPlayer extends MapObject {
 		damage += 4;
 		scratchDamage = (int)(damage*2);
 		fireBallDamage = (int)(damage*0.8);
-		orbDamage = (int)(damage*0.6);
+		orbDamage = (int)(damage*0.5);
 		maxHealth += 8;
 		health += 8;
 		maxFire += 500;

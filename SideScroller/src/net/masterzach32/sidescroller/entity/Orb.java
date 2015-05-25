@@ -10,7 +10,7 @@ public class Orb extends MapObject {
 	
 	private boolean hit;
 	private BufferedImage[] sprites;
-	private double range, range2, r0, r1, r2;
+	private double range, range2, r0, r1, r2, i;
 	private int stage;
 	
 	public Orb(TileMap tm, boolean right) {
