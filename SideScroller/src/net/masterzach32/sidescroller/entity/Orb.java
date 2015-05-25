@@ -19,13 +19,12 @@ public class Orb extends MapObject {
 		x = LevelState.getPlayer().getx();
 		y = LevelState.getPlayer().gety();
 		
-		int speed = 8;
 		range = 125;
 		range2 = 50;
 		stage = 1;
 		
 		facingRight = right;
-		moveSpeed = speed;
+		moveSpeed = 7.5;
 		
 		width = 30;
 		height = 30;

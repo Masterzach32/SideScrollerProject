@@ -6,7 +6,6 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
 import net.masterzach32.sidescroller.entity.enemy.Slugger;
-import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
 import net.masterzach32.sidescroller.util.LogHelper;
@@ -82,7 +81,7 @@ public class EntityPlayer extends MapObject {
 		maxExp = 100;
 		fire = maxFire = 2500;
 		
-		damage = 12;
+		damage = 10;
 		
 		fireCost = 400;
 		fireBallDamage = (int)(damage * 0.8);
@@ -312,7 +311,7 @@ public class EntityPlayer extends MapObject {
 		}
 		
 		// fireball attack
-		fire += (1 * level / 2) + 1;
+		fire += (1 * level / 4) + 1;
 		if(fire > maxFire) fire = maxFire;
 		if(firing && currentAction != FIREBALL) {
 			if(fire > fireCost) {
@@ -323,7 +322,6 @@ public class EntityPlayer extends MapObject {
 						orb = new Orb(tileMap, true);
 					if(!facingRight)
 						orb = new Orb(tileMap, false);
-					LogHelper.logInfo("hi");
 					if(orb != null) {
 						orb.setPosition(x, y);
 						orbs.add(orb);
@@ -484,7 +482,7 @@ public class EntityPlayer extends MapObject {
 	private void levelUp() {
 		level += 1;
 		maxExp += maxExp*levelMultiplier;
-		damage += 3;
+		damage += 4;
 		scratchDamage = (int)(damage*2);
 		fireBallDamage = (int)(damage*0.8);
 		orbDamage = (int)(damage*0.6);

@@ -25,12 +25,12 @@ public class Slugger extends Enemy {
 		cwidth = 20;
 		cheight = 20;
 		
-		health = maxHealth = (18) + (4*level);
+		health = maxHealth = (12) + (5*level);
 		damage = (3) + (3*level);
 		
-		exp = (30) + (5*level);
+		exp = (100) + (20*level);
 		
-		armor = 60 + (6*level);
+		armor = 60 + (5*level);
 		damageMultiplier = (double) (100) / (100 + armor);
 		
 		// load sprites
