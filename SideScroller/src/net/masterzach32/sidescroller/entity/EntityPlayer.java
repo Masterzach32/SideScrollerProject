@@ -78,20 +78,20 @@ public class EntityPlayer extends MapObject {
 		
 		health = maxHealth = 20;
 		level = 1;
-		levelMultiplier = (double) (1.2);
+		levelMultiplier = (double) (1.135);
 		maxExp = 100;
 		fire = maxFire = 2500;
 		
-		damage = 10;
+		damage = 12;
 		
 		fireCost = 400;
 		fireBallDamage = (int)(damage * 0.8);
-		orbDamage = (int)(damage*0.5);
+		orbDamage = (int)(damage*0.6);
 		fireBalls = new ArrayList<FireBall>();
 		explosions = new ArrayList<Explosion>();
 		orbs = new ArrayList<Orb>();
 		
-		scratchDamage = (int)(damage * 1.5);
+		scratchDamage = (int)(damage * 2);
 		scratchRange = 35;
 		
 		// load sprites
@@ -312,17 +312,13 @@ public class EntityPlayer extends MapObject {
 		}
 		
 		// fireball attack
-		fire += 1;
+		fire += (1 * level / 2) + 1;
 		if(fire > maxFire) fire = maxFire;
 		if(firing && currentAction != FIREBALL) {
 			if(fire > fireCost) {
 				if(SideScroller.isMouseOnScreen()) {
 					fire -= fireCost;
-					Point p = Game.getFrame().getMousePosition();
-					double px = p.x;
-					double py = p.y;
-					//LogHelper.logInfo(px + "-" + py);
-					Orb fb = new Orb(tileMap, px, py, facingRight);
+					Orb fb = new Orb(tileMap, facingRight);
 					fb.setPosition(x, y);
 					orbs.add(fb);
 				}
@@ -480,11 +476,11 @@ public class EntityPlayer extends MapObject {
 	
 	private void levelUp() {
 		level += 1;
-		maxExp += maxExp*1.125;
-		damage += 2;
-		scratchDamage = (int)(damage*1.5);
+		maxExp += maxExp*levelMultiplier;
+		damage += 3;
+		scratchDamage = (int)(damage*2);
 		fireBallDamage = (int)(damage*0.8);
-		orbDamage = (int)(damage*0.5);
+		orbDamage = (int)(damage*0.6);
 		maxHealth += 8;
 		health += 8;
 		maxFire += 500;

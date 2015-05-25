@@ -9,21 +9,19 @@ import net.masterzach32.sidescroller.tilemap.TileMap;
 public class Orb extends MapObject {
 	
 	private boolean hit;
-	private boolean remove;
 	private BufferedImage[] sprites;
-	private BufferedImage[] hitSprites;
 	private double range, range2, r0, r1, r2;
 	private int stage;
 	
-	public Orb(TileMap tm, double vx, double vy, boolean right) {
+	public Orb(TileMap tm, boolean right) {
 		super(tm);
 		
 		x = LevelState.getPlayer().getx();
 		y = LevelState.getPlayer().gety();
 		
-		int speed = 6;
-		range = 120;
-		range2 = 55;
+		int speed = 8;
+		range = 125;
+		range2 = 50;
 		stage = 1;
 		
 		facingRight = right;
@@ -72,8 +70,8 @@ public class Orb extends MapObject {
 			}
 		}
 		if(stage == 2) {
-			dx = (moveSpeed/6);
-			r1 += (moveSpeed/6);
+			dx = (moveSpeed/15);
+			r1 += (moveSpeed/15);
 			if(r1 >= range2) {
 				stage = 3;
 				r1 = 0;
