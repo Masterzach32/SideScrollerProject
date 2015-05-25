@@ -37,7 +37,6 @@ public class EntityPlayer extends MapObject {
 	private int fireBallDamage;
 	private int orbDamage;
 	private ArrayList<Explosion> explosions;
-	private ArrayList<FireBall> fireBalls;
 	private ArrayList<Orb> orbs;
 	
 	// scratch
@@ -86,7 +85,6 @@ public class EntityPlayer extends MapObject {
 		fireCost = 400;
 		fireBallDamage = (int)(damage * 0.8);
 		orbDamage = (int)(damage*0.6);
-		fireBalls = new ArrayList<FireBall>();
 		explosions = new ArrayList<Explosion>();
 		orbs = new ArrayList<Orb>();
 		
@@ -201,19 +199,8 @@ public class EntityPlayer extends MapObject {
 					}
 				}
 			}
-			// fireballs
-			for(int j = 0; j < fireBalls.size(); j++) {
-				if(fireBalls.get(j).intersects(e)) {
-					if(e instanceof Slugger)
-						e.hit((int) (fireBallDamage * 1.5), "FireBall", this);
-					else
-						e.hit(fireBallDamage, "FireBall", this);
-					fireBalls.get(j).setHit();
-					break;
-				}
-			}
 			
-			// fireballs
+			// orbs
 			for(int j = 0; j < orbs.size(); j++) {
 				if(orbs.get(j).intersects(e)) {
 					if(e instanceof Slugger)
@@ -332,16 +319,7 @@ public class EntityPlayer extends MapObject {
 			}
 		}
 		
-		// update fireballs
-		for(int i = 0; i < fireBalls.size(); i++) {
-			fireBalls.get(i).tick();
-			if(fireBalls.get(i).shouldRemove()) {
-				fireBalls.remove(i);
-				i--;
-			}
-		}
-		
-		// update fireballs
+		// update orbs
 		for(int i = 0; i < orbs.size(); i++) {
 			orbs.get(i).tick();
 			if(orbs.get(i).removeOrb()) {
@@ -448,12 +426,7 @@ public class EntityPlayer extends MapObject {
 	public void render(Graphics2D g) {
 		setMapPosition();
 		
-		// draw fireballs
-		for(int i = 0; i < fireBalls.size(); i++) {
-			fireBalls.get(i).render(g);
-		}
-		
-		// draw fireballs
+		// draw orbs
 		for(int i = 0; i < orbs.size(); i++) {
 			orbs.get(i).render(g);
 		}

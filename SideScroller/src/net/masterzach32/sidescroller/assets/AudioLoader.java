@@ -28,7 +28,7 @@ public class AudioLoader {
 				return ais;
 			} else {
 				LogHelper.logWarning(s + "Missing Audio File: " + path + ". Will attempt to download.");
-				Assets.grabMissingAsset(path, "Audio");
+				Assets.grabMissingAsset(path);
 				return null;
 			}
 		} catch (UnsupportedAudioFileException e) {
@@ -38,7 +38,7 @@ public class AudioLoader {
 		} catch (IOException e) {
 			LogHelper.logError(s + "Missing Audio File: " + path + ". Will attempt to download.");
 			e.printStackTrace();
-			Assets.grabMissingAsset(path, "Audio");
+			Assets.grabMissingAsset(path);
 			return null;
 		}
 	}

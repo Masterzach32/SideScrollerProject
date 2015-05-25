@@ -27,13 +27,13 @@ public class ImageLoader {
 				return bi;
 			} else {
 				LogHelper.logWarning(s + "Missing Image: " + path + ". Will attempt to download.");
-				Assets.grabMissingAsset(path, "Image");
+				Assets.grabMissingAsset(path);
 				return null;
 			}
 		} catch (IOException e) {
 			LogHelper.logError(s + "Missing Image: " + path + ". Will attempt to download.");
 			e.printStackTrace();
-			Assets.grabMissingAsset(path, "Image");
+			Assets.grabMissingAsset(path);
 			return null;
 		}
 	}

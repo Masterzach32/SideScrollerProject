@@ -19,8 +19,8 @@ public class Orb extends MapObject {
 		x = LevelState.getPlayer().getx();
 		y = LevelState.getPlayer().gety();
 		
-		range = 125;
-		range2 = 50;
+		range = 130;
+		range2 = 40;
 		stage = 1;
 		
 		facingRight = right;
@@ -33,7 +33,7 @@ public class Orb extends MapObject {
 		
 		// load sprites
 		try {
-			BufferedImage spritesheet = Assets.getImageAsset("fireball");
+			BufferedImage spritesheet = Assets.getImageAsset("orb");
 			
 			sprites = new BufferedImage[4];
 			for(int i = 0; i < sprites.length; i++) {

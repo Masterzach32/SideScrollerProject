@@ -25,6 +25,7 @@ public class Assets {
 		// Images
 		images.put("explosion", SideScroller.il.load("/sprites/enemies/explosion.gif"));
 		images.put("fireball", SideScroller.il.load("/sprites/player/fireball.gif"));
+		images.put("orb", SideScroller.il.load("/sprites/player/orb.png"));
 		images.put("player", SideScroller.il.load("/sprites/player/playersprites.gif"));
 		images.put("slugger", SideScroller.il.load("/sprites/enemies/slugger.gif"));
 		
@@ -88,7 +89,7 @@ public class Assets {
 	 * @param s
 	 * @param type
 	 */
-	public static void grabMissingAsset(String s, String type) {
+	public static void grabMissingAsset(String s) {
 		String URL = "http://masterzach32.net/sidescroller/assets" + s;
 		Utilities.download(URL, s);
 	}

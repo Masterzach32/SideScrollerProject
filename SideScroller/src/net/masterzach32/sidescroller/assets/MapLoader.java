@@ -15,7 +15,7 @@ public class MapLoader {
 			return path;
 		} else {
 			LogHelper.logWarning(s + "Missing Asset: " + path + ". Will attempt to download.");
-			Assets.grabMissingAsset(path, "Image");
+			Assets.grabMissingAsset(path);
 			return null;
 		}
 	}
