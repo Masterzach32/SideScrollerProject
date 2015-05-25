@@ -36,8 +36,10 @@ public class EntityPlayer extends MapObject {
 	private boolean firing;
 	private int fireCost;
 	private int fireBallDamage;
+	private int orbDamage;
 	private ArrayList<Explosion> explosions;
 	private ArrayList<FireBall> fireBalls;
+	private ArrayList<Orb> orbs;
 	
 	// scratch
 	private boolean scratching;
@@ -84,8 +86,10 @@ public class EntityPlayer extends MapObject {
 		
 		fireCost = 400;
 		fireBallDamage = (int)(damage * 0.8);
+		orbDamage = (int)(damage*0.5);
 		fireBalls = new ArrayList<FireBall>();
 		explosions = new ArrayList<Explosion>();
+		orbs = new ArrayList<Orb>();
 		
 		scratchDamage = (int)(damage * 1.5);
 		scratchRange = 35;
@@ -209,6 +213,19 @@ public class EntityPlayer extends MapObject {
 					break;
 				}
 			}
+			
+			// fireballs
+			for(int j = 0; j < orbs.size(); j++) {
+				if(orbs.get(j).intersects(e)) {
+					if(e instanceof Slugger)
+						e.hit((int) (orbDamage * 1.5), "FireBall", this);
+					else
+						e.hit(orbDamage, "FireBall", this);
+					orbs.get(j).setHit();
+				break;
+				}
+			}
+						
 			// check enemy collision
 			if(intersects(e)) {
 				hit(e.getDamage(), "Collision", e);
@@ -300,14 +317,14 @@ public class EntityPlayer extends MapObject {
 		if(firing && currentAction != FIREBALL) {
 			if(fire > fireCost) {
 				if(SideScroller.isMouseOnScreen()) {
-					//fire -= fireCost;
+					fire -= fireCost;
 					Point p = Game.getFrame().getMousePosition();
 					double px = p.x;
 					double py = p.y;
 					//LogHelper.logInfo(px + "-" + py);
-					FireBall fb = new FireBall(tileMap, px, py, facingRight);
+					Orb fb = new Orb(tileMap, px, py, facingRight);
 					fb.setPosition(x, y);
-					fireBalls.add(fb);
+					orbs.add(fb);
 				}
 			} else {
 				LogHelper.logInfo("Not Enough Fire!");
@@ -319,6 +336,15 @@ public class EntityPlayer extends MapObject {
 			fireBalls.get(i).tick();
 			if(fireBalls.get(i).shouldRemove()) {
 				fireBalls.remove(i);
+				i--;
+			}
+		}
+		
+		// update fireballs
+		for(int i = 0; i < orbs.size(); i++) {
+			orbs.get(i).tick();
+			if(orbs.get(i).removeOrb()) {
+				orbs.remove(i);
 				i--;
 			}
 		}
@@ -425,6 +451,11 @@ public class EntityPlayer extends MapObject {
 		for(int i = 0; i < fireBalls.size(); i++) {
 			fireBalls.get(i).render(g);
 		}
+		
+		// draw fireballs
+		for(int i = 0; i < orbs.size(); i++) {
+			orbs.get(i).render(g);
+		}
 			
 		// draw player
 		if(flinching) {
@@ -453,6 +484,7 @@ public class EntityPlayer extends MapObject {
 		damage += 2;
 		scratchDamage = (int)(damage*1.5);
 		fireBallDamage = (int)(damage*0.8);
+		orbDamage = (int)(damage*0.5);
 		maxHealth += 8;
 		health += 8;
 		maxFire += 500;
