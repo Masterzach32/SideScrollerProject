@@ -318,9 +318,16 @@ public class EntityPlayer extends MapObject {
 			if(fire > fireCost) {
 				if(SideScroller.isMouseOnScreen()) {
 					fire -= fireCost;
-					Orb fb = new Orb(tileMap, facingRight);
-					fb.setPosition(x, y);
-					orbs.add(fb);
+					Orb orb = null;
+					if(facingRight)
+						orb = new Orb(tileMap, true);
+					if(!facingRight)
+						orb = new Orb(tileMap, false);
+					LogHelper.logInfo("hi");
+					if(orb != null) {
+						orb.setPosition(x, y);
+						orbs.add(orb);
+					}
 				}
 			} else {
 				LogHelper.logInfo("Not Enough Fire!");

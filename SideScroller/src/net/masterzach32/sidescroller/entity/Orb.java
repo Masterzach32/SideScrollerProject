@@ -25,8 +25,7 @@ public class Orb extends MapObject {
 		stage = 1;
 		
 		facingRight = right;
-		if(facingRight) moveSpeed = speed;
-		else moveSpeed = -speed;
+		moveSpeed = speed;
 		
 		width = 30;
 		height = 30;
@@ -61,28 +60,55 @@ public class Orb extends MapObject {
 	}
 
 	private void getNextPosition() {
-		if(stage == 1) {
-			dx = moveSpeed;
-			r0 += moveSpeed;
-			if(r0 >= range) {
-				stage = 2;
-				r0 = 0;
+		if(facingRight){
+			if(stage == 1) {
+				dx = moveSpeed;
+				r0 += moveSpeed;
+				if(r0 >= range) {
+					stage = 2;
+					r0 = 0;
+				}
 			}
-		}
-		if(stage == 2) {
-			dx = (moveSpeed/15);
-			r1 += (moveSpeed/15);
-			if(r1 >= range2) {
-				stage = 3;
-				r1 = 0;
+			if(stage == 2) {
+				dx = (moveSpeed/15);
+				r1 += (moveSpeed/15);
+				if(r1 >= range2) {
+					stage = 3;
+					r1 = 0;
+				}
 			}
-		}
-		if(stage == 3) {
-			dx = -moveSpeed;
-			r2 += moveSpeed; 
-			if(r2 >= (range + range2)) {
-				stage = 0;
-				r2 = 0;
+			if(stage == 3) {
+				dx = -moveSpeed;
+				r2 += moveSpeed; 
+				if(r2 >= (range + range2)) {
+					stage = 0;
+					r2 = 0;
+				}
+			}
+		} else {
+			if(stage == 1) {
+				dx = -moveSpeed;
+				r0 += moveSpeed;
+				if(r0 >= range) {
+					stage = 2;
+					r0 = 0;
+				}
+			}
+			if(stage == 2) {
+				dx = -(moveSpeed/15);
+				r1 += (moveSpeed/15);
+				if(r1 >= range2) {
+					stage = 3;
+					r1 = 0;
+				}
+			}
+			if(stage == 3) {
+				dx = moveSpeed;
+				r2 += moveSpeed; 
+				if(r2 >= (range + range2)) {
+					stage = 0;
+					r2 = 0;
+				}
 			}
 		}
 	}
