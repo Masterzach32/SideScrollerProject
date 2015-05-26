@@ -142,7 +142,7 @@ public class Level2State extends LevelState {
 		if(k == KeyEvent.VK_E) player.setGliding(true);
 		if(k == KeyEvent.VK_R) player.setScratching();
 		if(k == KeyEvent.VK_F) player.setFiring();
-		if(k == KeyEvent.VK_F5) SideScroller.stop();
+		if(k == KeyEvent.VK_F5) GameState.setState(SideScroller.menuState);;
 	}
 	
 	public void keyReleased(int k) {

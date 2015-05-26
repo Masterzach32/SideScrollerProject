@@ -20,7 +20,7 @@ public class Level1State extends LevelState {
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;
 	
-	private int levelcomplete = 3046;
+	private int levelcomplete = 3046, i;
 	
 	private AudioPlayer bgMusic;
 	
@@ -106,6 +106,7 @@ public class Level1State extends LevelState {
 	}
 	
 	public void render(Graphics2D g) {
+		if(i <= 60) i++;
 		// draw bg
 		bg.render(g);
 		
@@ -113,7 +114,7 @@ public class Level1State extends LevelState {
 		tileMap.render(g);
 		
 		// draw player
-		player.render(g);
+		if(i >= 60) player.render(g);
 		
 		// draw enemies
 		for(int i = 0; i < enemies.size(); i++) {
@@ -140,7 +141,7 @@ public class Level1State extends LevelState {
 		if(k == KeyEvent.VK_E) player.setGliding(true);
 		if(k == KeyEvent.VK_R) player.setScratching();
 		if(k == KeyEvent.VK_F) player.setFiring();
-		if(k == KeyEvent.VK_F5) SideScroller.stop();
+		if(k == KeyEvent.VK_F5) GameState.setState(SideScroller.menuState);
 	}
 	
 	public void keyReleased(int k) {

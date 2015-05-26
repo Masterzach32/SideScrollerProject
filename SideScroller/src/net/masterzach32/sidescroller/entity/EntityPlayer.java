@@ -81,7 +81,7 @@ public class EntityPlayer extends MapObject {
 		
 		damage = 10;
 		
-		fireCost = 400;
+		fireCost = 500;
 		orbDamage = (int)(damage*0.5);
 		explosions = new ArrayList<Explosion>();
 		orbs = new ArrayList<Orb>();
@@ -464,7 +464,7 @@ public class EntityPlayer extends MapObject {
 	}
 	
 	public void writeSaveFile() {
-		String path = "/Assets/saves/player.txt";
+		String path = "player.txt";
 		String[] save = new String[16];
 		save[0] = "" + health;
 		save[1] = "" + maxHealth;
@@ -477,7 +477,7 @@ public class EntityPlayer extends MapObject {
 	}
 	
 	public void loadSave() {
-		String path = "/Assets/saves/player.txt";
+		String path = "player.txt";
 		String[] save = Save.readFromSave(path);
 		if(save == null) return;
 		health = Integer.parseInt(save[0]);
