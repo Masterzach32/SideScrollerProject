@@ -45,6 +45,8 @@ public class Assets {
 		// Audio
 		sounds.put("gamebosstheme", SideScroller.al.load("/music/gamebosstheme.mp3"));
 		sounds.put("warriors", SideScroller.al.load("/music/warriors.mp3"));
+		sounds.put("spawn", SideScroller.al.load("/music/spawn.mp3"));
+		sounds.put("spawn2", SideScroller.al.load("/music/spawn_new.mp3"));
 		sounds.put("level1_1", SideScroller.al.load("/music/level1_1theme.mp3"));
 		sounds.put("level1_2", SideScroller.al.load("/music/level1_2theme.mp3"));
 		
