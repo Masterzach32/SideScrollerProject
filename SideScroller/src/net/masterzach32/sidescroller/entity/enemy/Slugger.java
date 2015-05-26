@@ -28,7 +28,7 @@ public class Slugger extends Enemy {
 		health = maxHealth = (10) + (6*level);
 		damage = (3) + (3*level);
 		
-		exp = (10) + (20*level);
+		exp = (5) + (15*level);
 		
 		armor = 70 + (5*level);
 		damageMultiplier = (double) (100) / (100 + armor);

@@ -34,7 +34,6 @@ public class EntityPlayer extends MapObject {
 	// fireball
 	private boolean firing;
 	private int fireCost;
-	private int fireBallDamage;
 	private int orbDamage;
 	private ArrayList<Explosion> explosions;
 	private ArrayList<Orb> orbs;
@@ -52,7 +51,7 @@ public class EntityPlayer extends MapObject {
 	private final int[] numFrames = {2, 8, 1, 2, 4, 2, 5};
 	
 	// animation actions
-	private static final int IDLE = 0, WALKING = 1, JUMPING = 2, FALLING = 3, GLIDING = 4, FIREBALL = 5, SCRATCHING = 6;
+	private static final int IDLE = 0, WALKING = 1, JUMPING = 2, FALLING = 3, GLIDING = 4, ORB = 5, SCRATCHING = 6;
 	
 	private HashMap<String, AudioPlayer> sfx;
 	
@@ -83,7 +82,6 @@ public class EntityPlayer extends MapObject {
 		damage = 10;
 		
 		fireCost = 400;
-		fireBallDamage = (int)(damage * 0.8);
 		orbDamage = (int)(damage*0.5);
 		explosions = new ArrayList<Explosion>();
 		orbs = new ArrayList<Orb>();
@@ -93,7 +91,7 @@ public class EntityPlayer extends MapObject {
 		
 		// load sprites
 		try {
-			BufferedImage spritesheet = Assets.getImageAsset("player_blue");
+			BufferedImage spritesheet = Assets.getImageAsset("player");
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			for(int i = 0; i < 7; i++) {
@@ -204,7 +202,7 @@ public class EntityPlayer extends MapObject {
 			for(int j = 0; j < orbs.size(); j++) {
 				if(orbs.get(j).intersects(e)) {
 					if(e instanceof Slugger)
-						e.hit((int) (orbDamage * 1.5), "FireBall", this);
+						e.hit((int) (orbDamage), "FireBall", this);
 					else
 						e.hit(orbDamage, "FireBall", this);
 					orbs.get(j).setHit();
@@ -262,7 +260,7 @@ public class EntityPlayer extends MapObject {
 		}
 		
 		// cannot move while attacking, except in air
-		if((currentAction == SCRATCHING || currentAction == FIREBALL) && !(jumping || falling)) {
+		if((currentAction == SCRATCHING || currentAction == ORB) && !(jumping || falling)) {
 			dx = 0;
 		}
 		
@@ -293,14 +291,14 @@ public class EntityPlayer extends MapObject {
 		if(currentAction == SCRATCHING) {
 			if(animation.hasPlayedOnce()) scratching = false;
 		}
-		if(currentAction == FIREBALL) {
+		if(currentAction == ORB) {
 			if(animation.hasPlayedOnce()) firing = false;
 		}
 		
-		// fireball attack
+		// orb attack
 		fire += (1 * level / 4) + 1;
 		if(fire > maxFire) fire = maxFire;
-		if(firing && currentAction != FIREBALL) {
+		if(firing && currentAction != ORB) {
 			if(fire > fireCost) {
 				if(SideScroller.isMouseOnScreen()) {
 					fire -= fireCost;
@@ -355,10 +353,10 @@ public class EntityPlayer extends MapObject {
 				width = 60;
 			}
 		} else if(firing) {
-			if(currentAction != FIREBALL) {
+			if(currentAction != ORB) {
 				sfx.get("fire").play();
-				currentAction = FIREBALL;
-				animation.setFrames(sprites.get(FIREBALL));
+				currentAction = ORB;
+				animation.setFrames(sprites.get(ORB));
 				animation.setDelay(100);
 				width = 30;
 			}
@@ -403,7 +401,7 @@ public class EntityPlayer extends MapObject {
 		animation.tick();
 		
 		// set direction
-		if(currentAction != SCRATCHING && currentAction != FIREBALL) {
+		if(currentAction != SCRATCHING && currentAction != ORB) {
 			if(right) facingRight = true;
 			if(left) facingRight = false;
 		}
@@ -454,10 +452,10 @@ public class EntityPlayer extends MapObject {
 	
 	private void levelUp() {
 		level += 1;
-		maxExp += maxExp*levelMultiplier;
+		maxExp = (float) ((100*level) + (14*level*levelMultiplier));
+		exp = 0;
 		damage += 4;
 		scratchDamage = (int)(damage*2);
-		fireBallDamage = (int)(damage*0.8);
 		orbDamage = (int)(damage*0.5);
 		maxHealth += 8;
 		health += 8;
