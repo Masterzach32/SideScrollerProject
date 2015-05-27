@@ -1,5 +1,6 @@
 package net.masterzach32.sidescroller.gamestate;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
@@ -14,7 +15,7 @@ public abstract class LevelState extends GameState {
 	
 	protected static EntityPlayer player;
 	protected static TileMap tileMap;
-	
+	protected static int i = 0;
 	protected static HUD hud;
 	protected static Animation animation;
 	protected static int width, height;
@@ -34,18 +35,18 @@ public abstract class LevelState extends GameState {
 		hud = new HUD(player);
 		spawnSound = new AudioPlayer(Assets.getAudioAsset("spawn2"));
 		
-		BufferedImage spritesheet = Assets.getImageAsset("explosion");
+		BufferedImage spritesheet = Assets.getImageAsset("spawn_animation_p");
 		
 		width = 30;
 		height = 30;
-		sprites = new BufferedImage[6];
+		sprites = new BufferedImage[8];
 		for(int i = 0; i < sprites.length; i++) {
 			sprites[i] = spritesheet.getSubimage(i * width, 0, width, height);
 		}
 		
 		animation = new Animation();
 		animation.setFrames(sprites);
-		animation.setDelay(15);
+		animation.setDelay(125);
 	}
 	
 	/**
@@ -60,5 +61,15 @@ public abstract class LevelState extends GameState {
 	
 	public static EntityPlayer getPlayer() {
 		return player;
+	}
+	
+	protected void renderSpawnAnimation(Graphics2D g) {
+		if(i <= 60) i++;
+		if(!animation.hasPlayedOnce()) {
+			animation.tick();
+			g.drawImage(animation.getImage(), player.getx() - width / 2, player.gety() - height / 2, null);
+		} else {
+			
+		}
 	}
 }

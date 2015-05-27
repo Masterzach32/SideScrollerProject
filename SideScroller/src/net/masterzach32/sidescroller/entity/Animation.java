@@ -80,4 +80,8 @@ public class Animation {
 	public boolean hasPlayedOnce() { 
 		return playedOnce; 
 	}
+	
+	public void setPlayedOnce(boolean b) {
+		playedOnce = b;
+	}
 }

@@ -56,6 +56,8 @@ public class Level2State extends LevelState {
 	
 	protected void unload() {
 		bgMusic.stop();
+		animation.setPlayedOnce(false);
+		i = 0;
 	}
 	
 	public void levelCompleted() {
@@ -116,7 +118,8 @@ public class Level2State extends LevelState {
 		tileMap.render(g);
 		
 		// draw player
-		player.render(g);
+		renderSpawnAnimation(g);
+		if(i >= 60)player.render(g);
 		
 		// draw enemies
 		for(int i = 0; i < enemies.size(); i++) {

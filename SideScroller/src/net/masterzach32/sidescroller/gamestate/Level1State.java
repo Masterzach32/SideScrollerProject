@@ -20,7 +20,7 @@ public class Level1State extends LevelState {
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;
 	
-	private int levelcomplete = 3046, i;
+	private int levelcomplete = 3046;
 	
 	private AudioPlayer bgMusic;
 	
@@ -54,6 +54,8 @@ public class Level1State extends LevelState {
 	
 	protected void unload() {
 		bgMusic.stop();
+		animation.setPlayedOnce(false);
+		i = 0;
 	}
 	
 	public void levelCompleted() {
@@ -104,14 +106,9 @@ public class Level1State extends LevelState {
 		}
 		
 		if (player.getx() >= levelcomplete) levelCompleted();
-		
-		if(!animation.hasPlayedOnce()) {
-			animation.tick();
-		}
 	}
 	
 	public void render(Graphics2D g) {
-		if(i <= 60) i++;
 		// draw bg
 		bg.render(g);
 		
@@ -119,7 +116,7 @@ public class Level1State extends LevelState {
 		tileMap.render(g);
 		
 		// draw player
-		g.drawImage(animation.getImage(), 100 - width / 2, 100 - height / 2, null);
+		renderSpawnAnimation(g);
 		if(i >= 60) player.render(g);
 		
 		// draw enemies
