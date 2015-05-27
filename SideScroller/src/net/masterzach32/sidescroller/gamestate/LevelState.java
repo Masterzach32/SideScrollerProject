@@ -1,6 +1,8 @@
 package net.masterzach32.sidescroller.gamestate;
 
+import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.gfx.HUD;
+import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.EntityPlayer;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.TileMap;
@@ -11,6 +13,8 @@ public abstract class LevelState extends GameState {
 	protected static TileMap tileMap;
 	
 	protected static HUD hud;
+	
+	protected static AudioPlayer spawnSound;
 
 	public LevelState(SideScroller game) {
 		super(game);
@@ -23,6 +27,7 @@ public abstract class LevelState extends GameState {
 		
 		// load assets
 		hud = new HUD(player);
+		spawnSound = new AudioPlayer(Assets.getAudioAsset("spawn2"));
 	}
 	
 	/**

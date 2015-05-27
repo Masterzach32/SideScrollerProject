@@ -24,7 +24,7 @@ public class Level2State extends LevelState {
 	
 	private int levelcomplete = 3046;
 	
-	private AudioPlayer spawn, bgMusic;
+	private AudioPlayer bgMusic;
 	
 	public Level2State(SideScroller game) {
 		super(game);
@@ -39,13 +39,11 @@ public class Level2State extends LevelState {
 		// load enemies
 		populateEnemies();
 		
-		//spawn = new AudioPlayer(Assets.getAudioAsset("spawn2"));
 		bgMusic = new AudioPlayer(Assets.getAudioAsset("level1_2"));
 	}
 	
 	protected void load() {
-		spawn = new AudioPlayer(Assets.getAudioAsset("spawn2"));
-		spawn.play();
+		spawnSound.play();
 		player.setPosition(100, 100);
 		
 		// load map
