@@ -104,6 +104,10 @@ public class Level1State extends LevelState {
 		}
 		
 		if (player.getx() >= levelcomplete) levelCompleted();
+		
+		if(!animation.hasPlayedOnce()) {
+			animation.tick();
+		}
 	}
 	
 	public void render(Graphics2D g) {
@@ -115,6 +119,7 @@ public class Level1State extends LevelState {
 		tileMap.render(g);
 		
 		// draw player
+		g.drawImage(animation.getImage(), 100 - width / 2, 100 - height / 2, null);
 		if(i >= 60) player.render(g);
 		
 		// draw enemies

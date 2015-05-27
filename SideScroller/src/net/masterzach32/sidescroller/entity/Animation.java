@@ -55,7 +55,6 @@ public class Animation {
 			currentFrame = 0;
 			playedOnce = true;
 		}
-		
 	}
 	
 	/**
