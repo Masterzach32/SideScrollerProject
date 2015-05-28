@@ -70,6 +70,6 @@ public class Explosion {
 	}
 	
 	public void render(Graphics2D g) {
-		g.drawImage(animation.getImage(), x + xmap - width / 2, y + ymap - height / 2, null);
+		animation.render(g, x + xmap - width / 2, y + ymap - height / 2, width, height);
 	}
 }

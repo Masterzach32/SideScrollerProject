@@ -95,6 +95,6 @@ public class Assets {
 	 */
 	public static void grabMissingAsset(String s) {
 		String URL = "http://masterzach32.net/sidescroller/assets" + s;
-		//Utilities.download(URL, s);
+		Utilities.download(URL, s);
 	}
 }

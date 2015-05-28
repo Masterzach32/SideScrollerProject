@@ -241,9 +241,9 @@ public abstract class MapObject {
 	
 	public void render(Graphics2D g) {
 		if(facingRight) {
-			g.drawImage(animation.getImage(), (int)(x + xmap - width / 2), (int)(y + ymap - height / 2), null);
+			animation.render(g, (int)(x + xmap - width / 2), (int)(y + ymap - height / 2), width, height);
 		} else {
-			g.drawImage(animation.getImage(), (int)(x + xmap - width / 2 + width), (int)(y + ymap - height / 2), -width, height, null);
+			animation.render(g, (int)(x + xmap - width / 2 + width), (int)(y + ymap - height / 2), -width, height);
 		}
 	}
 }

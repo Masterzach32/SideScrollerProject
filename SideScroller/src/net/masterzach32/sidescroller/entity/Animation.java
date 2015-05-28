@@ -1,5 +1,6 @@
 package net.masterzach32.sidescroller.entity;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Animation {
@@ -55,6 +56,10 @@ public class Animation {
 			currentFrame = 0;
 			playedOnce = true;
 		}
+	}
+	
+	public void render(Graphics2D g, int x, int y, int width, int height) {
+		g.drawImage(this.getImage(), x, y, width, height, null);
 	}
 	
 	/**

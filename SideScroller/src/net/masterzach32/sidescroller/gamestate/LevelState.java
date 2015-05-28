@@ -67,7 +67,7 @@ public abstract class LevelState extends GameState {
 		if(i <= spawnTimer) i++;
 		if(!animation.hasPlayedOnce()) {
 			animation.tick();
-			g.drawImage(animation.getImage(), player.getx() - width / 2, player.gety() - height / 2, null);
+			animation.render(g, player.getx() - width / 2, player.gety() - height / 2, width, height);
 		} else {
 			
 		}
