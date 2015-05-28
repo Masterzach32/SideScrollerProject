@@ -34,7 +34,7 @@ public class Assets {
 		
 		images.put("mouse", SideScroller.il.load("/hud/mouse.png"));
 		images.put("hud", SideScroller.il.load("/hud/hud.gif"));
-		images.put("hud2", SideScroller.il.load("hud/placeholder_hud.png"));
+		images.put("hud2", SideScroller.il.load("/hud/placeholder_hud.png"));
 		
 		// Tile Sets
 		images.put("grasstileset", SideScroller.il.load("/tilesets/grasstileset.png"));
@@ -54,7 +54,6 @@ public class Assets {
 		
 		sounds.put("jump", SideScroller.al.load("/sfx/jump.mp3"));
 		sounds.put("scratch", SideScroller.al.load("/sfx/scratch.mp3"));
-		sounds.put("fire", SideScroller.al.load("/sfx/fire.ogg"));
 		
 		// Maps
 		maps.put("level1_1", SideScroller.ml.load("/maps/level1-1.map"));
@@ -96,6 +95,6 @@ public class Assets {
 	 */
 	public static void grabMissingAsset(String s) {
 		String URL = "http://masterzach32.net/sidescroller/assets" + s;
-		Utilities.download(URL, s);
+		//Utilities.download(URL, s);
 	}
 }

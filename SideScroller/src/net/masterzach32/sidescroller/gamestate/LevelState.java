@@ -15,7 +15,7 @@ public abstract class LevelState extends GameState {
 	
 	protected static EntityPlayer player;
 	protected static TileMap tileMap;
-	protected static int i = 0;
+	protected static int i = 0, spawnTimer = 65;
 	protected static HUD hud;
 	protected static Animation animation;
 	protected static int width, height;
@@ -46,7 +46,7 @@ public abstract class LevelState extends GameState {
 		
 		animation = new Animation();
 		animation.setFrames(sprites);
-		animation.setDelay(125);
+		animation.setDelay(160);
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public abstract class LevelState extends GameState {
 	}
 	
 	protected void renderSpawnAnimation(Graphics2D g) {
-		if(i <= 60) i++;
+		if(i <= spawnTimer) i++;
 		if(!animation.hasPlayedOnce()) {
 			animation.tick();
 			g.drawImage(animation.getImage(), player.getx() - width / 2, player.gety() - height / 2, null);

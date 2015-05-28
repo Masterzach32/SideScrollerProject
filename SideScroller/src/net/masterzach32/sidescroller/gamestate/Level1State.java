@@ -117,7 +117,7 @@ public class Level1State extends LevelState {
 		
 		// draw player
 		renderSpawnAnimation(g);
-		if(i >= 60) player.render(g);
+		if(i >= spawnTimer) player.render(g);
 		
 		// draw enemies
 		for(int i = 0; i < enemies.size(); i++) {
