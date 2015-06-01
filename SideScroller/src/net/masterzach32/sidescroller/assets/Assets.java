@@ -42,6 +42,7 @@ public class Assets {
 		
 		// Backgrounds
 		images.put("grassbg", SideScroller.il.load("/backgrounds/grassbg1.gif"));
+		images.put("zaunbg", SideScroller.il.load("/backgrounds/zaun_bg.jpg"));
 		images.put("level1_1bg", SideScroller.il.load("/backgrounds/placeholder_level1_1.png"));
 		
 		// Audio
@@ -95,6 +96,6 @@ public class Assets {
 	 */
 	public static void grabMissingAsset(String s) {
 		String URL = "http://masterzach32.net/sidescroller/assets" + s;
-		Utilities.download(URL, s);
+		//Utilities.download(URL, s);
 	}
 }

@@ -15,7 +15,7 @@ public class HelpState extends MenuState {
 	private Font subtitleFont;
 	
 	public static int currentChoice = 0;
-	public static String[] helpText = {"Controls:", "Left: A", "Right: D", "Up: W", "Down: S", "Jump: W or SPACE", "Glide: E", "Scratch: R or Left Click", "Fire: F or Right Click"};
+	public static String[] helpText = {"Controls:", "Left: A", "Right: D", "Up: W", "Down: S", "Jump: W or SPACE", "Glide: E", "Scratch: R or Left Click", "Fire: F or Right Click", "Main Menu: F5"};
 
 	public HelpState(SideScroller game) {
 		super(game);
@@ -31,8 +31,6 @@ public class HelpState extends MenuState {
 			
 		font = new Font("Arial", Font.PLAIN, 12);
 		selectfont = new Font("Arial", Font.PLAIN, 14);
-		
-		bgMusic = new AudioPlayer(Assets.getAudioAsset("warriors"));
 	}
 
 	protected void load() {

@@ -21,7 +21,7 @@ public class MenuState extends GameState {
 	protected Font font;
 	protected Font selectfont;
 	
-	protected AudioPlayer bgMusic;
+	protected static AudioPlayer bgMusic;
 	
 	public MenuState(SideScroller game) {
 		super(game);

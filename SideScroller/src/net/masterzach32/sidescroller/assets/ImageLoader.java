@@ -31,7 +31,7 @@ public class ImageLoader {
 				return null;
 			}
 		} catch (IOException e) {
-			LogHelper.logError(s + "Missing Image: " + path + ". Will attempt to download.");
+			LogHelper.logWarning(s + "Missing Image: " + path + ". Will attempt to download.");
 			e.printStackTrace();
 			Assets.grabMissingAsset(path);
 			return null;

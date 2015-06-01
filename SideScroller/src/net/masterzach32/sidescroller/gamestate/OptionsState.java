@@ -32,8 +32,6 @@ public class OptionsState extends MenuState {
 			
 		font = new Font("Arial", Font.PLAIN, 12);
 		selectfont = new Font("Arial", Font.PLAIN, 14);
-		
-		bgMusic = new AudioPlayer(Assets.getAudioAsset("warriors"));
 	}
 
 	protected void load() {

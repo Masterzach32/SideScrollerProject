@@ -25,15 +25,15 @@ public class EntityPlayer extends MapObject {
 	private int damage;
 	private int level;
 	private double levelMultiplier;
-	private int fire;
-	private int maxFire;
+	private int mana;
+	private int maxMana;
 	private boolean dead;
 	private boolean flinching;
 	private long flinchTimer;
 	
 	// fireball
 	private boolean firing;
-	private int fireCost;
+	private int orbCost;
 	private int orbDamage;
 	private ArrayList<Explosion> explosions;
 	private ArrayList<Orb> orbs;
@@ -77,16 +77,16 @@ public class EntityPlayer extends MapObject {
 		level = 1;
 		levelMultiplier = (double) (1.135);
 		maxExp = 100;
-		fire = maxFire = 2500;
+		mana = maxMana = 2500;
 		
 		damage = 10;
 		
-		fireCost = 500;
+		orbCost = 400;
 		orbDamage = (int)(damage*0.5);
 		explosions = new ArrayList<Explosion>();
 		orbs = new ArrayList<Orb>();
 		
-		scratchDamage = (int)(damage * 2);
+		scratchDamage = (int)(damage*2);
 		scratchRange = 35;
 		
 		// load sprites
@@ -153,12 +153,12 @@ public class EntityPlayer extends MapObject {
 		return level;
 	}
 
-	public int getFire() { 
-		return fire; 
+	public int getMana() { 
+		return mana; 
 	}
 	
-	public int getMaxFire() { 
-		return maxFire; 
+	public int getMaxMana() { 
+		return maxMana; 
 	}
 	
 	public boolean isDead() {
@@ -296,12 +296,12 @@ public class EntityPlayer extends MapObject {
 		}
 		
 		// orb attack
-		fire += (1 * level / 4) + 1;
-		if(fire > maxFire) fire = maxFire;
+		mana += (1 * level / 4) + 1;
+		if(mana > maxMana) mana = maxMana;
 		if(firing && currentAction != ORB) {
-			if(fire > fireCost) {
+			if(mana > orbCost) {
 				if(SideScroller.isMouseOnScreen()) {
-					fire -= fireCost;
+					mana -= orbCost;
 					Orb orb = null;
 					if(facingRight)
 						orb = new Orb(tileMap, true);
@@ -459,8 +459,8 @@ public class EntityPlayer extends MapObject {
 		orbDamage = (int)(damage*0.5);
 		maxHealth += 8;
 		health += 8;
-		maxFire += 500;
-		fire += 500;
+		maxMana += 500;
+		mana += 500;
 	}
 	
 	public void writeSaveFile() {
@@ -471,8 +471,8 @@ public class EntityPlayer extends MapObject {
 		save[2] = "" + exp;
 		save[3] = "" + maxExp;
 		save[4] = "" + level;
-		save[5] = "" + fire;
-		save[6] = "" + maxFire;
+		save[5] = "" + mana;
+		save[6] = "" + maxMana;
 		Save.writeToSave(path, save);
 	}
 	
@@ -485,7 +485,7 @@ public class EntityPlayer extends MapObject {
 		exp = Integer.parseInt(save[2]);
 		maxExp = Integer.parseInt(save[3]);
 		level = Integer.parseInt(save[4]);
-		fire = Integer.parseInt(save[5]);
-		maxFire = Integer.parseInt(save[6]);
+		mana = Integer.parseInt(save[5]);
+		maxMana = Integer.parseInt(save[6]);
 	}
 }

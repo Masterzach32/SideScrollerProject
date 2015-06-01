@@ -36,7 +36,7 @@ public class AudioLoader {
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			LogHelper.logError(s + "Missing Audio File: " + path + ". Will attempt to download.");
+			LogHelper.logWarning(s + "Missing Audio File: " + path + ". Will attempt to download.");
 			e.printStackTrace();
 			Assets.grabMissingAsset(path);
 			return null;
