@@ -5,11 +5,16 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import net.masterzach32.sidescroller.util.Console;
+
 public class Game {
 	
 	private static JFrame window;
+	private static Console console;
 	
 	public static void main(String[] args) {
+		console = new Console();
+		console.setVisible(true);
 		window = new JFrame("SideScrollerRPG " + SideScroller.VERSION);
 		window.setContentPane(new SideScroller());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,4 +29,7 @@ public class Game {
 		return window;
 	}
 	
+	public static Console getConsole() {
+		return console;
+	}
 }

@@ -16,7 +16,8 @@ public class OptionsState extends MenuState {
 	private Font subtitleFont;
 	
 	public static int currentChoice = 0;
-	public static String[] options = new String[6]; 
+	public static String[] options = new String[7]; 
+	private static boolean console = false;
 	
 	public OptionsState(SideScroller game) {
 		super(game);
@@ -54,8 +55,12 @@ public class OptionsState extends MenuState {
 		else 
 			options[2] = "Sound: (OFF)";
 		options[3] = "FPS (broken): (" + SideScroller.FPS + ")";
-		options[4] = "Controls Menu (WIP)";
-		options[5] = "Back";
+		if(console)
+			options[4] = "Show Console: (TRUE)";
+		else
+			options[4] = "Show Console: (FALSE)";
+		options[5] = "Controls Menu (WIP)";
+		options[6] = "Back";
 		// draw bg
 		bg.render(g);						
 		// draw title
@@ -115,9 +120,18 @@ public class OptionsState extends MenuState {
 			}
 		}
 		if(currentChoice == 4) {
-			//GameState.setState(SideScroller.controlState);
+			if(console) {
+				console = false;
+				Game.getConsole().setVisible(console);
+			} else {
+				console = true;
+				Game.getConsole().setVisible(console);
+			}
 		}
 		if(currentChoice == 5) {
+			//GameState.setState(SideScroller.controlState);
+		}
+		if(currentChoice == 6) {
 			GameState.setState(SideScroller.menuState);
 		}
 	}
