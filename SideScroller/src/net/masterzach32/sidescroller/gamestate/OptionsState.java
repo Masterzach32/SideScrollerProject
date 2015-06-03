@@ -94,7 +94,7 @@ public class OptionsState extends MenuState {
 			} else {
 				SideScroller.SCALE += 1;
 			}
-			Game.getFrame().setSize(SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE);
+			Game.getFrame().setSize(SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE + 20);
 		}
 		if(currentChoice == 1) {
 			if(SideScroller.WIDTH == 640) {
@@ -104,7 +104,7 @@ public class OptionsState extends MenuState {
 				SideScroller.WIDTH = 640;
 				SideScroller.HEIGHT = 360;
 			}
-			Game.getFrame().setSize(SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE);
+			Game.getFrame().setSize(SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE + 20);
 		}
 		if(currentChoice == 2) {
 			if (SideScroller.isSoundEnabled) {
