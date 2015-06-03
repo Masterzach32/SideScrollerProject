@@ -125,8 +125,4 @@ public class Slugger extends Enemy {
 			explosions.get(i).render(g);
 		}
 	}
-	
-	public int getXpGain() {
-		return exp;
-	}
 }
