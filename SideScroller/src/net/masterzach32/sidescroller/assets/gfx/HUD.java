@@ -32,7 +32,8 @@ public class HUD {
 		g.setFont(font);
 		g.setColor(Color.WHITE);
 		g.drawString((int) (player.getHealth()) + "/" + (int) (player.getMaxHealth()), 30, 30);
-		g.drawString(player.getMana() / 100 + "/" + player.getMaxMana() / 100, 30, 50);
+		if(player.getOrbCurrentCd() > 0) g.drawString("" + (player.getOrbCurrentCd() / 60 + 1), 30, 50);
+		else g.drawString("" + (player.getOrbCurrentCd() / 60), 30, 50);
 		g.drawString(player.getLevel() + " - " + (int) player.getExp() + "/" + (int) player.getMaxExp(), 1, 70);
 	}
 }

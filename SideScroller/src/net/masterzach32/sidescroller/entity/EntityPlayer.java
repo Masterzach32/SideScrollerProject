@@ -25,8 +25,8 @@ public class EntityPlayer extends MapObject {
 	private int damage;
 	private int level;
 	private double levelMultiplier;
-	private int mana;
-	private int maxMana;
+	private int orbCurrentCd;
+	private int orbCd;
 	private boolean dead;
 	private boolean flinching;
 	private long flinchTimer;
@@ -77,16 +77,17 @@ public class EntityPlayer extends MapObject {
 		level = 1;
 		levelMultiplier = (double) (1.135);
 		maxExp = 100;
-		mana = maxMana = 2500;
+		orbCurrentCd = orbCd = 2500;
 		
 		damage = 10;
 		
-		orbCost = 400;
-		orbDamage = (int)(damage*0.5);
+		orbCd = 360;
+		orbCurrentCd = 0;
+		orbDamage = (int)(4 + damage*0.9);
 		explosions = new ArrayList<Explosion>();
 		orbs = new ArrayList<Orb>();
 		
-		scratchDamage = (int)(damage*2);
+		scratchDamage = (int)(10 + damage*1.5);
 		scratchRange = 35;
 		
 		// load sprites
@@ -153,12 +154,12 @@ public class EntityPlayer extends MapObject {
 		return level;
 	}
 
-	public int getMana() { 
-		return mana; 
+	public int getOrbCurrentCd() { 
+		return orbCurrentCd; 
 	}
 	
-	public int getMaxMana() { 
-		return maxMana; 
+	public int getOrbCd() { 
+		return orbCd; 
 	}
 	
 	public boolean isDead() {
@@ -202,9 +203,9 @@ public class EntityPlayer extends MapObject {
 			for(int j = 0; j < orbs.size(); j++) {
 				if(orbs.get(j).intersects(e)) {
 					if(e instanceof Slugger)
-						e.hit((int) (orbDamage), "FireBall", this);
+						e.hit((int) (orbDamage), "Orb", this);
 					else
-						e.hit(orbDamage, "FireBall", this);
+						e.hit(orbDamage, "Orb", this);
 					orbs.get(j).setHit();
 				break;
 				}
@@ -296,12 +297,12 @@ public class EntityPlayer extends MapObject {
 		}
 		
 		// orb attack
-		mana += (1 * level / 4) + 1;
-		if(mana > maxMana) mana = maxMana;
+		if(orbCurrentCd > 0) orbCurrentCd--;
+		if(orbCurrentCd > orbCd) orbCurrentCd = orbCd;
 		if(firing && currentAction != ORB) {
-			if(mana > orbCost) {
+			if(orbCurrentCd == 0) {
 				if(SideScroller.isMouseOnScreen()) {
-					mana -= orbCost;
+					orbCurrentCd = orbCd;
 					Orb orb = null;
 					if(facingRight)
 						orb = new Orb(tileMap, true);
@@ -313,7 +314,7 @@ public class EntityPlayer extends MapObject {
 					}
 				}
 			} else {
-				LogHelper.logInfo("Not Enough Fire!");
+				LogHelper.logInfo("Orb On Cooldown");
 			}
 		}
 		
@@ -455,12 +456,11 @@ public class EntityPlayer extends MapObject {
 		maxExp = (float) ((100*level) + (14*level*levelMultiplier));
 		exp = 0;
 		damage += 4;
-		scratchDamage = (int)(damage*2);
-		orbDamage = (int)(damage*0.5);
+		scratchDamage = (int)(10+damage*1.5);
+		orbDamage = (int)(4+damage*0.9);
+		orbCd -= 15;
 		maxHealth += 8;
 		health += 8;
-		maxMana += 500;
-		mana += 500;
 	}
 	
 	public void writeSaveFile() {
@@ -471,8 +471,8 @@ public class EntityPlayer extends MapObject {
 		save[2] = "" + exp;
 		save[3] = "" + maxExp;
 		save[4] = "" + level;
-		save[5] = "" + mana;
-		save[6] = "" + maxMana;
+		save[5] = "" + orbCurrentCd;
+		save[6] = "" + orbCd;
 		Save.writeToSave(path, save);
 	}
 	
@@ -485,7 +485,7 @@ public class EntityPlayer extends MapObject {
 		exp = Integer.parseInt(save[2]);
 		maxExp = Integer.parseInt(save[3]);
 		level = Integer.parseInt(save[4]);
-		mana = Integer.parseInt(save[5]);
-		maxMana = Integer.parseInt(save[6]);
+		orbCurrentCd = Integer.parseInt(save[5]);
+		orbCd = Integer.parseInt(save[6]);
 	}
 }
