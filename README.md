@@ -1,4 +1,4 @@
-# SideScrollerGame - Alpha Build 0.0.4.136
+# SideScrollerGame - Alpha Build 0.0.4.137
 
 This game is being designed by me and a group of friends. Its going to be a futuristic sidescroller like combination of Final Fantasy and Starbound. More descripiton coming soon!
 
@@ -13,7 +13,7 @@ This game is being designed by me and a group of friends. Its going to be a futu
 --
 
 All changes that will be in v0.0.4 Alpha:
-- !
+- Ability to toggle the console on and off in a window
 
 ### Bugs:
 - !

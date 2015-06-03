@@ -14,15 +14,19 @@ public class Game {
 	
 	public static void main(String[] args) {
 		console = new Console();
-		console.setVisible(true);
 		window = new JFrame("SideScrollerRPG " + SideScroller.VERSION);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = new Dimension((int) (screenSize.width/2), (int) (screenSize.height/2 + 20));
+		int x = (int) (frameSize.width/2);
+		int y = (int) (frameSize.height/2);
+		window.setPreferredSize(frameSize);
+		window.setLocation(x, y);
 		window.setContentPane(new SideScroller());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.pack();
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		window.setLocation(dim.width/2-(window.getSize().width * SideScroller.SCALE)/2, dim.height/2-(window.getSize().height * SideScroller.SCALE)/2);
-		window.setVisible(true);		
+		window.pack();	
+		console.setVisible(true);
+		window.setVisible(true);
 	}
 	
 	public static JFrame getFrame() {

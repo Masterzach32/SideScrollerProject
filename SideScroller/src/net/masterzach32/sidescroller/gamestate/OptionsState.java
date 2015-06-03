@@ -115,18 +115,18 @@ public class OptionsState extends MenuState {
 		}
 		if(currentChoice == 3) {
 			SideScroller.FPS += 20;
-			if (SideScroller.FPS >= 300) {
+			if (SideScroller.FPS >= 200) {
 				SideScroller.FPS = 20;
 			}
 		}
 		if(currentChoice == 4) {
 			if(console) {
 				console = false;
-				Game.getConsole().setVisible(console);
 			} else {
 				console = true;
-				Game.getConsole().setVisible(console);
 			}
+			Game.getConsole().setVisible(console);
+			SideScroller.getGame().requestFocus();
 		}
 		if(currentChoice == 5) {
 			//GameState.setState(SideScroller.controlState);
