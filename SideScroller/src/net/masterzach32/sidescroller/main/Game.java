@@ -17,8 +17,8 @@ public class Game {
 		window = new JFrame("SideScrollerRPG " + SideScroller.VERSION);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = new Dimension((int) (SideScroller.WIDTH * SideScroller.SCALE), (int) (SideScroller.HEIGHT * SideScroller.SCALE + 20));
-		int x = (int) (frameSize.width/6);
-		int y = (int) (frameSize.height/6);
+		int x = (int) ((screenSize.width/2)-(frameSize.width/2));
+		int y = (int) ((screenSize.height/2)-(frameSize.height/2));
 		window.setPreferredSize(frameSize);
 		window.setLocation(x, y);
 		window.setContentPane(new SideScroller());

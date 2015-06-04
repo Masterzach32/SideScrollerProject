@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.EntityPlayer;
-import net.masterzach32.sidescroller.main.SideScroller;
 
 public class HUD {
 	
@@ -28,7 +27,6 @@ public class HUD {
 	
 	public void render(Graphics2D g) {
 		g.drawImage(image, 0, 15, null);
-		//g.drawString("FPS: " + SideScroller.FPS, 1, 11);
 		g.setFont(font);
 		g.setColor(Color.WHITE);
 		g.drawString((int) (player.getHealth()) + "/" + (int) (player.getMaxHealth()), 30, 30);

@@ -33,7 +33,6 @@ public class EntityPlayer extends MapObject {
 	
 	// fireball
 	private boolean firing;
-	private int orbCost;
 	private int orbDamage;
 	private ArrayList<Explosion> explosions;
 	private ArrayList<Orb> orbs;
