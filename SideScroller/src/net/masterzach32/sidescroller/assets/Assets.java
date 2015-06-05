@@ -6,7 +6,6 @@ import java.util.HashMap;
 import javax.sound.sampled.AudioInputStream;
 
 import net.masterzach32.sidescroller.main.SideScroller;
-import net.masterzach32.sidescroller.util.Utilities;
 
 public class Assets {
 	
@@ -88,15 +87,5 @@ public class Assets {
 	 */
 	public static String getMapAsset(String s) {
 		return maps.get(s);
-	}
-	
-	/**
-	 * If an asset is missing, will attempt to grab it from the server and reload it.
-	 * @param s
-	 * @param type
-	 */
-	public static void grabMissingAsset(String s) {
-		String URL = "http://masterzach32.net/sidescroller/assets" + s;
-		//Utilities.download(URL, s);
 	}
 }

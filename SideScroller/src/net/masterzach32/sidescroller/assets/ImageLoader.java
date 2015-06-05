@@ -25,16 +25,12 @@ public class ImageLoader {
 				bi = ImageIO.read(imageLocation);
 				LogHelper.logInfo(s + "Loaded Image: " + path);
 				return bi;
-			} else {
-				LogHelper.logWarning(s + "Missing Image: " + path + ". Will attempt to download.");
-				Assets.grabMissingAsset(path);
-				return null;
 			}
 		} catch (IOException e) {
 			LogHelper.logWarning(s + "Missing Image: " + path + ". Will attempt to download.");
 			e.printStackTrace();
-			Assets.grabMissingAsset(path);
 			return null;
 		}
+		return null;
 	}
 }

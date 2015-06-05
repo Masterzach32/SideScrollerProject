@@ -26,20 +26,16 @@ public class AudioLoader {
 				ais = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(path));
 				LogHelper.logInfo(s + "Loaded Audio File: " + path);
 				return ais;
-			} else {
-				LogHelper.logWarning(s + "Missing Audio File: " + path + ". Will attempt to download.");
-				Assets.grabMissingAsset(path);
-				return null;
 			}
 		} catch (UnsupportedAudioFileException e) {
 			LogHelper.logError(s + "Unsupported Audio File: " + path);
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			LogHelper.logWarning(s + "Missing Audio File: " + path + ". Will attempt to download.");
+			LogHelper.logWarning(s + "Missing Audio File: " + path);
 			e.printStackTrace();
-			Assets.grabMissingAsset(path);
 			return null;
 		}
+		return null;
 	}
 }
