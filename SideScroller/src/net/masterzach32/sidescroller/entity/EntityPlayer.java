@@ -437,10 +437,8 @@ public class EntityPlayer extends MapObject {
 			}
 			
 			if(shield < maxShield) {
-				if(!inCombat) shield += 0.06;
-			} else if(shield < 0) {
-				shield = 0;
-			} else {}
+				if(!inCombat) shield += 0.03;
+			}
 		}
 		
 		if(exp >= maxExp) {
