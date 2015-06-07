@@ -20,6 +20,9 @@ public class EntityPlayer extends MapObject {
 	// player stuff
 	private float health;
 	private float maxHealth;
+	private float shield, maxShield;
+	private boolean inCombat;
+	private int combatTimer;
 	private float exp;
 	private float maxExp;
 	private int damage;
@@ -72,7 +75,8 @@ public class EntityPlayer extends MapObject {
 		
 		facingRight = true;
 		
-		health = maxHealth = 20;
+		health = maxHealth = 12;
+		shield = maxShield = 8;
 		level = 1;
 		levelMultiplier = (double) (1.135);
 		maxExp = 100;
@@ -127,6 +131,14 @@ public class EntityPlayer extends MapObject {
 	
 	public float getMaxHealth() {
 		return maxHealth; 
+	}
+	
+	public float getShield() {
+		return shield;
+	}
+	
+	public float getMaxShield() {
+		return maxShield;
 	}
 	
 	public void setHealth(int h) {
@@ -223,8 +235,15 @@ public class EntityPlayer extends MapObject {
 	 * @param source (should always be <code>this</code>)
 	 */
 	public void hit(int damage, String type, MapObject source) {
+		combatTimer = 300;
+		inCombat = true;
 		if(flinching) return;
 		explosions.add(new Explosion(this.getx(), this.gety()));
+		int d = damage;
+		float s = shield;
+		shield -= damage;
+		if(shield < 0) shield = 0;
+		damage -= (s - shield);
 		health -= damage;
 		if(health < 0) health = 0;
 		if(health == 0) dead = true;
@@ -406,14 +425,22 @@ public class EntityPlayer extends MapObject {
 			if(left) facingRight = false;
 		}
 		
+		combatTimer--;
+		if(combatTimer == 0) inCombat = false;
 		
 		// check to see if the player is dead or not
 		if(health == 0) this.dead = true;
 		if(health > 0) {
 			this.dead = false;
-			if(health < maxHealth){
-				health += 0.01;
+			if(health < maxHealth) {
+				health += 0.003;
 			}
+			
+			if(shield < maxShield) {
+				if(!inCombat) shield += 0.06;
+			} else if(shield < 0) {
+				shield = 0;
+			} else {}
 		}
 		
 		if(exp >= maxExp) {
@@ -458,8 +485,10 @@ public class EntityPlayer extends MapObject {
 		scratchDamage = (int)(10+damage*1.5);
 		orbDamage = (int)(4+damage*0.9);
 		orbCd -= 15;
-		maxHealth += 8;
-		health += 8;
+		maxHealth += 6;
+		health += 6;
+		maxShield += 4;
+		shield += 4;
 	}
 	
 	public void writeSaveFile() {

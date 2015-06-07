@@ -29,9 +29,10 @@ public class HUD {
 		g.drawImage(image, 0, 15, null);
 		g.setFont(font);
 		g.setColor(Color.WHITE);
+		if(player.getOrbCurrentCd() > 0) g.drawString("" + (player.getOrbCurrentCd() / 60 + 1), 0, 12);
+		else g.drawString("" + (player.getOrbCurrentCd() / 60), 0, 12);
 		g.drawString((int) (player.getHealth()) + "/" + (int) (player.getMaxHealth()), 30, 30);
-		if(player.getOrbCurrentCd() > 0) g.drawString("" + (player.getOrbCurrentCd() / 60 + 1), 30, 50);
-		else g.drawString("" + (player.getOrbCurrentCd() / 60), 30, 50);
+		g.drawString((int) (player.getShield()) + "/" + (int) (player.getMaxShield()), 30, 50);
 		g.drawString(player.getLevel() + " - " + (int) player.getExp() + "/" + (int) player.getMaxExp(), 1, 70);
 	}
 }
