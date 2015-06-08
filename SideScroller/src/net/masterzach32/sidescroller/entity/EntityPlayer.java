@@ -21,6 +21,8 @@ public class EntityPlayer extends MapObject {
 	private float health;
 	private float maxHealth;
 	private float shield, maxShield;
+	private float healthRegen;
+	private float shieldRegen;
 	private boolean inCombat;
 	private int combatTimer;
 	private float exp;
@@ -76,7 +78,9 @@ public class EntityPlayer extends MapObject {
 		facingRight = true;
 		
 		health = maxHealth = 12;
+		healthRegen = (float) 0.004;
 		shield = maxShield = 8;
+		shieldRegen = (float) 0.02;
 		level = 1;
 		levelMultiplier = (double) (1.135);
 		maxExp = 100;
@@ -433,11 +437,11 @@ public class EntityPlayer extends MapObject {
 		if(health > 0) {
 			this.dead = false;
 			if(health < maxHealth) {
-				health += 0.003;
+				health += healthRegen;
 			}
 			
 			if(shield < maxShield) {
-				if(!inCombat) shield += 0.03;
+				if(!inCombat) shield += shieldRegen;
 			}
 		}
 		
@@ -485,7 +489,9 @@ public class EntityPlayer extends MapObject {
 		orbCd -= 15;
 		maxHealth += 6;
 		health += 6;
+		healthRegen += 0.001;
 		maxShield += 4;
+		shieldRegen += 0.003;
 		shield += 4;
 	}
 	
