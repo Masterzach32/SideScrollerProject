@@ -187,14 +187,10 @@ public class EntityPlayer extends MapObject {
 	
 	public void setFiring() { 
 		firing = true;
-		inCombat = true;
-		combatTimer = 300;
 	}
 	
 	public void setScratching() {
 		scratching = true;
-		inCombat = true;
-		combatTimer = 300;
 	}
 	
 	public void setGliding(boolean b) { 
@@ -213,10 +209,14 @@ public class EntityPlayer extends MapObject {
 			if(scratching) {
 				if(facingRight) {
 					if(e.getx() > x && e.getx() < x + scratchRange && e.gety() > y - height / 2 && e.gety() < y + height / 2) {
+						inCombat = true;
+						combatTimer = 300;
 						e.hit(scratchDamage, "Scratch", this);
 					}
 				} else {
 					if(e.getx() < x && e.getx() > x - scratchRange && e.gety() > y - height / 2 && e.gety() < y + height / 2) {
+						inCombat = true;
+						combatTimer = 300;
 						e.hit(scratchDamage, "Scratch", this);
 					}
 				}
@@ -225,17 +225,23 @@ public class EntityPlayer extends MapObject {
 			// orbs
 			for(int j = 0; j < orbs.size(); j++) {
 				if(orbs.get(j).intersects(e)) {
-					if(e instanceof Slugger)
+					if(e instanceof Slugger) {
+						inCombat = true;
+						combatTimer = 300;
 						e.hit((int) (orbDamage), "Orb", this);
-					else
+					} else {
+						inCombat = true;
+						combatTimer = 300;
 						e.hit(orbDamage, "Orb", this);
-					orbs.get(j).setHit();
+					}
 				break;
 				}
 			}
 						
 			// check enemy collision
 			if(intersects(e)) {
+				inCombat = true;
+				combatTimer = 300;
 				hit(e.getDamage(), "Collision", e);
 			}	
 		}
@@ -247,8 +253,6 @@ public class EntityPlayer extends MapObject {
 	 * @param source (should always be <code>this</code>)
 	 */
 	public void hit(int damage, String type, MapObject source) {
-		combatTimer = 300;
-		inCombat = true;
 		if(flinching) return;
 		explosions.add(new Explosion(this.getx(), this.gety()));
 		int d = damage;
@@ -437,7 +441,7 @@ public class EntityPlayer extends MapObject {
 			if(left) facingRight = false;
 		}
 		
-		combatTimer--;
+		if(combatTimer > 0) combatTimer--;
 		if(combatTimer == 0) inCombat = false;
 		
 		// check to see if the player is dead or not
