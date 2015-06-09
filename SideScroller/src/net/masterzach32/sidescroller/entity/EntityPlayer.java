@@ -149,6 +149,10 @@ public class EntityPlayer extends MapObject {
 		health = h;
 	}
 	
+	public boolean isInCombat() {
+		return inCombat;
+	}
+	
 	public float getExp() {
 		return exp;
 	}
@@ -183,10 +187,14 @@ public class EntityPlayer extends MapObject {
 	
 	public void setFiring() { 
 		firing = true;
+		inCombat = true;
+		combatTimer = 300;
 	}
 	
 	public void setScratching() {
 		scratching = true;
+		inCombat = true;
+		combatTimer = 300;
 	}
 	
 	public void setGliding(boolean b) { 

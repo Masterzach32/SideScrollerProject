@@ -211,23 +211,23 @@ public abstract class MapObject {
 	}
 	
 	public void setLeft(boolean b) { 
-		left = b; 
+		left = b;
 	}
 	
 	public void setRight(boolean b) { 
-		right = b; 
+		right = b;
 	}
 	
 	public void setUp(boolean b) { 
-		up = b; 
+		up = b;
 	}
 	
 	public void setDown(boolean b) { 
-		down = b; 
+		down = b;
 	}
 	
 	public void setJumping(boolean b) { 
-		jumping = b; 
+		jumping = b;
 	}
 	
 	/**
