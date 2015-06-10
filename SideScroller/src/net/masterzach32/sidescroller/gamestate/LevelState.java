@@ -29,7 +29,7 @@ public abstract class LevelState extends GameState {
 	public static void loadLevels() {
 		tileMap = new TileMap(30);
 		player = new EntityPlayer(tileMap);
-		player.loadSave();
+		//player.loadSave();
 		
 		// load assets
 		hud = new HUD(player);

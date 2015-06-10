@@ -1,8 +1,10 @@
 package net.masterzach32.sidescroller.gamestate;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
@@ -93,7 +95,12 @@ public class OptionsState extends MenuState {
 			} else {
 				SideScroller.SCALE += 1;
 			}
-			Game.getFrame().setSize(SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE + 20);
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			Dimension frameSize = new Dimension((int) (SideScroller.WIDTH * SideScroller.SCALE), (int) (SideScroller.HEIGHT * SideScroller.SCALE + 20));
+			int x = (int) ((screenSize.width/2)-(frameSize.width/2));
+			int y = (int) ((screenSize.height/2)-(frameSize.height/2));
+			Game.getFrame().setSize(frameSize);
+			Game.getFrame().setLocation(x, y);
 		}
 		if(currentChoice == 1) {
 			if(SideScroller.WIDTH == 640) {
@@ -103,7 +110,12 @@ public class OptionsState extends MenuState {
 				SideScroller.WIDTH = 640;
 				SideScroller.HEIGHT = 360;
 			}
-			Game.getFrame().setSize(SideScroller.WIDTH * SideScroller.SCALE, SideScroller.HEIGHT * SideScroller.SCALE + 20);
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			Dimension frameSize = new Dimension((int) (SideScroller.WIDTH * SideScroller.SCALE), (int) (SideScroller.HEIGHT * SideScroller.SCALE + 20));
+			int x = (int) ((screenSize.width/2)-(frameSize.width/2));
+			int y = (int) ((screenSize.height/2)-(frameSize.height/2));
+			Game.getFrame().setSize(frameSize);
+			Game.getFrame().setLocation(x, y);
 		}
 		if(currentChoice == 2) {
 			if (SideScroller.isSoundEnabled) {

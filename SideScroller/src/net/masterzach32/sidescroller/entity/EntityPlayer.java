@@ -78,7 +78,7 @@ public class EntityPlayer extends MapObject {
 		facingRight = true;
 		
 		health = maxHealth = 12;
-		healthRegen = (float) 0.004;
+		healthRegen = (float) 0.003;
 		shield = maxShield = 8;
 		shieldRegen = (float) 0.02;
 		level = 1;
@@ -255,7 +255,6 @@ public class EntityPlayer extends MapObject {
 	public void hit(int damage, String type, MapObject source) {
 		if(flinching) return;
 		explosions.add(new Explosion(this.getx(), this.gety()));
-		int d = damage;
 		float s = shield;
 		shield -= damage;
 		if(shield < 0) shield = 0;

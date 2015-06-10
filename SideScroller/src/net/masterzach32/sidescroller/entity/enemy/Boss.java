@@ -31,29 +31,32 @@ public class Boss extends Enemy {
 		
 		exp = (25) + (30*level);
 		
-		armor = 20 + (5*level);
+		armor = 20 + (10*level);
 		damageMultiplier = (double) (100) / (100 + armor);
 		
 		// load sprites
-			try {
-				BufferedImage spritesheet = Assets.getImageAsset("boss");
+			
+		try {
+			BufferedImage spritesheet = Assets.getImageAsset("boss");
+			
+			sprites = new BufferedImage[3];
 				
-				sprites = new BufferedImage[3];
-				for(int i = 0; i < sprites.length; i++) {
-					sprites[i] = spritesheet.getSubimage(i * width, 0, width, height);
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-			
-			explosions = new ArrayList<Explosion>();
-			
-			animation = new Animation();
-			animation.setFrames(sprites);
-			animation.setDelay(300);
-			
-			right = true;
-			facingRight = true;
+			for(int i = 0; i < sprites.length; i++) {
+			sprites[i] = spritesheet.getSubimage(i * width, 0, width, height);
+		}
+	
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		explosions = new ArrayList<Explosion>();
+		
+		animation = new Animation();
+		animation.setFrames(sprites);
+		animation.setDelay(300);
+		
+		right = true;
+		facingRight = true;
 	}
 	
 	private void getNextPosition() {

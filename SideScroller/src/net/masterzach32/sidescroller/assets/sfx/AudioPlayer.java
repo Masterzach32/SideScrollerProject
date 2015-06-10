@@ -33,19 +33,11 @@ public class AudioPlayer {
 	}
 	
 	public void stop() {
-		if(!SideScroller.isSoundEnabled) {
-			return;
-		} else {
-			if(clip.isRunning()) clip.stop();
-		}
+		if(clip.isRunning()) clip.stop();
 	}
 	
 	public void close() {
-		if(!SideScroller.isSoundEnabled) {
-			return;
-		} else {
-			stop();
-			clip.close();
-		}
+		stop();
+		clip.close();
 	}
 }
