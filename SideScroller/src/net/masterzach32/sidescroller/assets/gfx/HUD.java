@@ -14,6 +14,8 @@ public class HUD {
 	private BufferedImage image;
 	private Font font;
 	
+	double b0 = 51, b1 = 51;
+	
 	public HUD(EntityPlayer p) {
 		player = p;
 		try {
@@ -28,16 +30,30 @@ public class HUD {
 	
 	public void render(Graphics2D g) {
 		g.drawImage(image, 0, 15, null);
-		g.setColor(new Color(0, 170, 0));
 		
 		double h0 = player.getHealth() / player.getMaxHealth();
 		double h1 = h0 * 51;
-		g.fillRect(17, 18, (int) h1, 13);
+		double m0 = player.getShield() / player.getMaxShield();
+		double m1 = m0 * 51;
+		
+		if(h1 >= b0) b0 = h1;
+		if(h1 < b0) b0 -= 0.3;
+		if(m1 >= b1) b1 = m1;
+		if(m1 < b1) b1 -= 0.3;
+		
+		g.setColor(new Color(0, 100, 0));
+		g.fillRect(17, 18, (int) b0, 13);
 		
 		g.setColor(Color.BLUE);
-		double m0 = player.getShield() / player.getMaxShield();
-		double m1 = m0 * 51;	
+		g.fillRect(17, 39, (int) b1, 13);
+		
+		// health bar
+		g.setColor(new Color(0, 170, 0));
+		g.fillRect(17, 18, (int) h1, 13);
+		// mana bar
+		g.setColor(Color.BLUE);
 		g.fillRect(17, 39, (int) m1, 13);
+		
 		g.setFont(font);
 		g.setColor(Color.WHITE);
 		if(player.getOrbCurrentCd() > 0) g.drawString("" + (player.getOrbCurrentCd() / 60 + 1), 0, 12);
