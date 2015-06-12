@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.EntityPlayer;
-import net.masterzach32.sidescroller.gamestate.LevelState;
 
 public class HUD {
 	
@@ -37,14 +36,14 @@ public class HUD {
 		double m1 = m0 * 51;
 		
 		if(h1 >= b0) b0 = h1;
-		if(h1 < b0) b0 -= 0.3;
+		if(h1 < b0) b0 -= 0.6;
 		if(m1 >= b1) b1 = m1;
-		if(m1 < b1) b1 -= 0.3;
+		if(m1 < b1) b1 -= 0.6;
 		
-		g.setColor(new Color(0, 100, 0));
+		g.setColor(new Color(200, 0, 0));
 		g.fillRect(17, 18, (int) b0, 13);
 		
-		g.setColor(Color.BLUE);
+		g.setColor(new Color(200, 0, 0));
 		g.fillRect(17, 39, (int) b1, 13);
 		
 		// health bar
