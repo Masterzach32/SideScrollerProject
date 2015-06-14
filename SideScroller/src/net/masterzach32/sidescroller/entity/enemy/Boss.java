@@ -30,12 +30,12 @@ public class Boss extends Enemy {
 		cwidth = 20;
 		cheight = 20;
 		
-		health = maxHealth = (225) + (50*level);
+		health = maxHealth = (200) + (75*level);
 		damage = (10) + (5*level);
 		
 		exp = (25) + (30*level);
 		
-		armor = 20 + (10*level);
+		armor = -30;
 		damageMultiplier = (double) (100) / (100 + armor);
 		
 		// load sprites
@@ -93,7 +93,7 @@ public class Boss extends Enemy {
 		// check flinching
 		if(flinching) {
 			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
-			if(elapsed > 400) {
+			if(elapsed > 1000) {
 				flinching = false;
 			}
 		}
@@ -126,17 +126,33 @@ public class Boss extends Enemy {
 		setMapPosition();
 		
 		double h0 = health / maxHealth;
-		double h1 = h0 * 60;
+		double h1 = h0 * 30;
 		
 		if(h1 >= b0) b0 = h1;
 		if(h1 < b0) b0 -= .7;
 		
-		super.render(g);
-		
 		g.setColor(new Color(200, 0, 0));
-		g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) b0, 5);
+		g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 5, (int) b0, 5);
 		// health bar
 		g.setColor(new Color(0, 170, 0));
-		g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) h1, 5);
+		g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 5, (int) h1, 5);
+		
+		if(flinching) {
+			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
+			if(elapsed / 100 % 2 == 0) {
+				// draw explosions
+				for(int i = 0; i < explosions.size(); i++) {
+					explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
+					explosions.get(i).render(g);
+				}
+				return;
+			}
+		}	
+		super.render(g);
+		
+		for(int i = 0; i < explosions.size(); i++) {
+			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
+			explosions.get(i).render(g);
+		}
 	}
 }

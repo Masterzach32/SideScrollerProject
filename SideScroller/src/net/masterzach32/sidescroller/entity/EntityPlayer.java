@@ -86,15 +86,15 @@ public class EntityPlayer extends MapObject {
 		maxExp = 100;
 		orbCurrentCd = orbCd = 2500;
 		
-		damage = 10;
+		damage = 6;
 		
 		orbCd = 360;
 		orbCurrentCd = 0;
-		orbDamage = (int)(4 + damage*0.9);
+		orbDamage = (int)(2 + damage*0.8);
 		explosions = new ArrayList<Explosion>();
 		orbs = new ArrayList<Orb>();
 		
-		scratchDamage = (int)(10 + damage*1.5);
+		scratchDamage = (int)(4 + damage*1.8);
 		scratchRange = 35;
 		
 		// load sprites
@@ -475,7 +475,7 @@ public class EntityPlayer extends MapObject {
 			if(elapsed / 100 % 2 == 0) {
 				// draw explosions
 				for(int i = 0; i < explosions.size(); i++) {
-					explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
+					explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
 					explosions.get(i).render(g);
 				}
 				return;
@@ -483,9 +483,8 @@ public class EntityPlayer extends MapObject {
 		}
 		super.render(g);
 		
-		// draw explosions
 		for(int i = 0; i < explosions.size(); i++) {
-			explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
+			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
 			explosions.get(i).render(g);
 		}
 	}
@@ -494,9 +493,9 @@ public class EntityPlayer extends MapObject {
 		level += 1;
 		maxExp = (float) ((100*level) + (14*level*levelMultiplier));
 		exp = 0;
-		damage += 4;
-		scratchDamage = (int)(10+damage*1.5);
-		orbDamage = (int)(4+damage*0.9);
+		damage += 3;
+		scratchDamage = (int)(4 + damage*1.85);
+		orbDamage = (int)(2 + damage*0.8);
 		orbCd -= 15;
 		maxHealth += 6;
 		health += 6;

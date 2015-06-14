@@ -28,7 +28,7 @@ public class Slugger extends Enemy {
 		cwidth = 20;
 		cheight = 20;
 		
-		health = maxHealth = (10) + (6*level);
+		health = maxHealth = (8) + (6*level);
 		damage = (3) + (3*level);
 		
 		exp = (5) + (15*level);
