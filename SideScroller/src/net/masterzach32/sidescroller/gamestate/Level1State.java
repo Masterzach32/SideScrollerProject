@@ -74,7 +74,8 @@ public class Level1State extends LevelState {
 			enemies.add(s);
 		}
 		boss1 = new Boss(tileMap, 1);
-		boss1.setPosition(2700, 250);
+		boss1.setPosition(2800, 320);
+		enemies.add(boss1);
 	}
 	
 	public void tick() {
@@ -108,8 +109,6 @@ public class Level1State extends LevelState {
 			}
 		}
 		
-		boss1.tick();
-		
 		if (player.getx() >= levelcomplete) levelCompleted();
 	}
 	
@@ -128,7 +127,6 @@ public class Level1State extends LevelState {
 		for(int i = 0; i < enemies.size(); i++) {
 			enemies.get(i).render(g);
 		}
-		boss1.render(g);
 		
 		// draw explosions
 		for(int i = 0; i < explosions.size(); i++) {

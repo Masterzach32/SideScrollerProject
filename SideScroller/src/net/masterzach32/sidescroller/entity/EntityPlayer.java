@@ -78,9 +78,9 @@ public class EntityPlayer extends MapObject {
 		facingRight = true;
 		
 		health = maxHealth = 12;
-		healthRegen = (float) 0.003;
+		healthRegen = (float) (maxHealth * 0.0003);
 		shield = maxShield = 8;
-		shieldRegen = (float) 0.02;
+		shieldRegen = (float)  (maxShield * 0.004);
 		level = 1;
 		levelMultiplier = (double) (1.135);
 		maxExp = 100;
@@ -500,10 +500,9 @@ public class EntityPlayer extends MapObject {
 		orbCd -= 15;
 		maxHealth += 6;
 		health += 6;
-		healthRegen += 0.001;
+		healthRegen = (float) (maxHealth * 0.0003);
 		maxShield += 4;
-		shieldRegen += 0.003;
-		shield += 4;
+		shieldRegen += maxShield * 0.004;
 	}
 	
 	public void writeSaveFile() {

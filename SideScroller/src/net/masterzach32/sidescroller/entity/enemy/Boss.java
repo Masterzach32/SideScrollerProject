@@ -1,5 +1,6 @@
 package net.masterzach32.sidescroller.entity.enemy;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -9,10 +10,13 @@ import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.gamestate.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Boss extends Enemy {
 	
 	private BufferedImage[] sprites;
+	
+	private double b0 = 60;
 
 	public Boss(TileMap tm, int level) {
 		super(tm);
@@ -23,10 +27,10 @@ public class Boss extends Enemy {
 		
 		width = 30;
 		height = 30;
-		cwidth = 30;
-		cheight = 30;
+		cwidth = 20;
+		cheight = 20;
 		
-		health = maxHealth = (275) + (25*level);
+		health = maxHealth = (225) + (50*level);
 		damage = (10) + (5*level);
 		
 		exp = (25) + (30*level);
@@ -37,7 +41,7 @@ public class Boss extends Enemy {
 		// load sprites
 			
 		try {
-			BufferedImage spritesheet = Assets.getImageAsset("boss");
+			BufferedImage spritesheet = Assets.getImageAsset("slugger");
 			
 			sprites = new BufferedImage[3];
 				
@@ -110,6 +114,26 @@ public class Boss extends Enemy {
 	public void render(Graphics2D g) {
 		setMapPosition();
 		
+		double h0 = health / maxHealth;
+		double h1 = h0 * 60;
+		
+		if(h1 >= b0) b0 = h1;
+		if(h1 < b0) b0 -= 1;
+		
 		super.render(g);
+		
+		if(facingRight) {
+			g.setColor(new Color(200, 0, 0));
+			g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) b0, 5);
+			// health bar
+			g.setColor(new Color(0, 170, 0));
+			g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) h1, 5);
+		} else {
+			g.setColor(new Color(200, 0, 0));
+			g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) -b0, 5);
+			// health bar
+			g.setColor(new Color(0, 170, 0));
+			g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) -h1, 5);
+		}
 	}
 }

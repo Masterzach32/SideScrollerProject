@@ -8,8 +8,8 @@ import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class Enemy extends MapObject {
 	
-	protected int health;
-	protected int maxHealth;
+	protected float health;
+	protected float maxHealth;
 	protected boolean dead;
 	protected int damage;
 	protected int armor; 

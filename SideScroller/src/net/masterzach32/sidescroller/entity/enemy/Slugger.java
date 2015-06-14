@@ -117,11 +117,11 @@ public class Slugger extends Enemy {
 	public void render(Graphics2D g) {
 		setMapPosition();
 		
-		super.render(g);	
+		super.render(g);
 		
 		// draw explosions
 		for(int i = 0; i < explosions.size(); i++) {
-			explosions.get(i).setMapPosition((int)tileMap.getx(), (int)tileMap.gety());
+			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
 			explosions.get(i).render(g);
 		}
 	}
