@@ -502,7 +502,7 @@ public class EntityPlayer extends MapObject {
 		health += 6;
 		healthRegen = (float) (maxHealth * 0.0003);
 		maxShield += 4;
-		shieldRegen += maxShield * 0.004;
+		shieldRegen = (float) (maxShield * 0.004);
 	}
 	
 	public void writeSaveFile() {

@@ -19,7 +19,6 @@ public class Level1State extends LevelState {
 	
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;
-	private Boss boss1;
 	
 	private int levelcomplete = 3046;
 	
@@ -73,9 +72,9 @@ public class Level1State extends LevelState {
 			s.setPosition(points[i].x, points[i].y);
 			enemies.add(s);
 		}
-		boss1 = new Boss(tileMap, 1);
-		boss1.setPosition(2800, 320);
-		enemies.add(boss1);
+		Boss boss = new Boss(tileMap, 1);
+		boss.setPosition(2800, 320);
+		enemies.add(boss);
 	}
 	
 	public void tick() {

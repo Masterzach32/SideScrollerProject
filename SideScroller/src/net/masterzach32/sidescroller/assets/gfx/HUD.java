@@ -36,9 +36,9 @@ public class HUD {
 		double m1 = m0 * 51;
 		
 		if(h1 >= b0) b0 = h1;
-		if(h1 < b0) b0 -= 1;
+		if(h1 < b0) b0 -= .7;
 		if(m1 >= b1) b1 = m1;
-		if(m1 < b1) b1 -= 1;
+		if(m1 < b1) b1 -= .7;
 		
 		g.setColor(new Color(200, 0, 0));
 		g.fillRect(17, 18, (int) b0, 13);

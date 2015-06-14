@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.Explosion;
+import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.gamestate.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Boss extends Enemy {
 	
@@ -61,6 +61,17 @@ public class Boss extends Enemy {
 		
 		right = true;
 		facingRight = true;
+	}
+	
+	public void hit(int damage, String type, MapObject source) {
+		if(dead || flinching) return;
+		explosions.add(new Explosion(this.getx(), this.gety()));
+		damage = (int) (damage * damageMultiplier);
+		health -= damage;
+		if(health < 0) health = 0;
+		if(health == 0) dead = true;
+		flinching = true;
+		flinchTimer = System.nanoTime();
 	}
 	
 	private void getNextPosition() {
@@ -118,22 +129,14 @@ public class Boss extends Enemy {
 		double h1 = h0 * 60;
 		
 		if(h1 >= b0) b0 = h1;
-		if(h1 < b0) b0 -= 1;
+		if(h1 < b0) b0 -= .7;
 		
 		super.render(g);
 		
-		if(facingRight) {
-			g.setColor(new Color(200, 0, 0));
-			g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) b0, 5);
-			// health bar
-			g.setColor(new Color(0, 170, 0));
-			g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) h1, 5);
-		} else {
-			g.setColor(new Color(200, 0, 0));
-			g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) -b0, 5);
-			// health bar
-			g.setColor(new Color(0, 170, 0));
-			g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) -h1, 5);
-		}
+		g.setColor(new Color(200, 0, 0));
+		g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) b0, 5);
+		// health bar
+		g.setColor(new Color(0, 170, 0));
+		g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), (int) h1, 5);
 	}
 }

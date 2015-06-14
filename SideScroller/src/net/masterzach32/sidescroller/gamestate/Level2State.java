@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Explosion;
+import net.masterzach32.sidescroller.entity.enemy.Boss;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
 import net.masterzach32.sidescroller.entity.enemy.Slugger;
 import net.masterzach32.sidescroller.main.SideScroller;
@@ -68,12 +69,15 @@ public class Level2State extends LevelState {
 	protected void populateEnemies() {
 		enemies = new ArrayList<Enemy>();
 		Slugger s;
-		Point[] points = new Point[] {new Point(200, 100), new Point(860, 300), new Point(1575, 250), new Point(1625, 250), new Point(1525, 250), new Point(1680, 300), new Point(1800, 220)};
+		Point[] points = new Point[] {new Point(200, 100), new Point(860, 300), new Point(1575, 250), new Point(1625, 250), new Point(1525, 250), new Point(1800, 220)};
 		for(int i = 0; i < points.length; i++) {
 			s = new Slugger(tileMap, 2);
 			s.setPosition(points[i].x, points[i].y);
 			enemies.add(s);
 		}
+		Boss boss = new Boss(tileMap, 2);
+		boss.setPosition(2800, 320);
+		enemies.add(boss);
 	}
 	
 	public void tick() {
