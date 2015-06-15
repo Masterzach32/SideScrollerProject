@@ -35,7 +35,7 @@ public class Boss extends Enemy {
 		
 		exp = (25) + (30*level);
 		
-		armor = -30;
+		armor = -40;
 		damageMultiplier = (double) (100) / (100 + armor);
 		
 		// load sprites
@@ -126,16 +126,16 @@ public class Boss extends Enemy {
 		setMapPosition();
 		
 		double h0 = health / maxHealth;
-		double h1 = h0 * 30;
+		double h1 = h0 * 60;
 		
 		if(h1 >= b0) b0 = h1;
 		if(h1 < b0) b0 -= .7;
 		
 		g.setColor(new Color(200, 0, 0));
-		g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 5, (int) b0, 5);
+		g.fillRect((int)(x + xmap - width / 2) - 15, (int)(y + ymap - height / 2) + 2, (int) b0, 8);
 		// health bar
-		g.setColor(new Color(0, 170, 0));
-		g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 5, (int) h1, 5);
+		g.setColor(new Color(255, 0, 0));
+		g.fillRect((int)(x + xmap - width / 2) - 15, (int)(y + ymap - height / 2) + 2, (int) h1, 8);
 		
 		if(flinching) {
 			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;

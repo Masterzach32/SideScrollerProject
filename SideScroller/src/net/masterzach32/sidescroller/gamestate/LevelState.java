@@ -1,6 +1,7 @@
 package net.masterzach32.sidescroller.gamestate;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
@@ -29,7 +30,6 @@ public abstract class LevelState extends GameState {
 	public static void loadLevels() {
 		tileMap = new TileMap(30);
 		player = new EntityPlayer(tileMap);
-		//player.loadSave();
 		
 		// load assets
 		hud = new HUD(player);
@@ -66,8 +66,9 @@ public abstract class LevelState extends GameState {
 	protected void renderSpawnAnimation(Graphics2D g) {
 		if(i <= spawnTimer) i++;
 		if(!animation.hasPlayedOnce()) {
+			Point p = player.getScreenLocation();
 			animation.tick();
-			animation.render(g, player.getx() - width / 2, player.gety() - height / 2, width, height);
+			animation.render(g, p.x, p.y, width, height);
 		} else {
 			
 		}

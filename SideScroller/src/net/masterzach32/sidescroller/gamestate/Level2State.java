@@ -94,11 +94,18 @@ public class Level2State extends LevelState {
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
 			e.tick();
-			if(e.isDead()) {
+			if(e.isDead() && e instanceof Slugger) {
 				player.setExp(player.getExp() + e.getXpGain());
 				enemies.remove(i);
 				i--;
 				explosions.add(new Explosion(e.getx(), e.gety()));
+			} else if (e.isDead() && e instanceof Boss){
+				if(e.isDead()) {
+					enemies.remove(i);
+					i--;
+				explosions.add(new Explosion(e.getx(), e.gety()));
+					levelCompleted();
+				}
 			}
 		}
 		

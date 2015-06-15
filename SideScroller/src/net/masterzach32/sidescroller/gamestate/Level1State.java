@@ -20,8 +20,6 @@ public class Level1State extends LevelState {
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;
 	
-	private int levelcomplete = 3046;
-	
 	private AudioPlayer bgMusic;
 	
 	public Level1State(SideScroller game) {
@@ -73,7 +71,7 @@ public class Level1State extends LevelState {
 			enemies.add(s);
 		}
 		Boss boss = new Boss(tileMap, 1);
-		boss.setPosition(2800, 320);
+		boss.setPosition(3046, 320);
 		enemies.add(boss);
 	}
 	
@@ -91,11 +89,18 @@ public class Level1State extends LevelState {
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
 			e.tick();
-			if(e.isDead()) {
+			if(e.isDead() && e instanceof Slugger) {
 				player.setExp(player.getExp() + e.getXpGain());
 				enemies.remove(i);
 				i--;
 				explosions.add(new Explosion(e.getx(), e.gety()));
+			} else if (e.isDead() && e instanceof Boss){
+				if(e.isDead()) {
+					enemies.remove(i);
+					i--;
+					explosions.add(new Explosion(e.getx(), e.gety()));
+					levelCompleted();
+				}
 			}
 		}
 		
@@ -107,8 +112,6 @@ public class Level1State extends LevelState {
 				i--;
 			}
 		}
-		
-		if (player.getx() >= levelcomplete) levelCompleted();
 	}
 	
 	public void render(Graphics2D g) {

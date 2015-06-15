@@ -197,6 +197,10 @@ public class EntityPlayer extends MapObject {
 		gliding = b;
 	}
 	
+	public Point getScreenLocation() {
+		return new Point((int)(x + xmap - width / 2), (int)(y + ymap - height / 2));
+	}
+	
 	/**
 	 * Checks to see if the attack succeeded
 	 * @param enemies
