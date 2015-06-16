@@ -28,6 +28,7 @@ public class Level1State extends LevelState {
 	}
 	
 	public void init() {
+		levelComplete = false;
 		bg = new Background(Assets.getImageAsset("grassbg"), 0.1);
 		
 		explosions = new ArrayList<Explosion>();
@@ -48,6 +49,7 @@ public class Level1State extends LevelState {
 		tileMap.setPosition(0, 0);
 		
 		bgMusic.play();
+		if(levelComplete) levelCompleted();
 	}
 	
 	protected void unload() {
@@ -57,6 +59,7 @@ public class Level1State extends LevelState {
 	}
 	
 	public void levelCompleted() {
+		levelComplete = true;
 		LogHelper.logInfo("Level 1 Completed!");
 		GameState.setState(SideScroller.level1_2);
 	}

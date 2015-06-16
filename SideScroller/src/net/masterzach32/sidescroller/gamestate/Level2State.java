@@ -23,8 +23,6 @@ public class Level2State extends LevelState {
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Explosion> explosions;
 	
-	private int levelcomplete = 3046;
-	
 	private AudioPlayer bgMusic;
 	
 	public Level2State(SideScroller game) {
@@ -33,6 +31,7 @@ public class Level2State extends LevelState {
 	}
 	
 	public void init() {
+		levelComplete = false;
 		bg = new Background(Assets.getImageAsset("grassbg"), 0.1);
 		
 		explosions = new ArrayList<Explosion>();
@@ -53,6 +52,7 @@ public class Level2State extends LevelState {
 		tileMap.setPosition(0, 0);
 		
 		bgMusic.play();
+		if(levelComplete) levelCompleted();
 	}
 	
 	protected void unload() {
@@ -62,6 +62,7 @@ public class Level2State extends LevelState {
 	}
 	
 	public void levelCompleted() {
+		levelComplete = true;
 		LogHelper.logInfo("Level 2 Completed!");
 		GameState.setState(SideScroller.endgame);
 	}
@@ -76,7 +77,7 @@ public class Level2State extends LevelState {
 			enemies.add(s);
 		}
 		Boss boss = new Boss(tileMap, 2);
-		boss.setPosition(2800, 320);
+		boss.setPosition(3046, 320);
 		enemies.add(boss);
 	}
 	
@@ -103,7 +104,7 @@ public class Level2State extends LevelState {
 				if(e.isDead()) {
 					enemies.remove(i);
 					i--;
-				explosions.add(new Explosion(e.getx(), e.gety()));
+					explosions.add(new Explosion(e.getx(), e.gety()));
 					levelCompleted();
 				}
 			}
@@ -117,8 +118,6 @@ public class Level2State extends LevelState {
 				i--;
 			}
 		}
-		
-		if (player.getx() >= levelcomplete) levelCompleted();
 	}
 	
 	public void render(Graphics2D g) {

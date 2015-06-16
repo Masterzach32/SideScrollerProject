@@ -22,6 +22,7 @@ public abstract class LevelState extends GameState {
 	protected static int width, height;
 	protected static BufferedImage[] sprites;
 	protected static AudioPlayer spawnSound;
+	protected boolean levelComplete = false;
 
 	public LevelState(SideScroller game) {
 		super(game);
