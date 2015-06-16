@@ -7,16 +7,20 @@ import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
+import net.masterzach32.sidescroller.entity.EntityPlayer;
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.gamestate.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
-
 public class Boss extends Enemy {
 	
 	private BufferedImage[] sprites;
 	
 	private double b0 = 60;
+	
+	private int attackRange;
+	
+	private int attack;
 
 	public Boss(TileMap tm, int level) {
 		super(tm);
@@ -32,6 +36,7 @@ public class Boss extends Enemy {
 		
 		health = maxHealth = (200) + (75*level);
 		damage = (10) + (5*level);
+		attackRange = 45;
 		
 		exp = (25) + (30*level);
 		
@@ -74,15 +79,52 @@ public class Boss extends Enemy {
 		flinchTimer = System.nanoTime();
 	}
 	
+	/**
+	 * Checks to see if the attack succeeded
+	 * @param enemies
+	 */
+	public void checkAttack() {
+		// loop through enemies
+		EntityPlayer p = LevelState.getPlayer();
+		// scratch attack
+		if(facingRight) {
+			if(p.getx() > x && p.getx() < x + attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
+				p.hit(damage, "Scratch", this);
+			}
+		} else {
+			if(p.getx() < x && p.getx() > x - attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
+				p.hit(damage, "Scratch", this);
+			}
+		}
+	}
+	
 	private void getNextPosition() {
-		if(LevelState.getPlayer().getx() < this.x) {
-			right = false;
-			left = true;
-			facingRight = false;
-		} else if (LevelState.getPlayer().getx() > this.x) {
-			right = true;
-			left = false;
-			facingRight = true;
+		if((this.getx() - LevelState.getPlayer().getx()) >= 100) return;
+		attack++;
+		// find player direction (0-60)
+		if(attack <= 60){
+			if(LevelState.getPlayer().getx() < this.getx()) {
+				right = false;
+				left = true;
+				facingRight = false;
+			} else if (LevelState.getPlayer().getx() > this.getx()) {
+				right = true;
+				left = false;
+				facingRight = true;
+			}
+		}
+		// wind up attack (61 - 150)
+		else if(attack <= 150) {
+		}
+		// attack (151 - 180)
+		else if(attack <= 180) {
+			checkAttack();
+		}
+		// cooldown (181 - 270)
+		else if(attack <= 270) {
+			return;
+		} else {
+			attack = 0;
 		}
 	}
 	
@@ -105,17 +147,6 @@ public class Boss extends Enemy {
 				explosions.remove(i);
 				i--;
 			}
-		}
-		
-		// if it hits a wall, go other direction
-		if(right && dx == 0) {
-			right = false;
-			left = true;
-			facingRight = false;
-		} else if(left && dx == 0) {
-			right = true;
-			left = false;
-			facingRight = true;
 		}
 		
 		// update animation
