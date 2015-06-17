@@ -115,6 +115,7 @@ public class Boss extends Enemy {
 		}
 		// wind up attack (61 - 150)
 		else if(attack <= 150) {
+			
 		}
 		// attack (151 - 180)
 		else if(attack <= 180) {
@@ -122,7 +123,7 @@ public class Boss extends Enemy {
 		}
 		// cooldown (181 - 270)
 		else if(attack <= 270) {
-			return;
+			
 		} else {
 			attack = 0;
 		}
