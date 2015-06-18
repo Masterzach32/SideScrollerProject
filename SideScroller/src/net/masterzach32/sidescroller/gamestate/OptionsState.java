@@ -49,7 +49,7 @@ public class OptionsState extends MenuState {
 	}
 
 	public void render(Graphics2D g) {
-		options[0] = "Scale: " + "(" + SideScroller.SCALE + "x)"; 
+		options[0] = "Scale: " + "(" + (SideScroller.SCALE - 2) + "x)"; 
 		options[1] = "Resolution: " + "(" + SideScroller.WIDTH * SideScroller.SCALE + "x" + SideScroller.HEIGHT * SideScroller.SCALE + ")";
 		if(SideScroller.isSoundEnabled) 
 			options[2] = "Sound: (ON)";

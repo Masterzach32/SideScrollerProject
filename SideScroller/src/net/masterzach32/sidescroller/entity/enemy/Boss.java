@@ -34,9 +34,9 @@ public class Boss extends Enemy {
 		cwidth = 20;
 		cheight = 20;
 		
-		health = maxHealth = (200) + (75*level);
+		health = maxHealth = (250) + (75*level);
 		damage = (10) + (5*level);
-		attackRange = 45;
+		attackRange = 50;
 		
 		exp = (25) + (30*level);
 		
@@ -163,9 +163,9 @@ public class Boss extends Enemy {
 		if(h1 >= b0) b0 = h1;
 		if(h1 < b0) b0 -= .7;
 		
+		// health bar
 		g.setColor(new Color(200, 0, 0));
 		g.fillRect((int)(x + xmap - width / 2) - 15, (int)(y + ymap - height / 2) + 2, (int) b0, 8);
-		// health bar
 		g.setColor(new Color(255, 0, 0));
 		g.fillRect((int)(x + xmap - width / 2) - 15, (int)(y + ymap - height / 2) + 2, (int) h1, 8);
 		

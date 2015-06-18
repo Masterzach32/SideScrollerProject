@@ -229,16 +229,9 @@ public class EntityPlayer extends MapObject {
 			// orbs
 			for(int j = 0; j < orbs.size(); j++) {
 				if(orbs.get(j).intersects(e)) {
-					if(e instanceof Slugger) {
-						inCombat = true;
-						combatTimer = 300;
-						e.hit((int) (orbDamage), "Orb", this);
-					} else {
-						inCombat = true;
-						combatTimer = 300;
-						e.hit(orbDamage, "Orb", this);
-					}
-				break;
+					inCombat = true;
+					combatTimer = 300;
+					e.hit(orbDamage, "Orb", this);
 				}
 			}
 						

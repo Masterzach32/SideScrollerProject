@@ -136,9 +136,9 @@ public class Slugger extends Enemy {
 		
 		super.render(g);
 		
+		// health bar
 		g.setColor(new Color(200, 0, 0));
 		g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 7, (int) b0, 2);
-		// health bar
 		g.setColor(new Color(255, 0, 0));
 		g.fillRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 7, (int) h1, 2);
 	}
