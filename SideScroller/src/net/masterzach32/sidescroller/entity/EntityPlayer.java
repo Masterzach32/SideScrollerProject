@@ -213,13 +213,11 @@ public class EntityPlayer extends MapObject {
 			if(scratching) {
 				if(facingRight) {
 					if(e.getx() > x && e.getx() < x + scratchRange && e.gety() > y - height / 2 && e.gety() < y + height / 2) {
-						inCombat = true;
 						combatTimer = 300;
 						e.hit(scratchDamage, "Scratch", this);
 					}
 				} else {
 					if(e.getx() < x && e.getx() > x - scratchRange && e.gety() > y - height / 2 && e.gety() < y + height / 2) {
-						inCombat = true;
 						combatTimer = 300;
 						e.hit(scratchDamage, "Scratch", this);
 					}
@@ -229,7 +227,6 @@ public class EntityPlayer extends MapObject {
 			// orbs
 			for(int j = 0; j < orbs.size(); j++) {
 				if(orbs.get(j).intersects(e)) {
-					inCombat = true;
 					combatTimer = 300;
 					e.hit(orbDamage, "Orb", this);
 				}
@@ -237,7 +234,6 @@ public class EntityPlayer extends MapObject {
 						
 			// check enemy collision
 			if(intersects(e)) {
-				inCombat = true;
 				combatTimer = 300;
 				hit(e.getDamage(), "Collision", e);
 			}	
@@ -438,6 +434,7 @@ public class EntityPlayer extends MapObject {
 		}
 		
 		if(combatTimer > 0) combatTimer--;
+		if(combatTimer > 0) inCombat = true;
 		if(combatTimer == 0) inCombat = false;
 		
 		// check to see if the player is dead or not
