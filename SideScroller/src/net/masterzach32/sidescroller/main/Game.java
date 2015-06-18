@@ -26,7 +26,7 @@ public class Game {
 		window.setResizable(false);
 		window.pack();	
 		console.setVisible(true);
-		window.setVisible(true);
+		window.setVisible(false);
 	}
 	
 	public static JFrame getFrame() {
