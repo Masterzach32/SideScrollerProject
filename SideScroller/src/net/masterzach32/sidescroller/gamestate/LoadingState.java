@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import net.masterzach32.sidescroller.main.Handler;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 
@@ -17,8 +18,8 @@ public class LoadingState extends GameState {
 	protected Font font;
 	protected Font selectfont;
 
-	public LoadingState(SideScroller game) {
-		super(game);
+	public LoadingState(Handler handler) {
+		super(handler);
 	}
 
 	public void init() {

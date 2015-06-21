@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
+import net.masterzach32.sidescroller.main.Handler;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 
@@ -23,8 +24,8 @@ public class MenuState extends GameState {
 	
 	protected static AudioPlayer bgMusic;
 	
-	public MenuState(SideScroller game) {
-		super(game);
+	public MenuState(Handler handler) {
+		super(handler);
 		init();		
 	}
 	

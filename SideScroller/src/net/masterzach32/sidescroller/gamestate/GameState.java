@@ -2,15 +2,15 @@ package net.masterzach32.sidescroller.gamestate;
 
 import java.awt.Graphics2D;
 
-import net.masterzach32.sidescroller.main.SideScroller;
+import net.masterzach32.sidescroller.main.Handler;
 
 public abstract class GameState {
 	
 	protected static GameState state = null;
-	protected SideScroller game = null;
+	protected Handler handler = null;
 	
-	public GameState(SideScroller game) {
-		this.game = game;
+	public GameState(Handler handler) {
+		this.handler = handler;
 	}
 	
 	/**

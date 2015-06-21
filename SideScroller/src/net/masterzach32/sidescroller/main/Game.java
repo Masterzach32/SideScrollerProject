@@ -29,11 +29,11 @@ public class Game {
 		window.setVisible(false);
 	}
 	
-	public static JFrame getFrame() {
+	protected static JFrame getFrame() {
 		return window;
 	}
 	
-	public static Console getConsole() {
+	protected static Console getConsole() {
 		return console;
 	}
 }

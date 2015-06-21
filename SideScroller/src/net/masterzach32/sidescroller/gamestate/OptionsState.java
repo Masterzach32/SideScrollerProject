@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.main.Game;
+import net.masterzach32.sidescroller.main.Handler;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 
@@ -20,8 +21,8 @@ public class OptionsState extends MenuState {
 	public static String[] options = new String[7]; 
 	private static boolean console = false;
 	
-	public OptionsState(SideScroller game) {
-		super(game);
+	public OptionsState(Handler handler) {
+		super(handler);
 	}
 
 	public void init() {
@@ -49,17 +50,13 @@ public class OptionsState extends MenuState {
 	}
 
 	public void render(Graphics2D g) {
-		options[0] = "Scale: " + "(" + (SideScroller.SCALE - 2) + "x)"; 
+		options[0] = "Scale: " + "(" + (SideScroller.SCALE) + "x)"; 
 		options[1] = "Resolution: " + "(" + SideScroller.WIDTH * SideScroller.SCALE + "x" + SideScroller.HEIGHT * SideScroller.SCALE + ")";
-		if(SideScroller.isSoundEnabled) 
-			options[2] = "Sound: (ON)";
-		else 
-			options[2] = "Sound: (OFF)";
+		if(SideScroller.isSoundEnabled) options[2] = "Sound: (ON)";
+		else options[2] = "Sound: (OFF)";
 		options[3] = "FPS (broken): (" + SideScroller.FPS + ")";
-		if(console)
-			options[4] = "Show Console: (TRUE)";
-		else
-			options[4] = "Show Console: (FALSE)";
+		if(console) options[4] = "Show Console: (TRUE)";
+		else options[4] = "Show Console: (FALSE)";
 		options[5] = "Controls Menu (WIP)";
 		options[6] = "Back";
 		// draw bg
@@ -99,8 +96,8 @@ public class OptionsState extends MenuState {
 			Dimension frameSize = new Dimension((int) (SideScroller.WIDTH * SideScroller.SCALE), (int) (SideScroller.HEIGHT * SideScroller.SCALE + 20));
 			int x = (int) ((screenSize.width/2)-(frameSize.width/2));
 			int y = (int) ((screenSize.height/2)-(frameSize.height/2));
-			Game.getFrame().setSize(frameSize);
-			Game.getFrame().setLocation(x, y);
+			Handler.getWindow().setSize(frameSize);
+			Handler.getWindow().setLocation(x, y);
 		}
 		if(currentChoice == 1) {
 			if(SideScroller.WIDTH == 640) {
@@ -114,8 +111,8 @@ public class OptionsState extends MenuState {
 			Dimension frameSize = new Dimension((int) (SideScroller.WIDTH * SideScroller.SCALE), (int) (SideScroller.HEIGHT * SideScroller.SCALE + 20));
 			int x = (int) ((screenSize.width/2)-(frameSize.width/2));
 			int y = (int) ((screenSize.height/2)-(frameSize.height/2));
-			Game.getFrame().setSize(frameSize);
-			Game.getFrame().setLocation(x, y);
+			Handler.getWindow().setSize(frameSize);
+			Handler.getWindow().setLocation(x, y);
 		}
 		if(currentChoice == 2) {
 			if (SideScroller.isSoundEnabled) {
@@ -136,7 +133,7 @@ public class OptionsState extends MenuState {
 			} else {
 				console = true;
 			}
-			Game.getConsole().setVisible(console);
+			Handler.getConsole().setVisible(console);
 			SideScroller.getGame().requestFocus();
 		}
 		if(currentChoice == 5) {

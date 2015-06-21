@@ -9,6 +9,7 @@ import net.masterzach32.sidescroller.assets.gfx.HUD;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.EntityPlayer;
+import net.masterzach32.sidescroller.main.Handler;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
@@ -24,8 +25,8 @@ public abstract class LevelState extends GameState {
 	protected static AudioPlayer spawnSound;
 	protected boolean levelComplete = false;
 
-	public LevelState(SideScroller game) {
-		super(game);
+	public LevelState(Handler handler) {
+		super(handler);
 	}
 	
 	public static void loadLevels() {

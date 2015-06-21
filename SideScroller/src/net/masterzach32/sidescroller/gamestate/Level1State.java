@@ -9,6 +9,7 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.*;
 import net.masterzach32.sidescroller.entity.enemy.*;
+import net.masterzach32.sidescroller.main.Handler;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
 import net.masterzach32.sidescroller.util.LogHelper;
@@ -22,8 +23,8 @@ public class Level1State extends LevelState {
 	
 	private AudioPlayer bgMusic;
 	
-	public Level1State(SideScroller game) {
-		super(game);
+	public Level1State(Handler handler) {
+		super(handler);
 		init();
 	}
 	

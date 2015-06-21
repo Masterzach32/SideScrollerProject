@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.main.Handler;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 
@@ -16,8 +17,8 @@ public class HelpState extends MenuState {
 	public static int currentChoice = 0;
 	public static String[] helpText = {"Controls:", "Left: A", "Right: D", "Up: W", "Down: S", "Jump: W or SPACE", "Glide: E", "Scratch: R or Left Click", "Fire: F or Right Click", "Main Menu: F5"};
 
-	public HelpState(SideScroller game) {
-		super(game);
+	public HelpState(Handler handler) {
+		super(handler);
 	}
 
 	public void init() {
