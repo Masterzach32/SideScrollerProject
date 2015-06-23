@@ -20,7 +20,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.4.161";
+	public static final String VERSION = "0.0.4.162";
 	
 	// game thread
 	private Thread thread;
@@ -48,8 +48,6 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static ImageLoader il = new ImageLoader();
 	public static AudioLoader al = new AudioLoader();
 	public static MapLoader ml = new MapLoader();
-	
-	private Handler handler;
 	
 	public SideScroller() {
 		super();
@@ -91,10 +89,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		LogHelper.logInfo("Loading Assets");
 		Assets.init(); 
 		
-		handler = new Handler(this);
-		
 		LogHelper.logInfo("Creating Loading Screen");
-		load = new LoadingState(handler);
+		load = new LoadingState(this);
 		GameState.setState(load);
 		render();
 		
@@ -102,18 +98,18 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		LevelState.loadLevels();
 		
 		LogHelper.logInfo("Loading Menus");
-		menuState = new MenuState(handler);
+		menuState = new MenuState(this);
 		LogHelper.logInfo("Menu State Created");
-		helpState = new HelpState(handler);
+		helpState = new HelpState(this);
 		LogHelper.logInfo("Help State Created");
-		optionsState = new OptionsState(handler);
+		optionsState = new OptionsState(this);
 		LogHelper.logInfo("Options State Created");
 		LogHelper.logInfo("Loading Levels");
-		level1_1 = new Level1State(handler);
+		level1_1 = new Level1State(this);
 		LogHelper.logInfo("Level 1 Loaded");
-		level1_2 = new Level2State(handler);
+		level1_2 = new Level2State(this);
 		LogHelper.logInfo("Level 2 Loaded");
-		endgame = new EndState(handler);
+		endgame = new EndState(this);
 		GameState.setState(menuState);
 		LogHelper.logInfo("Creating Window");
 		Game.getFrame().setVisible(true);

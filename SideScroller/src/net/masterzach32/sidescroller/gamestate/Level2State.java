@@ -12,7 +12,6 @@ import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.enemy.Boss;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
 import net.masterzach32.sidescroller.entity.enemy.Slugger;
-import net.masterzach32.sidescroller.main.Handler;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 import net.masterzach32.sidescroller.util.LogHelper;
@@ -26,8 +25,8 @@ public class Level2State extends LevelState {
 	
 	private AudioPlayer bgMusic;
 	
-	public Level2State(Handler handler) {
-		super(handler);
+	public Level2State(SideScroller game) {
+		super(game);
 		init();
 	}
 	

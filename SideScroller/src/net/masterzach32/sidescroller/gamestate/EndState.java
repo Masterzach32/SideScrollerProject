@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
-import net.masterzach32.sidescroller.main.Handler;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 
@@ -13,8 +12,8 @@ public class EndState extends GameState {
 	private AudioPlayer bgMusic;
 	private Background bg;
 
-	public EndState(Handler handler) {
-		super(handler);
+	public EndState(SideScroller game) {
+		super(game);
 	}
 
 	@Override
