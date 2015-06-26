@@ -5,15 +5,16 @@ import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.EntityPlayer;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 public class HUD {
 	
 	private EntityPlayer player;
 	
 	private BufferedImage image;
-	private Font font, healthFont, shieldFont;
+	private Font font;
 	
-	double b0 = 51, b1 = 51;
+	double b0 = 31, b1 = 20, hx = 31, mx = 20;
 	
 	public HUD(EntityPlayer p) {
 		player = p;
@@ -21,8 +22,6 @@ public class HUD {
 			image = Assets.getImageAsset("hud");
 			
 			font = new Font("Arial", Font.PLAIN, 14);
-			healthFont = new Font("Arial", Font.PLAIN, 11);
-			shieldFont = new Font("Arial", Font.PLAIN, 10);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -33,9 +32,14 @@ public class HUD {
 		g.drawImage(image, 0, 15, null);
 		
 		double h0 = player.getHealth() / player.getMaxHealth();
-		double h1 = h0 * 51;
+		double h1 = h0 * hx;
 		double m0 = player.getShield() / player.getMaxShield();
-		double m1 = m0 * 51;
+		double m1 = m0 * mx;
+		
+		if((int) (h1 + m1) <= 51) {
+			int f = (int) (mx - m1);
+			h1 += f;
+		}
 		
 		if(h1 >= b0) b0 = h1;
 		if(h1 < b0) b0 -= .7;
@@ -49,9 +53,9 @@ public class HUD {
 		g.fillRect(17, 18, (int) h1, 13);
 		// mana bar
 		g.setColor(new Color(200, 0, 0));
-		g.fillRect(17, 26, (int) b1, 5);
+		g.fillRect((int) (17 + b0), 18, (int) b1, 13);
 		g.setColor(Color.BLUE);
-		g.fillRect(17, 26, (int) m1, 5);
+		g.fillRect((int) (17 + h1), 18, (int) m1, 13);
 		
 		g.setFont(font);
 		g.setColor(Color.WHITE);
@@ -60,7 +64,5 @@ public class HUD {
 		g.drawString(player.getLevel() + " - " + (int) player.getExp() + "/" + (int) player.getMaxExp(), 1, 70);
 		g.setFont(font);
 		g.drawString((int) (player.getHealth()) + "/" + (int) (player.getMaxHealth()), 16, 29);
-		//g.setFont(shieldFont);
-		//g.drawString((int) (player.getShield()) + "/" + (int) (player.getMaxShield()), 42, 30);	
 	}
 }
