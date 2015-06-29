@@ -27,7 +27,7 @@ private Font subtitleFont;
 		"Catchamp",
 		"Art and Music:", 
 		"Sk8erclone25", 
-		};
+	};
 
 	public AboutState(SideScroller game) {
 		super(game);

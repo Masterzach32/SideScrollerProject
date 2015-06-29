@@ -17,7 +17,7 @@ public class OptionsState extends MenuState {
 
 	private Font subtitleFont;
 	
-	public static int currentChoice = 0;
+	public static int currentChoice;
 	public static String[] options = new String[7]; 
 	private static boolean console = false;
 	
@@ -39,6 +39,7 @@ public class OptionsState extends MenuState {
 
 	protected void load() {
 		bgMusic.play();
+		currentChoice = 0;
 	}
 
 	protected void unload() {

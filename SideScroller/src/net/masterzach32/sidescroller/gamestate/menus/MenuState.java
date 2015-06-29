@@ -13,8 +13,14 @@ public class MenuState extends GameState {
 	
 	protected Background bg;
 	
-	public static int currentChoice = 0;
-	public static String[] options = {"Play", "Help", "About", "Options", "Quit"};
+	public static int currentChoice;
+	public static String[] options = {
+		"Play",
+		"Help", 
+		"About", 
+		"Options", 
+		"Quit"
+	};
 	
 	protected Color titleColor;
 	protected Font titleFont;
@@ -43,13 +49,12 @@ public class MenuState extends GameState {
 	
 	protected void load() {
 		bgMusic.play();
+		currentChoice = 0;
 	}
 	
 	protected void unload() {
 		bgMusic.stop();
 	}
-	
-	public void levelCompleted() {}
 	
 	public void tick() {
 		bg.tick();

@@ -151,7 +151,7 @@ public class Level2State extends LevelState {
 		if(k == KeyConfigState.keyBinding[5]) player.setGliding(true);
 		if(k == KeyConfigState.keyBinding[3]) player.setScratching();
 		if(k == KeyConfigState.keyBinding[4]) player.setFiring();
-		if(k == KeyEvent.VK_F5) GameState.setState(SideScroller.menuState);
+		if(k == KeyEvent.VK_ESCAPE) GameState.setState(SideScroller.menuState);
 	}
 	
 	public void keyReleased(int k) {

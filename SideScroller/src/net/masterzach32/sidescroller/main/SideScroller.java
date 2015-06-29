@@ -30,7 +30,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.4.166";
+	public static final String VERSION = "0.0.4.167";
 	
 	// game thread
 	private Thread thread;
@@ -149,7 +149,6 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 			tick();
 			render();
 			renderToScreen();
-			if(mouseOnScreen) renderMouse();
 		
 			elapsed = System.nanoTime() - start;
 		
@@ -179,15 +178,11 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		g.dispose();
 	}
 	
+	/**
+	 * Does not work all of the time
+	 * @return mouseOnScreen
+	 */
 	@Deprecated
-	private void renderMouse() {
-		Point p = Game.getFrame().getMousePosition();
-		if (p == null) return;
-		int x = p.x;
-		int y = p.y;
-		g.drawImage(Assets.getImageAsset("mouse"), x, y, null);
-	}
-	
 	public static boolean isMouseOnScreen() {
 		return mouseOnScreen;
 	}

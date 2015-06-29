@@ -15,7 +15,18 @@ public class HelpState extends MenuState {
 	private Font subtitleFont;
 	
 	public static int currentChoice = 0;
-	public static String[] helpText = {"Default Controls:", "Left: A", "Right: D", "Up: W", "Down: S", "Jump: W or SPACE", "Glide: E", "Scratch: R or Left Click", "Fire: F or Right Click", "Main Menu: F5"};
+	public static String[] helpText = {
+		"Default Controls:", 
+		"Left: A", 
+		"Right: D", 
+		"Up: W", 
+		"Down: S", 
+		"Jump: W or SPACE", 
+		"Glide: E", 
+		"Scratch: R or Left Click", 
+		"Fire: F or Right Click", 
+		"Main Menu: ESCAPE"
+	};
 
 	public HelpState(SideScroller game) {
 		super(game);
@@ -60,7 +71,7 @@ public class HelpState extends MenuState {
 		g.setFont(font);
 		g.setColor(Color.RED);
 		for(int i = 0; i < helpText.length; i++) {
-			g.drawString(helpText[i], 265, (340 + i * 30) / 2);
+			g.drawString(helpText[i], 265, (250 + i * 30) / 2);
 		}
 	}
 
