@@ -1,4 +1,4 @@
-package net.masterzach32.sidescroller.gamestate;
+package net.masterzach32.sidescroller.gamestate.menus;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;

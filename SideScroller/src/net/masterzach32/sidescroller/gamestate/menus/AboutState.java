@@ -1,4 +1,4 @@
-package net.masterzach32.sidescroller.gamestate;
+package net.masterzach32.sidescroller.gamestate.menus;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,17 +6,30 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 
-public class HelpState extends MenuState {
-	
-	private Font subtitleFont;
+public class AboutState extends MenuState {
+
+private Font subtitleFont;
 	
 	public static int currentChoice = 0;
-	public static String[] helpText = {"Controls:", "Left: A", "Right: D", "Up: W", "Down: S", "Jump: W or SPACE", "Glide: E", "Scratch: R or Left Click", "Fire: F or Right Click", "Main Menu: F5"};
+	public static String[] aboutText = {
+		"SideScroller RPG Created By:", 
+		"Head Designer and Programmer:", 
+		"Zach Kozar", 
+		"Assistant Programmers:", 
+		"Anthony Kozar", 
+		"Keiosu", 
+		"StoryLine:",
+		"LtzVoid",
+		"Catchamp",
+		"Art and Music:", 
+		"Sk8erclone25", 
+		};
 
-	public HelpState(SideScroller game) {
+	public AboutState(SideScroller game) {
 		super(game);
 	}
 
@@ -51,15 +64,15 @@ public class HelpState extends MenuState {
 		g.setFont(titleFont);
 		g.drawString("SideScroller RPG", 195, 45);
 		g.setFont(subtitleFont);
-		g.drawString("Help", 300, 75);
+		g.drawString("About", 299, 75);
 		
 		g.setFont(selectfont);
 		g.setColor(Color.BLACK);
 		
 		g.setFont(font);
 		g.setColor(Color.RED);
-		for(int i = 0; i < helpText.length; i++) {
-			g.drawString(helpText[i], 265, (340 + i * 30) / 2);
+		for(int i = 0; i < aboutText.length; i++) {
+			g.drawString(aboutText[i], 250, (250 + i * 30) / 2);
 		}
 	}
 
@@ -74,5 +87,5 @@ public class HelpState extends MenuState {
 	public void mousePressed(int k) {}
 
 	public void mouseReleased(int k) {}
-	
+
 }

@@ -1,10 +1,11 @@
-package net.masterzach32.sidescroller.gamestate;
+package net.masterzach32.sidescroller.gamestate.menus;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
+import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 
@@ -84,7 +85,7 @@ public class MenuState extends GameState {
 		if(currentChoice == 1)
 			GameState.setState(SideScroller.helpState); // Help
 		if(currentChoice == 2)
-			GameState.setState(SideScroller.menuState); // About
+			GameState.setState(SideScroller.aboutState); // About
 		if(currentChoice == 3)
 			GameState.setState(SideScroller.optionsState); // Options
 		if(currentChoice == 4)

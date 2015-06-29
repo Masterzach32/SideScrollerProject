@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.EntityPlayer;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class HUD {
 	

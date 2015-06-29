@@ -1,4 +1,4 @@
-package net.masterzach32.sidescroller.gamestate;
+package net.masterzach32.sidescroller.gamestate.levels;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -9,6 +9,7 @@ import net.masterzach32.sidescroller.assets.gfx.HUD;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.EntityPlayer;
+import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 

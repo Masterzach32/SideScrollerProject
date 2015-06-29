@@ -1,4 +1,4 @@
-package net.masterzach32.sidescroller.gamestate;
+package net.masterzach32.sidescroller.gamestate.levels;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -12,6 +12,8 @@ import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.enemy.Boss;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
 import net.masterzach32.sidescroller.entity.enemy.Slugger;
+import net.masterzach32.sidescroller.gamestate.GameState;
+import net.masterzach32.sidescroller.gamestate.menus.KeyConfigState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 import net.masterzach32.sidescroller.util.LogHelper;
@@ -141,26 +143,24 @@ public class Level2State extends LevelState {
 	}
 	
 	public void keyPressed(int k) {
-		KeyConfigState kc = SideScroller.keyConfigState;
-		if(k == kc.keyBinding[1]) player.setLeft(true);
-		if(k == kc.keyBinding[0]) player.setRight(true);
+		if(k == KeyConfigState.keyBinding[1]) player.setLeft(true);
+		if(k == KeyConfigState.keyBinding[0]) player.setRight(true);
 		if(k == KeyEvent.VK_W) player.setUp(true);
 		if(k == KeyEvent.VK_S) player.setDown(true);
-		if(k == kc.keyBinding[2]) player.setJumping(true);
-		if(k == kc.keyBinding[5]) player.setGliding(true);
-		if(k == kc.keyBinding[3]) player.setScratching();
-		if(k == kc.keyBinding[4]) player.setFiring();
+		if(k == KeyConfigState.keyBinding[2]) player.setJumping(true);
+		if(k == KeyConfigState.keyBinding[5]) player.setGliding(true);
+		if(k == KeyConfigState.keyBinding[3]) player.setScratching();
+		if(k == KeyConfigState.keyBinding[4]) player.setFiring();
 		if(k == KeyEvent.VK_F5) GameState.setState(SideScroller.menuState);
 	}
 	
 	public void keyReleased(int k) {
-		KeyConfigState kc = SideScroller.keyConfigState;
-		if(k == kc.keyBinding[1]) player.setLeft(false);
-		if(k == kc.keyBinding[0]) player.setRight(false);
+		if(k == KeyConfigState.keyBinding[1]) player.setLeft(false);
+		if(k == KeyConfigState.keyBinding[0]) player.setRight(false);
 		if(k == KeyEvent.VK_W) player.setUp(false);
 		if(k == KeyEvent.VK_S) player.setDown(false);
-		if(k == kc.keyBinding[2]) player.setJumping(false);
-		if(k == kc.keyBinding[5]) player.setGliding(false);
+		if(k == KeyConfigState.keyBinding[2]) player.setJumping(false);
+		if(k == KeyConfigState.keyBinding[5]) player.setGliding(false);
 	}
 
 	public void mousePressed(int k) {

@@ -1,4 +1,4 @@
-package net.masterzach32.sidescroller.gamestate;
+package net.masterzach32.sidescroller.gamestate.menus;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,9 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class KeyConfigState extends MenuState {
 	

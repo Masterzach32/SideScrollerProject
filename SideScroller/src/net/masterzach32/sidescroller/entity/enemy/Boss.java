@@ -10,7 +10,7 @@ import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.EntityPlayer;
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
-import net.masterzach32.sidescroller.gamestate.LevelState;
+import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 public class Boss extends Enemy {
 	

@@ -11,6 +11,16 @@ import net.masterzach32.sidescroller.assets.AudioLoader;
 import net.masterzach32.sidescroller.assets.ImageLoader;
 import net.masterzach32.sidescroller.assets.MapLoader;
 import net.masterzach32.sidescroller.gamestate.*;
+import net.masterzach32.sidescroller.gamestate.levels.EndState;
+import net.masterzach32.sidescroller.gamestate.levels.Level1State;
+import net.masterzach32.sidescroller.gamestate.levels.Level2State;
+import net.masterzach32.sidescroller.gamestate.levels.LevelState;
+import net.masterzach32.sidescroller.gamestate.menus.AboutState;
+import net.masterzach32.sidescroller.gamestate.menus.HelpState;
+import net.masterzach32.sidescroller.gamestate.menus.KeyConfigState;
+import net.masterzach32.sidescroller.gamestate.menus.LoadingState;
+import net.masterzach32.sidescroller.gamestate.menus.MenuState;
+import net.masterzach32.sidescroller.gamestate.menus.OptionsState;
 import net.masterzach32.sidescroller.util.*;
 
 @SuppressWarnings("serial")
@@ -20,7 +30,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.4.165";
+	public static final String VERSION = "0.0.4.166";
 	
 	// game thread
 	private Thread thread;
@@ -39,6 +49,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	// states
 	public static LoadingState load;
 	public static MenuState menuState;
+	public static AboutState aboutState;
 	public static HelpState helpState;
 	public static KeyConfigState keyConfigState;
 	public static OptionsState optionsState;
@@ -101,6 +112,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		LogHelper.logInfo("Loading Menus");
 		menuState = new MenuState(this);
 		LogHelper.logInfo("Menu State Created");
+		aboutState = new AboutState(this);
 		helpState = new HelpState(this);
 		LogHelper.logInfo("Help State Created");
 		optionsState = new OptionsState(this);

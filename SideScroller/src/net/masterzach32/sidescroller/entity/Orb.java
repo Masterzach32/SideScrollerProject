@@ -3,14 +3,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
-import net.masterzach32.sidescroller.gamestate.LevelState;
+import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class Orb extends MapObject {
 	
 	private boolean hit;
 	private BufferedImage[] sprites;
-	private double range, range2, r0, r1, r2, i;
+	private double range, range2, r0, r1, r2;
 	private int stage;
 	
 	public Orb(TileMap tm, boolean right) {

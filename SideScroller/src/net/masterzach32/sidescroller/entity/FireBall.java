@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
-import net.masterzach32.sidescroller.gamestate.LevelState;
+import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class FireBall extends MapObject {
