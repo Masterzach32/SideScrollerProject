@@ -36,19 +36,12 @@ public class KeyConfigState extends MenuState {
 		selectfont = new Font("Arial", Font.PLAIN, 14);
 		changingKey = false;
 		
-		int i0 = KeyEvent.VK_D;
-		int i1 = KeyEvent.VK_A;
-		int i2 = KeyEvent.VK_SPACE;
-		int i3 = KeyEvent.VK_R;
-		int i4 = KeyEvent.VK_F;
-		int i5 = KeyEvent.VK_E;
-		
-		keyBinding[0] = i0;
-		keyBinding[1] = i1;
-		keyBinding[2] = i2;
-		keyBinding[3] = i3;
-		keyBinding[4] = i4;
-		keyBinding[5] = i5;
+		keyBinding[0] = KeyEvent.VK_D;
+		keyBinding[1] = KeyEvent.VK_A;
+		keyBinding[2] = KeyEvent.VK_SPACE;
+		keyBinding[3] = KeyEvent.VK_R;
+		keyBinding[4] = KeyEvent.VK_F;
+		keyBinding[5] = KeyEvent.VK_E;
 	}
 
 	protected void load() {
@@ -82,7 +75,9 @@ public class KeyConfigState extends MenuState {
 		
 		g.setFont(selectfont);
 		g.setColor(Color.BLACK);
-		g.drawString("Use up/down to navigate, and enter to change", 180, 150);
+		g.drawString("Use up/down to navigate, and enter to change", 180, 130);
+		if(!changingKey) g.drawString("Select the function you want to change", 200, 150);
+		else g.drawString("Press the key you want to change it to", 200, 150);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {
@@ -101,7 +96,7 @@ public class KeyConfigState extends MenuState {
 		if(currentChoice != 6) {
 			changeKeyConfig();
 		} else {
-			GameState.setState(SideScroller.menuState);
+			GameState.setState(SideScroller.optionsState);
 		}
 	}
 
@@ -110,7 +105,7 @@ public class KeyConfigState extends MenuState {
 			if(k == KeyEvent.VK_ENTER) {
 				select();
 			} if(k == KeyEvent.VK_ESCAPE) {
-				GameState.setState(SideScroller.menuState);
+				GameState.setState(SideScroller.optionsState);
 			} if(k == KeyEvent.VK_UP) {
 				currentChoice--;
 				if(currentChoice == -1) {

@@ -56,7 +56,7 @@ public class OptionsState extends MenuState {
 		options[3] = "FPS (broken): (" + SideScroller.FPS + ")";
 		if(console) options[4] = "Show Console: (TRUE)";
 		else options[4] = "Show Console: (FALSE)";
-		options[5] = "Controls Menu (WIP)";
+		options[5] = "Key Bindings Menu";
 		options[6] = "Back";
 		// draw bg
 		bg.render(g);						
@@ -69,7 +69,7 @@ public class OptionsState extends MenuState {
 		
 		g.setFont(selectfont);
 		g.setColor(Color.BLACK);
-		g.drawString("Use up/down to navigate, and enter to change", 180, 150);
+		g.drawString("Use up/down to navigate, and enter to change", 180, 130);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {
