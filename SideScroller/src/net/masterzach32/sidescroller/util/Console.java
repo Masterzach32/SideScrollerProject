@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultCaret;
 
 public class Console extends WindowAdapter implements WindowListener, ActionListener, Runnable {
@@ -31,7 +32,7 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		textArea.setEditable(false);
 		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		JButton button = new JButton("Clear");
+		JButton button = new JButton("Save This Log");
 		
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.getContentPane().add(new JScrollPane(textArea), BorderLayout.CENTER);
@@ -94,7 +95,7 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	}
 	
 	public synchronized void actionPerformed(ActionEvent evt) {
-		textArea.setText("Cleared\n");
+		saveAs();
 	}
 
 	public synchronized void run() {
@@ -158,5 +159,36 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	
 	public void setVisible(boolean v) {
 		frame.setVisible(v);
+	}
+	
+	private void saveAs() {
+		FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Text File", "txt");
+	    final JFileChooser saveAsFileChooser = new JFileChooser();
+	    saveAsFileChooser.setApproveButtonText("Save");
+	    saveAsFileChooser.setFileFilter(extensionFilter);
+	    int actionDialog = saveAsFileChooser.showSaveDialog(frame);
+	    if (actionDialog != JFileChooser.APPROVE_OPTION) {
+	       return;
+	    }
+	    
+	    File file = saveAsFileChooser.getSelectedFile();
+	    if (!file.getName().endsWith(".txt")) {
+	       file = new File(file.getAbsolutePath() + ".txt");
+	    }
+
+	    BufferedWriter outFile = null;
+	    try {
+	       outFile = new BufferedWriter(new FileWriter(file));
+	       
+	       textArea.write(outFile);
+	    } catch (IOException ex) {
+	       ex.printStackTrace();
+	    } finally {
+	    	if (outFile != null) {
+	    		try {
+	    			outFile.close();
+	            } catch (IOException e) {}
+	        }
+	    }
 	}
 }

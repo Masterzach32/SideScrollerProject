@@ -20,7 +20,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.4.163";
+	public static final String VERSION = "0.0.4.164";
 	
 	// game thread
 	private Thread thread;
@@ -40,6 +40,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static LoadingState load;
 	public static MenuState menuState;
 	public static HelpState helpState;
+	public static KeyConfigState keyConfigState;
 	public static OptionsState optionsState;
 	public static Level1State level1_1;
 	public static Level2State level1_2;
@@ -104,6 +105,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		LogHelper.logInfo("Help State Created");
 		optionsState = new OptionsState(this);
 		LogHelper.logInfo("Options State Created");
+		keyConfigState = new KeyConfigState(this);
+		LogHelper.logInfo("Key Config State Created");
 		LogHelper.logInfo("Loading Levels");
 		level1_1 = new Level1State(this);
 		LogHelper.logInfo("Level 1 Loaded");

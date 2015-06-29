@@ -141,26 +141,26 @@ public class Level2State extends LevelState {
 	}
 	
 	public void keyPressed(int k) {
-		if(k == KeyEvent.VK_A) player.setLeft(true);
-		if(k == KeyEvent.VK_D) player.setRight(true);
+		KeyConfigState kc = SideScroller.keyConfigState;
+		if(k == kc.keyBinding[1]) player.setLeft(true);
+		if(k == kc.keyBinding[0]) player.setRight(true);
 		if(k == KeyEvent.VK_W) player.setUp(true);
 		if(k == KeyEvent.VK_S) player.setDown(true);
-		if(k == KeyEvent.VK_W) player.setJumping(true);
-		if(k == KeyEvent.VK_SPACE) player.setJumping(true);
-		if(k == KeyEvent.VK_E) player.setGliding(true);
-		if(k == KeyEvent.VK_R) player.setScratching();
-		if(k == KeyEvent.VK_F) player.setFiring();
-		if(k == KeyEvent.VK_F5) GameState.setState(SideScroller.menuState);;
+		if(k == kc.keyBinding[2]) player.setJumping(true);
+		if(k == kc.keyBinding[5]) player.setGliding(true);
+		if(k == kc.keyBinding[3]) player.setScratching();
+		if(k == kc.keyBinding[4]) player.setFiring();
+		if(k == KeyEvent.VK_F5) GameState.setState(SideScroller.menuState);
 	}
 	
 	public void keyReleased(int k) {
-		if(k == KeyEvent.VK_A) player.setLeft(false);
-		if(k == KeyEvent.VK_D) player.setRight(false);
+		KeyConfigState kc = SideScroller.keyConfigState;
+		if(k == kc.keyBinding[1]) player.setLeft(false);
+		if(k == kc.keyBinding[0]) player.setRight(false);
 		if(k == KeyEvent.VK_W) player.setUp(false);
 		if(k == KeyEvent.VK_S) player.setDown(false);
-		if(k == KeyEvent.VK_W) player.setJumping(false);
-		if(k == KeyEvent.VK_SPACE) player.setJumping(false);
-		if(k == KeyEvent.VK_E) player.setGliding(false);
+		if(k == kc.keyBinding[2]) player.setJumping(false);
+		if(k == kc.keyBinding[5]) player.setGliding(false);
 	}
 
 	public void mousePressed(int k) {

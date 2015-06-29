@@ -136,7 +136,7 @@ public class OptionsState extends MenuState {
 			SideScroller.getGame().requestFocus();
 		}
 		if(currentChoice == 5) {
-			//GameState.setState(SideScroller.controlState);
+			GameState.setState(SideScroller.keyConfigState);
 		}
 		if(currentChoice == 6) {
 			GameState.setState(SideScroller.menuState);
