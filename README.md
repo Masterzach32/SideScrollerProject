@@ -1,4 +1,4 @@
-# SideScrollerGame - Alpha Build 0.0.4.167
+# SideScrollerGame - Alpha Build 0.0.4.168
 
 This game is being designed by me and a group of friends. Its going to be a futuristic sidescroller like combination of Final Fantasy and Starbound. More descripiton coming soon!
 
@@ -20,9 +20,12 @@ All changes that will be in v0.0.4 Alpha:
 - New mob: the boss
 - All enemies have health bars
 - Level ends when player kills the boss
+- You can now save console logs
+- You can now change your key bindings
 
 ### Bugs:
 - Sometimes sluggers spawn traveling left
+- Health Bar is not displaying correct health info when at low health
 
 ### Issues:
 - Audio switching issue (see issue on github issues page)

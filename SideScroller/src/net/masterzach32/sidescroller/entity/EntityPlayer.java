@@ -326,17 +326,15 @@ public class EntityPlayer extends MapObject {
 		if(orbCurrentCd > orbCd) orbCurrentCd = orbCd;
 		if(firing && currentAction != ORB) {
 			if(orbCurrentCd == 0) {
-				if(SideScroller.isMouseOnScreen()) {
-					orbCurrentCd = orbCd;
-					Orb orb = null;
-					if(facingRight)
-						orb = new Orb(tileMap, true);
-					if(!facingRight)
-						orb = new Orb(tileMap, false);
-					if(orb != null) {
-						orb.setPosition(x, y);
-						orbs.add(orb);
-					}
+				orbCurrentCd = orbCd;
+				Orb orb = null;
+				if(facingRight)
+					orb = new Orb(tileMap, true);
+				if(!facingRight)
+					orb = new Orb(tileMap, false);
+				if(orb != null) {
+					orb.setPosition(x, y);
+					orbs.add(orb);
 				}
 			} else {
 				LogHelper.logInfo("Orb On Cooldown");

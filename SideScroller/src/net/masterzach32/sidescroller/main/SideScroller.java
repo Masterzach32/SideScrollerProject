@@ -30,7 +30,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.4.167";
+	public static final String VERSION = "0.0.4.168";
 	
 	// game thread
 	private Thread thread;
@@ -39,7 +39,6 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int FPS = 60;
 	private long targetTime = 1000 / FPS;
 	
-	private static boolean mouseOnScreen = false;
 	public static boolean isSoundEnabled = false;
 	
 	// image
@@ -78,7 +77,6 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	}
 	
 	public static void stop() {
-		//LevelState.getPlayer().writeSaveFile();
 		System.exit(0);
 	}
 
@@ -178,25 +176,12 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		g.dispose();
 	}
 	
-	/**
-	 * Does not work all of the time
-	 * @return mouseOnScreen
-	 */
-	@Deprecated
-	public static boolean isMouseOnScreen() {
-		return mouseOnScreen;
-	}
-	
 	public static SideScroller getGame() {
 		return game;
 	}
 	
 	public Thread getThread() {
 		return thread;
-	}
-	
-	public int getWidth() {
-		return WIDTH;
 	}
 	
 	public void keyPressed(KeyEvent e) {
@@ -223,11 +208,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 
 	public void mouseClicked(MouseEvent e) {}
 
-	public void mouseEntered(MouseEvent e) {
-		mouseOnScreen = true;
-	}
+	public void mouseEntered(MouseEvent e) {}
 
-	public void mouseExited(MouseEvent e) {
-		mouseOnScreen = false;
-	}	
+	public void mouseExited(MouseEvent e) {}	
 }
