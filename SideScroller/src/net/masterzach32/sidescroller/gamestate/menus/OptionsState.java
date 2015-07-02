@@ -52,7 +52,7 @@ public class OptionsState extends MenuState {
 		options[1] = "Resolution: " + "(" + SideScroller.WIDTH * SideScroller.SCALE + "x" + SideScroller.HEIGHT * SideScroller.SCALE + ")";
 		if(SideScroller.isSoundEnabled) options[2] = "Sound: (ON)";
 		else options[2] = "Sound: (OFF)";
-		options[3] = "FPS (broken): (" + SideScroller.FPS + ")";
+		options[3] = "TPS (ticks per second): (" + SideScroller.FPS + ")";
 		if(console) options[4] = "Show Console: (TRUE)";
 		else options[4] = "Show Console: (FALSE)";
 		options[5] = "Key Bindings Menu";

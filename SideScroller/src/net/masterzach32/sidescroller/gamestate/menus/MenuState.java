@@ -28,7 +28,7 @@ public class MenuState extends GameState {
 	protected Font font;
 	protected Font selectfont;
 	
-	protected static AudioPlayer bgMusic;
+	public static AudioPlayer bgMusic;
 	
 	public MenuState(SideScroller game) {
 		super(game);
@@ -45,7 +45,6 @@ public class MenuState extends GameState {
 		font = new Font("Arial", Font.PLAIN, 12);
 		selectfont = new Font("Arial", Font.PLAIN, 14);
 		bgMusic = new AudioPlayer(Assets.getAudioAsset("warriors"));
-		bgMusic.play();
 	}
 	
 	protected void load() {
