@@ -30,7 +30,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.4.169";
+	public static final String VERSION = "0.0.5.170";
 	
 	// game thread
 	private Thread thread;
@@ -85,6 +85,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	 */
 	private void init() {
 		game = this;
+		Game.startConsole();
 		LogHelper.logInfo("Launching SideScroller Game - Build " + VERSION);
 		LogHelper.logInfo("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")");
 		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch"));
@@ -101,15 +102,14 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		
 		LogHelper.logInfo("Creating Loading Screen");
 		load = new LoadingState(this);
-		GameState.setState(load);
-		render();
-		
-		LogHelper.logInfo("Creating Player");
-		LevelState.loadLevels();
-		
 		LogHelper.logInfo("Loading Menus");
 		menuState = new MenuState(this);
 		LogHelper.logInfo("Menu State Created");
+		LogHelper.logInfo("Creating Window");
+		Game.getFrame().setVisible(true);
+		GameState.setState(load);
+		render();
+		renderToScreen();
 		aboutState = new AboutState(this);
 		helpState = new HelpState(this);
 		LogHelper.logInfo("Help State Created");
@@ -117,15 +117,22 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		LogHelper.logInfo("Options State Created");
 		keyConfigState = new KeyConfigState(this);
 		LogHelper.logInfo("Key Config State Created");
+		LogHelper.logInfo("Creating Player");
+		LevelState.loadLevels();
 		LogHelper.logInfo("Loading Levels");
 		level1_1 = new Level1State(this);
 		LogHelper.logInfo("Level 1 Loaded");
+		render();
+		renderToScreen();
 		level1_2 = new Level2State(this);
 		LogHelper.logInfo("Level 2 Loaded");
 		endgame = new EndState(this);
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		GameState.setState(menuState);
-		LogHelper.logInfo("Creating Window");
-		Game.getFrame().setVisible(true);
 		LogHelper.logInfo("Loading Complete");
 		Game.getConsole().setVisible(false);
 	}

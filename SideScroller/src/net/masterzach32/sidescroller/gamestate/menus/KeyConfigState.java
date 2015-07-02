@@ -45,13 +45,10 @@ public class KeyConfigState extends MenuState {
 	}
 
 	protected void load() {
-		bgMusic.play();
 		currentChoice = 0;
 	}
 
-	protected void unload() {
-		bgMusic.stop();
-	}
+	protected void unload() {}
 
 	public void tick() {
 		bg.tick();

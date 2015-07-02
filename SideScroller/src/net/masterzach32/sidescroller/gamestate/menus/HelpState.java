@@ -44,13 +44,9 @@ public class HelpState extends MenuState {
 		selectfont = new Font("Arial", Font.PLAIN, 14);
 	}
 
-	protected void load() {
-		bgMusic.play();
-	}
+	protected void load() {}
 	
-	protected void unload() {
-		bgMusic.stop();
-	}
+	protected void unload() {}
 
 	public void tick() {
 		bg.tick();
