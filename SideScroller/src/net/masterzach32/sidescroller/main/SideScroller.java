@@ -28,7 +28,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.5.173";
+	public static final String VERSION = "0.0.5.174";
 	
 	// game thread
 	private Thread thread;
@@ -98,33 +98,49 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		
 		LogHelper.logInfo("Creating Loading Screen");
 		load = new LoadingState(this);
-		LogHelper.logInfo("Loading Menus");
-		menuState = new MenuState(this);
-		LogHelper.logInfo("Menu State Created");
 		LogHelper.logInfo("Creating Window");
 		Game.getFrame().setVisible(true);
 		GameState.setState(load);
 		render();
 		renderToScreen();
+		LogHelper.logInfo("Loading Menus");
+		menuState = new MenuState(this);
+		render();
+		renderToScreen();
+		LogHelper.logInfo("Menu State Created");
 		aboutState = new AboutState(this);
+		render();
+		renderToScreen();
 		helpState = new HelpState(this);
+		render();
+		renderToScreen();
 		LogHelper.logInfo("Help State Created");
 		optionsState = new OptionsState(this);
+		render();
+		renderToScreen();
 		LogHelper.logInfo("Options State Created");
 		keyConfigState = new KeyConfigState(this);
+		render();
+		renderToScreen();
 		LogHelper.logInfo("Key Config State Created");
 		LogHelper.logInfo("Creating Player");
 		LevelState.loadLevels();
-		LogHelper.logInfo("Loading Levels");
-		level1_1 = new Level1State(this);
-		LogHelper.logInfo("Level 1 Loaded");
 		render();
 		renderToScreen();
+		LogHelper.logInfo("Loading Levels");
+		level1_1 = new Level1State(this);
+		render();
+		renderToScreen();
+		LogHelper.logInfo("Level 1 Loaded");
 		level1_2 = new Level2State(this);
+		render();
+		renderToScreen();
 		LogHelper.logInfo("Level 2 Loaded");
 		endgame = new EndState(this);
+		render();
+		renderToScreen();
 		try {
-			Thread.sleep(4000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

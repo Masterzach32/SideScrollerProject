@@ -122,7 +122,7 @@ public class OptionsState extends MenuState {
 		}
 		if(currentChoice == 3) {
 			SideScroller.FPS += 20;
-			if (SideScroller.FPS >= 200) {
+			if (SideScroller.FPS >= 140) {
 				SideScroller.FPS = 20;
 			}
 		}
