@@ -9,6 +9,7 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
+import net.masterzach32.sidescroller.util.Utilities;
 
 public class AboutState extends MenuState {
 
@@ -58,9 +59,9 @@ private Font subtitleFont;
 		// title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("SideScroller RPG", 195, 45);
+		Utilities.drawCenteredString(g, "SideScroller RPG", 45);
 		g.setFont(subtitleFont);
-		g.drawString("About", 299, 75);
+		Utilities.drawCenteredString(g, "About", 75);
 		
 		g.setFont(selectfont);
 		g.setColor(Color.BLACK);
@@ -68,7 +69,7 @@ private Font subtitleFont;
 		g.setFont(font);
 		g.setColor(Color.RED);
 		for(int i = 0; i < aboutText.length; i++) {
-			g.drawString(aboutText[i], 250, (250 + i * 30) / 2);
+			Utilities.drawCenteredString(g, aboutText[i], (250 + i * 30) / 2);
 		}
 	}
 

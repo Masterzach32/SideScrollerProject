@@ -9,6 +9,7 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
+import net.masterzach32.sidescroller.util.Utilities;
 
 public class KeyConfigState extends MenuState {
 	
@@ -55,27 +56,27 @@ public class KeyConfigState extends MenuState {
 	}
 
 	public void render(Graphics2D g) {
-		options[0] = "Right: " + keyBinding[0]; 
-		options[1] = "Left: " + keyBinding[1];
-		options[2] = "Jump: " + keyBinding[2];
-		options[3] = "Scratch: " + keyBinding[3];
-		options[4] = "Orb: " + keyBinding[4];
-		options[5] = "Glide: " + keyBinding[5];
+		options[0] = "Right: " + KeyEvent.getKeyText(keyBinding[0]); 
+		options[1] = "Left: " + KeyEvent.getKeyText(keyBinding[1]);
+		options[2] = "Jump: " + KeyEvent.getKeyText(keyBinding[2]);
+		options[3] = "Scratch: " + KeyEvent.getKeyText(keyBinding[3]);
+		options[4] = "Orb: " + KeyEvent.getKeyText(keyBinding[4]);
+		options[5] = "Glide: " + KeyEvent.getKeyText(keyBinding[5]);
 		options[6] = "Back";
 		// draw bg
 		bg.render(g);						
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("SideScroller RPG", 195, 45);
+		Utilities.drawCenteredString(g, "SideScroller RPG", 45);
 		g.setFont(subtitleFont);
-		g.drawString("Key Config", 267, 75);
+		Utilities.drawCenteredString(g, "Key Config", 75);
 		
 		g.setFont(selectfont);
 		g.setColor(Color.BLACK);
-		g.drawString("Use up/down to navigate, and enter to change", 180, 130);
-		if(!changingKey) g.drawString("Select the function you want to change", 200, 150);
-		else g.drawString("Press the key you want to change it to", 200, 150);
+		Utilities.drawCenteredString(g, "Use up/down to navigate, and enter to change", 130);
+		if(!changingKey) Utilities.drawCenteredString(g, "Select the function you want to change", 150);
+		else Utilities.drawCenteredString(g, "Press the key you want to change it to", 150);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {
@@ -86,7 +87,7 @@ public class KeyConfigState extends MenuState {
 				g.setFont(font);
 				g.setColor(Color.RED);
 			}
-			g.drawString(options[i], 275, (360 + i * 30) / 2);
+			Utilities.drawCenteredString(g, options[i], (360 + i * 30) / 2);
 		}	
 	}
 	

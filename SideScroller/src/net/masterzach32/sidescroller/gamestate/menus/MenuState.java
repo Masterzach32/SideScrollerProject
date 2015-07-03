@@ -8,6 +8,7 @@ import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
+import net.masterzach32.sidescroller.util.Utilities;
 
 public class MenuState extends GameState {
 	
@@ -63,8 +64,7 @@ public class MenuState extends GameState {
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("SideScroller RPG", 195, 45);
-		g.drawString("", 225, 75);
+		Utilities.drawCenteredString(g, "SideScroller RPG", 45);
 		
 		g.setFont(selectfont);
 						

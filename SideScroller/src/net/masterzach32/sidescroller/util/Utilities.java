@@ -2,6 +2,8 @@ package net.masterzach32.sidescroller.util;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -19,6 +21,8 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+
+import net.masterzach32.sidescroller.main.Game;
 
 public class Utilities {
 
@@ -117,5 +121,15 @@ public class Utilities {
 		}
 		frame.setVisible(false);
 		frame.dispose();
+	}
+	
+	public static void drawCenteredString(Graphics2D g, String s, int y) {
+        String text = s;
+
+        FontMetrics fm = g.getFontMetrics();
+        int totalWidth = (fm.stringWidth(text) * 2) + 4;
+        
+        int x = (((Game.getFrame().getWidth() / 2) - (totalWidth / 2))/2);
+        g.drawString(text, x, y);
 	}
 }

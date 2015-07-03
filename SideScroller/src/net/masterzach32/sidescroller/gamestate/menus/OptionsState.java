@@ -12,6 +12,7 @@ import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
+import net.masterzach32.sidescroller.util.Utilities;
 
 public class OptionsState extends MenuState {
 
@@ -62,13 +63,13 @@ public class OptionsState extends MenuState {
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("SideScroller RPG", 195, 45);
+		Utilities.drawCenteredString(g, "SideScroller RPG", 45);
 		g.setFont(subtitleFont);
-		g.drawString("Options", 282, 75);
+		Utilities.drawCenteredString(g, "Options", 75);
 		
 		g.setFont(selectfont);
 		g.setColor(Color.BLACK);
-		g.drawString("Use up/down to navigate, and enter to change", 180, 130);
+		Utilities.drawCenteredString(g, "Use up/down to navigate, and enter to change", 130);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {
@@ -79,7 +80,7 @@ public class OptionsState extends MenuState {
 				g.setFont(font);
 				g.setColor(Color.RED);
 			}
-			g.drawString(options[i], 258, (360 + i * 30) / 2);
+			Utilities.drawCenteredString(g, options[i], (360 + i * 30) / 2);
 		}	
 	}
 	
