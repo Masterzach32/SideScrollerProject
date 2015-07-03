@@ -6,10 +6,8 @@ import java.awt.event.*;
 
 import javax.swing.JPanel;
 
+import net.masterzach32.sidescroller.assets.AssetLoader;
 import net.masterzach32.sidescroller.assets.Assets;
-import net.masterzach32.sidescroller.assets.AudioLoader;
-import net.masterzach32.sidescroller.assets.ImageLoader;
-import net.masterzach32.sidescroller.assets.MapLoader;
 import net.masterzach32.sidescroller.gamestate.*;
 import net.masterzach32.sidescroller.gamestate.levels.EndState;
 import net.masterzach32.sidescroller.gamestate.levels.Level1State;
@@ -30,7 +28,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.5.172";
+	public static final String VERSION = "0.0.5.173";
 	
 	// game thread
 	private Thread thread;
@@ -41,7 +39,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	
 	public static boolean isSoundEnabled = true;
 	
-	// image
+	// image 
 	private BufferedImage image;
 	private Graphics2D g;
 	
@@ -56,9 +54,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static Level2State level1_2;
 	public static EndState endgame;
 	
-	public static ImageLoader il = new ImageLoader();
-	public static AudioLoader al = new AudioLoader();
-	public static MapLoader ml = new MapLoader();
+	public static AssetLoader al = new AssetLoader();
 	
 	public SideScroller() {
 		super();

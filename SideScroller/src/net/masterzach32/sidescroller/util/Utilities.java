@@ -129,7 +129,7 @@ public class Utilities {
         FontMetrics fm = g.getFontMetrics();
         int totalWidth = (fm.stringWidth(text) * 2) + 4;
         
-        int x = (((Game.getFrame().getWidth() / 2) - (totalWidth / 2))/2);
+        int x = (((Game.getFrame().getWidth() / 2) - (totalWidth / 2)) / 2);
         g.drawString(text, x, y);
 	}
 }
