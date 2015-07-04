@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.EntityPlayer;
+import net.masterzach32.sidescroller.util.Utilities;
 
 public class HUD {
 	
@@ -60,8 +61,7 @@ public class HUD {
 		
 		g.setFont(font);
 		g.setColor(Color.WHITE);
-		if(player.getOrbCurrentCd() > 0) g.drawString("Orb: " + (player.getOrbCurrentCd() / 60 + 1) + " Rewind: " + player.rewindCd/60, 0, 12);
-		else g.drawString("Orb: " + (player.getOrbCurrentCd() / 60) + " Rewind: " + player.rewindCd / 60, 0, 12);
+		g.drawString("Orb: " + Utilities.getCooldown(player.getOrbCurrentCd()) + " Rewind: " + Utilities.getCooldown(player.rewindCd), 0, 12);
 		g.drawString(player.getLevel() + " - " + (int) player.getExp() + "/" + (int) player.getMaxExp(), 1, 70);
 		g.setFont(font);
 		g.drawString((int) (player.getHealth()) + "/" + (int) (player.getMaxHealth()), 16, 29);

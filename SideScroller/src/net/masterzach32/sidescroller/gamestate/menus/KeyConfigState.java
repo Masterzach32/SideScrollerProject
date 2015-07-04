@@ -16,10 +16,10 @@ public class KeyConfigState extends MenuState {
 	private Font subtitleFont;
 	
 	public static int currentChoice = 0;
-	public static String[] options = new String[7]; 
+	public static String[] options = new String[8]; 
 	
 	private boolean changingKey;
-	public static int[] keyBinding = new int[6];
+	public static int[] keyBinding = new int[7];
 
 	public KeyConfigState(SideScroller game) {
 		super(game);
@@ -43,6 +43,7 @@ public class KeyConfigState extends MenuState {
 		keyBinding[3] = KeyEvent.VK_R;
 		keyBinding[4] = KeyEvent.VK_F;
 		keyBinding[5] = KeyEvent.VK_E;
+		keyBinding[6] = KeyEvent.VK_Q;
 	}
 
 	protected void load() {
@@ -62,7 +63,8 @@ public class KeyConfigState extends MenuState {
 		options[3] = "Scratch: " + KeyEvent.getKeyText(keyBinding[3]);
 		options[4] = "Orb: " + KeyEvent.getKeyText(keyBinding[4]);
 		options[5] = "Glide: " + KeyEvent.getKeyText(keyBinding[5]);
-		options[6] = "Back";
+		options[6] = "Rewind: " + KeyEvent.getKeyText(keyBinding[6]);
+		options[7] = "Back";
 		// draw bg
 		bg.render(g);						
 		// draw title
@@ -92,7 +94,7 @@ public class KeyConfigState extends MenuState {
 	}
 	
 	private void select() {
-		if(currentChoice != 6) {
+		if(currentChoice != 7) {
 			changeKeyConfig();
 		} else {
 			GameState.setState(SideScroller.optionsState);

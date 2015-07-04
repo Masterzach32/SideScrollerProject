@@ -1,4 +1,4 @@
-# SideScrollerGame - Alpha Build 0.0.5.178
+# SideScrollerGame - Alpha Build 0.0.5.179
 
 This game is being designed by me and a group of friends. Its going to be a futuristic sidescroller like combination of Final Fantasy and Starbound. More descripiton coming soon!
 
@@ -16,6 +16,7 @@ You need Java 8 to run this game!
 All changes that will be in v0.0.5 Alpha:
 - Text is properly centered
 - Progress bar in loading screen
+- Player can now rewind
 
 ### Bugs:
 - Sometimes sluggers spawn traveling left

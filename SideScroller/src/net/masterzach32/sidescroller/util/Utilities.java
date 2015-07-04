@@ -132,4 +132,9 @@ public class Utilities {
         int x = (((Game.getFrame().getWidth() / 2) - (totalWidth / 2)) / 2);
         g.drawString(text, x, y);
 	}
+	
+	public static int getCooldown(int cd) {
+		if(cd > 0) return (cd / 60) + 1;
+		else return cd / 60;
+	}
 }
