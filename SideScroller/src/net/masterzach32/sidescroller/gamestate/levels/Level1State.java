@@ -148,6 +148,7 @@ public class Level1State extends LevelState {
 		if(k == KeyConfigState.keyBinding[3]) player.setScratching();
 		if(k == KeyConfigState.keyBinding[4]) player.setFiring();
 		if(k == KeyEvent.VK_ESCAPE) GameState.setState(SideScroller.menuState);
+		if(k == KeyEvent.VK_G) player.rewind();
 	}
 	
 	public void keyReleased(int k) {

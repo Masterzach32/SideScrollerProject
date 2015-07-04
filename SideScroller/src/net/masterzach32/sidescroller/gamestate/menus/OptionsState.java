@@ -1,6 +1,7 @@
 package net.masterzach32.sidescroller.gamestate.menus;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -20,7 +21,7 @@ public class OptionsState extends MenuState {
 	
 	public static int currentChoice;
 	public static String[] options = new String[7]; 
-	private static boolean console = false;
+	private static boolean console = true;
 	
 	public OptionsState(SideScroller game) {
 		super(game);

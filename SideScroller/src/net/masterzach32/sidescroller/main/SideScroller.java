@@ -28,7 +28,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.0.5.176";
+	public static final String VERSION = "0.0.5.177";
 	
 	// game thread
 	private Thread thread;
@@ -141,7 +141,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		render();
 		renderToScreen();
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

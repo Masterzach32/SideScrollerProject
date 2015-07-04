@@ -34,6 +34,8 @@ public class EntityPlayer extends MapObject {
 	private boolean flinching;
 	private long flinchTimer;
 	
+	private int[] x4 = new int[240], y4 = new int[240], health4 = new int[240];
+	
 	// fireball
 	private boolean firing;
 	private int orbDamage;
@@ -88,11 +90,11 @@ public class EntityPlayer extends MapObject {
 		
 		orbCd = 360;
 		orbCurrentCd = 0;
-		orbDamage = (int)(2 + damage*0.8);
+		orbDamage = (int)(2 + damage * 1.0);
 		explosions = new ArrayList<Explosion>();
 		orbs = new ArrayList<Orb>();
 		
-		scratchDamage = (int)(4 + damage*1.8);
+		scratchDamage = (int)(10 + damage * 0.8);
 		scratchRange = 35;
 		
 		// load sprites
@@ -236,6 +238,12 @@ public class EntityPlayer extends MapObject {
 				hit(e.getDamage(), "Collision", e);
 			}	
 		}
+	}
+	
+	public void rewind() {
+		x = x4[239];
+		y = y4[239];
+		health = health4[239];
 	}
 	
 	/**
@@ -449,6 +457,16 @@ public class EntityPlayer extends MapObject {
 		if(exp >= maxExp) {
 			levelUp();
 		}
+		
+		for(int i = 239; i > 0; i--) {
+			x4[i] = x4[i-1];
+			y4[i] = y4[i-1];
+			health4[i] = health4[i-1];
+		}
+		
+		x4[0] = (int) x;
+		y4[0] = (int) y;
+		health4[0] = (int) health;
 	}
 	
 	public void render(Graphics2D g) {
@@ -471,12 +489,15 @@ public class EntityPlayer extends MapObject {
 				return;
 			}
 		}
+
 		super.render(g);
+		g.drawRect((int)(x4[239] + xmap - width / 2), (int)(y4[239] + ymap - height / 2), width, height);
 		
 		for(int i = 0; i < explosions.size(); i++) {
 			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
 			explosions.get(i).render(g);
 		}
+		
 	}
 	
 	private void levelUp() {
