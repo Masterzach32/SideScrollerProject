@@ -30,6 +30,7 @@ public class EntityPlayer extends MapObject {
 	private double levelMultiplier;
 	private int orbCurrentCd;
 	private int orbCd;
+	public int rewindCd;
 	private boolean dead;
 	private boolean flinching;
 	private long flinchTimer;
@@ -241,6 +242,8 @@ public class EntityPlayer extends MapObject {
 	}
 	
 	public void rewind() {
+		if(rewindCd > 0) return;
+		rewindCd = 2000;
 		x = x4[239];
 		y = y4[239];
 		health = health4[239];
@@ -459,14 +462,22 @@ public class EntityPlayer extends MapObject {
 		}
 		
 		for(int i = 239; i > 0; i--) {
-			x4[i] = x4[i-1];
-			y4[i] = y4[i-1];
-			health4[i] = health4[i-1];
+			if(rewindCd > 240) {
+				x4[i] = (int) x;
+				y4[i] = (int) y;
+				health4[i] = (int) health;
+			} else {
+				x4[i] = x4[i-1];
+				y4[i] = y4[i-1];
+				health4[i] = health4[i-1];
+			}
 		}
 		
 		x4[0] = (int) x;
 		y4[0] = (int) y;
 		health4[0] = (int) health;
+		
+		if(rewindCd > 0) rewindCd--;
 	}
 	
 	public void render(Graphics2D g) {
@@ -491,7 +502,7 @@ public class EntityPlayer extends MapObject {
 		}
 
 		super.render(g);
-		g.drawRect((int)(x4[239] + xmap - width / 2), (int)(y4[239] + ymap - height / 2), width, height);
+		if(rewindCd < 240) g.drawRect((int)(x4[239] + xmap - width / 2), (int)(y4[239] + ymap - height / 2), width, height);
 		
 		for(int i = 0; i < explosions.size(); i++) {
 			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
