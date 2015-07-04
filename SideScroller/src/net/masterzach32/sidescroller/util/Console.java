@@ -161,7 +161,7 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		frame.setVisible(v);
 	}
 	
-	private void saveAs() {
+	public void saveAs() {
 		FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Text File", "txt");
 	    final JFileChooser saveAsFileChooser = new JFileChooser();
 	    saveAsFileChooser.setApproveButtonText("Save");

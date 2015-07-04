@@ -7,7 +7,6 @@ import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class EndState extends GameState {
 	
@@ -16,7 +15,6 @@ public class EndState extends GameState {
 
 	public EndState(SideScroller game) {
 		super(game);
-		init();
 	}
 
 	@Override

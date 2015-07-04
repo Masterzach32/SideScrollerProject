@@ -35,9 +35,11 @@ public class HUD {
 		double m0 = player.getShield() / player.getMaxShield();
 		double m1 = m0 * mx;
 		
-		if((int) (h1 + m1) <= 51) {
-			int f = (int) (mx - m1);
-			h1 += f;
+		if(player.getHealth() == player.getMaxHealth()) {
+			if((int) (h1 + m1) <= 51) {
+				int f = (int) (mx - m1);
+				h1 += f;
+			}
 		}
 		
 		if(h1 >= b0) b0 = h1;

@@ -11,6 +11,7 @@ public abstract class GameState {
 	
 	public GameState(SideScroller game) {
 		this.game = game;
+		init();
 	}
 	
 	/**

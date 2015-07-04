@@ -32,8 +32,7 @@ public class MenuState extends GameState {
 	public static AudioPlayer bgMusic;
 	
 	public MenuState(SideScroller game) {
-		super(game);
-		init();		
+		super(game);	
 	}
 	
 	public void init() {

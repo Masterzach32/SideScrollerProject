@@ -29,7 +29,6 @@ public class Level2State extends LevelState {
 	
 	public Level2State(SideScroller game) {
 		super(game);
-		init();
 	}
 	
 	public void init() {

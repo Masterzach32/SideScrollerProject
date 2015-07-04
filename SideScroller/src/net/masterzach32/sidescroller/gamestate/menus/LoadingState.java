@@ -26,10 +26,7 @@ public class LoadingState extends GameState {
 		super(game);
 	}
 
-	public void init() {
-		titleColor = new Color(128, 0, 0);
-		titleFont = new Font("Century Gothic", Font.BOLD, 32);
-	}
+	public void init() {}
 
 	protected void load() {}
 
@@ -40,8 +37,6 @@ public class LoadingState extends GameState {
 	public void render(Graphics2D g) {
 		i++;
 		g.drawImage(Assets.getImageAsset("zaunbg"), 0, 0, SideScroller.WIDTH, SideScroller.HEIGHT, null);
-		g.setColor(titleColor);
-		g.setFont(titleFont);
 		g.setColor(Color.WHITE);
 		g.drawString("Loading... " + i*10 + "%", 10, 17);
 		g.drawRect(((Game.getFrame().getWidth() / 4) - (200)) , 300, 400, 20);

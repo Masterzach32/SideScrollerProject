@@ -26,7 +26,6 @@ public class Level1State extends LevelState {
 	
 	public Level1State(SideScroller game) {
 		super(game);
-		init();
 	}
 	
 	public void init() {
