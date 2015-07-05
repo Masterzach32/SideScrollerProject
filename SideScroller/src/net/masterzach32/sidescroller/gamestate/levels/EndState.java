@@ -7,6 +7,7 @@ import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
+import net.masterzach32.sidescroller.util.Utilities;
 
 public class EndState extends GameState {
 	
@@ -43,7 +44,7 @@ public class EndState extends GameState {
 	@Override
 	public void render(Graphics2D g) {
 		bg.render(g);
-		g.drawString("Game Completed! Press any key to exit", 100, 100);
+		Utilities.drawCenteredString(g, "Game Completed! Press any key to exit", 180);
 	}
 
 	@Override
