@@ -86,6 +86,7 @@ public class EntityPlayer extends MapObject {
 		levelMultiplier = (double) (1.135);
 		maxExp = 100;
 		orbCurrentCd = orbCd = 2500;
+		rewindCd = 300;
 		
 		damage = 6;
 		
@@ -483,6 +484,8 @@ public class EntityPlayer extends MapObject {
 	public void render(Graphics2D g) {
 		setMapPosition();
 		
+		if(rewindCd < 240) g.drawRect((int)(x4[239] + xmap - width / 2), (int)(y4[239] + ymap - height / 2), 30, 30);
+		
 		// draw orbs
 		for(int i = 0; i < orbs.size(); i++) {
 			orbs.get(i).render(g);
@@ -502,7 +505,6 @@ public class EntityPlayer extends MapObject {
 		}
 
 		super.render(g);
-		if(rewindCd < 240) g.drawRect((int)(x4[239] + xmap - width / 2), (int)(y4[239] + ymap - height / 2), width, height);
 		
 		for(int i = 0; i < explosions.size(); i++) {
 			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());

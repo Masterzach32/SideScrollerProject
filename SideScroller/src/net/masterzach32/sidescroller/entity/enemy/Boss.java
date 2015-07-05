@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
@@ -19,8 +20,9 @@ public class Boss extends Enemy {
 	private double b0 = 60;
 	
 	private int attackRange;
-	
 	private int attack;
+	
+	private Random r = new Random();
 
 	public Boss(TileMap tm, int level) {
 		super(tm);
@@ -84,15 +86,14 @@ public class Boss extends Enemy {
 	 * @param enemies
 	 */
 	public void checkAttack() {
-		// loop through enemies
 		EntityPlayer p = LevelState.getPlayer();
 		// scratch attack
 		if(facingRight) {
-			if(p.getx() > x && p.getx() < x + attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
+			if(p.getx() > x && p.getx() < x + width + attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
 				p.hit(damage, "Scratch", this);
 			}
 		} else {
-			if(p.getx() < x && p.getx() > x - attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
+			if(p.getx() < x && p.getx() > x  - attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
 				p.hit(damage, "Scratch", this);
 			}
 		}
@@ -118,10 +119,10 @@ public class Boss extends Enemy {
 			
 		}
 		// attack (151 - 180)
-		else if(attack <= 180) {
+		else if(attack <= 160) {
 			checkAttack();
 		}
-		// cooldown (181 - 270)
+		// cooldown (161 - 270)
 		else if(attack <= 270) {
 			
 		} else {
@@ -180,6 +181,35 @@ public class Boss extends Enemy {
 				return;
 			}
 		}	
+		
+		// find player direction (0-60)
+		if(attack <= 60){
+			
+		}
+		// wind up attack (61 - 150)
+		else if(attack <= 150) {
+			int i0 = r.nextInt(height);
+			if(facingRight) {
+				g.drawLine((int)(x + xmap - width / 2) + width, (int)(y + ymap - height / 2) + i0, (int)(x + xmap - width / 2) + width + attackRange, (int)(y + ymap - height / 2) + i0);
+			} else {
+				g.drawLine((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + i0, (int)(x + xmap - width / 2) - attackRange, (int)(y + ymap - height / 2) + i0);
+			}
+		}
+		// attack (151 - 180)
+		else if(attack <= 160) {
+			if(facingRight) {
+				g.drawRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), width + attackRange,  height);
+			} else {
+				g.drawRect((int)(x + xmap - width / 2) - attackRange, (int)(y + ymap - height / 2), width + attackRange, height);
+			}
+		}
+		// cooldown (161 - 270)
+		else if(attack <= 270) {
+			
+		} else {
+					
+		}
+		
 		super.render(g);
 		
 		for(int i = 0; i < explosions.size(); i++) {
