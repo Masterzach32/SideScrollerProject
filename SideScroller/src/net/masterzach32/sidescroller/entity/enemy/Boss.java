@@ -27,7 +27,7 @@ public class Boss extends Enemy {
 	public Boss(TileMap tm, int level) {
 		super(tm);
 		moveSpeed = 0.1;
-		maxSpeed = 0.1;
+		maxSpeed = 0.2;
 		fallSpeed = 0.2;
 		maxFallSpeed = 10.0;
 		
@@ -113,9 +113,29 @@ public class Boss extends Enemy {
 				left = false;
 				facingRight = true;
 			}
+			// movement
+			if(left) {
+				dx -= moveSpeed;
+				if(dx < -maxSpeed) {
+					dx = -maxSpeed;
+				}
+			}
+			else if(right) {
+				dx += moveSpeed;
+				if(dx > maxSpeed) {
+					dx = maxSpeed;
+				}
+			}
+			
+			// falling
+			if(falling) {
+				dy += fallSpeed;
+			}
 		}
 		// wind up attack (61 - 150)
 		else if(attack <= 150) {
+			dx = 0;
+			dy = 0;
 			
 		}
 		// attack (151 - 180)
@@ -183,19 +203,45 @@ public class Boss extends Enemy {
 		}	
 		
 		// find player direction (0-60)
-		if(attack <= 60){
-			
+		if(attack <= 60) {
+			/*j++;
+			g.setColor(Color.WHITE);
+			if(j < 30) {
+				j = 1;
+				if(facingRight) {
+					g.drawLine((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 5, (int)(x + xmap - width / 2) + width + 7, (int)(y + ymap - height / 2) + 5);
+					g.drawLine((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 15, (int)(x + xmap - width / 2) + width + 7, (int)(y + ymap - height / 2) + 15);
+					g.drawLine((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 25, (int)(x + xmap - width / 2) + width + 7, (int)(y + ymap - height / 2) + 25);
+				} else {
+					g.drawLine((int)(x + xmap - width / 2) + width, (int)(y + ymap - height / 2) + 5, (int)(x + xmap - width / 2) - 7, (int)(y + ymap - height / 2) + 5);
+					g.drawLine((int)(x + xmap - width / 2) + width, (int)(y + ymap - height / 2) + 15, (int)(x + xmap - width / 2) - 7, (int)(y + ymap - height / 2) + 15);
+					g.drawLine((int)(x + xmap - width / 2) + width, (int)(y + ymap - height / 2) + 25, (int)(x + xmap - width / 2) - 7, (int)(y + ymap - height / 2) + 25);
+				}
+			} else {
+				j = 0;
+				if(facingRight) {
+					g.drawLine((int)(x + xmap - width / 2) + 5, (int)(y + ymap - height / 2) + 5, (int)(x + xmap - width / 2) + width + 7 + 5, (int)(y + ymap - height / 2) + 5);
+					g.drawLine((int)(x + xmap - width / 2) + 5, (int)(y + ymap - height / 2) + 15, (int)(x + xmap - width / 2) + width + 7 + 5, (int)(y + ymap - height / 2) + 15);
+					g.drawLine((int)(x + xmap - width / 2) + 5, (int)(y + ymap - height / 2) + 25, (int)(x + xmap - width / 2) + width + 7 + 5, (int)(y + ymap - height / 2) + 25);
+				} else {
+					g.drawLine((int)(x + xmap - width / 2) + width - 5, (int)(y + ymap - height / 2) + 5, (int)(x + xmap - width / 2) - 7 - 5, (int)(y + ymap - height / 2) + 5);
+					g.drawLine((int)(x + xmap - width / 2) + width - 5, (int)(y + ymap - height / 2) + 15, (int)(x + xmap - width / 2) - 7 - 5, (int)(y + ymap - height / 2) + 15);
+					g.drawLine((int)(x + xmap - width / 2) + width - 5, (int)(y + ymap - height / 2) + 25, (int)(x + xmap - width / 2) - 7 - 5, (int)(y + ymap - height / 2) + 25);
+				}
+			}*/
 		}
 		// wind up attack (61 - 150)
 		else if(attack <= 150) {
+			//j = 0;
 			int i0 = r.nextInt(height);
+			g.setColor(Color.RED);
 			if(facingRight) {
 				g.drawLine((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + i0, (int)(x + xmap - width / 2) + width + attackRange, (int)(y + ymap - height / 2) + i0);
 			} else {
 				g.drawLine((int)(x + xmap - width / 2) + width, (int)(y + ymap - height / 2) + i0, (int)(x + xmap - width / 2) - attackRange, (int)(y + ymap - height / 2) + i0);
 			}
 		}
-		// attack (151 - 180)
+		// attack (151 - 160)
 		else if(attack <= 160) {
 			if(facingRight) {
 				g.drawRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), width + attackRange,  height);

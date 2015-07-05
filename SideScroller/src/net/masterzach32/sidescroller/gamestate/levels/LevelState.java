@@ -39,7 +39,7 @@ public abstract class LevelState extends GameState {
 	
 	protected AudioPlayer bgMusic;
 	
-	protected static int j = 0;
+	public static int j = 300;
 
 	public LevelState(SideScroller game) {
 		super(game);
@@ -151,8 +151,8 @@ public abstract class LevelState extends GameState {
 		
 		if(player.isDead()) {
 			Utilities.drawCenteredString(g, "You Died!", 180);
-			if(j < 300) j++;
-			if(j == 300) Utilities.drawCenteredString(g, "Press any key to respawn", 200);
+			if(j > 0) j--;
+			if(j == 0) Utilities.drawCenteredString(g, "Press any key to respawn", 200);
 		}
 	}
 	
@@ -169,9 +169,9 @@ public abstract class LevelState extends GameState {
 			if(k == KeyEvent.VK_ESCAPE) GameState.setState(SideScroller.menuState);
 			if(k == KeyConfigState.keyBinding[6]) player.rewind();
 		}
-		if(player.isDead() && j == 300) { 
+		if(player.isDead() && j == 0) { 
 			player.respawn();
-			j = 0;
+			j = 300;
 		}
 	}
 	

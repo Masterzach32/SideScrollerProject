@@ -502,12 +502,28 @@ public class EntityPlayer extends MapObject {
 	public void render(Graphics2D g) {
 		setMapPosition();
 		
-		if(rewindCd < 240) g.drawRect((int)(x4[239] + xmap - 30 / 2), (int)(y4[239] + ymap - height / 2), 30, 30);
+		g.setColor(Color.BLUE);
+		if(rewindCd < 240) {
+			g.drawRect((int)(x4[239] + xmap - 30 / 2), (int)(y4[239] + ymap - height / 2), 30, 30);
+			for(int i = 0; i < 240; i++) g.drawLine((int)(x4[i] + xmap), (int)(y4[i] + ymap), (int)(x4[i] + xmap), (int)(y4[i] + ymap));
+		}
 		
 		// draw orbs
 		for(int i = 0; i < orbs.size(); i++) {
 			orbs.get(i).render(g);
 		}
+		
+		if(MapObject.isHitboxEnabled()) {
+			if(scratching) {
+				g.setColor(Color.YELLOW);
+				if(facingRight) {
+					g.drawRect((int)(x + xmap - 30 / 2), (int)(y + ymap - height / 2), scratchRange + 9, height);
+				} else {
+					g.drawRect((int)(x + xmap + 30 / 2 - scratchRange - 9), (int)(y + ymap - height / 2), scratchRange + 9, height);
+				}
+			}
+		}
+		g.setColor(Color.WHITE);
 			
 		// draw player
 		if(flinching) {

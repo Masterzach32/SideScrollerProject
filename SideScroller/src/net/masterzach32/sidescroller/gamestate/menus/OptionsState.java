@@ -144,16 +144,22 @@ public class OptionsState extends MenuState {
 		}
 		if(currentChoice == 6) {
 			if (debug) {
-				MapObject.setShowHitbox(false);
 				debug = false;
 			} else {
-				MapObject.setShowHitbox(true);
 				debug = true;
+				console = true;
 			}
+			MapObject.setShowHitbox(debug);
+			Game.getConsole().setVisible(console);
+			SideScroller.getGame().requestFocus();
 		}
 		if(currentChoice == 7) {
 			GameState.setState(SideScroller.menuState);
 		}
+	}
+	
+	public static boolean isDebugEnabled() {
+		return debug;
 	}
 
 	public void keyPressed(int k) {

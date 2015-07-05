@@ -28,8 +28,8 @@ public class Orb extends MapObject {
 		
 		width = 30;
 		height = 30;
-		cwidth = 14;
-		cheight = 14;
+		cwidth = 16;
+		cheight = 16;
 		
 		// load sprites
 		try {
