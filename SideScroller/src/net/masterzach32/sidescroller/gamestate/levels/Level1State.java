@@ -14,6 +14,7 @@ import net.masterzach32.sidescroller.gamestate.menus.KeyConfigState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
 import net.masterzach32.sidescroller.util.LogHelper;
+import net.masterzach32.sidescroller.util.Utilities;
 
 public class Level1State extends LevelState {
 	
@@ -23,6 +24,8 @@ public class Level1State extends LevelState {
 	private ArrayList<Explosion> explosions;
 	
 	private AudioPlayer bgMusic;
+	
+	private int j = 0;
 	
 	public Level1State(SideScroller game) {
 		super(game);
@@ -75,7 +78,7 @@ public class Level1State extends LevelState {
 			enemies.add(s);
 		}
 		Boss boss = new Boss(tileMap, 1);
-		boss.setPosition(200, 320);
+		boss.setPosition(3046, 320);
 		enemies.add(boss);
 	}
 	
@@ -83,7 +86,6 @@ public class Level1State extends LevelState {
 		// update player
 		player.tick();
 		player.checkAttack(enemies);
-		if(player.isDead()) explosions.add(new Explosion(player.getx(), player.gety()));
 		
 		// set background
 		tileMap.setPosition(SideScroller.WIDTH / 2 - player.getx(), SideScroller.HEIGHT / 2 - player.gety());
@@ -136,28 +138,42 @@ public class Level1State extends LevelState {
 		
 		// draw hud
 		hud.render(g);
+		
+		if(player.isDead()) {
+			Utilities.drawCenteredString(g, "You Died!", 180);
+			if(j < 300) j++;
+			if(j == 300) Utilities.drawCenteredString(g, "Press any key to respawn", 200);
+		}
 	}
 	
 	public void keyPressed(int k) {
-		if(k == KeyConfigState.keyBinding[1]) player.setLeft(true);
-		if(k == KeyConfigState.keyBinding[0]) player.setRight(true);
-		if(k == KeyEvent.VK_W) player.setUp(true);
-		if(k == KeyEvent.VK_S) player.setDown(true);
-		if(k == KeyConfigState.keyBinding[2]) player.setJumping(true);
-		if(k == KeyConfigState.keyBinding[5]) player.setGliding(true);
-		if(k == KeyConfigState.keyBinding[3]) player.setScratching();
-		if(k == KeyConfigState.keyBinding[4]) player.setFiring();
-		if(k == KeyEvent.VK_ESCAPE) GameState.setState(SideScroller.menuState);
-		if(k == KeyConfigState.keyBinding[6]) player.rewind();
+		if(!player.isDead()) {
+			if(k == KeyConfigState.keyBinding[1]) player.setLeft(true);
+			if(k == KeyConfigState.keyBinding[0]) player.setRight(true);
+			if(k == KeyEvent.VK_W) player.setUp(true);
+			if(k == KeyEvent.VK_S) player.setDown(true);
+			if(k == KeyConfigState.keyBinding[2]) player.setJumping(true);
+			if(k == KeyConfigState.keyBinding[5]) player.setGliding(true);
+			if(k == KeyConfigState.keyBinding[3]) player.setScratching();
+			if(k == KeyConfigState.keyBinding[4]) player.setFiring();
+			if(k == KeyEvent.VK_ESCAPE) GameState.setState(SideScroller.menuState);
+			if(k == KeyConfigState.keyBinding[6]) player.rewind();
+		}
+		if(player.isDead() && j == 300) { 
+			player.respawn();
+			j = 0;
+		}
 	}
 	
 	public void keyReleased(int k) {
-		if(k == KeyConfigState.keyBinding[1]) player.setLeft(false);
-		if(k == KeyConfigState.keyBinding[0]) player.setRight(false);
-		if(k == KeyEvent.VK_W) player.setUp(false);
-		if(k == KeyEvent.VK_S) player.setDown(false);
-		if(k == KeyConfigState.keyBinding[2]) player.setJumping(false);
-		if(k == KeyConfigState.keyBinding[5]) player.setGliding(false);
+		if(!player.isDead()) {
+			if(k == KeyConfigState.keyBinding[1]) player.setLeft(false);
+			if(k == KeyConfigState.keyBinding[0]) player.setRight(false);
+			if(k == KeyEvent.VK_W) player.setUp(false);
+			if(k == KeyEvent.VK_S) player.setDown(false);
+			if(k == KeyConfigState.keyBinding[2]) player.setJumping(false);
+			if(k == KeyConfigState.keyBinding[5]) player.setGliding(false);
+		}
 	}
 
 	public void mousePressed(int k) {

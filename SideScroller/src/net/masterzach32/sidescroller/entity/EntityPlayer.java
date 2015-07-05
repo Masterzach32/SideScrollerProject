@@ -79,7 +79,7 @@ public class EntityPlayer extends MapObject {
 		facingRight = true;
 		
 		health = maxHealth = 12;
-		healthRegen = (float) (maxHealth * 0.0003);
+		healthRegen = (float) (maxHealth * 0.0001);
 		shield = maxShield = 8;
 		shieldRegen = (float)  (maxShield * 0.004);
 		level = 1;
@@ -98,6 +98,8 @@ public class EntityPlayer extends MapObject {
 		
 		scratchDamage = (int)(10 + damage * 0.8);
 		scratchRange = 35;
+		
+		dead = false;
 		
 		// load sprites
 		try {
@@ -187,6 +189,10 @@ public class EntityPlayer extends MapObject {
 		return dead;
 	}
 	
+	public void setDead() {
+		this.dead = true;
+	}
+	
 	public void setFiring() { 
 		firing = true;
 	}
@@ -201,6 +207,18 @@ public class EntityPlayer extends MapObject {
 	
 	public Point getScreenLocation() {
 		return new Point((int)(x + xmap - width / 2), (int)(y + ymap - height / 2));
+	}
+	
+	public void respawn() {
+		this.dead = false;
+		health = maxHealth;
+		setPosition(100, 100);
+		setLeft(false);
+		setRight(false);
+		setUp(false);
+		setDown(false);
+		setJumping(false);
+		setGliding(false);
 	}
 	
 	/**
@@ -446,7 +464,7 @@ public class EntityPlayer extends MapObject {
 		if(combatTimer == 0) inCombat = false;
 		
 		// check to see if the player is dead or not
-		if(health == 0) this.dead = true;
+		if(health == 0) this.setDead();
 		if(health > 0) {
 			this.dead = false;
 			if(health < maxHealth) {
@@ -504,7 +522,7 @@ public class EntityPlayer extends MapObject {
 			}
 		}
 
-		super.render(g);
+		if(!dead) super.render(g);
 		
 		for(int i = 0; i < explosions.size(); i++) {
 			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
@@ -523,7 +541,7 @@ public class EntityPlayer extends MapObject {
 		orbCd -= 15;
 		maxHealth += 6;
 		health += 6;
-		healthRegen = (float) (maxHealth * 0.0003);
+		healthRegen = (float) (maxHealth * 0.0001);
 		maxShield += 4;
 		shieldRegen = (float) (maxShield * 0.004);
 	}
