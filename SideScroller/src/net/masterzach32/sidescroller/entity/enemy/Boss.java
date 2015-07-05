@@ -93,7 +93,7 @@ public class Boss extends Enemy {
 				p.hit(damage, "Scratch", this);
 			}
 		} else {
-			if(p.getx() < x && p.getx() > x  - attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
+			if(p.getx() < x && p.getx() > x - width - attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
 				p.hit(damage, "Scratch", this);
 			}
 		}
@@ -190,9 +190,9 @@ public class Boss extends Enemy {
 		else if(attack <= 150) {
 			int i0 = r.nextInt(height);
 			if(facingRight) {
-				g.drawLine((int)(x + xmap - width / 2) + width, (int)(y + ymap - height / 2) + i0, (int)(x + xmap - width / 2) + width + attackRange, (int)(y + ymap - height / 2) + i0);
+				g.drawLine((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + i0, (int)(x + xmap - width / 2) + width + attackRange, (int)(y + ymap - height / 2) + i0);
 			} else {
-				g.drawLine((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + i0, (int)(x + xmap - width / 2) - attackRange, (int)(y + ymap - height / 2) + i0);
+				g.drawLine((int)(x + xmap - width / 2) + width, (int)(y + ymap - height / 2) + i0, (int)(x + xmap - width / 2) - attackRange, (int)(y + ymap - height / 2) + i0);
 			}
 		}
 		// attack (151 - 180)

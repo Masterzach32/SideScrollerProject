@@ -75,7 +75,7 @@ public class Level1State extends LevelState {
 			enemies.add(s);
 		}
 		Boss boss = new Boss(tileMap, 1);
-		boss.setPosition(3046, 320);
+		boss.setPosition(200, 320);
 		enemies.add(boss);
 	}
 	
