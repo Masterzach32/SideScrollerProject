@@ -21,6 +21,9 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 
 	Thread errorThrower; // just for testing (Throws an Exception at this Console
 	
+	/**
+	 * Creates a new console object. Reroutes the console output to this object
+	 */
 	public Console() {
 		// create all components and add them
 		frame = new JFrame("SideScroller Console");
@@ -161,6 +164,9 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		frame.setVisible(v);
 	}
 	
+	/**
+	 * Saves the current console textArea to the designated file.
+	 */
 	public void saveAs() {
 		FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Text File", "txt");
 	    final JFileChooser saveAsFileChooser = new JFileChooser();

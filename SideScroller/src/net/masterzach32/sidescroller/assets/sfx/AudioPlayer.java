@@ -8,6 +8,10 @@ public class AudioPlayer {
 	
 	private Clip clip;
 	
+	/**
+	 * Creates a new audio clip.
+	 * @param ais
+	 */
 	public AudioPlayer(AudioInputStream ais) {
 		try {
 			AudioFormat baseFormat = ais.getFormat();

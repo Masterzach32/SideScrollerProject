@@ -14,6 +14,8 @@ public class MenuState extends GameState {
 	
 	protected Background bg;
 	
+	protected static String info = "Use the Up and Down arrows to navigate, and ENTER to select.";
+	
 	public static int currentChoice;
 	public static String[] options = {
 		"Play",
@@ -59,13 +61,15 @@ public class MenuState extends GameState {
 	
 	public void render(Graphics2D g) {
 		// draw bg
-		bg.render(g);						
+		bg.render(g);			
+		
+		g.setColor(Color.BLACK);
+		g.drawString(info, 290, 355);
+		
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
 		Utilities.drawCenteredString(g, "SideScroller RPG", 45);
-		
-		g.setFont(selectfont);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {
@@ -77,7 +81,7 @@ public class MenuState extends GameState {
 				g.setColor(Color.RED);
 			}
 			g.drawString(options[i], 5, (580 + i * 30) / 2);
-		}	
+		}
 	}
 	
 	private void select() {

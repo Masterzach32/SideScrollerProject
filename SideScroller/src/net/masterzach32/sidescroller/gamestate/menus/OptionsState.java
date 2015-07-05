@@ -73,7 +73,7 @@ public class OptionsState extends MenuState {
 		
 		g.setFont(selectfont);
 		g.setColor(Color.BLACK);
-		Utilities.drawCenteredString(g, "Use up/down to navigate, and enter to change", 130);
+		g.drawString(info, 290, 355);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {
@@ -85,7 +85,7 @@ public class OptionsState extends MenuState {
 				g.setColor(Color.RED);
 			}
 			Utilities.drawCenteredString(g, options[i], (360 + i * 30) / 2);
-		}	
+		}
 	}
 	
 	private void select() {

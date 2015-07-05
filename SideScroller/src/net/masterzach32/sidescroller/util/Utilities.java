@@ -61,6 +61,12 @@ public class Utilities {
 		return s;
 	}
 	
+	/**
+	 * Downloads a file and then attempts to to read it and store it in a String[] array.
+	 * @param path
+	 * @param location
+	 * @return String[]
+	 */
 	public static String[] readTextFile(String path, String location) {
 		download(path, location);
 		Path p = Paths.get(location);
@@ -73,10 +79,14 @@ public class Utilities {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
-    	return null;
+		return null;
 	}
 	
+	/**
+	 * Downloads a file to the specified location.
+	 * @param url
+	 * @param location
+	 */
 	public static void download(String url, String location) {
 		String site = url; 
 		String filename = location; 
@@ -123,6 +133,12 @@ public class Utilities {
 		frame.dispose();
 	}
 	
+	/**
+	 * Draws a string centered on the x axis
+	 * @param g
+	 * @param s
+	 * @param y
+	 */
 	public static void drawCenteredString(Graphics2D g, String s, int y) {
         String text = s;
 
@@ -133,6 +149,11 @@ public class Utilities {
         g.drawString(text, x, y);
 	}
 	
+	/**
+	 * Returns the cooldown of an ability in seconds.
+	 * @param cd
+	 * @return
+	 */
 	public static int getCooldown(int cd) {
 		if(cd > 0) return (cd / 60) + 1;
 		else return cd / 60;

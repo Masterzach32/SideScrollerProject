@@ -209,6 +209,9 @@ public class EntityPlayer extends MapObject {
 		return new Point((int)(x + xmap - width / 2), (int)(y + ymap - height / 2));
 	}
 	
+	/**
+	 * Spawns the player at the beginning of the current level with full health.
+	 */
 	public void respawn() {
 		this.dead = false;
 		health = maxHealth;
@@ -260,6 +263,9 @@ public class EntityPlayer extends MapObject {
 		}
 	}
 	
+	/**
+	 * Executes the player's rewind ability
+	 */
 	public void rewind() {
 		if(rewindCd > 0) return;
 		rewindCd = 2000;

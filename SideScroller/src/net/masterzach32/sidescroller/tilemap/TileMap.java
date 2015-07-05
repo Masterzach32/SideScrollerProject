@@ -43,7 +43,7 @@ public class TileMap {
 		this.tileSize = tileSize;
 		numRowsToDraw = SideScroller.HEIGHT / tileSize + 2;
 		numColsToDraw = SideScroller.WIDTH / tileSize + 2;
-		tween = 0.2;
+		tween = 0.07;
 	}
 	
 	/**
