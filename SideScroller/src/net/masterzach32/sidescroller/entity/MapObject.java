@@ -1,8 +1,10 @@
 package net.masterzach32.sidescroller.entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import net.masterzach32.sidescroller.entity.enemy.Enemy;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Tile;
 import net.masterzach32.sidescroller.tilemap.TileMap;
@@ -63,6 +65,8 @@ public abstract class MapObject {
 	protected double maxFallSpeed;
 	protected double jumpStart;
 	protected double stopJumpSpeed;
+	
+	private static boolean showHitbox = true;
 	
 	
 	// constructor
@@ -230,6 +234,14 @@ public abstract class MapObject {
 		jumping = b;
 	}
 	
+	public static boolean isHitboxEnabled() {
+		return showHitbox;
+	}
+	
+	public static void setShowHitbox(boolean b) {
+		showHitbox = b;
+	}
+	
 	/**
 	 * Currently does not work
 	 * @return
@@ -241,9 +253,16 @@ public abstract class MapObject {
 	
 	public void render(Graphics2D g) {
 		if(facingRight) {
-			animation.render(g, (int)(x + xmap - width / 2), (int)(y + ymap - height / 2), width, height);
+			animation.render(g, (int) (x + xmap - width / 2), (int) (y + ymap - height / 2), width, height);
 		} else {
-			animation.render(g, (int)(x + xmap - width / 2 + width), (int)(y + ymap - height / 2), -width, height);
+			animation.render(g, (int) (x + xmap - width / 2 + width), (int) (y + ymap - height / 2), -width, height);
+		}
+		
+		if(showHitbox) { 
+			if(this instanceof Enemy) g.setColor(Color.RED);
+			else g.setColor(Color.GREEN);
+			g.draw(new Rectangle((int) (x + xmap - width / 2 + ((width - cwidth) / 2)), (int) (y + ymap - height / 2 + ((height - cheight) / 2)), cwidth, cheight));
+			g.setColor(Color.WHITE);
 		}
 	}
 }

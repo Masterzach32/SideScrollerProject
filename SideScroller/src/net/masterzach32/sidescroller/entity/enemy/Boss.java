@@ -166,9 +166,9 @@ public class Boss extends Enemy {
 		
 		// health bar
 		g.setColor(new Color(200, 0, 0));
-		g.fillRect((int)(x + xmap - width / 2) - 15, (int)(y + ymap - height / 2) + 2, (int) b0, 8);
+		g.fillRect((int)(x + xmap - width / 2) - 15, (int)(y + ymap - height / 2) - 4, (int) b0, 8);
 		g.setColor(new Color(255, 0, 0));
-		g.fillRect((int)(x + xmap - width / 2) - 15, (int)(y + ymap - height / 2) + 2, (int) h1, 8);
+		g.fillRect((int)(x + xmap - width / 2) - 15, (int)(y + ymap - height / 2) - 4, (int) h1, 8);
 		
 		if(flinching) {
 			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;

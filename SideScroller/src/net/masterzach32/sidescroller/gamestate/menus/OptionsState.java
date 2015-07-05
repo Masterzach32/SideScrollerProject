@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
@@ -19,8 +20,9 @@ public class OptionsState extends MenuState {
 	private Font subtitleFont;
 	
 	public static int currentChoice;
-	public static String[] options = new String[7]; 
+	public static String[] options = new String[8]; 
 	private static boolean console = true;
+	private static boolean debug = true;
 	
 	public OptionsState(SideScroller game) {
 		super(game);
@@ -51,13 +53,15 @@ public class OptionsState extends MenuState {
 	public void render(Graphics2D g) {
 		options[0] = "Scale: " + "(" + (SideScroller.SCALE) + "x)"; 
 		options[1] = "Resolution: " + "(" + SideScroller.WIDTH * SideScroller.SCALE + "x" + SideScroller.HEIGHT * SideScroller.SCALE + ")";
-		if(SideScroller.isSoundEnabled) options[2] = "Sound: (ON)";
-		else options[2] = "Sound: (OFF)";
+		if(SideScroller.isSoundEnabled) options[2] = "Sound: (ENABLED)";
+		else options[2] = "Sound: (DISABLED)";
 		options[3] = "TPS (ticks per second): (" + SideScroller.FPS + ")";
 		if(console) options[4] = "Show Console: (TRUE)";
 		else options[4] = "Show Console: (FALSE)";
 		options[5] = "Key Bindings Menu";
-		options[6] = "Back";
+		if(debug) options[6] = "Debug Mode: (ENABLED)";
+		else options[6] = "Debug Mode: (DISABLED)";
+		options[7] = "Back";
 		// draw bg
 		bg.render(g);						
 		// draw title
@@ -139,6 +143,15 @@ public class OptionsState extends MenuState {
 			GameState.setState(SideScroller.keyConfigState);
 		}
 		if(currentChoice == 6) {
+			if (debug) {
+				MapObject.setShowHitbox(false);
+				debug = false;
+			} else {
+				MapObject.setShowHitbox(true);
+				debug = true;
+			}
+		}
+		if(currentChoice == 7) {
 			GameState.setState(SideScroller.menuState);
 		}
 	}
