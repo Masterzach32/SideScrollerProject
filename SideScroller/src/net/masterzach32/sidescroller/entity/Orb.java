@@ -6,7 +6,7 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
-public class Orb extends MapObject {
+public class Orb extends Projectile {
 	
 	private boolean hit;
 	private BufferedImage[] sprites;

@@ -7,7 +7,7 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
-public class FireBall extends MapObject {
+public class FireBall extends Projectile {
 	
 	private boolean hit;
 	private boolean remove;

@@ -239,12 +239,12 @@ public class EntityPlayer extends MapObject {
 			// scratch attack
 			if(scratching) {
 				if(facingRight) {
-					if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2), scratchRange, height))) {
+					if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
 						combatTimer = 300;
 						e.hit(scratchDamage, "Scratch", this);
 					}
 				} else {
-					if(e.intersects(new Rectangle((int) (x - scratchRange), (int) (y - height / 2), scratchRange, height))) {
+					if(e.intersects(new Rectangle((int) (x - scratchRange), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
 						combatTimer = 300;
 						e.hit(scratchDamage, "Scratch", this);
 					}
@@ -273,6 +273,8 @@ public class EntityPlayer extends MapObject {
 	public void rewind() {
 		if(rewindCd > 0) return;
 		rewind = true;
+		flinching = true;
+		flinchTimer = System.nanoTime();
 	}
 	
 	/**
@@ -379,7 +381,7 @@ public class EntityPlayer extends MapObject {
 		
 			// check done flinching
 			if(flinching) {
-				long elapsed =(System.nanoTime() - flinchTimer) / 1000000;
+				long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
 				if(elapsed > 1000) {
 					flinching = false;
 				}
@@ -538,9 +540,9 @@ public class EntityPlayer extends MapObject {
 			if(scratching) {
 				g.setColor(Color.YELLOW);
 				if(facingRight) {
-					g.drawRect((int)(x + xmap), (int)(y + ymap - height / 2), scratchRange, height);
+					g.drawRect((int)(x + xmap), (int)(y + ymap - height / 2 + (height - cheight) / 2), scratchRange, cheight);
 				} else {
-					g.drawRect((int)(x + xmap  - scratchRange), (int)(y + ymap - height / 2), scratchRange, height);
+					g.drawRect((int)(x + xmap  - scratchRange), (int)(y + ymap - height / 2 + (height - cheight) / 2), scratchRange, cheight);
 				}
 			}
 		}
