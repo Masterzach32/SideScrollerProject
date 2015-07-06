@@ -63,6 +63,7 @@ public class MenuState extends GameState {
 		// draw bg
 		bg.render(g);			
 		
+		g.setFont(font);
 		g.setColor(Color.BLACK);
 		g.drawString(info, 290, 355);
 		

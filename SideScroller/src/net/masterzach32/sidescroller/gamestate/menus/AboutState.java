@@ -71,6 +71,7 @@ private Font subtitleFont;
 		for(int i = 0; i < aboutText.length; i++) {
 			Utilities.drawCenteredString(g, aboutText[i], (250 + i * 30) / 2);
 		}
+		g.setFont(font);
 		g.setColor(Color.BLACK);
 		g.drawString(info, 290, 355);
 		g.setColor(Color.WHITE);

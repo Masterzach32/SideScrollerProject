@@ -97,7 +97,7 @@ public class EntityPlayer extends MapObject {
 		orbs = new ArrayList<Orb>();
 		
 		scratchDamage = (int)(10 + damage * 0.8);
-		scratchRange = 35;
+		scratchRange = 30;
 		
 		dead = false;
 		
@@ -191,6 +191,7 @@ public class EntityPlayer extends MapObject {
 	
 	public void setDead() {
 		this.dead = true;
+		if(rewindCd < 300 + 250) rewindCd = 300 + 250;
 	}
 	
 	public void setFiring() { 
@@ -235,12 +236,12 @@ public class EntityPlayer extends MapObject {
 			// scratch attack
 			if(scratching) {
 				if(facingRight) {
-					if(e.getx() > x && e.getx() < x + scratchRange && e.gety() > y - height / 2 && e.gety() < y + height / 2) {
+					if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2), scratchRange, height))) {
 						combatTimer = 300;
 						e.hit(scratchDamage, "Scratch", this);
 					}
 				} else {
-					if(e.getx() < x && e.getx() > x - scratchRange && e.gety() > y - height / 2 && e.gety() < y + height / 2) {
+					if(e.intersects(new Rectangle((int) (x - scratchRange), (int) (y - height / 2), scratchRange, height))) {
 						combatTimer = 300;
 						e.hit(scratchDamage, "Scratch", this);
 					}
@@ -288,7 +289,7 @@ public class EntityPlayer extends MapObject {
 		damage -= (s - shield);
 		health -= damage;
 		if(health < 0) health = 0;
-		if(health == 0) dead = true;
+		if(health == 0) this.setDead();
 		flinching = true;
 		flinchTimer = System.nanoTime();
 		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
@@ -343,36 +344,124 @@ public class EntityPlayer extends MapObject {
 	}
 	
 	public void tick() {
-		// update position
-		getNextPosition();
-		checkTileMapCollision();
-		setPosition(xtemp, ytemp);
+		if(!isDead()) {
+			// update position
+			getNextPosition();
+			checkTileMapCollision();
+			setPosition(xtemp, ytemp);
 		
-		// check attack has stopped
-		if(currentAction == SCRATCHING) {
-			if(animation.hasPlayedOnce()) scratching = false;
-		}
-		if(currentAction == ORB) {
-			if(animation.hasPlayedOnce()) firing = false;
-		}
+			// check attack has stopped
+			if(currentAction == SCRATCHING) {
+				if(animation.hasPlayedOnce()) scratching = false;
+			} if(currentAction == ORB) {
+				if(animation.hasPlayedOnce()) firing = false;
+			}
 		
-		// orb attack
-		if(orbCurrentCd > 0) orbCurrentCd--;
-		if(orbCurrentCd > orbCd) orbCurrentCd = orbCd;
-		if(firing && currentAction != ORB) {
-			if(orbCurrentCd == 0) {
-				orbCurrentCd = orbCd;
-				Orb orb = null;
-				if(facingRight)
-					orb = new Orb(tileMap, true);
-				if(!facingRight)
-					orb = new Orb(tileMap, false);
-				if(orb != null) {
-					orb.setPosition(x, y);
-					orbs.add(orb);
+			// orb attack
+			if(orbCurrentCd > 0) orbCurrentCd--;
+			if(orbCurrentCd > orbCd) orbCurrentCd = orbCd;
+			if(firing && currentAction != ORB) {
+				if(orbCurrentCd == 0) {
+					orbCurrentCd = orbCd;
+					Orb orb = null;
+					if(facingRight)
+						orb = new Orb(tileMap, true);
+					if(!facingRight)
+						orb = new Orb(tileMap, false);
+					if(orb != null) {
+						orb.setPosition(x, y);
+						orbs.add(orb);
+					}
+				} else {
+					LogHelper.logInfo("Orb On Cooldown");
+				}
+			}
+		
+			// check done flinching
+			if(flinching) {
+				long elapsed =(System.nanoTime() - flinchTimer) / 1000000;
+				if(elapsed > 1000) {
+					flinching = false;
+				}
+			}
+		
+			// set animation
+			if(scratching) {
+				if(currentAction != SCRATCHING) {
+					sfx.get("scratch").play();
+					currentAction = SCRATCHING;
+					animation.setFrames(sprites.get(SCRATCHING));
+					animation.setDelay(50);
+					width = 60;
+				}
+			} else if(firing) {
+				if(currentAction != ORB) {
+					sfx.get("fire").play();
+					currentAction = ORB;
+					animation.setFrames(sprites.get(ORB));
+					animation.setDelay(100);
+					width = 30;
+				}
+			} else if(dy > 0) {
+				if(gliding) {
+					if(currentAction != GLIDING) {
+						currentAction = GLIDING;
+						animation.setFrames(sprites.get(GLIDING));
+						animation.setDelay(100);
+						width = 30;
+					}
+				} else if(currentAction != FALLING) {
+					currentAction = FALLING;
+					animation.setFrames(sprites.get(FALLING));
+					animation.setDelay(100);
+					width = 30;
+				}
+			} else if(dy < 0) {
+				if(currentAction != JUMPING) {
+					sfx.get("jump").play();
+					currentAction = JUMPING;
+					animation.setFrames(sprites.get(JUMPING));
+					animation.setDelay(-1);
+					width = 30;
+				}
+			} else if(left || right) {
+				if(currentAction != WALKING) {
+					currentAction = WALKING;
+					animation.setFrames(sprites.get(WALKING));
+					animation.setDelay(40);
+					width = 30;
 				}
 			} else {
-				LogHelper.logInfo("Orb On Cooldown");
+				if(currentAction != IDLE) {
+					currentAction = IDLE;
+					animation.setFrames(sprites.get(IDLE));
+					animation.setDelay(400);
+					width = 30;
+				}
+			}
+			
+			animation.tick();
+		
+			// set direction
+			if(currentAction != SCRATCHING && currentAction != ORB) {
+				if(right) facingRight = true;
+				if(left) facingRight = false;
+			}
+			
+			if(combatTimer > 0) combatTimer--;
+			if(combatTimer > 0) inCombat = true;
+			if(combatTimer == 0) inCombat = false;
+			
+			// check to see if the player is dead or not
+			if(health == 0) this.setDead();
+			if(health > 0) {
+				this.dead = false;
+				if(health < maxHealth) {
+					health += healthRegen;
+				}
+				if(shield < maxShield) {
+					if(!inCombat) shield += shieldRegen;
+				}
 			}
 		}
 		
@@ -391,94 +480,6 @@ public class EntityPlayer extends MapObject {
 			if(explosions.get(i).shouldRemove()) {
 				explosions.remove(i);
 				i--;
-			}
-		}
-		
-		// check done flinching
-		if(flinching) {
-			long elapsed =(System.nanoTime() - flinchTimer) / 1000000;
-			if(elapsed > 1000) {
-				flinching = false;
-			}
-		}
-		
-		// set animation
-		if(scratching) {
-			if(currentAction != SCRATCHING) {
-				sfx.get("scratch").play();
-				currentAction = SCRATCHING;
-				animation.setFrames(sprites.get(SCRATCHING));
-				animation.setDelay(50);
-				width = 60;
-			}
-		} else if(firing) {
-			if(currentAction != ORB) {
-				sfx.get("fire").play();
-				currentAction = ORB;
-				animation.setFrames(sprites.get(ORB));
-				animation.setDelay(100);
-				width = 30;
-			}
-		} else if(dy > 0) {
-			if(gliding) {
-				if(currentAction != GLIDING) {
-					currentAction = GLIDING;
-					animation.setFrames(sprites.get(GLIDING));
-					animation.setDelay(100);
-					width = 30;
-				}
-			} else if(currentAction != FALLING) {
-				currentAction = FALLING;
-				animation.setFrames(sprites.get(FALLING));
-				animation.setDelay(100);
-				width = 30;
-			}
-		} else if(dy < 0) {
-			if(currentAction != JUMPING) {
-				sfx.get("jump").play();
-				currentAction = JUMPING;
-				animation.setFrames(sprites.get(JUMPING));
-				animation.setDelay(-1);
-				width = 30;
-			}
-		} else if(left || right) {
-			if(currentAction != WALKING) {
-				currentAction = WALKING;
-				animation.setFrames(sprites.get(WALKING));
-				animation.setDelay(40);
-				width = 30;
-			}
-		} else {
-			if(currentAction != IDLE) {
-				currentAction = IDLE;
-				animation.setFrames(sprites.get(IDLE));
-				animation.setDelay(400);
-				width = 30;
-			}
-		}
-		
-		animation.tick();
-		
-		// set direction
-		if(currentAction != SCRATCHING && currentAction != ORB) {
-			if(right) facingRight = true;
-			if(left) facingRight = false;
-		}
-		
-		if(combatTimer > 0) combatTimer--;
-		if(combatTimer > 0) inCombat = true;
-		if(combatTimer == 0) inCombat = false;
-		
-		// check to see if the player is dead or not
-		if(health == 0) this.setDead();
-		if(health > 0) {
-			this.dead = false;
-			if(health < maxHealth) {
-				health += healthRegen;
-			}
-			
-			if(shield < maxShield) {
-				if(!inCombat) shield += shieldRegen;
 			}
 		}
 		
@@ -523,9 +524,9 @@ public class EntityPlayer extends MapObject {
 			if(scratching) {
 				g.setColor(Color.YELLOW);
 				if(facingRight) {
-					g.drawRect((int)(x + xmap - 30 / 2), (int)(y + ymap - height / 2), scratchRange + 9, height);
+					g.drawRect((int)(x + xmap), (int)(y + ymap - height / 2), scratchRange, height);
 				} else {
-					g.drawRect((int)(x + xmap + 30 / 2 - scratchRange - 9), (int)(y + ymap - height / 2), scratchRange + 9, height);
+					g.drawRect((int)(x + xmap  - scratchRange), (int)(y + ymap - height / 2), scratchRange, height);
 				}
 			}
 		}

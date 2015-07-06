@@ -71,7 +71,7 @@ public class OptionsState extends MenuState {
 		g.setFont(subtitleFont);
 		Utilities.drawCenteredString(g, "Options", 75);
 		
-		g.setFont(selectfont);
+		g.setFont(font);
 		g.setColor(Color.BLACK);
 		g.drawString(info, 290, 355);
 						

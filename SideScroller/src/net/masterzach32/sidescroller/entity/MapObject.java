@@ -76,7 +76,7 @@ public abstract class MapObject {
 	}
 	
 	/**
-	 * Checks to see if this map object is intersecting another
+	 * Checks to see if this MapObject is intersecting another MapObject
 	 * @param o
 	 * @return
 	 */
@@ -87,11 +87,21 @@ public abstract class MapObject {
 	}
 	
 	/**
+	 * Checks to see if this map object is intersecting the specified rectangle
+	 * @param o
+	 * @return
+	 */
+	public boolean intersects(Rectangle r) {
+		Rectangle r1 = getRectangle();
+		return r1.intersects(r);
+	}
+	
+	/**
 	 * Creates a new rectangle
 	 * @return
 	 */
 	public Rectangle getRectangle() {
-		return new Rectangle((int)x - cwidth, (int)y - cheight, cwidth, cheight);
+		return new Rectangle(new Rectangle((int) (x - width / 2 + ((width - cwidth) / 2)), (int) (y - height / 2 + ((height - cheight) / 2)), cwidth, cheight));
 	}
 	
 	/**
