@@ -3,7 +3,6 @@ package net.masterzach32.sidescroller.main;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
-
 import javax.swing.JPanel;
 
 import net.masterzach32.sidescroller.assets.AssetLoader;
@@ -28,7 +27,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.1.5.187";
+	public static final String VERSION = "0.1.5.188";
 	
 	// game thread
 	private Thread thread;
@@ -148,7 +147,6 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		GameState.setState(menuState);
 		LogHelper.logInfo("Loading Complete");
 		MenuState.bgMusic.play();
-		//Game.getConsole().setVisible(false);
 	}
 	
 	/**

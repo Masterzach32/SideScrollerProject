@@ -100,7 +100,7 @@ public class Boss extends Enemy {
 	}
 	
 	private void getNextPosition() {
-		if((this.getx() - LevelState.getPlayer().getx()) >= 100) return;
+		if((this.getx() - LevelState.getPlayer().getx()) >= 150) return;
 		attack++;
 		// find player direction (0-60)
 		if(attack <= 60){

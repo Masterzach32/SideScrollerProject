@@ -51,6 +51,9 @@ public class EntityPlayer extends MapObject {
 	// gliding
 	private boolean gliding;
 	
+	private boolean rewind = false;
+	int r = 0;
+	
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
 	private final int[] numFrames = {2, 8, 1, 2, 4, 2, 5};
@@ -269,10 +272,7 @@ public class EntityPlayer extends MapObject {
 	 */
 	public void rewind() {
 		if(rewindCd > 0) return;
-		rewindCd = 2000;
-		x = x4[239];
-		y = y4[239];
-		health = health4[239];
+		rewind = true;
 	}
 	
 	/**
@@ -488,14 +488,28 @@ public class EntityPlayer extends MapObject {
 		}
 		
 		for(int i = 239; i > 0; i--) {
-			if(rewindCd > 240) {
+			if(rewindCd >= 240) {
 				x4[i] = (int) x;
 				y4[i] = (int) y;
 				health4[i] = (int) health;
-			} else {
+			} else if(!rewind) {
 				x4[i] = x4[i-1];
 				y4[i] = y4[i-1];
 				health4[i] = health4[i-1];
+			}
+		}
+		
+		if(rewind) {
+			r += 4;
+			if(r <= 239) {
+				x = x4[r];
+				y = y4[r];
+				health = health4[r];
+			}
+			if(r >= 239) {
+				rewind = false;
+				r = 0;
+				rewindCd = 2000;
 			}
 		}
 		
