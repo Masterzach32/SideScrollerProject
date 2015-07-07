@@ -154,8 +154,8 @@ public class TileMap {
 		
 		fixBounds();
 		
-		colOffset = (int)-this.x / tileSize;
-		rowOffset = (int)-this.y / tileSize;
+		colOffset = (int) - this.x / tileSize;
+		rowOffset = (int) - this.y / tileSize;
 	}
 	
 	private void fixBounds() {
@@ -176,6 +176,8 @@ public class TileMap {
 				int rc = map[row][col];
 				int r = rc / numTilesAcross;
 				int c = rc % numTilesAcross;
+				
+				//if(r > 1) return;
 				
 				g.drawImage(tiles[r][c].getImage(), (int)x + col * tileSize, (int)y + row * tileSize, null);	
 			}

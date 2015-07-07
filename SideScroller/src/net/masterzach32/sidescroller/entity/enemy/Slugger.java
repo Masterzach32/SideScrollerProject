@@ -31,7 +31,7 @@ public class Slugger extends Enemy {
 		health = maxHealth = (8) + (6*level);
 		damage = (3) + (3*level);
 		
-		exp = (5) + (15*level);
+		exp = (10);
 		
 		armor = 70 + (5*level);
 		damageMultiplier = (double) (100) / (100 + armor);
@@ -65,8 +65,7 @@ public class Slugger extends Enemy {
 			if(dx < -maxSpeed) {
 				dx = -maxSpeed;
 			}
-		}
-		else if(right) {
+		} else if(right) {
 			dx += moveSpeed;
 			if(dx > maxSpeed) {
 				dx = maxSpeed;
@@ -133,8 +132,6 @@ public class Slugger extends Enemy {
 		
 		if(h1 >= b0) b0 = h1;
 		if(h1 < b0) b0 -= .7;
-		
-		super.render(g);
 		
 		// health bar
 		g.setColor(new Color(200, 0, 0));

@@ -40,7 +40,7 @@ public class Boss extends Enemy {
 		damage = (10) + (5*level);
 		attackRange = 50;
 		
-		exp = (25) + (30*level);
+		exp = (25) * level;
 		
 		armor = -40;
 		damageMultiplier = (double) (100) / (100 + armor);

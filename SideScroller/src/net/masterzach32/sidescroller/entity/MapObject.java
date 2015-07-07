@@ -3,6 +3,7 @@ package net.masterzach32.sidescroller.entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
 import net.masterzach32.sidescroller.main.SideScroller;
@@ -10,6 +11,8 @@ import net.masterzach32.sidescroller.tilemap.Tile;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public abstract class MapObject {
+	
+	protected BufferedImage[] sprites;
 	
 	// tile stuff
 	protected TileMap tileMap;

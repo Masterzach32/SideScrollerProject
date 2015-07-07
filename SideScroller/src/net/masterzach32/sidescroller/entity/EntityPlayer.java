@@ -27,7 +27,6 @@ public class EntityPlayer extends MapObject {
 	private float maxExp;
 	private int damage;
 	private int level;
-	private double levelMultiplier;
 	private int orbCurrentCd;
 	private int orbCd;
 	public int rewindCd;
@@ -86,7 +85,6 @@ public class EntityPlayer extends MapObject {
 		shield = maxShield = 8;
 		shieldRegen = (float)  (maxShield * 0.004);
 		level = 1;
-		levelMultiplier = (double) (1.135);
 		maxExp = 100;
 		orbCurrentCd = orbCd = 2500;
 		rewindCd = 300;
@@ -572,7 +570,7 @@ public class EntityPlayer extends MapObject {
 	
 	private void levelUp() {
 		level += 1;
-		maxExp = (float) ((100*level) + (14*level*levelMultiplier));
+		maxExp = 75 + 25 * level;
 		exp = 0;
 		damage += 3;
 		scratchDamage = (int)(4 + damage*1.85);
