@@ -13,7 +13,6 @@ import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Swordman extends Enemy {
 	
@@ -40,6 +39,9 @@ public class Swordman extends Enemy {
 		height = 30;
 		cwidth = 20;
 		cheight = 20;
+		
+		sight = 250;
+		hsight = 36;
 		
 		health = maxHealth = (10) + (8*level);
 		damage = (2) + (4*level);
@@ -93,11 +95,11 @@ public class Swordman extends Enemy {
 		EntityPlayer p = LevelState.getPlayer();
 		// scratch attack
 		if(facingRight) {
-			if(p.getx() > x && p.getx() < x + width + attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
+			if(p.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
 				p.hit(damage, "Scratch", this);
 			}
 		} else {
-			if(p.getx() < x && p.getx() > x - width - attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
+			if(p.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
 				p.hit(damage, "Scratch", this);
 			}
 		}
@@ -105,7 +107,16 @@ public class Swordman extends Enemy {
 
 	private void getNextPosition() {
 		// movement
-		if(LevelState.getPlayer().intersects(new Rectangle((int) (x - 250 / 2), (int) (y - 36 / 2), 250, 36))) {
+		if(LevelState.getPlayer().intersects(new Rectangle((int) (x - attackRange / 2), (int) (y - hsight / 2), attackRange, hsight))) {
+			// player within attacking range
+			dx = 0;
+			if(attackCd == 0) {
+				attacking = true;
+				attackCd = 120;
+				left = false;
+				right = false;
+			}
+		} else if(LevelState.getPlayer().intersects(new Rectangle((int) (x - sight / 2), (int) (y - hsight / 2), sight, hsight))) {
 			// player within sight
 			if(LevelState.getPlayer().getx() < this.getx()) {
 				right = false;
@@ -127,16 +138,6 @@ public class Swordman extends Enemy {
 					dx = maxSpeed;
 				}
 			}
-		} if(LevelState.getPlayer().intersects(new Rectangle((int) (x - 60 / 2), (int) (y - 36 / 2), 60, 36))) {
-			// player within attacking range
-			LogHelper.logInfo("hi");
-			dx = 0;
-			if(attackCd == 0) {
-				attacking = true;
-				attackCd = 120;
-				left = false;
-				right = false;
-			}
 		} else {
 			// player cannot be seen
 			// if it hits a wall, go other direction
@@ -156,56 +157,6 @@ public class Swordman extends Enemy {
 				dx = moveSpeed;
 			}
 		}
-		
-		/*
-		if((this.getx() - LevelState.getPlayer().getx()) >= 125 || (LevelState.getPlayer().getx() - this.getx()) >= 125) {
-			// if it hits a wall, go other direction
-			if(right && dx == 0) {
-				right = false;
-				left = true;
-				facingRight = false;
-			} else if(left && dx == 0) {
-				right = true;
-				left = false;
-				facingRight = true;
-			}
-			
-			if(left) {
-				dx = -moveSpeed;
-			} else if(right) {
-				dx = moveSpeed;
-			}
-		} else if((this.getx() - LevelState.getPlayer().getx()) >= 30 || (LevelState.getPlayer().getx() - this.getx()) >= 30 || (this.gety() - LevelState.getPlayer().gety()) >= 35 || (LevelState.getPlayer().gety() - this.gety()) >= 35) {
-			if(LevelState.getPlayer().getx() < this.getx()) {
-				right = false;
-				left = true;
-				facingRight = false;
-			} else if (LevelState.getPlayer().getx() > this.getx()) {
-				right = true;
-				left = false;
-				facingRight = true;
-			} 	
-			if(left) {
-				dx -= moveSpeed;
-			if(dx < -maxSpeed) {
-				dx = -maxSpeed;
-			}
-			} else if(right) {
-				dx += moveSpeed;
-				if(dx > maxSpeed) {
-					dx = maxSpeed;
-				}
-			}
-		} else {
-			dx = 0;
-			if(attackCd == 0) {
-				attacking = true;
-				attackCd = 120;
-				left = false;
-				right = false;
-			}
-		}
-		*/
 		
 		// falling
 		if(falling) {
@@ -291,14 +242,14 @@ public class Swordman extends Enemy {
 		
 		if(MapObject.isHitboxEnabled()) {
 			g.setColor(Color.WHITE);
-			g.draw(new Rectangle((int) (x + xmap - 250/ 2), (int) (y + ymap - 36 / 2), 250, 36));
-			g.draw(new Rectangle((int) (x + xmap - 60 / 2), (int) (y + ymap - 36 / 2), 60, 36));
+			g.draw(new Rectangle((int) (x + xmap - sight / 2), (int) (y + ymap - hsight / 2), sight, hsight));
+			g.draw(new Rectangle((int) (x + xmap - attackRange*2 / 2), (int) (y + ymap - hsight / 2), attackRange*2, hsight));
 			if(attacking) {
 				g.setColor(Color.YELLOW);
 				if(facingRight) {
 					g.drawRect((int)(x + xmap), (int)(y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
 				} else {
-					g.drawRect((int)(x + xmap  - attackRange), (int)(y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
+					g.drawRect((int)(x + xmap - attackRange), (int)(y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
 				}
 			}
 		}

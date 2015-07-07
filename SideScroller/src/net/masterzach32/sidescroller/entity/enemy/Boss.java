@@ -2,6 +2,7 @@ package net.masterzach32.sidescroller.entity.enemy;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
@@ -35,6 +36,9 @@ public class Boss extends Enemy {
 		height = 30;
 		cwidth = 20;
 		cheight = 20;
+		
+		sight = 250;
+		hsight = 160;
 		
 		health = maxHealth = (250) + (75*level);
 		damage = (10) + (5*level);
@@ -89,18 +93,18 @@ public class Boss extends Enemy {
 		EntityPlayer p = LevelState.getPlayer();
 		// scratch attack
 		if(facingRight) {
-			if(p.getx() > x && p.getx() < x + width + attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
+			if(p.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
 				p.hit(damage, "Scratch", this);
 			}
 		} else {
-			if(p.getx() < x && p.getx() > x - width - attackRange && p.gety() > y - height / 2 && p.gety() < y + height / 2) {
+			if(p.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
 				p.hit(damage, "Scratch", this);
 			}
 		}
 	}
 	
 	private void getNextPosition() {
-		if((this.getx() - LevelState.getPlayer().getx()) >= 150) return;
+		if(!LevelState.getPlayer().intersects(new Rectangle((int) (x - sight / 2), (int) (y - hsight / 2), sight, hsight))) return;
 		attack++;
 		// find player direction (0-60)
 		if(attack <= 60){
@@ -244,9 +248,9 @@ public class Boss extends Enemy {
 		// attack (151 - 160)
 		else if(attack <= 160) {
 			if(facingRight) {
-				g.drawRect((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), width + attackRange,  height);
+				g.drawRect((int)(x + xmap), (int)(y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
 			} else {
-				g.drawRect((int)(x + xmap - width / 2) - attackRange, (int)(y + ymap - height / 2), width + attackRange, height);
+				g.drawRect((int)(x + xmap - attackRange), (int)(y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
 			}
 		}
 		// cooldown (161 - 270)
@@ -257,6 +261,14 @@ public class Boss extends Enemy {
 		}
 		
 		super.render(g);
+		
+		if(MapObject.isHitboxEnabled()) {
+			g.setColor(Color.WHITE);
+			g.draw(new Rectangle((int) (x + xmap - 250 / 2), (int) (y + ymap - 36 / 2), 250, 36));
+			g.draw(new Rectangle((int) (x + xmap - attackRange - width ), (int) (y + ymap - 36 / 2), (attackRange + width) * 2, 36));
+		}
+		g.setColor(Color.WHITE);
+		new Rectangle((int) (x - 125 / 2), (int) (y - 36 / 2), 125, 36);
 		
 		for(int i = 0; i < explosions.size(); i++) {
 			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());

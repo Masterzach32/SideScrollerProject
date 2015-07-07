@@ -27,7 +27,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.1.5.191";
+	public static final String VERSION = "0.1.5.192";
 	
 	// game thread
 	private Thread thread;
@@ -91,15 +91,16 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
 		
+		LogHelper.logInfo("Creating Window");
+		Game.getFrame().setVisible(true);
+		
 		running = true;
 		
 		LogHelper.logInfo("Loading Assets");
-		Assets.init(); 
+		Assets.init();
 		
 		LogHelper.logInfo("Creating Loading Screen");
 		load = new LoadingState(this);
-		LogHelper.logInfo("Creating Window");
-		Game.getFrame().setVisible(true);
 		GameState.setState(load);
 		render();
 		renderToScreen();
