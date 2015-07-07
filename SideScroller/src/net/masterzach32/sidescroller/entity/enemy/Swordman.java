@@ -107,7 +107,7 @@ public class Swordman extends Enemy {
 
 	private void getNextPosition() {
 		// movement
-		if(LevelState.getPlayer().intersects(new Rectangle((int) (x - attackRange / 2), (int) (y - hsight / 2), attackRange, hsight))) {
+		if(LevelState.getPlayer().intersects(new Rectangle((int) (x - attackRange * 1.5 / 2), (int) (y - hsight / 2), (int) (attackRange * 1.5), hsight))) {
 			// player within attacking range
 			dx = 0;
 			if(attackCd == 0) {
@@ -243,7 +243,7 @@ public class Swordman extends Enemy {
 		if(MapObject.isHitboxEnabled()) {
 			g.setColor(Color.WHITE);
 			g.draw(new Rectangle((int) (x + xmap - sight / 2), (int) (y + ymap - hsight / 2), sight, hsight));
-			g.draw(new Rectangle((int) (x + xmap - attackRange*2 / 2), (int) (y + ymap - hsight / 2), attackRange*2, hsight));
+			g.draw(new Rectangle((int) (x + xmap - attackRange * 1.5 / 2), (int) (y + ymap - hsight / 2), (int) (attackRange * 1.5), hsight));
 			if(attacking) {
 				g.setColor(Color.YELLOW);
 				if(facingRight) {

@@ -194,6 +194,11 @@ public class Boss extends Enemy {
 		g.setColor(new Color(255, 0, 0));
 		g.fillRect((int)(x + xmap - width / 2) - 15, (int)(y + ymap - height / 2) - 4, (int) h1, 8);
 		
+		if(MapObject.isHitboxEnabled()) {
+			g.setColor(Color.WHITE);
+			g.draw(new Rectangle((int) (x + xmap - sight / 2), (int) (y + ymap - hsight / 2), sight, hsight));
+		}
+		
 		if(flinching) {
 			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
 			if(elapsed / 100 % 2 == 0) {
@@ -208,31 +213,7 @@ public class Boss extends Enemy {
 		
 		// find player direction (0-60)
 		if(attack <= 60) {
-			/*j++;
-			g.setColor(Color.WHITE);
-			if(j < 30) {
-				j = 1;
-				if(facingRight) {
-					g.drawLine((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 5, (int)(x + xmap - width / 2) + width + 7, (int)(y + ymap - height / 2) + 5);
-					g.drawLine((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 15, (int)(x + xmap - width / 2) + width + 7, (int)(y + ymap - height / 2) + 15);
-					g.drawLine((int)(x + xmap - width / 2), (int)(y + ymap - height / 2) + 25, (int)(x + xmap - width / 2) + width + 7, (int)(y + ymap - height / 2) + 25);
-				} else {
-					g.drawLine((int)(x + xmap - width / 2) + width, (int)(y + ymap - height / 2) + 5, (int)(x + xmap - width / 2) - 7, (int)(y + ymap - height / 2) + 5);
-					g.drawLine((int)(x + xmap - width / 2) + width, (int)(y + ymap - height / 2) + 15, (int)(x + xmap - width / 2) - 7, (int)(y + ymap - height / 2) + 15);
-					g.drawLine((int)(x + xmap - width / 2) + width, (int)(y + ymap - height / 2) + 25, (int)(x + xmap - width / 2) - 7, (int)(y + ymap - height / 2) + 25);
-				}
-			} else {
-				j = 0;
-				if(facingRight) {
-					g.drawLine((int)(x + xmap - width / 2) + 5, (int)(y + ymap - height / 2) + 5, (int)(x + xmap - width / 2) + width + 7 + 5, (int)(y + ymap - height / 2) + 5);
-					g.drawLine((int)(x + xmap - width / 2) + 5, (int)(y + ymap - height / 2) + 15, (int)(x + xmap - width / 2) + width + 7 + 5, (int)(y + ymap - height / 2) + 15);
-					g.drawLine((int)(x + xmap - width / 2) + 5, (int)(y + ymap - height / 2) + 25, (int)(x + xmap - width / 2) + width + 7 + 5, (int)(y + ymap - height / 2) + 25);
-				} else {
-					g.drawLine((int)(x + xmap - width / 2) + width - 5, (int)(y + ymap - height / 2) + 5, (int)(x + xmap - width / 2) - 7 - 5, (int)(y + ymap - height / 2) + 5);
-					g.drawLine((int)(x + xmap - width / 2) + width - 5, (int)(y + ymap - height / 2) + 15, (int)(x + xmap - width / 2) - 7 - 5, (int)(y + ymap - height / 2) + 15);
-					g.drawLine((int)(x + xmap - width / 2) + width - 5, (int)(y + ymap - height / 2) + 25, (int)(x + xmap - width / 2) - 7 - 5, (int)(y + ymap - height / 2) + 25);
-				}
-			}*/
+			
 		}
 		// wind up attack (61 - 150)
 		else if(attack <= 150) {
@@ -247,6 +228,7 @@ public class Boss extends Enemy {
 		}
 		// attack (151 - 160)
 		else if(attack <= 160) {
+			g.setColor(Color.RED);
 			if(facingRight) {
 				g.drawRect((int)(x + xmap), (int)(y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
 			} else {
@@ -261,14 +243,6 @@ public class Boss extends Enemy {
 		}
 		
 		super.render(g);
-		
-		if(MapObject.isHitboxEnabled()) {
-			g.setColor(Color.WHITE);
-			g.draw(new Rectangle((int) (x + xmap - 250 / 2), (int) (y + ymap - 36 / 2), 250, 36));
-			g.draw(new Rectangle((int) (x + xmap - attackRange - width ), (int) (y + ymap - 36 / 2), (attackRange + width) * 2, 36));
-		}
-		g.setColor(Color.WHITE);
-		new Rectangle((int) (x - 125 / 2), (int) (y - 36 / 2), 125, 36);
 		
 		for(int i = 0; i < explosions.size(); i++) {
 			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
