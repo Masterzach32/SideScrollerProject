@@ -127,8 +127,9 @@ public class Swordman extends Enemy {
 					dx = maxSpeed;
 				}
 			}
-		} else if(LevelState.getPlayer().intersects(new Rectangle((int) (x - 60 / 2), (int) (y - 36 / 2), 60, 36))) {
+		} if(LevelState.getPlayer().intersects(new Rectangle((int) (x - 60 / 2), (int) (y - 36 / 2), 60, 36))) {
 			// player within attacking range
+			LogHelper.logInfo("hi");
 			dx = 0;
 			if(attackCd == 0) {
 				attacking = true;
