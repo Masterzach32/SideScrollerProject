@@ -39,6 +39,8 @@ public abstract class LevelState extends GameState {
 	
 	protected AudioPlayer bgMusic;
 	
+	private static LevelState[] levels;
+	
 	public static int j = 300;
 
 	public LevelState(SideScroller game) {
@@ -48,6 +50,11 @@ public abstract class LevelState extends GameState {
 	public static void loadLevels() {
 		tileMap = new TileMap(30);
 		player = new EntityPlayer(tileMap);
+		
+		// load levels
+		levels = new LevelState[2];
+		levels[0] = new Level1State(game);
+		levels[1] = new Level2State(game);
 		
 		// load assets
 		hud = new HUD(player);

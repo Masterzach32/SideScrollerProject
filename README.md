@@ -1,4 +1,4 @@
-# SideScrollerGame - Alpha Build 0.1.5.193
+# SideScrollerGame - Alpha Build 0.1.5.194
 
 This game is being designed by me and a group of friends. Its going to be a futuristic sidescroller like combination of Final Fantasy and Starbound. More descripiton coming soon!
 
@@ -19,6 +19,7 @@ All changes that will be in v0.1.5 Alpha:
 - Player can now rewind
 - New debug mode (for testing only, may be removed)
 - All targeting now uses hitbox to hitbox rather than center to center
+- Rewrote level system
 
 ### Bugs:
 - Sometimes sluggers spawn traveling left

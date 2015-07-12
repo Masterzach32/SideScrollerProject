@@ -189,10 +189,12 @@ public class Boss extends Enemy {
 		if(h1 < b0) b0 -= .7;
 		
 		// health bar
-		g.setColor(new Color(200, 0, 0));
-		g.fillRect((int)(x + xmap - width / 2) - 15, (int)(y + ymap - height / 2) - 4, (int) b0, 8);
 		g.setColor(new Color(255, 0, 0));
-		g.fillRect((int)(x + xmap - width / 2) - 15, (int)(y + ymap - height / 2) - 4, (int) h1, 8);
+		g.drawRect((int)(x + xmap - 30 / 2) - 15, (int)(y + ymap - height / 2) - 4, (int) 60, 8);
+		g.setColor(new Color(200, 0, 0));
+		g.fillRect((int)(x + xmap - 30 / 2) - 15, (int)(y + ymap - height / 2) - 4, (int) b0, 8);
+		g.setColor(new Color(255, 0, 0));
+		g.fillRect((int)(x + xmap - 30 / 2) - 15, (int)(y + ymap - height / 2) - 4, (int) h1, 8);
 		
 		if(MapObject.isHitboxEnabled()) {
 			g.setColor(Color.WHITE);

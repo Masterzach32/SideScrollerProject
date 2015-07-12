@@ -7,10 +7,10 @@ import net.masterzach32.sidescroller.main.SideScroller;
 public abstract class GameState {
 	
 	protected static GameState state = null;
-	protected SideScroller game = null;
+	protected static SideScroller game = null;
 	
-	public GameState(SideScroller game) {
-		this.game = game;
+	public GameState(SideScroller s) {
+		game = s;
 		init();
 	}
 	

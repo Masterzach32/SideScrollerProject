@@ -90,7 +90,7 @@ public class Utilities {
 	public static void download(String url, String location) {
 		String site = url; 
 		String filename = location; 
-		JFrame frame = new JFrame("Downloading..."); 
+		JFrame frame = new JFrame("Updating..."); 
 		JProgressBar current = new JProgressBar(0, 100); 
 		JLabel t = new JLabel();
 		t.setText("Starting...");
