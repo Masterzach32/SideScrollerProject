@@ -7,7 +7,6 @@ import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
 import net.masterzach32.sidescroller.tilemap.*;
 import net.masterzach32.sidescroller.util.LogHelper;
-import net.masterzach32.sidescroller.util.Save;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -358,8 +357,6 @@ public class EntityPlayer extends MapObject {
 			}
 		
 			// orb attack
-			if(orbCurrentCd > 0) orbCurrentCd--;
-			if(orbCurrentCd > orbCd) orbCurrentCd = orbCd;
 			if(firing && currentAction != ORB) {
 				if(orbCurrentCd == 0) {
 					orbCurrentCd = orbCd;
@@ -448,9 +445,15 @@ public class EntityPlayer extends MapObject {
 				if(left) facingRight = false;
 			}
 			
+			// update cooldowns
 			if(combatTimer > 0) combatTimer--;
 			if(combatTimer > 0) inCombat = true;
 			if(combatTimer == 0) inCombat = false;
+			
+			if(rewindCd > 0) rewindCd--;
+			
+			if(orbCurrentCd > 0) orbCurrentCd--;
+			if(orbCurrentCd > orbCd) orbCurrentCd = orbCd;
 			
 			// check to see if the player is dead or not
 			if(health == 0) this.setDead();
@@ -487,6 +490,7 @@ public class EntityPlayer extends MapObject {
 			levelUp();
 		}
 		
+		// stores the players x, y, and health for the past 4 seconds
 		for(int i = 239; i > 0; i--) {
 			if(rewindCd >= 240) {
 				x4[i] = (int) x;
@@ -499,6 +503,7 @@ public class EntityPlayer extends MapObject {
 			}
 		}
 		
+		// does the rewind ability while active
 		if(rewind) {
 			r += 4;
 			if(r <= 239) {
@@ -516,8 +521,6 @@ public class EntityPlayer extends MapObject {
 		x4[0] = (int) x;
 		y4[0] = (int) y;
 		health4[0] = (int) health;
-		
-		if(rewindCd > 0) rewindCd--;
 	}
 	
 	public void render(Graphics2D g) {
@@ -581,31 +584,5 @@ public class EntityPlayer extends MapObject {
 		healthRegen = (float) (maxHealth * 0.0001);
 		maxShield += 4;
 		shieldRegen = (float) (maxShield * 0.004);
-	}
-	
-	public void writeSaveFile() {
-		String path = "player.txt";
-		String[] save = new String[16];
-		save[0] = "" + health;
-		save[1] = "" + maxHealth;
-		save[2] = "" + exp;
-		save[3] = "" + maxExp;
-		save[4] = "" + level;
-		save[5] = "" + orbCurrentCd;
-		save[6] = "" + orbCd;
-		Save.writeToSave(path, save);
-	}
-	
-	public void loadSave() {
-		String path = "player.txt";
-		String[] save = Save.readFromSave(path);
-		if(save == null) return;
-		health = Integer.parseInt(save[0]);
-		maxHealth = Integer.parseInt(save[1]);
-		exp = Integer.parseInt(save[2]);
-		maxExp = Integer.parseInt(save[3]);
-		level = Integer.parseInt(save[4]);
-		orbCurrentCd = Integer.parseInt(save[5]);
-		orbCd = Integer.parseInt(save[6]);
 	}
 }

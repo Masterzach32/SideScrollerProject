@@ -46,7 +46,7 @@ public class Swordman extends Enemy {
 		health = maxHealth = (10) + (8*level);
 		damage = (2) + (4*level);
 		
-		exp = (20);
+		exp = (15);
 		
 		armor = 40 + (5*level);
 		damageMultiplier = (double) (100) / (100 + armor);
@@ -126,7 +126,7 @@ public class Swordman extends Enemy {
 				right = true;
 				left = false;
 				facingRight = true;
-			} 	
+			}
 			if(left) {
 				dx -= moveSpeed;
 			if(dx < -maxSpeed) {

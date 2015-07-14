@@ -61,7 +61,7 @@ public class Level2State extends LevelState {
 	protected void populateEnemies() {
 		enemies = new ArrayList<Enemy>();
 		Slugger s;
-		Point[] points = new Point[] {new Point(200, 100), new Point(860, 300), new Point(1600, 250), new Point(1700, 250)};
+		Point[] points = new Point[] {new Point(200, 100), new Point(860, 300), new Point(1600, 250), new Point(1700, 250), new Point(2000, 110)};
 		for(int i = 0; i < points.length; i++) {
 			s = new Slugger(tileMap, 2);
 			s.setPosition(points[i].x, points[i].y);
@@ -69,7 +69,7 @@ public class Level2State extends LevelState {
 		}
 		
 		Swordman sw;
-		Point[] swp = new Point[] {new Point(1000, 320), new Point(1500, 100), new Point(1800, 100)};
+		Point[] swp = new Point[] {new Point(1000, 320), new Point(1500, 100), new Point(1800, 100), new Point(2400, 320), new Point(2700, 320)};
 		for(int i = 0; i < swp.length; i++) {
 			sw = new Swordman(tileMap, 2);
 			sw.setPosition(swp[i].x, swp[i].y);
