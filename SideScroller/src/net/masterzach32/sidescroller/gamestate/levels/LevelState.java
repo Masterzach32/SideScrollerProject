@@ -167,16 +167,16 @@ public abstract class LevelState extends GameState {
 	
 	public void keyPressed(int k) {
 		if(!player.isDead()) {
-			if(k == KeyConfigState.keyBinding[1]) player.setLeft(true);
-			if(k == KeyConfigState.keyBinding[0]) player.setRight(true);
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_LEFT]) player.setLeft(true);
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_RIGHT]) player.setRight(true);
 			if(k == KeyEvent.VK_W) player.setUp(true);
 			if(k == KeyEvent.VK_S) player.setDown(true);
-			if(k == KeyConfigState.keyBinding[2]) player.setJumping(true);
-			if(k == KeyConfigState.keyBinding[5]) player.setGliding(true);
-			if(k == KeyConfigState.keyBinding[3]) player.setScratching();
-			if(k == KeyConfigState.keyBinding[4]) player.setFiring();
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_JUMP]) player.setJumping(true);
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_GLIDE]) player.setGliding(true);
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_SCRATCH]) player.setScratching();
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_ORB]) player.setFiring();
 			if(k == KeyEvent.VK_ESCAPE) GameState.setState(SideScroller.menuState);
-			if(k == KeyConfigState.keyBinding[6]) player.rewind();
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_REWIND]) player.rewind();
 		}
 		if(player.isDead() && j == 0) { 
 			player.respawn();
@@ -186,12 +186,12 @@ public abstract class LevelState extends GameState {
 	
 	public void keyReleased(int k) {
 		if(!player.isDead()) {
-			if(k == KeyConfigState.keyBinding[1]) player.setLeft(false);
-			if(k == KeyConfigState.keyBinding[0]) player.setRight(false);
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_LEFT]) player.setLeft(false);
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_RIGHT]) player.setRight(false);
 			if(k == KeyEvent.VK_W) player.setUp(false);
 			if(k == KeyEvent.VK_S) player.setDown(false);
-			if(k == KeyConfigState.keyBinding[2]) player.setJumping(false);
-			if(k == KeyConfigState.keyBinding[5]) player.setGliding(false);
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_JUMP]) player.setJumping(false);
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_GLIDE]) player.setGliding(false);
 		}
 	}
 	

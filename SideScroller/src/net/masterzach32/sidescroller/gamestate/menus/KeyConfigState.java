@@ -13,6 +13,14 @@ import net.masterzach32.sidescroller.util.Utilities;
 
 public class KeyConfigState extends MenuState {
 	
+	public static final int KEY_RIGHT   = 0;
+	public static final int KEY_LEFT    = 1;
+	public static final int KEY_JUMP    = 2;
+	public static final int KEY_SCRATCH = 3;
+	public static final int KEY_ORB     = 4;
+	public static final int KEY_GLIDE   = 5;
+	public static final int KEY_REWIND  = 6;
+	
 	private Font subtitleFont;
 	
 	public static int currentChoice = 0;
@@ -37,13 +45,13 @@ public class KeyConfigState extends MenuState {
 		selectfont = new Font("Arial", Font.PLAIN, 14);
 		changingKey = false;
 		
-		keyBinding[0] = KeyEvent.VK_D;
-		keyBinding[1] = KeyEvent.VK_A;
-		keyBinding[2] = KeyEvent.VK_SPACE;
-		keyBinding[3] = KeyEvent.VK_R;
-		keyBinding[4] = KeyEvent.VK_F;
-		keyBinding[5] = KeyEvent.VK_E;
-		keyBinding[6] = KeyEvent.VK_Q;
+		keyBinding[KEY_RIGHT] = KeyEvent.VK_D;
+		keyBinding[KEY_LEFT] = KeyEvent.VK_A;
+		keyBinding[KEY_JUMP] = KeyEvent.VK_SPACE;
+		keyBinding[KEY_SCRATCH] = KeyEvent.VK_R;
+		keyBinding[KEY_ORB] = KeyEvent.VK_F;
+		keyBinding[KEY_GLIDE] = KeyEvent.VK_E;
+		keyBinding[KEY_REWIND] = KeyEvent.VK_Q;
 	}
 
 	protected void load() {
@@ -57,13 +65,13 @@ public class KeyConfigState extends MenuState {
 	}
 
 	public void render(Graphics2D g) {
-		options[0] = "Right: " + KeyEvent.getKeyText(keyBinding[0]); 
-		options[1] = "Left: " + KeyEvent.getKeyText(keyBinding[1]);
-		options[2] = "Jump: " + KeyEvent.getKeyText(keyBinding[2]);
-		options[3] = "Scratch: " + KeyEvent.getKeyText(keyBinding[3]);
-		options[4] = "Orb: " + KeyEvent.getKeyText(keyBinding[4]);
-		options[5] = "Glide: " + KeyEvent.getKeyText(keyBinding[5]);
-		options[6] = "Rewind: " + KeyEvent.getKeyText(keyBinding[6]);
+		options[0] = "Right: " + KeyEvent.getKeyText(keyBinding[KEY_RIGHT]); 
+		options[1] = "Left: " + KeyEvent.getKeyText(keyBinding[KEY_LEFT]);
+		options[2] = "Jump: " + KeyEvent.getKeyText(keyBinding[KEY_JUMP]);
+		options[3] = "Scratch: " + KeyEvent.getKeyText(keyBinding[KEY_SCRATCH]);
+		options[4] = "Orb: " + KeyEvent.getKeyText(keyBinding[KEY_ORB]);
+		options[5] = "Glide: " + KeyEvent.getKeyText(keyBinding[KEY_GLIDE]);
+		options[6] = "Rewind: " + KeyEvent.getKeyText(keyBinding[KEY_REWIND]);
 		options[7] = "Back";
 		// draw bg
 		bg.render(g);						
