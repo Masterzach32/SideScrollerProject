@@ -14,10 +14,6 @@ public class FireBall extends Projectile {
 	private BufferedImage[] sprites;
 	private BufferedImage[] hitSprites;
 	
-	/** mouse point: (px,py), sx,sy change in x and change in y, new coordinate of fireball (nx,ny) */
-	private double px, py, sx, sy, nx, ny;
-	private double slope;
-	
 	public FireBall(TileMap tm, double vx, double vy, boolean right) {
 		super(tm);
 		
@@ -29,13 +25,6 @@ public class FireBall extends Projectile {
 		facingRight = right;
 		if(facingRight) dx = moveSpeed;
 		else dx = -moveSpeed;
-		
-		px = vx;
-		py = vy;
-		// calculate the slope
-		sy = py - y;
-		sx = px - x;
-		slope = sy/sx;
 		
 		width = 30;
 		height = 30;
@@ -91,9 +80,9 @@ public class FireBall extends Projectile {
 		// (y-y1) = a(x-x1)
 		// y = a(x-x1) + y1
 		// x + dx = new x coordinate, px and py are original mouse point.
-		nx = x + dx;
-		ny = slope*(nx-px) + py;
-		dy = ny - y;
+		//nx = x + dx;
+		//ny = slope*(nx-px) + py;
+		//dy = ny - y;
 	}
 	
 	public void tick() {

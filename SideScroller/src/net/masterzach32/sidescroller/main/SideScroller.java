@@ -27,7 +27,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.1.5.195";
+	public static final String VERSION = "0.1.5.196";
 	
 	// game thread
 	private Thread thread;
@@ -84,8 +84,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		Game.startConsole();
 		LogHelper.logInfo("Launching SideScroller Game - Build " + VERSION);
 		LogHelper.logInfo("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")");
-		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch"));
-		LogHelper.logInfo("Java Version: " + System.getProperty("java.version"));
+		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch") + " - " + System.getProperty("sun.arch.data.model"));
+		LogHelper.logInfo("Java Version: " + System.getProperty("java.version") + " distributed by " + System.getProperty("java.vendor"));
 		
 		LogHelper.logInfo("Loading Java Graphics");
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
