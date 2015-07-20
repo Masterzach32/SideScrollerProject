@@ -192,6 +192,8 @@ public class EntityPlayer extends MapObject {
 	public void setDead() {
 		this.dead = true;
 		if(rewindCd < 300 + 250) rewindCd = 300 + 250;
+		currentAction = IDLE;
+		scratching = false;
 	}
 	
 	public void setFiring() { 

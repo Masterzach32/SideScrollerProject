@@ -8,6 +8,7 @@ import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.enemy.Boss;
 import net.masterzach32.sidescroller.entity.enemy.Enemy;
+import net.masterzach32.sidescroller.entity.enemy.Mage;
 import net.masterzach32.sidescroller.entity.enemy.Slugger;
 import net.masterzach32.sidescroller.entity.enemy.Swordman;
 import net.masterzach32.sidescroller.gamestate.GameState;
@@ -61,7 +62,7 @@ public class Level2State extends LevelState {
 	protected void populateEnemies() {
 		enemies = new ArrayList<Enemy>();
 		Slugger s;
-		Point[] points = new Point[] {new Point(200, 100), new Point(860, 300), new Point(1600, 250), new Point(1700, 250), new Point(2000, 110)};
+		Point[] points = new Point[] {new Point(200, 100), new Point(860, 300), new Point(1700, 250), new Point(2000, 110)};
 		for(int i = 0; i < points.length; i++) {
 			s = new Slugger(tileMap, 2);
 			s.setPosition(points[i].x, points[i].y);
@@ -69,11 +70,19 @@ public class Level2State extends LevelState {
 		}
 		
 		Swordman sw;
-		Point[] swp = new Point[] {new Point(1000, 320), new Point(1500, 100), new Point(1800, 100), new Point(2400, 320), new Point(2700, 320)};
+		Point[] swp = new Point[] {new Point(1000, 320), new Point(1500, 100), new Point(2400, 320),};
 		for(int i = 0; i < swp.length; i++) {
 			sw = new Swordman(tileMap, 2);
 			sw.setPosition(swp[i].x, swp[i].y);
 			enemies.add(sw);
+		}
+		
+		Mage m;
+		Point[] mp = new Point[] {new Point(1800, 100), new Point(2700, 320)};
+		for(int i = 0; i < mp.length; i++) {
+			m = new Mage(tileMap, 2);
+			m.setPosition(mp[i].x, mp[i].y);
+			enemies.add(m);
 		}
 		
 		Boss boss = new Boss(tileMap, 2);

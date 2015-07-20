@@ -65,10 +65,10 @@ public class Level1State extends LevelState {
 			enemies.add(s);
 		}
 		
-		Mage sw;
+		Swordman sw;
 		Point[] swp = new Point[] {new Point(1000, 320), new Point(2400, 320) };
 		for(int i = 0; i < swp.length; i++) {
-			sw = new Mage(tileMap, 1);
+			sw = new Swordman(tileMap, 1);
 			sw.setPosition(swp[i].x, swp[i].y);
 			enemies.add(sw);
 		}

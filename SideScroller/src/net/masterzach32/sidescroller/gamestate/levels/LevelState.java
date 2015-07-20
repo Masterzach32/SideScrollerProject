@@ -20,7 +20,6 @@ import net.masterzach32.sidescroller.gamestate.menus.KeyConfigState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 import net.masterzach32.sidescroller.tilemap.TileMap;
-import net.masterzach32.sidescroller.util.LogHelper;
 import net.masterzach32.sidescroller.util.Utilities;
 
 public abstract class LevelState extends GameState {
@@ -104,7 +103,7 @@ public abstract class LevelState extends GameState {
 		// update player
 		player.tick();
 		player.checkAttack(enemies);
-		LogHelper.logInfo(player.getx() + ", " + player.gety());
+		//LogHelper.logInfo(player.getx() + ", " + player.gety());
 		
 		
 		// set background

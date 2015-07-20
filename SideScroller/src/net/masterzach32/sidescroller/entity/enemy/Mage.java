@@ -48,11 +48,11 @@ private double b0 = 30;
 		hsight = 36;
 		
 		health = maxHealth = (6) + (6 * level);
-		damage = (4) + (4 * level);
+		damage = (4) + (6 * level);
 		
 		exp = (20);
 		
-		armor = 20 + (5*level);
+		armor = 30 + (5*level);
 		damageMultiplier = (double) (100) / (100 + armor);
 		
 		attacking = false;
@@ -103,6 +103,7 @@ private double b0 = 30;
 		for(int j = 0; j < orbs.size(); j++) {
 			if(orbs.get(j).intersects(p)) {
 				p.hit(damage, "Orb", this);
+				orbs.get(j).setHit();
 			}
 		}
 	}
@@ -114,16 +115,16 @@ private double b0 = 30;
 			dx = 0;
 			if(attackCd == 0) {
 				attacking = true;
-				attackCd = 120;
+				attackCd = 180;
 				left = false;
 				right = false;
 				// orb attack
 				if(currentAction != ORB) {
 					FireBall orb = null;
 					if(facingRight)
-						orb = new FireBall(tileMap, 0, 0, true);
+						orb = new FireBall(tileMap, 5, true);
 					if(!facingRight)
-						orb = new FireBall(tileMap, 0, 0, false);
+						orb = new FireBall(tileMap, 5, false);
 					if(orb != null) {
 						orb.setPosition(x, y);
 						orbs.add(orb);
@@ -206,7 +207,7 @@ private double b0 = 30;
 				currentAction = ORB;
 				animation.setFrames(sprites.get(ORB));
 				animation.setDelay(100);
-				width = 60;
+				width = 30;
 			}
 		} else if(left || right) {
 			if(currentAction != WALKING) {
@@ -266,7 +267,7 @@ private double b0 = 30;
 		super.render(g);
 		
 		g.setColor(Color.ORANGE);
-		g.fillRect((int) (x + xmap - 2), (int) (y + ymap - 2), 4, 4);
+		g.fillRect((int) (x + xmap - 3), (int) (y + ymap - 3), 6, 6);
 		
 		if(MapObject.isHitboxEnabled()) {
 			g.setColor(Color.WHITE);

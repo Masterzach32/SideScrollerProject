@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 public class FireBall extends Projectile {
 	
@@ -14,13 +15,13 @@ public class FireBall extends Projectile {
 	private BufferedImage[] sprites;
 	private BufferedImage[] hitSprites;
 	
-	public FireBall(TileMap tm, double vx, double vy, boolean right) {
+	public FireBall(TileMap tm, double ms, boolean right) {
 		super(tm);
 		
 		x = LevelState.getPlayer().getx();
 		y = LevelState.getPlayer().gety();
 		
-		moveSpeed = 7.5;
+		moveSpeed = ms;
 		
 		facingRight = right;
 		if(facingRight) dx = moveSpeed;
@@ -30,6 +31,8 @@ public class FireBall extends Projectile {
 		height = 30;
 		cwidth = 14;
 		cheight = 14;
+		hit = false;
+		remove = false;
 		
 		// load sprites
 		try {
@@ -65,6 +68,7 @@ public class FireBall extends Projectile {
 		animation.setDelay(70);
 		dx = 0;
 		dy = 0;
+		LogHelper.logInfo("hi");
 	}
 	
 	/**
@@ -76,6 +80,8 @@ public class FireBall extends Projectile {
 	}
 	
 	private void getNextPosition() {
+		if(facingRight) dx = moveSpeed;
+		else dx = -moveSpeed;
 		// use point slope formula to find next y value
 		// (y-y1) = a(x-x1)
 		// y = a(x-x1) + y1
@@ -90,7 +96,7 @@ public class FireBall extends Projectile {
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);
 		
-		if(dx == 0 || dy == 0 && !hit) {
+		if(dx == 0 && !hit) {
 			setHit();
 		}
 		
