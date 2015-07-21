@@ -17,8 +17,6 @@ import net.masterzach32.sidescroller.tilemap.TileMap;
 import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Mage extends Enemy {
-
-private double b0 = 30;
 	
 	private boolean attacking;
 	
@@ -189,6 +187,7 @@ private double b0 = 30;
 	}
 	
 	public void tick() {
+		if(dead) return;
 		// update position
 		getNextPosition();
 		checkTileMapCollision();

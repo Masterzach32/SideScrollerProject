@@ -12,8 +12,6 @@ import net.masterzach32.sidescroller.tilemap.TileMap;
 public class Slugger extends Enemy {
 	
 	private BufferedImage[] sprites;
-	
-	private double b0 = 30;
 
 	public Slugger(TileMap tm, int level) {
 		super(tm);
@@ -79,6 +77,7 @@ public class Slugger extends Enemy {
 	}
 	
 	public void tick() {
+		if(dead) return;
 		// update position
 		getNextPosition();
 		checkTileMapCollision();

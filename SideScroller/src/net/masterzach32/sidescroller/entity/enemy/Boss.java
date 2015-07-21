@@ -18,8 +18,6 @@ public class Boss extends Enemy {
 	
 	private BufferedImage[] sprites;
 	
-	private double b0 = 60;
-	
 	private int attackRange;
 	private int attack;
 	
@@ -48,6 +46,8 @@ public class Boss extends Enemy {
 		
 		armor = -40;
 		damageMultiplier = (double) (100) / (100 + armor);
+		
+		b0 = 60;
 		
 		// load sprites
 			
@@ -155,6 +155,7 @@ public class Boss extends Enemy {
 	}
 	
 	public void tick() {
+		if(dead) return;
 		getNextPosition();
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);

@@ -21,14 +21,22 @@ public class Enemy extends MapObject {
 	protected boolean flinching;
 	protected long flinchTimer;
 	
+	protected double b0 = 30;
+	
 	protected ArrayList<Explosion> explosions;
 	
 	public Enemy(TileMap tm) {
 		super(tm);
 	}
 	
-	public boolean isDead() { 
-		return dead; 
+	public boolean isDead() {
+		if(dead) {
+			if(b0 <= 0) {
+				return true;
+			}
+			return false;
+		} 
+		return false;
 	}
 	
 	public int getDamage() { 

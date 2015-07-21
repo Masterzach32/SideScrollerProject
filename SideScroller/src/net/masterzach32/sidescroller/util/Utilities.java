@@ -1,5 +1,6 @@
 package net.masterzach32.sidescroller.util;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.FontMetrics;
@@ -7,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -18,13 +20,18 @@ import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 import net.masterzach32.sidescroller.main.Game;
+import net.masterzach32.sidescroller.main.SideScroller;
 
 public class Utilities {
+	
+	private static boolean error = false;
 
 	/**
 	 * Gets the time and returns it in hh:mm:ss
@@ -70,6 +77,7 @@ public class Utilities {
 	public static String[] readTextFile(String path, String location) {
 		download(path, location);
 		Path p = Paths.get(location);
+		if(p == null) return null;
 		List<String> lines;
 		String[] contents;
 		try {
@@ -88,6 +96,7 @@ public class Utilities {
 	 * @param location
 	 */
 	public static void download(String url, String location) {
+		error = false;
 		String site = url; 
 		String filename = location; 
 		JFrame frame = new JFrame("Updating..."); 
@@ -125,9 +134,10 @@ public class Utilities {
 			bout.close(); 
 			in.close();
 			LogHelper.logInfo("Sucesfully downloaded " + url);
-		} catch(Exception e) { 
-			//JOptionPane.showConfirmDialog((Component) null, "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION); 
+		} catch(Exception e) {
+			JOptionPane.showConfirmDialog((Component) null, (Object) "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION); 
 			LogHelper.logError("An error occured while downloading: " + url);
+			error = true;
 		}
 		frame.setVisible(false);
 		frame.dispose();
@@ -157,5 +167,56 @@ public class Utilities {
 	public static int getCooldown(int cd) {
 		if(cd > 0) return (cd / 60) + 1;
 		else return cd / 60;
+	}
+	
+	/**
+	 * Checks to see if their is a newer version of the game available, and provides the link to download it in the console.
+	 */
+	public static void checkForUpdates() {
+		LogHelper.logInfo("Checking for updates.");
+		String[] s = readTextFile(SideScroller.getGame().getServerVersionURL(), "latest.txt");
+		
+		if(s[0] == null) {
+			LogHelper.logInfo("Error while checking for updates, check your internet connection.");
+		} else if(s[0] != SideScroller.getGame().getLocalVersion()) {
+			LogHelper.logInfo("An update is available, you have version " + SideScroller.getGame().getLocalVersion() + ", Server version is " + s[0]);
+			LogHelper.logInfo("You can download the update here: " + SideScroller.getGame().getUpdateURL());
+			LogHelper.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
+			
+			int result = JOptionPane.showConfirmDialog((Component) null, (Object) "An newer version of the game, (update " + s[0] +") is avaliable, do you want to download now? ", "Update Available - Version " + s[0], JOptionPane.YES_NO_OPTION);
+			
+			if(result == JOptionPane.YES_OPTION) {
+				JOptionPane.showConfirmDialog((Component) null, (Object) "Please select where you want to save the game.", "Update Available - Version " + s[0], JOptionPane.OK_CANCEL_OPTION);
+				download("https://github.com/Masterzach32/SideScrollerProject/releases/download/v0.0.4-alpha/SideScrollerRPG.0.4.Alpha.jar", saveAs(".jar"));
+				if(!error) {
+					int result2 = JOptionPane.showConfirmDialog((Component) null, (Object) "Download complete. Do you want to close the game?", "Update Complete", JOptionPane.YES_NO_OPTION);
+					if(result2 == JOptionPane.YES_OPTION) SideScroller.stop();
+					else if(result2 == JOptionPane.NO_OPTION) return;
+				}
+			} else {
+				return;
+			}
+		} else {
+			LogHelper.logInfo("No update is available.");
+		}
+	}
+	
+	/**
+	 * Saves the current console textArea to the designated file.
+	 */
+	public static String saveAs(String extension) {
+	    final JFileChooser saveAsFileChooser = new JFileChooser();
+	    saveAsFileChooser.setApproveButtonText("Save");
+	    int actionDialog = saveAsFileChooser.showSaveDialog(Game.getFrame());
+	    if (actionDialog != JFileChooser.APPROVE_OPTION) {
+	       return null;
+	    }
+	    
+	    File file = saveAsFileChooser.getSelectedFile();
+	    if (!file.getName().endsWith(extension)) {
+	       file = new File(file.getAbsolutePath() + extension);
+	    }
+	    
+	    return file.toString();
 	}
 }

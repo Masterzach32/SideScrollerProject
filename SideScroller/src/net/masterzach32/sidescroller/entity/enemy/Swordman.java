@@ -16,8 +16,6 @@ import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class Swordman extends Enemy {
 	
-	private double b0 = 30;
-	
 	private boolean attacking;
 	
 	private int attackRange;
@@ -172,6 +170,7 @@ public class Swordman extends Enemy {
 	}
 	
 	public void tick() {
+		if(dead) return;
 		// update position
 		getNextPosition();
 		checkTileMapCollision();

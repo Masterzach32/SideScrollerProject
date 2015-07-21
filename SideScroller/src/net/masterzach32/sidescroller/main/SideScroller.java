@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.awt.event.*;
 import javax.swing.JPanel;
 
+import net.masterzach32.sidescroller.api.IUpdatable;
 import net.masterzach32.sidescroller.assets.AssetLoader;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.gamestate.*;
@@ -21,13 +22,13 @@ import net.masterzach32.sidescroller.gamestate.menus.OptionsState;
 import net.masterzach32.sidescroller.util.*;
 
 @SuppressWarnings("serial")
-public class SideScroller extends JPanel implements Runnable, KeyListener, MouseListener {
+public class SideScroller extends JPanel implements Runnable, KeyListener, MouseListener, IUpdatable {
 	
 	// dimensions
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.1.5.197";
+	public static final String VERSION = "0.1.5.198";
 	
 	// game thread
 	private Thread thread;
@@ -86,6 +87,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		LogHelper.logInfo("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")");
 		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch") + " - " + System.getProperty("sun.arch.data.model"));
 		LogHelper.logInfo("Java Version: " + System.getProperty("java.version") + " distributed by " + System.getProperty("java.vendor"));
+		
+		Utilities.checkForUpdates();
 		
 		LogHelper.logInfo("Loading Java Graphics");
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -231,5 +234,21 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 
 	public void mouseEntered(MouseEvent e) {}
 
-	public void mouseExited(MouseEvent e) {}	
+	public void mouseExited(MouseEvent e) {}
+
+	public String getLocalVersion() {
+		return VERSION;
+	}
+	
+	public String getServerVersionURL() {
+		return "http://masterzach32.net/sidescroller/updates.txt";
+	}
+
+	public String getUpdateURL() {
+		return "http://masterzach32.net/sidescroller/";
+	}
+
+	public String getDownloadURL() {
+		return "http://masterzach32.net/sidescroller/latest.jar";
+	}
 }
