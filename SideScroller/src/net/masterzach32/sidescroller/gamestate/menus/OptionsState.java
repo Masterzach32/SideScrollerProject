@@ -161,6 +161,10 @@ public class OptionsState extends MenuState {
 		return debug;
 	}
 
+	public static boolean isConsoleEnabled() {
+		return console;
+	}
+
 	public void keyPressed(int k) {
 		if(k == KeyEvent.VK_ENTER) {
 			select();
