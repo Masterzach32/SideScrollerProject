@@ -176,7 +176,7 @@ public class Utilities {
 		LogHelper.logInfo("Checking for updates.");
 		String[] s = readTextFile(SideScroller.getGame().getServerVersionURL(), "latest.txt");
 		
-		if(s[0] == null) {
+		if(s == null || s[0] == null) {
 			LogHelper.logInfo("Error while checking for updates, check your internet connection.");
 		} else if(s[0] != SideScroller.getGame().getLocalVersion()) {
 			LogHelper.logInfo("An update is available, you have version " + SideScroller.getGame().getLocalVersion() + ", Server version is " + s[0]);
