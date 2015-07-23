@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
@@ -75,7 +76,7 @@ public class Utilities {
 	 * @return String[]
 	 */
 	public static String[] readTextFile(String path, String location) {
-		download(path, location);
+		download(path, location, "Downloading Server Files");
 		Path p = Paths.get(location);
 		if(p == null) return null;
 		List<String> lines;
@@ -95,11 +96,11 @@ public class Utilities {
 	 * @param url
 	 * @param location
 	 */
-	public static void download(String url, String location) {
+	public static void download(String url, String location, String windowName) {
 		error = false;
 		String site = url; 
 		String filename = location; 
-		JFrame frame = new JFrame("Updating..."); 
+		JFrame frame = new JFrame(windowName); 
 		JProgressBar current = new JProgressBar(0, 100); 
 		JLabel t = new JLabel();
 		t.setText("Starting...");
@@ -133,10 +134,11 @@ public class Utilities {
 			}	
 			bout.close(); 
 			in.close();
-			LogHelper.logInfo("Sucesfully downloaded " + url);
 		} catch(Exception e) {
-			JOptionPane.showConfirmDialog((Component) null, (Object) "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION); 
+			t.setText("Download Failed!");
 			LogHelper.logError("An error occured while downloading: " + url);
+			e.printStackTrace();
+			JOptionPane.showConfirmDialog((Component) null, (Object) "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION); 
 			error = true;
 		}
 		frame.setVisible(false);
@@ -173,24 +175,36 @@ public class Utilities {
 	 * Checks to see if their is a newer version of the game available, and provides the link to download it in the console.
 	 */
 	public static void checkForUpdates() {
+		if(!SideScroller.isUpdateEnabled) {
+			LogHelper.logInfo("Updates arnt enabled. This is probably because you are running a beta or nightly build.");
+			return;
+		}
 		LogHelper.logInfo("Checking for updates.");
 		String[] s = readTextFile(SideScroller.getGame().getServerVersionURL(), "latest.txt");
 		
 		if(s == null || s[0] == null) {
-			LogHelper.logInfo("Error while checking for updates, check your internet connection.");
+			LogHelper.logInfo("Error while checking for updates: Could not read server update file.");
 		} else if(s[0] != SideScroller.getGame().getLocalVersion()) {
 			LogHelper.logInfo("An update is available, you have version " + SideScroller.getGame().getLocalVersion() + ", Server version is " + s[0]);
 			LogHelper.logInfo("You can download the update here: " + SideScroller.getGame().getUpdateURL());
 			LogHelper.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
 			
-			int result = JOptionPane.showConfirmDialog((Component) null, (Object) "An newer version of the game, (update " + s[0] +") is avaliable, do you want to download now? ", "Update Available - Version " + s[0], JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.showConfirmDialog((Component) null, (Object) "An newer version of the game, (Build " + s[0] +") is avaliable, do you want to download now? ", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION);
 			
 			if(result == JOptionPane.YES_OPTION) {
-				JOptionPane.showConfirmDialog((Component) null, (Object) "Please select where you want to save the game.", "Update Available - Version " + s[0], JOptionPane.OK_CANCEL_OPTION);
-				download("https://github.com/Masterzach32/SideScrollerProject/releases/download/v0.0.4-alpha/SideScrollerRPG.0.4.Alpha.jar", saveAs(".jar"));
+				String path = saveAs(".jar");
+				download(SideScroller.getGame().getDownloadURL(), path, "Downloading Update");
 				if(!error) {
-					int result2 = JOptionPane.showConfirmDialog((Component) null, (Object) "Download complete. Do you want to close the game?", "Update Complete", JOptionPane.YES_NO_OPTION);
-					if(result2 == JOptionPane.YES_OPTION) SideScroller.stop();
+					int result2 = JOptionPane.showConfirmDialog((Component) null, (Object) "Download complete. Do you close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION);
+					if(result2 == JOptionPane.YES_OPTION) {
+						try {
+							ProcessBuilder pb = new ProcessBuilder("java", "-jar", path);
+							pb.start();
+							System.exit(0);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 					else if(result2 == JOptionPane.NO_OPTION) return;
 				}
 			} else {
@@ -203,10 +217,13 @@ public class Utilities {
 	
 	/**
 	 * Saves the current console textArea to the designated file.
+	 * @param extension
 	 */
 	public static String saveAs(String extension) {
+		FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter(extension, extension);
 	    final JFileChooser saveAsFileChooser = new JFileChooser();
 	    saveAsFileChooser.setApproveButtonText("Save");
+	    saveAsFileChooser.setFileFilter(extensionFilter);
 	    int actionDialog = saveAsFileChooser.showSaveDialog(Game.getFrame());
 	    if (actionDialog != JFileChooser.APPROVE_OPTION) {
 	       return null;

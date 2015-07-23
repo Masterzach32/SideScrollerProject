@@ -28,7 +28,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.1.5.198";
+	public static final String VERSION = "0.1.5.200";
+	public static final boolean isUpdateEnabled = true;
 	
 	// game thread
 	private Thread thread;
@@ -249,6 +250,6 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	}
 
 	public String getDownloadURL() {
-		return "http://masterzach32.net/sidescroller/latest.jar";
+		return "https://github.com/Masterzach32/SideScrollerProject/releases/download/v0.0.4-alpha/SideScrollerRPG.0.4.Alpha.jar";
 	}
 }
