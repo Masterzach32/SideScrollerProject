@@ -29,8 +29,8 @@ public class FireBall extends Projectile {
 		
 		width = 30;
 		height = 30;
-		cwidth = 14;
-		cheight = 14;
+		cwidth = 18;
+		cheight = 18;
 		hit = false;
 		remove = false;
 		

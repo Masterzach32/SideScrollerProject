@@ -189,7 +189,7 @@ public class Utilities {
 			LogHelper.logInfo("You can download the update here: " + SideScroller.getGame().getUpdateURL());
 			LogHelper.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
 			
-			int result = JOptionPane.showConfirmDialog((Component) null, (Object) "An newer version of the game, (Build " + s[0] +") is avaliable, do you want to download now? ", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.showConfirmDialog((Component) null, (Object) "An newer version of the game, (Build " + s[0] +") is avaliable, do you want to download it now? ", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION);
 			
 			if(result == JOptionPane.YES_OPTION) {
 				String path = saveAs(".jar");
@@ -220,7 +220,7 @@ public class Utilities {
 	 * @param extension
 	 */
 	public static String saveAs(String extension) {
-		FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter(extension, extension);
+		FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Executable Jar File", extension);
 	    final JFileChooser saveAsFileChooser = new JFileChooser();
 	    saveAsFileChooser.setApproveButtonText("Save");
 	    saveAsFileChooser.setFileFilter(extensionFilter);

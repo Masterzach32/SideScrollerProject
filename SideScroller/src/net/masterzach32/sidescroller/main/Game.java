@@ -35,8 +35,7 @@ public class Game {
 		window.setContentPane(new SideScroller());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.pack();	
-		window.setVisible(false);
+		window.pack();
 	}
 	
 	public static JFrame getFrame() {

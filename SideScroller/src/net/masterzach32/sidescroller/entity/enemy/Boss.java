@@ -25,8 +25,8 @@ public class Boss extends Enemy {
 
 	public Boss(TileMap tm, int level) {
 		super(tm);
-		moveSpeed = 0.1;
-		maxSpeed = 0.2;
+		moveSpeed = 0.2;
+		maxSpeed = 0.3;
 		fallSpeed = 0.2;
 		maxFallSpeed = 10.0;
 		
