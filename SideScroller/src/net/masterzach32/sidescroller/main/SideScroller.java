@@ -75,6 +75,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	}
 	
 	public static void stop() {
+		OptionsFile.save();
 		Game.getConsole().saveAs();
 		System.exit(0);
 	}

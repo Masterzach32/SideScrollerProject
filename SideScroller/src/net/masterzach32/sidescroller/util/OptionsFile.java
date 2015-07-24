@@ -1,5 +1,7 @@
 package net.masterzach32.sidescroller.util;
 
+import java.io.*;
+
 import net.masterzach32.sidescroller.gamestate.menus.KeyConfigState;
 import net.masterzach32.sidescroller.gamestate.menus.OptionsState;
 import net.masterzach32.sidescroller.main.SideScroller;
@@ -17,7 +19,9 @@ public class OptionsFile {
 	 *  break compatibility).
 	 */
 	public static final int OPTIONS_VERSION = 1;
+	public static final String OPTIONS_FILENAME = "SideScroller_options.json";
 	
+	@SuppressWarnings("unchecked")
 	private static String optionsToJSON() {
 		JSONObject gameOptions = new JSONObject();
 		gameOptions.put("gameVersion", SideScroller.VERSION);
@@ -47,6 +51,23 @@ public class OptionsFile {
 		gameOptions.put("enableDebug", new Boolean(OptionsState.isDebugEnabled()));
 		
 		return gameOptions.toString();
+	}
+
+	public static boolean save() {
+		LogHelper.logInfo("Saving game options");
+		try {
+			// File optionsFile = new File(path);
+			BufferedWriter fout = new BufferedWriter(new FileWriter(OPTIONS_FILENAME));
+			fout.write(optionsToJSON());
+			fout.close();
+		} catch (IOException e) {
+			LogHelper.logError("Problem writing " + OPTIONS_FILENAME);
+			e.printStackTrace();
+			return false;
+		}
+
+		// LogHelper.logInfo(optionsToJSON());
+		return true;
 	}
 
 	// main() function for testing this class
