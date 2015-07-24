@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
-import net.masterzach32.sidescroller.entity.EntityPlayer;
+import net.masterzach32.sidescroller.entity.living.EntityPlayer;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.util.Utilities;
 

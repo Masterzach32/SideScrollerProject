@@ -5,7 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import net.masterzach32.sidescroller.entity.enemy.Enemy;
+import net.masterzach32.sidescroller.entity.living.EntityPlayer;
+import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Tile;
 import net.masterzach32.sidescroller.tilemap.TileMap;
@@ -194,6 +195,14 @@ public abstract class MapObject {
 	
 	public int gety() { 
 		return (int)y; 
+	}
+	
+	public int getxmap() { 
+		return (int)xmap; 
+	}
+	
+	public int getymap() { 
+		return (int)ymap; 
 	}
 	
 	public int getWidth() { 

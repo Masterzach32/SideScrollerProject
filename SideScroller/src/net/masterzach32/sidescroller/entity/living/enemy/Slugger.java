@@ -1,4 +1,4 @@
-package net.masterzach32.sidescroller.entity.enemy;
+package net.masterzach32.sidescroller.entity.living.enemy;
 
 import java.awt.image.BufferedImage;
 import java.awt.Color;
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.*;
+import net.masterzach32.sidescroller.entity.living.HealthBar;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class Slugger extends Enemy {
@@ -33,6 +34,8 @@ public class Slugger extends Enemy {
 		
 		armor = 70 + (5*level);
 		damageMultiplier = (double) (100) / (100 + armor);
+		
+		healthBar = new HealthBar(this, 30, 3, new Color(255, 0, 0));
 		
 		// load sprites
 		try {
@@ -126,18 +129,6 @@ public class Slugger extends Enemy {
 			explosions.get(i).render(g);
 		}
 		
-		double h0 = health / maxHealth;
-		double h1 = h0 * 30;
-		
-		if(h1 >= b0) b0 = h1;
-		if(h1 < b0) b0 -= .7;
-		
-		// health bar
-		g.setColor(new Color(255, 0, 0));
-		g.drawRect((int)(x + xmap - 30 / 2), (int)(y + ymap - height / 2) + 5, (int) 30, 3);
-		g.setColor(new Color(200, 0, 0));
-		g.fillRect((int)(x + xmap - 30 / 2), (int)(y + ymap - height / 2) + 5, (int) b0, 3);
-		g.setColor(new Color(255, 0, 0));
-		g.fillRect((int)(x + xmap - 30 / 2), (int)(y + ymap - height / 2) + 5, (int) h1, 3);
+		healthBar.render(g);
 	}
 }

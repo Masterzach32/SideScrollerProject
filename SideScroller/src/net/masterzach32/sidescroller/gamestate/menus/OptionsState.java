@@ -21,8 +21,7 @@ public class OptionsState extends MenuState {
 	
 	public static int currentChoice;
 	public static String[] options = new String[8]; 
-	private static boolean console = true;
-	private static boolean debug = true;
+	private static boolean console = true, debug = true;
 	
 	public OptionsState(SideScroller game) {
 		super(game);
@@ -84,7 +83,7 @@ public class OptionsState extends MenuState {
 				g.setFont(font);
 				g.setColor(Color.RED);
 			}
-			Utilities.drawCenteredString(g, options[i], (360 + i * 30) / 2);
+			Utilities.drawCenteredString(g, options[i], (300 + i * 30) / 2);
 		}
 	}
 	

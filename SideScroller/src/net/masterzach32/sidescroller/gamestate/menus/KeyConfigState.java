@@ -78,8 +78,8 @@ public class KeyConfigState extends MenuState {
 		g.setColor(Color.BLACK);
 		g.drawString(info, 290, 355);
 		g.setFont(selectfont);
-		if(!changingKey) Utilities.drawCenteredString(g, "Select the function you want to change", 130);
-		else Utilities.drawCenteredString(g, "Press the key you want to change it to", 130);
+		if(!changingKey) Utilities.drawCenteredString(g, "Select the function you want to change", 110);
+		else Utilities.drawCenteredString(g, "Press the key you want to change it to", 110);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {
@@ -90,7 +90,7 @@ public class KeyConfigState extends MenuState {
 				g.setFont(font);
 				g.setColor(Color.RED);
 			}
-			Utilities.drawCenteredString(g, options[i], (360 + i * 30) / 2);
+			Utilities.drawCenteredString(g, options[i], (300 + i * 30) / 2);
 		}
 	}
 	

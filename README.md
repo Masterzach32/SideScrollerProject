@@ -1,4 +1,4 @@
-# SideScrollerGame - Alpha Build 0.1.5.201
+# SideScrollerGame - Alpha Build 0.1.5.203
 
 This game is being designed by me and a group of friends. Its going to be a futuristic sidescroller like combination of Final Fantasy and Starbound. More descripiton coming soon!
 
@@ -20,6 +20,8 @@ All changes that will be in v0.1.5 Alpha:
 - New debug mode (for testing only, may be removed)
 - All targeting now uses hitbox to hitbox rather than center to center
 - Rewrote level system
+- 2 new mobs - Swordman and Mage
+- Game can now self update
 
 ### Bugs:
 - Sometimes sluggers spawn traveling left

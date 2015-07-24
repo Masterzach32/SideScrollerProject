@@ -1,15 +1,14 @@
-package net.masterzach32.sidescroller.entity.enemy;
+package net.masterzach32.sidescroller.entity.living.enemy;
 
 import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
+import net.masterzach32.sidescroller.entity.living.EntityLiving;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
-public class Enemy extends MapObject {
+public class Enemy extends EntityLiving {
 	
-	protected float health;
-	protected float maxHealth;
 	protected boolean dead;
 	protected int damage;
 	protected int armor; 
@@ -21,8 +20,6 @@ public class Enemy extends MapObject {
 	protected boolean flinching;
 	protected long flinchTimer;
 	
-	protected double b0 = 30;
-	
 	protected ArrayList<Explosion> explosions;
 	
 	public Enemy(TileMap tm) {
@@ -31,10 +28,7 @@ public class Enemy extends MapObject {
 	
 	public boolean isDead() {
 		if(dead) {
-			if(b0 <= 0) {
-				return true;
-			}
-			return false;
+			return true;
 		} 
 		return false;
 	}

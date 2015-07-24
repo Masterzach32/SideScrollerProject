@@ -1,10 +1,14 @@
-package net.masterzach32.sidescroller.entity;
+package net.masterzach32.sidescroller.entity.living;
 
 import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
-import net.masterzach32.sidescroller.entity.enemy.Enemy;
+import net.masterzach32.sidescroller.entity.Animation;
+import net.masterzach32.sidescroller.entity.Explosion;
+import net.masterzach32.sidescroller.entity.MapObject;
+import net.masterzach32.sidescroller.entity.Orb;
+import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.tilemap.*;
 import net.masterzach32.sidescroller.util.LogHelper;
 
@@ -12,7 +16,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-public class EntityPlayer extends MapObject {
+public class EntityPlayer extends EntityLiving {
 	
 	// player stuff
 	private float health;

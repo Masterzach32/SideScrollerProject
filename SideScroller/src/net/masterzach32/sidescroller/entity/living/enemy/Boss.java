@@ -1,4 +1,4 @@
-package net.masterzach32.sidescroller.entity.enemy;
+package net.masterzach32.sidescroller.entity.living.enemy;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -9,9 +9,10 @@ import java.util.Random;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
-import net.masterzach32.sidescroller.entity.EntityPlayer;
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
+import net.masterzach32.sidescroller.entity.living.EntityPlayer;
+import net.masterzach32.sidescroller.entity.living.HealthBar;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 public class Boss extends Enemy {
@@ -47,7 +48,7 @@ public class Boss extends Enemy {
 		armor = -40;
 		damageMultiplier = (double) (100) / (100 + armor);
 		
-		b0 = 60;
+		healthBar = new HealthBar(this, 30, 6, new Color(255, 0, 0));
 		
 		// load sprites
 			
@@ -183,19 +184,7 @@ public class Boss extends Enemy {
 	public void render(Graphics2D g) {
 		setMapPosition();
 		
-		double h0 = health / maxHealth;
-		double h1 = h0 * 60;
-		
-		if(h1 >= b0) b0 = h1;
-		if(h1 < b0) b0 -= .7;
-		
-		// health bar
-		g.setColor(new Color(255, 0, 0));
-		g.drawRect((int)(x + xmap - 30 / 2) - 15, (int)(y + ymap - height / 2) - 4, (int) 60, 8);
-		g.setColor(new Color(200, 0, 0));
-		g.fillRect((int)(x + xmap - 30 / 2) - 15, (int)(y + ymap - height / 2) - 4, (int) b0, 8);
-		g.setColor(new Color(255, 0, 0));
-		g.fillRect((int)(x + xmap - 30 / 2) - 15, (int)(y + ymap - height / 2) - 4, (int) h1, 8);
+		healthBar.render(g);
 		
 		if(MapObject.isHitboxEnabled()) {
 			g.setColor(Color.WHITE);

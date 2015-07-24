@@ -98,47 +98,47 @@ public class Utilities {
 	 */
 	public static void download(String url, String location, String windowName) {
 		error = false;
-		String site = url; 
-		String filename = location; 
-		JFrame frame = new JFrame(windowName); 
-		JProgressBar current = new JProgressBar(0, 100); 
+		String site = url;
+		String filename = location;
+		JFrame frame = new JFrame(windowName);
+		JProgressBar current = new JProgressBar(0, 100);
 		JLabel t = new JLabel();
 		t.setText("Starting...");
-		current.setSize(150, 50); 
-		current.setValue(0); 
-		current.setStringPainted(true); 
-		frame.setLayout(new FlowLayout()); 
-		frame.setSize(350, 100); 
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
-		frame.add(current); 
+		current.setSize(150, 50);
+		current.setValue(0);
+		current.setStringPainted(true);
+		frame.setLayout(new FlowLayout());
+		frame.setSize(350, 100);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.add(current);
 		frame.add(t);
 		Dimension dim2 = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim2.width/2-frame.getSize().width/2, dim2.height/2-frame.getSize().height/2);
-		frame.setVisible(true); 
-		try { 
-			URL path = new URL(site); 
-			HttpURLConnection connection = (HttpURLConnection) path.openConnection(); 
-			int filesize = connection.getContentLength(); 
-			float totalDataRead = 0; 
-			BufferedInputStream in = new BufferedInputStream(connection.getInputStream()); 
-			FileOutputStream fos = new FileOutputStream(filename); 
-			BufferedOutputStream bout = new BufferedOutputStream(fos, 1024); 
-			byte[] data = new byte[1024]; 
-			int i = 0; 
-			while((i = in.read(data, 0, 1024)) >= 0) { 
-				totalDataRead = totalDataRead + i; 
-				bout.write(data, 0, i); 
-				float Percent = (totalDataRead * 100) / filesize; 
+		frame.setVisible(true);
+		try {
+			URL path = new URL(site);
+			HttpURLConnection connection = (HttpURLConnection) path.openConnection();
+			int filesize = connection.getContentLength();
+			float totalDataRead = 0;
+			BufferedInputStream in = new BufferedInputStream(connection.getInputStream());
+			FileOutputStream fos = new FileOutputStream(filename);
+			BufferedOutputStream bout = new BufferedOutputStream(fos, 1024);
+			byte[] data = new byte[1024];
+			int i = 0;
+			while((i = in.read(data, 0, 1024)) >= 0) {
+				totalDataRead = totalDataRead + i;
+				bout.write(data, 0, i);
+				float Percent = (totalDataRead * 100) / filesize;
 				current.setValue((int)Percent);
 				t.setText((int)(totalDataRead / 1000000) + " MB of " + (int)(filesize / 1000000) + " MB");
-			}	
-			bout.close(); 
+			}
+			bout.close();
 			in.close();
 		} catch(Exception e) {
 			t.setText("Download Failed!");
 			LogHelper.logError("An error occured while downloading: " + url);
 			e.printStackTrace();
-			JOptionPane.showConfirmDialog((Component) null, (Object) "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION); 
+			JOptionPane.showConfirmDialog((Component) null, (Object) "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE); 
 			error = true;
 		}
 		frame.setVisible(false);
@@ -176,7 +176,7 @@ public class Utilities {
 	 */
 	public static void checkForUpdates() {
 		if(!SideScroller.isUpdateEnabled) {
-			LogHelper.logInfo("Updates arnt enabled. This is probably because you are running a beta or nightly build.");
+			LogHelper.logInfo("Updates are disabled. This is probably because you are running a beta or nightly build.");
 			return;
 		}
 		LogHelper.logInfo("Checking for updates.");
@@ -185,7 +185,7 @@ public class Utilities {
 		if(s == null || s[0] == null) {
 			LogHelper.logInfo("Error while checking for updates: Could not read server update file.");
 		} else if(s[0] != SideScroller.getGame().getLocalVersion()) {
-			LogHelper.logInfo("An update is available, you have version " + SideScroller.getGame().getLocalVersion() + ", Server version is " + s[0]);
+			LogHelper.logInfo("An update is available, you have build " + SideScroller.getGame().getLocalVersion() + ", Server build is " + s[0]);
 			LogHelper.logInfo("You can download the update here: " + SideScroller.getGame().getUpdateURL());
 			LogHelper.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
 			
