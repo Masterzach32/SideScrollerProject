@@ -189,13 +189,13 @@ public class Utilities {
 			LogHelper.logInfo("You can download the update here: " + SideScroller.getGame().getUpdateURL());
 			LogHelper.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
 			
-			int result = JOptionPane.showConfirmDialog((Component) null, (Object) "An newer version of the game, (Build " + s[0] +") is avaliable, do you want to download it now? ", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.showConfirmDialog((Component) null, (Object) "An newer version of the game, (Build " + s[0] +") is avaliable, do you want to download it now? ", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			
 			if(result == JOptionPane.YES_OPTION) {
 				String path = saveAs(".jar");
 				download(SideScroller.getGame().getDownloadURL(), path, "Downloading Update");
 				if(!error) {
-					int result2 = JOptionPane.showConfirmDialog((Component) null, (Object) "Download complete. Do you close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION);
+					int result2 = JOptionPane.showConfirmDialog((Component) null, (Object) "Download complete. Do you close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					if(result2 == JOptionPane.YES_OPTION) {
 						try {
 							ProcessBuilder pb = new ProcessBuilder("java", "-jar", path);

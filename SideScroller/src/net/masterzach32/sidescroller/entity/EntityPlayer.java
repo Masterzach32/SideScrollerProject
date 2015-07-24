@@ -293,7 +293,7 @@ public class EntityPlayer extends MapObject {
 		if(health == 0) this.setDead();
 		flinching = true;
 		flinchTimer = System.nanoTime();
-		combatTimer = 300;
+//		combatTimer = 300;
 		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}
 	
