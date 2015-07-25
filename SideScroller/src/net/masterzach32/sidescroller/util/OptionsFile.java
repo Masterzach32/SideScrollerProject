@@ -4,6 +4,7 @@ import java.io.*;
 
 import net.masterzach32.sidescroller.gamestate.menus.KeyConfigState;
 import net.masterzach32.sidescroller.gamestate.menus.OptionsState;
+import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
 
 import org.json.simple.JSONObject;
@@ -146,6 +147,7 @@ public class OptionsFile {
 			// if (i != null) ??? = i;
 			// i = getInteger(windowSettings, "left");
 			// if (i != null) ??? = i;
+			Game.resizeGameFrame(true);
 		}
 
 		keyBindings = getJSONObject(gameOptions, "keyBindings");
@@ -171,9 +173,9 @@ public class OptionsFile {
 		b = getBoolean(gameOptions, "enableSound");
 		if (b != null) SideScroller.isSoundEnabled = b;
 		b = getBoolean(gameOptions, "enableConsole");
-		// FIXME: if (b != null) OptionsState.isConsoleEnabled() = b;
+		if (b != null) OptionsState.setConsole(b);
 		b = getBoolean(gameOptions, "enableDebug");
-		// FIXME: if (i != null) OptionsState.isDebugEnabled() = b;
+		if (b != null) OptionsState.setDebug(b);
 
 		return true;
 	}

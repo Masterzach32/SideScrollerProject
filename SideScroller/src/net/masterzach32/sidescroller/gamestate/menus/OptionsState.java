@@ -94,12 +94,7 @@ public class OptionsState extends MenuState {
 			} else {
 				SideScroller.SCALE += 1;
 			}
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			Dimension frameSize = new Dimension((int) (SideScroller.WIDTH * SideScroller.SCALE), (int) (SideScroller.HEIGHT * SideScroller.SCALE + 20));
-			int x = (int) ((screenSize.width/2)-(frameSize.width/2));
-			int y = (int) ((screenSize.height/2)-(frameSize.height/2));
-			Game.getFrame().setSize(frameSize);
-			Game.getFrame().setLocation(x, y);
+			Game.resizeGameFrame(true);
 		}
 		if(currentChoice == 1) {
 			if(SideScroller.WIDTH == 640) {
@@ -109,12 +104,7 @@ public class OptionsState extends MenuState {
 				SideScroller.WIDTH = 640;
 				SideScroller.HEIGHT = 360;
 			}
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			Dimension frameSize = new Dimension((int) (SideScroller.WIDTH * SideScroller.SCALE), (int) (SideScroller.HEIGHT * SideScroller.SCALE + 20));
-			int x = (int) ((screenSize.width/2)-(frameSize.width/2));
-			int y = (int) ((screenSize.height/2)-(frameSize.height/2));
-			Game.getFrame().setSize(frameSize);
-			Game.getFrame().setLocation(x, y);
+			Game.resizeGameFrame(true);
 		}
 		if(currentChoice == 2) {
 			if (SideScroller.isSoundEnabled) {
@@ -130,26 +120,14 @@ public class OptionsState extends MenuState {
 			}
 		}
 		if(currentChoice == 4) {
-			if(console) {
-				console = false;
-			} else {
-				console = true;
-			}
-			Game.getConsole().setVisible(console);
+			setConsole(!console);
 			SideScroller.getGame().requestFocus();
 		}
 		if(currentChoice == 5) {
 			GameState.setState(SideScroller.keyConfigState);
 		}
 		if(currentChoice == 6) {
-			if (debug) {
-				debug = false;
-			} else {
-				debug = true;
-				console = true;
-			}
-			MapObject.setShowHitbox(debug);
-			Game.getConsole().setVisible(console);
+			setDebug(!debug);
 			SideScroller.getGame().requestFocus();
 		}
 		if(currentChoice == 7) {
@@ -163,6 +141,19 @@ public class OptionsState extends MenuState {
 
 	public static boolean isConsoleEnabled() {
 		return console;
+	}
+
+	public static void setDebug(boolean enabled) {
+		debug = enabled;
+		MapObject.setShowHitbox(debug);
+		if (debug) {
+			setConsole(true);
+		}
+	}
+
+	public static void setConsole(boolean enabled) {
+		console = enabled;
+		Game.getConsole().setVisible(console);
 	}
 
 	public void keyPressed(int k) {

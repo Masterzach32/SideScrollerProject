@@ -26,18 +26,23 @@ public class Game {
 			e.printStackTrace();
 		}
 		window = new JFrame("SideScrollerRPG " + SideScroller.VERSION);
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Dimension frameSize = new Dimension((int) (SideScroller.WIDTH * SideScroller.SCALE), (int) (SideScroller.HEIGHT * SideScroller.SCALE + 20));
-		int x = (int) ((screenSize.width/2)-(frameSize.width/2));
-		int y = (int) ((screenSize.height/2)-(frameSize.height/2));
-		window.setPreferredSize(frameSize);
-		window.setLocation(x, y);
+		resizeGameFrame(false);
 		window.setContentPane(new SideScroller());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.pack();
 	}
 	
+	public static void resizeGameFrame(boolean forceResize) {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = new Dimension((int) (SideScroller.WIDTH * SideScroller.SCALE), (int) (SideScroller.HEIGHT * SideScroller.SCALE + 20));
+		int x = (int) ((screenSize.width/2)-(frameSize.width/2));
+		int y = (int) ((screenSize.height/2)-(frameSize.height/2));
+		if (forceResize) window.setSize(frameSize);
+		else window.setPreferredSize(frameSize);
+		window.setLocation(x, y);
+	}
+
 	public static JFrame getFrame() {
 		return window;
 	}
