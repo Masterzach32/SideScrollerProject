@@ -134,18 +134,21 @@ public class Utilities {
 				bout.write(data, 0, i);
 				percent = (totalDataRead * 100) / filesize;
 				current.setValue((int) percent);
-				LoadingState.setInfo("Updating...", (int) percent);
+				LoadingState.setInfo("Updating...", percent);
 				SideScroller.getGame().render();
-				SideScroller.getGame().renderToScreen();
 				t.setText((int)(totalDataRead / 1000000) + " MB of " + (int)(filesize / 1000000) + " MB");
 			}
-			LoadingState.setInfo("Finished Download", (int) percent);
+			LoadingState.setInfo("Finishing Up...", percent);
+			SideScroller.getGame().render();
 			bout.close();
 			in.close();
 			percent = 0;
-			LoadingState.setInfo("Finished Download", (int) percent);
+			LoadingState.setInfo("Finished Download", percent);
+			SideScroller.getGame().render();
 		} catch(Exception e) {
 			t.setText("Download Failed!");
+			LoadingState.setInfo("Download Failed!", 0);
+			SideScroller.getGame().render();
 			LogHelper.logError("An error occured while downloading: " + url);
 			e.printStackTrace();
 			JOptionPane.showConfirmDialog((Component) null, (Object) "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE); 

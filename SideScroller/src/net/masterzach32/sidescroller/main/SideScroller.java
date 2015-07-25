@@ -29,7 +29,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.1.5.204";
+	public static final String VERSION = "0.1.5.205";
 	public static final boolean isUpdateEnabled = true;
 	
 	// game thread

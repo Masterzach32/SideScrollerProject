@@ -9,6 +9,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import net.masterzach32.sidescroller.gamestate.menus.LoadingState;
+import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.util.LogHelper;
 
 public class AssetLoader {
@@ -21,6 +23,8 @@ public class AssetLoader {
 	 * @return {@link BufferedImage}
 	 */
 	public BufferedImage loadImage(String path) {
+		LoadingState.setInfo("Loading Asset: " + path, 10);
+		SideScroller.getGame().render();
 		BufferedImage bi;
 		try {
 			URL imageLocation = getClass().getResource(path);
@@ -43,6 +47,8 @@ public class AssetLoader {
 	 * @return ais
 	 */
 	public AudioInputStream loadAudio(String path) {
+		LoadingState.setInfo("Loading Asset: " + path, 20);
+		SideScroller.getGame().render();
 		AudioInputStream ais;
 		try {
 			URL imageLocation = getClass().getResource(path);
@@ -64,6 +70,8 @@ public class AssetLoader {
 	}
 	
 	public String loadMap(String path) {
+		LoadingState.setInfo("Loading Asset: " + path, 30);
+		SideScroller.getGame().render();
 		URL imageLocation = getClass().getResource(path);
 		if(imageLocation != null) {
 			LogHelper.logInfo(s + "Loaded Map: " + path);

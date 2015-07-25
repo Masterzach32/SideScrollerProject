@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.sound.sampled.AudioInputStream;
 
+import net.masterzach32.sidescroller.gamestate.menus.LoadingState;
 import net.masterzach32.sidescroller.main.SideScroller;
 
 public class Assets {
@@ -28,6 +29,9 @@ public class Assets {
 	public static void init() {
 		// load into hashmap
 		// Images
+		LoadingState.setInfo("Loading Images...", 10);
+		SideScroller.getGame().render();
+		
 		images.put("explosion", SideScroller.al.loadImage("/sprites/enemies/explosion.gif"));
 		images.put("fireball", SideScroller.al.loadImage("/sprites/player/fireball.gif"));
 		images.put("orb", SideScroller.al.loadImage("/sprites/player/orb.png"));
@@ -51,6 +55,9 @@ public class Assets {
 		images.put("zaunbg", SideScroller.al.loadImage("/backgrounds/zaun_bg.jpg"));
 		images.put("level1_1bg", SideScroller.al.loadImage("/backgrounds/placeholder_level1_1.png"));
 		
+		LoadingState.setInfo("Loading Audio...", 20);
+		SideScroller.getGame().render();
+		
 		// Audio
 		sounds.put("gamebosstheme", SideScroller.al.loadAudio("/music/gamebosstheme.mp3"));
 		sounds.put("warriors", SideScroller.al.loadAudio("/music/warriors.mp3"));
@@ -61,6 +68,9 @@ public class Assets {
 		
 		sounds.put("jump", SideScroller.al.loadAudio("/sfx/jump.mp3"));
 		sounds.put("scratch", SideScroller.al.loadAudio("/sfx/scratch.mp3"));
+		
+		LoadingState.setInfo("Loading Maps...", 30);
+		SideScroller.getGame().render();
 		
 		// Maps
 		maps.put("level1_1", SideScroller.al.loadMap("/maps/level1-1.map"));
