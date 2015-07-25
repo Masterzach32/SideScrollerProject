@@ -58,7 +58,7 @@ public class HelpState extends MenuState {
 		// title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		Utilities.drawCenteredString(g, "SideScroller RPG", 45);
+		Utilities.drawCenteredString(g, "SideScroller Project", 45);
 		g.setFont(subtitleFont);
 		Utilities.drawCenteredString(g, "Help", 75);
 		

@@ -1,8 +1,8 @@
-# SideScrollerGame - Alpha Build 0.1.5.203
+# SideScrollerProject- Alpha Build 0.1.5.204
 
-This game is being designed by me and a group of friends. Its going to be a futuristic sidescroller like combination of Final Fantasy and Starbound. More descripiton coming soon!
+The SideScroller Project is an open source solution for people wanting to create an open source SideScrolling / RPG game. If you want to use my code, your code must be open source too. Thanks!
 
-You need Java 8 to run this game!
+You need Java 8 to compile and run this!
 
 --
 
@@ -14,7 +14,7 @@ You need Java 8 to run this game!
 --
 
 All changes that will be in v0.1.5 Alpha:
-- Text is properly centered
+- Text can properly centered
 - Progress bar in loading screen
 - Player can now rewind
 - New debug mode (for testing only, may be removed)

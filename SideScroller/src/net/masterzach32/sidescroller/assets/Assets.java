@@ -15,11 +15,17 @@ public class Assets {
 	private static HashMap<String, AudioInputStream> sounds;
 	private static HashMap<String, String> maps;
 	
-	public static void init() {
+	public static void preinit() {
 		// initialize hashmaps
 		images = new HashMap<String, BufferedImage>(1024);
 		sounds = new HashMap<String, AudioInputStream>(1024);
 		maps = new HashMap<String, String>(1024);
+		
+		// loading screen assets
+		images.put("zaunbg", SideScroller.al.loadImage("/backgrounds/zaun_bg.jpg"));
+	}
+	
+	public static void init() {
 		// load into hashmap
 		// Images
 		images.put("explosion", SideScroller.al.loadImage("/sprites/enemies/explosion.gif"));

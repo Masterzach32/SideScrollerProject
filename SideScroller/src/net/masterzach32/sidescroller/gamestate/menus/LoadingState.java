@@ -20,7 +20,9 @@ public class LoadingState extends GameState {
 	protected Font font;
 	protected Font selectfont;
 	
-	private static int i = 0;
+	private static String text = null;
+	
+	private static int percent = 0;
 
 	public LoadingState(SideScroller game) {
 		super(game);
@@ -35,13 +37,17 @@ public class LoadingState extends GameState {
 	public void tick() {}
 
 	public void render(Graphics2D g) {
-		i++;
 		g.drawImage(Assets.getImageAsset("zaunbg"), 0, 0, SideScroller.WIDTH, SideScroller.HEIGHT, null);
 		g.setColor(Color.WHITE);
-		g.drawString("Loading... " + i*10 + "%", 10, 17);
+		g.drawString(text, 10, 17);
 		g.drawRect(((Game.getFrame().getWidth() / 4) - (200)) , 300, 400, 20);
 		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(((Game.getFrame().getWidth() / 4) - (200)) , 300, i*40, 21);
+		g.fillRect(((Game.getFrame().getWidth() / 4) - (200)) , 300, percent * 4, 21);
+	}
+	
+	public static void setInfo(String s, int i) {
+		text = s;
+		percent = i;
 	}
 
 	public void keyPressed(int k) {}

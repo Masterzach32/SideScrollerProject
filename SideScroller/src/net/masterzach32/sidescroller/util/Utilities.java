@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import net.masterzach32.sidescroller.gamestate.menus.LoadingState;
 import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
 
@@ -76,7 +77,7 @@ public class Utilities {
 	 * @return String[]
 	 */
 	public static String[] readTextFile(String path, String location) {
-		download(path, location, "Downloading Server Files");
+		download(path, location, "Downloading Server Files", true);
 		Path p = Paths.get(location);
 		if(p == null) return null;
 		List<String> lines;
@@ -96,7 +97,7 @@ public class Utilities {
 	 * @param url
 	 * @param location
 	 */
-	public static void download(String url, String location, String windowName) {
+	public static void download(String url, String location, String windowName, boolean useWindow) {
 		error = false;
 		String site = url;
 		String filename = location;
@@ -104,6 +105,8 @@ public class Utilities {
 		JProgressBar current = new JProgressBar(0, 100);
 		JLabel t = new JLabel();
 		t.setText("Starting...");
+		LoadingState.setInfo("Starting Update", 0);
+		SideScroller.getGame().render();
 		current.setSize(150, 50);
 		current.setValue(0);
 		current.setStringPainted(true);
@@ -114,7 +117,7 @@ public class Utilities {
 		frame.add(t);
 		Dimension dim2 = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim2.width/2-frame.getSize().width/2, dim2.height/2-frame.getSize().height/2);
-		frame.setVisible(true);
+		frame.setVisible(useWindow);
 		try {
 			URL path = new URL(site);
 			HttpURLConnection connection = (HttpURLConnection) path.openConnection();
@@ -125,15 +128,22 @@ public class Utilities {
 			BufferedOutputStream bout = new BufferedOutputStream(fos, 1024);
 			byte[] data = new byte[1024];
 			int i = 0;
+			float percent = 0;
 			while((i = in.read(data, 0, 1024)) >= 0) {
 				totalDataRead = totalDataRead + i;
 				bout.write(data, 0, i);
-				float Percent = (totalDataRead * 100) / filesize;
-				current.setValue((int)Percent);
+				percent = (totalDataRead * 100) / filesize;
+				current.setValue((int) percent);
+				LoadingState.setInfo("Updating...", (int) percent);
+				SideScroller.getGame().render();
+				SideScroller.getGame().renderToScreen();
 				t.setText((int)(totalDataRead / 1000000) + " MB of " + (int)(filesize / 1000000) + " MB");
 			}
+			LoadingState.setInfo("Finished Download", (int) percent);
 			bout.close();
 			in.close();
+			percent = 0;
+			LoadingState.setInfo("Finished Download", (int) percent);
 		} catch(Exception e) {
 			t.setText("Download Failed!");
 			LogHelper.logError("An error occured while downloading: " + url);
@@ -193,7 +203,7 @@ public class Utilities {
 			
 			if(result == JOptionPane.YES_OPTION) {
 				String path = saveAs(".jar");
-				download(SideScroller.getGame().getDownloadURL(), path, "Downloading Update");
+				download(SideScroller.getGame().getDownloadURL(), path, "Downloading Update", false);
 				if(!error) {
 					int result2 = JOptionPane.showConfirmDialog((Component) null, (Object) "Download complete. Do you close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					if(result2 == JOptionPane.YES_OPTION) {

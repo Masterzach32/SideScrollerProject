@@ -16,7 +16,7 @@ public class Game {
 	private static Console console;
 	
 	public static void main(String[] args) {
-		System.out.println("Launching SideScroller Game - Build " + SideScroller.VERSION);
+		System.out.println("Launching SideScroller Project - Build " + SideScroller.VERSION);
 		System.out.println("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")");
 		System.out.println("OS Archetecture: " + System.getProperty("os.arch"));
 		System.out.println("Java Version: " + System.getProperty("java.version"));

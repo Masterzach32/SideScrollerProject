@@ -3,6 +3,7 @@ package net.masterzach32.sidescroller.main;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
+
 import javax.swing.JPanel;
 
 import net.masterzach32.sidescroller.api.IUpdatable;
@@ -28,7 +29,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.1.5.203";
+	public static final String VERSION = "0.1.5.204";
 	public static final boolean isUpdateEnabled = true;
 	
 	// game thread
@@ -89,7 +90,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch") + " - " + System.getProperty("sun.arch.data.model"));
 		LogHelper.logInfo("Java Version: " + System.getProperty("java.version") + " distributed by " + System.getProperty("java.vendor"));
 		
-		Utilities.checkForUpdates();
+		LogHelper.logInfo("Starting pre-initialzation.");
+		Assets.preinit();
 		
 		LogHelper.logInfo("Loading Java Graphics");
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -98,52 +100,55 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		LogHelper.logInfo("Creating Window");
 		Game.getFrame().setVisible(true);
 		
-		running = true;
-		
-		LogHelper.logInfo("Loading Assets");
-		Assets.init();
-		
 		LogHelper.logInfo("Creating Loading Screen");
 		load = new LoadingState(this);
 		GameState.setState(load);
+		try {
+			Thread.sleep(400);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		LoadingState.setInfo("Checking for Updates...", 0);
 		render();
-		renderToScreen();
+		
+		Utilities.checkForUpdates();
+		
+		running = true;
+		
+		LoadingState.setInfo("Loading Assets...", 10);
+		render();
+		
+		LogHelper.logInfo("Loading Assets");
+		Assets.init();
+		LoadingState.setInfo("Loading GameStates...", 40);
+		render();
+		
 		LogHelper.logInfo("Loading Menus");
 		menuState = new MenuState(this);
-		render();
-		renderToScreen();
 		LogHelper.logInfo("Menu State Created");
 		aboutState = new AboutState(this);
-		render();
-		renderToScreen();
 		helpState = new HelpState(this);
-		render();
-		renderToScreen();
 		LogHelper.logInfo("Help State Created");
 		optionsState = new OptionsState(this);
-		render();
-		renderToScreen();
 		LogHelper.logInfo("Options State Created");
 		keyConfigState = new KeyConfigState(this);
-		render();
-		renderToScreen();
 		LogHelper.logInfo("Key Config State Created");
+		LoadingState.setInfo("Loading Player...", 50);
+		render();
 		LogHelper.logInfo("Creating Player");
 		LevelState.loadLevels();
+		LoadingState.setInfo("Loading Levels...", 60);
 		render();
-		renderToScreen();
 		LogHelper.logInfo("Loading Levels");
 		level1_1 = new Level1State(this);
+		LoadingState.setInfo("Loading Levels...", 80);
 		render();
-		renderToScreen();
 		LogHelper.logInfo("Level 1 Loaded");
 		level1_2 = new Level2State(this);
+		LoadingState.setInfo("Finishing Up...", 100);
 		render();
-		renderToScreen();
 		LogHelper.logInfo("Level 2 Loaded");
 		endgame = new EndState(this);
-		render();
-		renderToScreen();
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
@@ -171,7 +176,6 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 			
 			tick();
 			render();
-			renderToScreen();
 		
 			elapsed = System.nanoTime() - start;
 		
@@ -185,17 +189,18 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		}
 	}
 	
-	private void tick() {
+	public void tick() {
 		if(GameState.getState() != null)
 			GameState.getState().tick();
 	}
 	
-	private void render() {
+	public void render() {
 		if(GameState.getState() != null)
 			GameState.getState().render(g);
+		renderToScreen();
 	}
 	
-	private void renderToScreen() {
+	public void renderToScreen() {
 		Graphics g = getGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g.dispose();
