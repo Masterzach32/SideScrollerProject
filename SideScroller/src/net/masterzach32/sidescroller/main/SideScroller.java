@@ -150,6 +150,8 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		render();
 		LogHelper.logInfo("Level 2 Loaded");
 		endgame = new EndState(this);
+		
+		OptionsFile.load();
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {

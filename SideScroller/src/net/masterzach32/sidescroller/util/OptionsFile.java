@@ -52,21 +52,61 @@ public class OptionsFile {
 		
 		return gameOptions.toString();
 	}
-
+	
+	private static String getOptionsPath() {
+		// FIXME: We should use an appropriate path, such as the user's preferences folder
+		return OPTIONS_FILENAME;
+	}
+	
 	public static boolean save() {
+		BufferedWriter fout = null;
+		String path = getOptionsPath();
+		
 		LogHelper.logInfo("Saving game options");
 		try {
 			// File optionsFile = new File(path);
-			BufferedWriter fout = new BufferedWriter(new FileWriter(OPTIONS_FILENAME));
+			fout = new BufferedWriter(new FileWriter(path));
 			fout.write(optionsToJSON());
-			fout.close();
 		} catch (IOException e) {
-			LogHelper.logError("Problem writing " + OPTIONS_FILENAME);
+			LogHelper.logError("Problem writing " + path);
 			e.printStackTrace();
 			return false;
 		}
+		finally {
+			Utilities.closeStream(fout);
+		}
 
-		// LogHelper.logInfo(optionsToJSON());
+		return true;
+	}
+
+	/* Thanks to StackOverflow user barjak for the example of reading an entire file to a String at
+	 * <http://stackoverflow.com/questions/326390/how-to-create-a-java-string-from-the-contents-of-a-file>
+	 */
+	public static boolean load() {
+		RandomAccessFile fin = null;
+		String path = getOptionsPath();
+		byte[] buffer;
+		
+		LogHelper.logInfo("Loading game options");
+		try {
+			// File optionsFile = new File(path);
+			fin = new RandomAccessFile(path, "r");		// "r" = open file for reading only
+			buffer = new byte[(int) fin.length()];
+			fin.readFully(buffer);
+		} catch (FileNotFoundException e) {
+			// FIXME: ignore missing options file
+			LogHelper.logError("Could not find options file: " + path);
+			return false;
+		} catch (IOException e) {
+			LogHelper.logError("Problem reading " + path);
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			Utilities.closeStream(fin);
+		}
+
+		LogHelper.logInfo(new String(buffer));
 		return true;
 	}
 

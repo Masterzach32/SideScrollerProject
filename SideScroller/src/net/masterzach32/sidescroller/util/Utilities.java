@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -248,5 +249,21 @@ public class Utilities {
 	    }
 	    
 	    return file.toString();
+	}
+	
+	/**
+	 * Close a file or other stream with error checking/trapping.
+	 * 
+	 * Thanks to StackOverflow user barjak for the example at
+	 * <http://stackoverflow.com/questions/326390/how-to-create-a-java-string-from-the-contents-of-a-file>
+	 */
+	public static void closeStream(Closeable stream) {
+		if (stream != null) {
+			try {
+				stream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
