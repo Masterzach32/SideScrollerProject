@@ -19,9 +19,6 @@ import java.util.HashMap;
 public class EntityPlayer extends EntityLiving {
 	
 	// player stuff
-	private float health;
-	private float maxHealth;
-	private float shield, maxShield;
 	private float healthRegen;
 	private float shieldRegen;
 	private boolean inCombat;
@@ -104,6 +101,8 @@ public class EntityPlayer extends EntityLiving {
 		scratchRange = 30;
 		
 		dead = false;
+		
+		healthBar = new HealthBar(this, 30, 6, new Color(0, 170, 0));
 		
 		// load sprites
 		try {
@@ -297,7 +296,8 @@ public class EntityPlayer extends EntityLiving {
 		if(health == 0) this.setDead();
 		flinching = true;
 		flinchTimer = System.nanoTime();
-//		combatTimer = 300;
+		healthBar.setShield(shield);
+		//combatTimer = 300;
 		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}
 	
@@ -471,6 +471,7 @@ public class EntityPlayer extends EntityLiving {
 				}
 				if(shield < maxShield) {
 					if(!inCombat) shield += shieldRegen;
+					healthBar.setShield(shield);
 				}
 			}
 		}
@@ -576,6 +577,7 @@ public class EntityPlayer extends EntityLiving {
 			explosions.get(i).render(g);
 		}
 		
+		healthBar.render(g);
 	}
 	
 	private void levelUp() {

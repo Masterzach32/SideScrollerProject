@@ -53,6 +53,10 @@ public class OptionsFile {
 		gameOptions.put("enableConsole", new Boolean(OptionsState.isConsoleEnabled()));
 		gameOptions.put("enableDebug", new Boolean(OptionsState.isDebugEnabled()));
 		
+		JSONObject playerStats = new JSONObject();
+		
+		gameOptions.put("playerStats", playerStats);
+		
 		// player exp and progression should be saved here later
 		
 		return gameOptions.toString();
