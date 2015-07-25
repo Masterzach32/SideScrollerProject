@@ -15,7 +15,10 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalTime;
@@ -75,10 +78,11 @@ public class Utilities {
 	 * Downloads a file and then attempts to to read it and store it in a String[] array.
 	 * @param path
 	 * @param location
+	 * @param show
 	 * @return String[]
 	 */
-	public static String[] readTextFile(String path, String location) {
-		download(path, location, "Downloading Server Files", true);
+	public static String[] readTextFile(String path, String location, boolean show) {
+		download(path, location, "Downloading Server Files", show);
 		Path p = Paths.get(location);
 		if(p == null) return null;
 		List<String> lines;
@@ -130,26 +134,23 @@ public class Utilities {
 			byte[] data = new byte[1024];
 			int i = 0;
 			float percent = 0;
+			long l = System.nanoTime();
 			while((i = in.read(data, 0, 1024)) >= 0) {
 				totalDataRead = totalDataRead + i;
 				bout.write(data, 0, i);
 				percent = (totalDataRead * 100) / filesize;
 				current.setValue((int) percent);
-				LoadingState.setInfo("Updating...", percent);
-				SideScroller.getGame().render();
-				t.setText((int)(totalDataRead / 1000000) + " MB of " + (int)(filesize / 1000000) + " MB");
+				LoadingState.setInfo("Updating... " + (int) (totalDataRead / 1000000) + " MB of " + (int) (filesize / 1000000) + " MB - " + (int) ((totalDataRead / 1000) / ((System.nanoTime() - l) / 1000000000)) + " KBPS", percent);
+				t.setText((int) (totalDataRead / 1000000) + " MB of " + (int) (filesize / 1000000) + " MB");
 			}
 			LoadingState.setInfo("Finishing Up...", percent);
-			SideScroller.getGame().render();
 			bout.close();
 			in.close();
 			percent = 0;
 			LoadingState.setInfo("Finished Download", percent);
-			SideScroller.getGame().render();
 		} catch(Exception e) {
 			t.setText("Download Failed!");
 			LoadingState.setInfo("Download Failed!", 0);
-			SideScroller.getGame().render();
 			LogHelper.logError("An error occured while downloading: " + url);
 			e.printStackTrace();
 			JOptionPane.showConfirmDialog((Component) null, (Object) "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE); 
@@ -193,8 +194,9 @@ public class Utilities {
 			LogHelper.logInfo("Updates are disabled. This is probably because you are running a beta or nightly build.");
 			return;
 		}
-		LogHelper.logInfo("Checking for updates.");
-		String[] s = readTextFile(SideScroller.getGame().getServerVersionURL(), "latest.txt");
+		LogHelper.logInfo("Checking for updates");
+		Path p = FileSystems.getDefault().getPath("latest.txt");
+		String[] s = readTextFile(SideScroller.getGame().getServerVersionURL(), p.toString(), false);
 		
 		if(s == null || s[0] == null) {
 			LogHelper.logInfo("Error while checking for updates: Could not read server update file.");
@@ -204,7 +206,18 @@ public class Utilities {
 			LogHelper.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
 			
 			int result = JOptionPane.showConfirmDialog((Component) null, (Object) "An newer version of the game, (Build " + s[0] +") is avaliable, do you want to download it now? ", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-			
+			try {
+			    Files.delete(p);
+			} catch (NoSuchFileException e) {
+				LogHelper.logError("%s: no such" + " file or directory%n");
+				e.printStackTrace();
+			} catch (DirectoryNotEmptyException e) {
+			    LogHelper.logError("%s not empty%n");
+			    e.printStackTrace();
+			} catch (IOException e) {
+			    System.err.println(e);
+			    e.printStackTrace();
+			}
 			if(result == JOptionPane.YES_OPTION) {
 				String path = saveAs(".jar");
 				download(SideScroller.getGame().getDownloadURL(), path, "Downloading Update", false);

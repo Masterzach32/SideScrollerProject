@@ -24,7 +24,7 @@ public class KeyConfigState extends MenuState {
 	private Font subtitleFont;
 	
 	public static int currentChoice = 0;
-	public static String[] options = new String[8]; 
+	public static String[] options = new String[9]; 
 	
 	private boolean changingKey;
 	public static int[] keyBinding = new int[7];
@@ -45,13 +45,7 @@ public class KeyConfigState extends MenuState {
 		selectfont = new Font("Arial", Font.PLAIN, 14);
 		changingKey = false;
 		
-		keyBinding[KEY_RIGHT] = KeyEvent.VK_D;
-		keyBinding[KEY_LEFT] = KeyEvent.VK_A;
-		keyBinding[KEY_JUMP] = KeyEvent.VK_SPACE;
-		keyBinding[KEY_SCRATCH] = KeyEvent.VK_R;
-		keyBinding[KEY_ORB] = KeyEvent.VK_F;
-		keyBinding[KEY_GLIDE] = KeyEvent.VK_E;
-		keyBinding[KEY_REWIND] = KeyEvent.VK_Q;
+		resetKeyBindings();
 	}
 
 	protected void load() {
@@ -72,7 +66,8 @@ public class KeyConfigState extends MenuState {
 		options[4] = "Orb: " + KeyEvent.getKeyText(keyBinding[KEY_ORB]);
 		options[5] = "Glide: " + KeyEvent.getKeyText(keyBinding[KEY_GLIDE]);
 		options[6] = "Rewind: " + KeyEvent.getKeyText(keyBinding[KEY_REWIND]);
-		options[7] = "Back";
+		options[7] = "Reset KeyConfig";
+		options[8] = "Back";
 		// draw bg
 		bg.render(g);						
 		// draw title
@@ -103,9 +98,11 @@ public class KeyConfigState extends MenuState {
 	}
 	
 	private void select() {
-		if(currentChoice != 7) {
+		if(currentChoice < 7) {
 			changeKeyConfig();
-		} else {
+		} else if(currentChoice == 7) {
+			resetKeyBindings();
+		} else if(currentChoice == 8) {
 			GameState.setState(SideScroller.optionsState);
 		}
 	}
@@ -134,8 +131,18 @@ public class KeyConfigState extends MenuState {
 		}
 	}
 	
-	public void changeKeyConfig() {
+	private void changeKeyConfig() {
 		changingKey = true;
+	}
+	
+	private void resetKeyBindings() {
+		keyBinding[KEY_RIGHT] = KeyEvent.VK_D;
+		keyBinding[KEY_LEFT] = KeyEvent.VK_A;
+		keyBinding[KEY_JUMP] = KeyEvent.VK_SPACE;
+		keyBinding[KEY_SCRATCH] = KeyEvent.VK_R;
+		keyBinding[KEY_ORB] = KeyEvent.VK_F;
+		keyBinding[KEY_GLIDE] = KeyEvent.VK_E;
+		keyBinding[KEY_REWIND] = KeyEvent.VK_Q;
 	}
 
 	public void keyReleased(int k) {}

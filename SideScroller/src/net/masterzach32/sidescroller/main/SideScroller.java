@@ -29,7 +29,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int WIDTH = 640;
 	public static int HEIGHT = 360;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.1.5.205";
+	public static final String VERSION = "0.1.5.206";
 	public static final boolean isUpdateEnabled = true;
 	
 	// game thread
@@ -110,19 +110,17 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 			e.printStackTrace();
 		}
 		LoadingState.setInfo("Checking for Updates...", 0);
-		render();
+		
 		
 		Utilities.checkForUpdates();
 		
 		running = true;
 		
-		LoadingState.setInfo("Loading Assets...", 10);
-		render();
+		LoadingState.setInfo("Loading Assets...", 20);
 		
 		LogHelper.logInfo("Loading Assets");
 		Assets.init();
-		LoadingState.setInfo("Loading GameStates...", 40);
-		render();
+		LoadingState.setInfo("Loading GameStates...", 60);
 		
 		LogHelper.logInfo("Loading Menus");
 		menuState = new MenuState(this);
@@ -134,24 +132,25 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		LogHelper.logInfo("Options State Created");
 		keyConfigState = new KeyConfigState(this);
 		LogHelper.logInfo("Key Config State Created");
-		LoadingState.setInfo("Loading Player...", 50);
-		render();
+		LoadingState.setInfo("Loading Player...", 80);
+		
 		LogHelper.logInfo("Creating Player");
 		LevelState.loadLevels();
-		LoadingState.setInfo("Loading Levels...", 60);
-		render();
+		LoadingState.setInfo("Loading Levels...", 90);
+		
 		LogHelper.logInfo("Loading Levels");
 		level1_1 = new Level1State(this);
-		LoadingState.setInfo("Loading Levels...", 80);
-		render();
+		LoadingState.setInfo("Loading Levels...", 100);
+		
 		LogHelper.logInfo("Level 1 Loaded");
 		level1_2 = new Level2State(this);
-		LoadingState.setInfo("Finishing Up...", 100);
-		render();
+		
 		LogHelper.logInfo("Level 2 Loaded");
+		LoadingState.setInfo("Finishing Up...", 100);
 		endgame = new EndState(this);
 		
 		OptionsFile.load();
+		this.requestFocus();
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
@@ -160,6 +159,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		GameState.setState(menuState);
 		LogHelper.logInfo("Loading Complete");
 		MenuState.bgMusic.play();
+		this.requestFocus();
 	}
 	
 	/**

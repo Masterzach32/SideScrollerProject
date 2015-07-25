@@ -48,6 +48,7 @@ public class LoadingState extends GameState {
 	public static void setInfo(String s, float i) {
 		text = s;
 		percent = i;
+		SideScroller.getGame().render();
 	}
 
 	public void keyPressed(int k) {}

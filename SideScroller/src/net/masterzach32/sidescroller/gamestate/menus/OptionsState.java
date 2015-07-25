@@ -1,10 +1,8 @@
 package net.masterzach32.sidescroller.gamestate.menus;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 import net.masterzach32.sidescroller.assets.Assets;
@@ -146,7 +144,7 @@ public class OptionsState extends MenuState {
 	public static void setDebug(boolean enabled) {
 		debug = enabled;
 		MapObject.setShowHitbox(debug);
-		if (debug) {
+		if(debug) {
 			setConsole(true);
 		}
 	}

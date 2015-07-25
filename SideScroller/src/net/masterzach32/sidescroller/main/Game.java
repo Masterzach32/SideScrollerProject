@@ -25,7 +25,7 @@ public class Game {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		window = new JFrame("SideScrollerRPG " + SideScroller.VERSION);
+		window = new JFrame("SideScrollerProject Beta Build " + SideScroller.VERSION);
 		resizeGameFrame(false);
 		window.setContentPane(new SideScroller());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

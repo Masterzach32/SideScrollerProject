@@ -22,7 +22,7 @@ public class OptionsFile {
 	 *  break compatibility).
 	 */
 	public static final int OPTIONS_VERSION = 1;
-	public static final String OPTIONS_FILENAME = "SideScroller_options.json";
+	public static final String OPTIONS_FILENAME = "SideScroller_Options.json";
 	
 	@SuppressWarnings("unchecked")
 	private static String optionsToJSON() {
@@ -34,7 +34,7 @@ public class OptionsFile {
 		windowSettings.put("width", new Integer(SideScroller.WIDTH));
 		windowSettings.put("height", new Integer(SideScroller.HEIGHT));
 		windowSettings.put("scale", new Integer(SideScroller.SCALE));
-		windowSettings.put("top", new Integer(0));	// FIXME: save window position as "top" and "left"
+		windowSettings.put("top", new Integer(0)); // FIXME: save window position as "top" and "left"
 		windowSettings.put("left", new Integer(0));
 		gameOptions.put("windowSettings", windowSettings);
 
@@ -52,6 +52,8 @@ public class OptionsFile {
 		gameOptions.put("enableSound", new Boolean(SideScroller.isSoundEnabled));
 		gameOptions.put("enableConsole", new Boolean(OptionsState.isConsoleEnabled()));
 		gameOptions.put("enableDebug", new Boolean(OptionsState.isDebugEnabled()));
+		
+		// player exp and progression should be saved here later
 		
 		return gameOptions.toString();
 	}
@@ -82,6 +84,7 @@ public class OptionsFile {
 	/** Attempts to retrieve a String value from obj with the given key/name.
 	 *  Returns null if the key is not present or has a non-string value.
 	 */
+	@SuppressWarnings("unused")
 	private static String getString(JSONObject obj, String key) {
 		Object keyobj = obj.get(key);
 		if (keyobj instanceof java.lang.String) {
