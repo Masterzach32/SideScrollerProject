@@ -55,7 +55,9 @@ public class OptionsFile {
 		gameOptions.put("enableDebug", new Boolean(OptionsState.isDebugEnabled()));
 		
 		JSONObject playerStats = new JSONObject();
-		// player exp and progression should be saved here later
+		// FIXME: Player exp and progression should be saved here later
+		playerStats.put("exp", new Integer(0));
+		playerStats.put("level", new Integer(0));
 		gameOptions.put("playerStats", playerStats);
 		
 		return gameOptions.toString();

@@ -15,6 +15,7 @@ import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.living.EntityPlayer;
 import net.masterzach32.sidescroller.entity.living.enemy.Boss;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
+import net.masterzach32.sidescroller.entity.packs.StemPacks;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.gamestate.menus.KeyConfigState;
 import net.masterzach32.sidescroller.main.SideScroller;
@@ -35,6 +36,7 @@ public abstract class LevelState extends GameState {
 	protected boolean levelComplete = false;
 	protected ArrayList<Enemy> enemies;
 	protected ArrayList<Explosion> explosions;
+	protected ArrayList<StemPacks> stemPacks;
 	protected Background bg;
 	
 	protected AudioPlayer bgMusic;
@@ -123,6 +125,16 @@ public abstract class LevelState extends GameState {
 			}
 		}
 		
+		// update all enemies
+		for(int i = 0; i < stemPacks.size(); i++) {
+			StemPacks sp = stemPacks.get(i);
+			sp.tick();
+			if(sp.shouldRemove()) {
+				stemPacks.remove(i);
+				i--;
+			}
+		}
+		
 		// update explosions
 		for(int i = 0; i < explosions.size(); i++) {
 			explosions.get(i).tick();
@@ -139,6 +151,11 @@ public abstract class LevelState extends GameState {
 		
 		// draw tilemap
 		tileMap.render(g);
+		
+		// draw stempacks
+		for(int i = 0; i < stemPacks.size(); i++) {
+			stemPacks.get(i).render(g);
+		}
 		
 		// draw player
 		renderSpawnAnimation(g);

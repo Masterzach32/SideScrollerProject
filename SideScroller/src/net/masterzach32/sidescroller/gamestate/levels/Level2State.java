@@ -11,6 +11,8 @@ import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.entity.living.enemy.Mage;
 import net.masterzach32.sidescroller.entity.living.enemy.Slugger;
 import net.masterzach32.sidescroller.entity.living.enemy.Swordman;
+import net.masterzach32.sidescroller.entity.packs.HealthPack;
+import net.masterzach32.sidescroller.entity.packs.StemPacks;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
@@ -88,5 +90,12 @@ public class Level2State extends LevelState {
 		Boss boss = new Boss(tileMap, 2);
 		boss.setPosition(3046, 320);
 		enemies.add(boss);
+		
+		stemPacks = new ArrayList<StemPacks>();
+		
+		HealthPack hp = new HealthPack(tileMap, 4);
+		hp.setPosition(2801, 320);
+		
+		stemPacks.add(hp);
 	}
 }

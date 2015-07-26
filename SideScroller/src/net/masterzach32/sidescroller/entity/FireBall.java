@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class FireBall extends Projectile {
 	
@@ -68,7 +67,6 @@ public class FireBall extends Projectile {
 		animation.setDelay(70);
 		dx = 0;
 		dy = 0;
-		LogHelper.logInfo("hi");
 	}
 	
 	/**

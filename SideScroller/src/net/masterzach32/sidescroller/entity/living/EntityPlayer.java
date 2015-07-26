@@ -136,6 +136,11 @@ public class EntityPlayer extends EntityLiving {
 		sfx.put("fire", new AudioPlayer(Assets.getAudioAsset("fire")));
 	}
 	
+	public void heal(float health) {
+		this.setHealth(this.getHealth() + health);
+		if(this.getHealth() > this.getMaxHealth()) this.setHealth(this.getMaxHealth());
+	}
+	
 	public boolean isInCombat() {
 		return inCombat;
 	}

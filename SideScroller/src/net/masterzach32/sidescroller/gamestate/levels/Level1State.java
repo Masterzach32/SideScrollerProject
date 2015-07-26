@@ -7,6 +7,8 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.*;
 import net.masterzach32.sidescroller.entity.living.enemy.*;
+import net.masterzach32.sidescroller.entity.packs.HealthPack;
+import net.masterzach32.sidescroller.entity.packs.StemPacks;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
@@ -76,5 +78,12 @@ public class Level1State extends LevelState {
 		Boss boss = new Boss(tileMap, 1);
 		boss.setPosition(3046, 320);
 		enemies.add(boss);
+		
+		stemPacks = new ArrayList<StemPacks>();
+		
+		HealthPack hp = new HealthPack(tileMap, 2);
+		hp.setPosition(2800, 320);
+		
+		stemPacks.add(hp);
 	}
 }
