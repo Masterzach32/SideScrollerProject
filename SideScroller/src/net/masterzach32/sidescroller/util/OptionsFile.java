@@ -22,6 +22,7 @@ public class OptionsFile {
 	 *  break compatibility).
 	 */
 	public static final int OPTIONS_VERSION = 1;
+	// FIXME: We should use an appropriate path, such as the user's preferences folder
 	public static final String OPTIONS_FILENAME = "SideScroller_Options.json";
 	
 	@SuppressWarnings("unchecked")
@@ -34,7 +35,7 @@ public class OptionsFile {
 		windowSettings.put("width", new Integer(SideScroller.WIDTH));
 		windowSettings.put("height", new Integer(SideScroller.HEIGHT));
 		windowSettings.put("scale", new Integer(SideScroller.SCALE));
-		windowSettings.put("top", new Integer(SideScroller.TOP)); // FIXME: save window position as "top" and "left"
+		windowSettings.put("top", new Integer(SideScroller.TOP));
 		windowSettings.put("left", new Integer(SideScroller.LEFT));
 		gameOptions.put("windowSettings", windowSettings);
 
@@ -147,7 +148,6 @@ public class OptionsFile {
 			if (i != null) SideScroller.HEIGHT = i;
 			i = getInteger(windowSettings, "scale");
 			if (i != null) SideScroller.SCALE = i;
-			// FIXME: read & restore window position
 			i = getInteger(windowSettings, "top");
 			if (i != null) SideScroller.TOP = i;
 			i = getInteger(windowSettings, "left");
@@ -186,7 +186,6 @@ public class OptionsFile {
 	}
 	
 	private static String getOptionsPath() {
-		// FIXME: We should use an appropriate path, such as the user's preferences folder
 		return OPTIONS_FILENAME;
 	}
 	

@@ -505,8 +505,6 @@ public class EntityPlayer extends EntityLiving {
 		x4[0] = (int) x;
 		y4[0] = (int) y;
 		health4[0] = (int) health;
-		
-		LogHelper.logInfo(combatTimer + " " + inCombat + " " + shield + " " + maxShield + " " + shieldRegen);
 	}
 	
 	public void render(Graphics2D g) {

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.sound.sampled.AudioInputStream;
 
+import net.masterzach32.sidescroller.entity.packs.StemPacks;
 import net.masterzach32.sidescroller.gamestate.menus.LoadingState;
 import net.masterzach32.sidescroller.main.SideScroller;
 
@@ -30,18 +31,25 @@ public class Assets {
 		// load into hashmap
 		// Images
 		LoadingState.setInfo("Loading Images...", 20);
-		
+		// Particles
 		images.put("explosion", SideScroller.al.loadImage("/sprites/enemies/explosion.gif"));
 		images.put("fireball", SideScroller.al.loadImage("/sprites/player/fireball.gif"));
 		images.put("orb", SideScroller.al.loadImage("/sprites/player/orb.png"));
-		images.put("health_pack", SideScroller.al.loadImage("/sprites/packs/healthPack.png"));
+		// Stem Packs
+		images.put("pack_" + StemPacks.HEAL, SideScroller.al.loadImage("/sprites/packs/health_pack.png"));
+		images.put("pack_" + StemPacks.ATTACK, SideScroller.al.loadImage("/sprites/packs/damage_pack.png"));
+		images.put("pack_" + StemPacks.SPEED, SideScroller.al.loadImage("/sprites/packs/speed_pack.png"));
+		images.put("pack_" + StemPacks.HEALTHREGEN, SideScroller.al.loadImage("/sprites/packs/regen_pack.png"));
+		// Spawn Animation
 		images.put("spawn_animation", SideScroller.al.loadImage("/sprites/player/spawn_animation_base.png"));
 		images.put("spawn_animation_p", SideScroller.al.loadImage("/sprites/player/spawn_animation_placeholder.png"));
+		// Player
 		images.put("player", SideScroller.al.loadImage("/sprites/player/playersprites.gif"));
 		images.put("player_blue", SideScroller.al.loadImage("/sprites/player/player.png"));
+		// Enemies
 		images.put("slugger", SideScroller.al.loadImage("/sprites/enemies/slugger.gif"));
 		images.put("boss", SideScroller.al.loadImage("/sprites/enemies/boss.png"));
-		
+		// HUD
 		images.put("mouse", SideScroller.al.loadImage("/hud/mouse.png"));
 		images.put("hud", SideScroller.al.loadImage("/hud/hud.gif"));
 		images.put("hud2", SideScroller.al.loadImage("/hud/placeholder_hud.png"));
@@ -64,7 +72,7 @@ public class Assets {
 		sounds.put("spawn2", SideScroller.al.loadAudio("/music/spawn_new.mp3"));
 		sounds.put("level1_1", SideScroller.al.loadAudio("/music/level1_1theme.mp3"));
 		sounds.put("level1_2", SideScroller.al.loadAudio("/music/level1_2theme.mp3"));
-		
+		// SFX
 		sounds.put("jump", SideScroller.al.loadAudio("/sfx/jump.mp3"));
 		sounds.put("scratch", SideScroller.al.loadAudio("/sfx/scratch.mp3"));
 		

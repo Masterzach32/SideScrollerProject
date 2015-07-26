@@ -119,14 +119,12 @@ public class OptionsState extends MenuState {
 		}
 		if(currentChoice == 4) {
 			setConsole(!console);
-			SideScroller.getGame().requestFocus();
 		}
 		if(currentChoice == 5) {
 			GameState.setState(SideScroller.keyConfigState);
 		}
 		if(currentChoice == 6) {
 			setDebug(!debug);
-			SideScroller.getGame().requestFocus();
 		}
 		if(currentChoice == 7) {
 			GameState.setState(SideScroller.menuState);
@@ -147,11 +145,13 @@ public class OptionsState extends MenuState {
 		if(debug) {
 			setConsole(true);
 		}
+		SideScroller.getGame().requestFocus();
 	}
 
 	public static void setConsole(boolean enabled) {
 		console = enabled;
 		Game.getConsole().setVisible(console);
+		SideScroller.getGame().requestFocus();
 	}
 
 	public void keyPressed(int k) {
