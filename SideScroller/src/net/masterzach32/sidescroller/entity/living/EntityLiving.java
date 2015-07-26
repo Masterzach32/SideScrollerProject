@@ -5,7 +5,7 @@ import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class EntityLiving extends MapObject {
 	
-	public int health, maxHealth, shield, maxShield;
+	public float health, maxHealth, shield, maxShield;
 	
 	public HealthBar healthBar;
 
@@ -13,5 +13,23 @@ public class EntityLiving extends MapObject {
 		super(tm);
 	}
 
+	public float getHealth() { 
+		return health; 
+	}
 	
+	public float getMaxHealth() {
+		return maxHealth; 
+	}
+	
+	public float getShield() {
+		return shield;
+	}
+	
+	public float getMaxShield() {
+		return maxShield;
+	}
+	
+	public void setHealth(float h) {
+		health = h;
+	}
 }

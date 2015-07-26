@@ -53,8 +53,8 @@ public abstract class LevelState extends GameState {
 		
 		// load levels
 		levels = new LevelState[2];
-		levels[0] = new Level1State(game);
-		levels[1] = new Level2State(game);
+		//levels[0] = new Level1State(game);
+		//levels[1] = new Level2State(game);
 		
 		// load assets
 		hud = new HUD(player);
@@ -93,7 +93,7 @@ public abstract class LevelState extends GameState {
 		if(!animation.hasPlayedOnce()) {
 			Point p = player.getScreenLocation();
 			animation.tick();
-			animation.render(g, p.x, p.y, width, height);
+			animation.render(g, p.x - player.getWidth() / 2, p.y - player.getHeight() / 2, width, height);
 		} else {
 			
 		}
@@ -204,4 +204,7 @@ public abstract class LevelState extends GameState {
 	
 	public void mouseReleased(int k) {}
 	
+	public static LevelState getLevel(int level) {
+		return levels[level];
+	}
 }

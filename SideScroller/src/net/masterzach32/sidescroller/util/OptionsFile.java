@@ -34,8 +34,8 @@ public class OptionsFile {
 		windowSettings.put("width", new Integer(SideScroller.WIDTH));
 		windowSettings.put("height", new Integer(SideScroller.HEIGHT));
 		windowSettings.put("scale", new Integer(SideScroller.SCALE));
-		windowSettings.put("top", new Integer(0)); // FIXME: save window position as "top" and "left"
-		windowSettings.put("left", new Integer(0));
+		windowSettings.put("top", new Integer(SideScroller.TOP)); // FIXME: save window position as "top" and "left"
+		windowSettings.put("left", new Integer(SideScroller.LEFT));
 		gameOptions.put("windowSettings", windowSettings);
 
 		JSONObject keyBindings = new JSONObject();
@@ -54,10 +54,8 @@ public class OptionsFile {
 		gameOptions.put("enableDebug", new Boolean(OptionsState.isDebugEnabled()));
 		
 		JSONObject playerStats = new JSONObject();
-		
-		gameOptions.put("playerStats", playerStats);
-		
 		// player exp and progression should be saved here later
+		gameOptions.put("playerStats", playerStats);
 		
 		return gameOptions.toString();
 	}
@@ -150,10 +148,10 @@ public class OptionsFile {
 			i = getInteger(windowSettings, "scale");
 			if (i != null) SideScroller.SCALE = i;
 			// FIXME: read & restore window position
-			// i = getInteger(windowSettings, "top");
-			// if (i != null) ??? = i;
-			// i = getInteger(windowSettings, "left");
-			// if (i != null) ??? = i;
+			i = getInteger(windowSettings, "top");
+			if (i != null) SideScroller.TOP = i;
+			i = getInteger(windowSettings, "left");
+			if (i != null) SideScroller.LEFT = i;
 			Game.resizeGameFrame(true);
 		}
 

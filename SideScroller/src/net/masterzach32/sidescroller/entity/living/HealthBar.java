@@ -2,6 +2,7 @@ package net.masterzach32.sidescroller.entity.living;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 public class HealthBar {
 	
@@ -32,20 +33,20 @@ public class HealthBar {
 		maxHealth = e.maxHealth;
 		shield = e.shield;
 		
-		if(shield == 0) {
+		float total = health + shield;
+		float healthPercent = health / total;
+		float shieldPercent = shield / total;
+			
+		hlength = healthPercent * width;
+		slength = shieldPercent * width;
+		length = hlength + slength;
+		
+		if(shield == 0){
 			percent = health / maxHealth;
 			hlength = percent * width;
+			length = hlength;
 		}
-		
-		if(shield > 0) {
-			float total = health + shield;
-			float healthPercent = health / total;
-			float shieldPercent = shield / total;
 			
-			hlength = healthPercent * width;
-			slength = shieldPercent * width;
-		}
-		
 		// damage bar
 		if(length >= dlength) dlength = length;
 		if(length < dlength) dlength -= .7;
@@ -54,18 +55,22 @@ public class HealthBar {
 	public void render(Graphics2D g) {
 		tick();
 		
+		Point p = e.getScreenLocation();
+		int x = p.x;
+		int y = p.y;
+		
 		// health bar
 		g.setColor(border);
-		g.drawRect((int)(e.getx() + e.getxmap() - owidth / 2), (int)(e.gety() + e.getymap() - oheight / 2), (int) width, height);
+		g.drawRect((int) (x - owidth / 2), (int) (y - oheight / 2), (int) width, height);
 		g.setColor(damageBar);
-		g.fillRect((int)(e.getx() + e.getxmap() - owidth / 2) + 1, (int)(e.gety() + e.getymap() - oheight / 2) + 1, (int) dlength - 1, height - 1);
+		g.fillRect((int) (x - owidth / 2) + 1, (int) (y - oheight / 2) + 1, (int) dlength - 1, height - 1);
 		g.setColor(healthBar);
-		g.fillRect((int)(e.getx() + e.getxmap() - owidth / 2) + 1, (int)(e.gety() + e.getymap() - oheight / 2) + 1, (int) hlength - 1, height - 1);
+		g.fillRect((int) (x - owidth / 2) + 1, (int) (y - oheight / 2) + 1, (int) hlength - 1, height - 1);
 		g.setColor(shieldBar);
-		g.fillRect((int)((e.getx() + e.getxmap() - owidth / 2) + hlength), (int)(e.gety() + e.getymap() - oheight / 2) + 1, (int) slength, height - 1);
+		g.fillRect((int) (x - owidth / 2 + hlength), (int) (y - oheight / 2) + 1, (int) slength, height - 1);
 	}
 	
 	public void setShield(float shieldValue) {
-		shield = shieldValue;
+		//shieldValue = shield;
 	}
 }

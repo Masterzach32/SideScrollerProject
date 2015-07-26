@@ -2,6 +2,7 @@ package net.masterzach32.sidescroller.entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -264,6 +265,10 @@ public abstract class MapObject {
 		showHitbox = b;
 	}
 	
+	public Point getScreenLocation() {
+		return new Point((int)(x + xmap), (int)(y + ymap));
+	}
+	
 	/**
 	 * Currently does not work
 	 * @return
@@ -284,6 +289,7 @@ public abstract class MapObject {
 			if(this instanceof Enemy) g.setColor(Color.RED);
 			else if(this instanceof Projectile) g.setColor(Color.YELLOW);
 			else if(this instanceof EntityPlayer) g.setColor(Color.GREEN);
+			//else if(this instanceof Packs) g.setColor(???);		// FIXME: What color should packs be?
 			else g.setColor(Color.WHITE);
 			g.draw(new Rectangle((int) (x + xmap - width / 2 + ((width - cwidth) / 2)), (int) (y + ymap - height / 2 + ((height - cheight) / 2)), cwidth, cheight));
 			g.setColor(Color.WHITE);

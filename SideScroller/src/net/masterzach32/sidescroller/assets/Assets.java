@@ -34,6 +34,7 @@ public class Assets {
 		images.put("explosion", SideScroller.al.loadImage("/sprites/enemies/explosion.gif"));
 		images.put("fireball", SideScroller.al.loadImage("/sprites/player/fireball.gif"));
 		images.put("orb", SideScroller.al.loadImage("/sprites/player/orb.png"));
+		images.put("health_pack", SideScroller.al.loadImage("/sprites/packs/healthPack.png"));
 		images.put("spawn_animation", SideScroller.al.loadImage("/sprites/player/spawn_animation_base.png"));
 		images.put("spawn_animation_p", SideScroller.al.loadImage("/sprites/player/spawn_animation_placeholder.png"));
 		images.put("player", SideScroller.al.loadImage("/sprites/player/playersprites.gif"));

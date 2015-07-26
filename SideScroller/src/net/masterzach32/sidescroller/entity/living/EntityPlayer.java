@@ -102,7 +102,7 @@ public class EntityPlayer extends EntityLiving {
 		
 		dead = false;
 		
-		healthBar = new HealthBar(this, 30, 6, new Color(0, 170, 0));
+		healthBar = new HealthBar(this, 30, 5, new Color(0, 170, 0));
 		
 		// load sprites
 		try {
@@ -134,26 +134,6 @@ public class EntityPlayer extends EntityLiving {
 		sfx.put("jump", new AudioPlayer(Assets.getAudioAsset("jump")));
 		sfx.put("scratch", new AudioPlayer(Assets.getAudioAsset("scratch")));
 		sfx.put("fire", new AudioPlayer(Assets.getAudioAsset("fire")));
-	}
-	
-	public float getHealth() { 
-		return health; 
-	}
-	
-	public float getMaxHealth() {
-		return maxHealth; 
-	}
-	
-	public float getShield() {
-		return shield;
-	}
-	
-	public float getMaxShield() {
-		return maxShield;
-	}
-	
-	public void setHealth(int h) {
-		health = h;
 	}
 	
 	public boolean isInCombat() {
@@ -209,10 +189,6 @@ public class EntityPlayer extends EntityLiving {
 	
 	public void setGliding(boolean b) { 
 		gliding = b;
-	}
-	
-	public Point getScreenLocation() {
-		return new Point((int)(x + xmap - width / 2), (int)(y + ymap - height / 2));
 	}
 	
 	/**
@@ -452,20 +428,10 @@ public class EntityPlayer extends EntityLiving {
 				if(left) facingRight = false;
 			}
 			
-			// update cooldowns
-			if(combatTimer > 0) combatTimer--;
-			if(combatTimer > 0) inCombat = true;
-			if(combatTimer == 0) inCombat = false;
-			
-			if(rewindCd > 0) rewindCd--;
-			
-			if(orbCurrentCd > 0) orbCurrentCd--;
-			if(orbCurrentCd > orbCd) orbCurrentCd = orbCd;
-			
 			// check to see if the player is dead or not
 			if(health == 0) this.setDead();
 			if(health > 0) {
-				this.dead = false;
+				dead = false;
 				if(health < maxHealth) {
 					health += healthRegen;
 				}
@@ -475,6 +441,16 @@ public class EntityPlayer extends EntityLiving {
 				}
 			}
 		}
+		
+		// update cooldowns
+		if(combatTimer > 0) combatTimer--;
+		if(combatTimer > 0) inCombat = true;
+		if(combatTimer == 0) inCombat = false;
+		
+		if(rewindCd > 0) rewindCd--;
+		
+		if(orbCurrentCd > 0) orbCurrentCd--;
+		if(orbCurrentCd > orbCd) orbCurrentCd = orbCd;
 		
 		// update orbs
 		for(int i = 0; i < orbs.size(); i++) {
@@ -529,6 +505,8 @@ public class EntityPlayer extends EntityLiving {
 		x4[0] = (int) x;
 		y4[0] = (int) y;
 		health4[0] = (int) health;
+		
+		LogHelper.logInfo(combatTimer + " " + inCombat + " " + shield + " " + maxShield + " " + shieldRegen);
 	}
 	
 	public void render(Graphics2D g) {

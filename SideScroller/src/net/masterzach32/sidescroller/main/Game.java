@@ -36,11 +36,13 @@ public class Game {
 	public static void resizeGameFrame(boolean forceResize) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = new Dimension((int) (SideScroller.WIDTH * SideScroller.SCALE), (int) (SideScroller.HEIGHT * SideScroller.SCALE + 20));
-		int x = (int) ((screenSize.width/2)-(frameSize.width/2));
-		int y = (int) ((screenSize.height/2)-(frameSize.height/2));
+		int x = (int) ((screenSize.width / 2)-(frameSize.width / 2));
+		int y = (int) ((screenSize.height / 2)-(frameSize.height / 2));
 		if (forceResize) window.setSize(frameSize);
 		else window.setPreferredSize(frameSize);
-		window.setLocation(x, y);
+		SideScroller.TOP = x;
+		SideScroller.LEFT = y;
+		window.setLocation(SideScroller.TOP, SideScroller.LEFT);
 	}
 
 	public static JFrame getFrame() {
