@@ -8,6 +8,7 @@ import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.Orb;
+import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.tilemap.*;
 import net.masterzach32.sidescroller.util.LogHelper;
@@ -264,9 +265,10 @@ public class EntityPlayer extends EntityLiving {
 	 * Deals damage to the entity
 	 * @param damage
 	 * @param source (should always be <code>this</code>)
+	 * @return true if attack succeeded
 	 */
-	public void hit(int damage, String type, MapObject source) {
-		if(flinching) return;
+	public boolean hit(int damage, String type, MapObject source) {
+		if(flinching) return false;
 		explosions.add(new Explosion(this.getx(), this.gety()));
 		float s = shield;
 		shield -= damage;
@@ -278,7 +280,13 @@ public class EntityPlayer extends EntityLiving {
 		flinching = true;
 		flinchTimer = System.nanoTime();
 		combatTimer = 300;
+		return true;
 		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
+	}
+	
+	public void addEffect(int type, int strength) {
+		Effect e = new Effect(type, strength);
+		e.addToEntity(this);
 	}
 	
 	private void getNextPosition() {
@@ -564,8 +572,8 @@ public class EntityPlayer extends EntityLiving {
 		maxExp = 75 + 25 * level;
 		exp = 0;
 		damage += 3;
-		scratchDamage = (int)(4 + damage*1.85);
-		orbDamage = (int)(2 + damage*0.8);
+		scratchDamage = (int)(4 + damage * 1.85);
+		orbDamage = (int)(2 + damage * 0.8);
 		orbCd -= 15;
 		maxHealth += 6;
 		health += 6;

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+@SuppressWarnings("unused")
 public class HealthBar {
 	
 	private EntityLiving e;
@@ -46,7 +47,7 @@ public class HealthBar {
 		length = hlength + slength;
 			
 		// damage bar
-		if(length >= dlength) dlength = length;
+		if(length >= dlength) dlength = (float) (length - 0.5);
 		if(length < dlength) dlength -= .7;
 	}
 	
@@ -67,6 +68,6 @@ public class HealthBar {
 		g.setColor(healthBar);
 		g.fillRect((int) (x - owidth / 2) + 1, (int) (y - oheight / 2) + 1, (int) hlength - 1, height - 1);
 		g.setColor(shieldBar);
-		g.fillRect((int) (x - owidth / 2 + hlength) + 1, (int) (y - oheight / 2) + 1, (int) slength - 1, height - 1);
+		g.fillRect((int) (x - owidth / 2 + hlength), (int) (y - oheight / 2) + 1, (int) slength - 1, height - 1);
 	}
 }

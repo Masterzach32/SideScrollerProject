@@ -29,7 +29,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.masterzach32.sidescroller.gamestate.menus.LoadingState;
 import net.masterzach32.sidescroller.main.Game;
@@ -209,20 +208,18 @@ public class Utilities {
 			try {
 			    Files.delete(p);
 			} catch (NoSuchFileException e) {
-				LogHelper.logError("%s: no such" + " file or directory%n");
+				LogHelper.logError("Could not find updates file.");
 				e.printStackTrace();
 			} catch (DirectoryNotEmptyException e) {
-			    LogHelper.logError("%s not empty%n");
 			    e.printStackTrace();
 			} catch (IOException e) {
-			    System.err.println(e);
 			    e.printStackTrace();
 			}
 			if(result == JOptionPane.YES_OPTION) {
 				String path = saveAs(".jar");
 				download(SideScroller.getGame().getDownloadURL(), path, "Downloading Update", false);
 				if(!error) {
-					int result2 = JOptionPane.showConfirmDialog((Component) null, (Object) "Download complete. Do you close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					int result2 = JOptionPane.showConfirmDialog((Component) null, (Object) "Download complete. Do you want to close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					if(result2 == JOptionPane.YES_OPTION) {
 						try {
 							ProcessBuilder pb = new ProcessBuilder("java", "-jar", path);
@@ -247,10 +244,8 @@ public class Utilities {
 	 * @param extension
 	 */
 	public static String saveAs(String extension) {
-		FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Executable Jar File", extension);
 	    final JFileChooser saveAsFileChooser = new JFileChooser();
 	    saveAsFileChooser.setApproveButtonText("Save");
-	    saveAsFileChooser.setFileFilter(extensionFilter);
 	    int actionDialog = saveAsFileChooser.showSaveDialog(Game.getFrame());
 	    if (actionDialog != JFileChooser.APPROVE_OPTION) {
 	       return null;

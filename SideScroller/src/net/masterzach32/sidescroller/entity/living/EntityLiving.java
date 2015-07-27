@@ -32,4 +32,6 @@ public class EntityLiving extends MapObject {
 	public void setHealth(float h) {
 		health = h;
 	}
+	
+	
 }

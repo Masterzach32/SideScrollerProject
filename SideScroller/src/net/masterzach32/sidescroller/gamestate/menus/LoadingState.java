@@ -40,9 +40,9 @@ public class LoadingState extends GameState {
 		g.drawImage(Assets.getImageAsset("zaunbg"), 0, 0, SideScroller.WIDTH, SideScroller.HEIGHT, null);
 		g.setColor(Color.WHITE);
 		g.drawString(text, 10, 17);
-		g.drawRect(((Game.getFrame().getWidth() / 4) - (200)), 300, 399, 20);
+		g.drawRect(((Game.getFrame().getWidth() / 4) - (200)), 300, 400, 20);
 		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(((Game.getFrame().getWidth() / 4) - (200)), 300, (int) (percent * 4), 21);
+		g.fillRect(((Game.getFrame().getWidth() / 4) - (200)) + 1, 300 + 1, (int) (percent * 4) - 1, 20 - 1);
 	}
 	
 	public static void setInfo(String s, float i) {
