@@ -10,7 +10,7 @@ import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class SpeedPack extends StemPacks {
 
-	protected SpeedPack(TileMap tm, int strength) {
+	public SpeedPack(TileMap tm, int strength) {
 		super(tm, SPEED, strength);
 		
 		// load sprites
@@ -30,7 +30,7 @@ public class SpeedPack extends StemPacks {
 	
 	public void tick() {
 		if(player.intersects(this)) {
-			player.addEffect(Effect.SPEED, 1 * strength);
+			player.addEffect(Effect.SPEED, 1 * strength, 360 * strength);
 			remove = true;
 		}
 	}

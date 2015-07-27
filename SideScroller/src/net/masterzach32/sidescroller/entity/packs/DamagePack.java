@@ -10,7 +10,7 @@ import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class DamagePack extends StemPacks {
 
-	protected DamagePack(TileMap tm, int strength) {
+	public DamagePack(TileMap tm, int strength) {
 		super(tm, ATTACK, strength);
 		
 		// load sprites
@@ -30,7 +30,7 @@ public class DamagePack extends StemPacks {
 	
 	public void tick() {
 		if(player.intersects(this)) {
-			player.addEffect(Effect.ATTACK, 1 * strength);
+			player.addEffect(Effect.ATTACK, 1 * strength, 360 * strength);
 			remove = true;
 		}
 	}

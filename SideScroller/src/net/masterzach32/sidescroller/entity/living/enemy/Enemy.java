@@ -13,7 +13,6 @@ public class Enemy extends EntityLiving {
 	protected int damage;
 	protected int armor; 
 	protected double damageMultiplier;
-	protected int exp;
 	
 	protected int sight, hsight;
 	

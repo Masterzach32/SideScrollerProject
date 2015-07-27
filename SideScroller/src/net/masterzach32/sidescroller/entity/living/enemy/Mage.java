@@ -34,7 +34,7 @@ public class Mage extends Enemy {
 	public Mage(TileMap tm, int level) {
 		super(tm);
 		moveSpeed = 0.4;
-		maxSpeed = 0.8;
+		setMaxSpeed(0.8);
 		fallSpeed = 0.2;
 		maxFallSpeed = 10.0;
 		
@@ -147,13 +147,13 @@ public class Mage extends Enemy {
 			}
 			if(left) {
 				dx -= moveSpeed;
-			if(dx < -maxSpeed) {
-				dx = -maxSpeed;
+			if(dx < -getMaxSpeed()) {
+				dx = -getMaxSpeed();
 			}
 			} else if(right) {
 				dx += moveSpeed;
-				if(dx > maxSpeed) {
-					dx = maxSpeed;
+				if(dx > getMaxSpeed()) {
+					dx = getMaxSpeed();
 				}
 			}
 		} else {

@@ -1,11 +1,19 @@
 package net.masterzach32.sidescroller.entity.living;
 
+import java.util.ArrayList;
+
 import net.masterzach32.sidescroller.entity.MapObject;
+import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class EntityLiving extends MapObject {
 	
 	public float health, maxHealth, shield, maxShield;
+	public float healthRegen;
+	public float shieldRegen;
+	public int exp, damage;
+	
+	public ArrayList<Effect> effects = new ArrayList<Effect>();
 	
 	public HealthBar healthBar;
 
@@ -32,6 +40,5 @@ public class EntityLiving extends MapObject {
 	public void setHealth(float h) {
 		health = h;
 	}
-	
 	
 }

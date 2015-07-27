@@ -18,7 +18,7 @@ public class Slugger extends Enemy {
 		super(tm);
 		
 		moveSpeed = 0.3;
-		maxSpeed = 0.3;
+		setMaxSpeed(0.3);
 		fallSpeed = 0.2;
 		maxFallSpeed = 10.0;
 		
@@ -63,13 +63,13 @@ public class Slugger extends Enemy {
 		// movement
 		if(left) {
 			dx -= moveSpeed;
-			if(dx < -maxSpeed) {
-				dx = -maxSpeed;
+			if(dx < -getMaxSpeed()) {
+				dx = -getMaxSpeed();
 			}
 		} else if(right) {
 			dx += moveSpeed;
-			if(dx > maxSpeed) {
-				dx = maxSpeed;
+			if(dx > getMaxSpeed()) {
+				dx = getMaxSpeed();
 			}
 		}
 		

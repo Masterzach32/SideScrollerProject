@@ -27,7 +27,7 @@ public class Boss extends Enemy {
 	public Boss(TileMap tm, int level) {
 		super(tm);
 		moveSpeed = 0.2;
-		maxSpeed = 0.3;
+		setMaxSpeed(0.3);
 		fallSpeed = 0.2;
 		maxFallSpeed = 10.0;
 		
@@ -121,14 +121,14 @@ public class Boss extends Enemy {
 			// movement
 			if(left) {
 				dx -= moveSpeed;
-				if(dx < -maxSpeed) {
-					dx = -maxSpeed;
+				if(dx < -getMaxSpeed()) {
+					dx = -getMaxSpeed();
 				}
 			}
 			else if(right) {
 				dx += moveSpeed;
-				if(dx > maxSpeed) {
-					dx = maxSpeed;
+				if(dx > getMaxSpeed()) {
+					dx = getMaxSpeed();
 				}
 			}
 			

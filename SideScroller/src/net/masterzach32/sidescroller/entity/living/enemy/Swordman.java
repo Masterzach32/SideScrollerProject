@@ -30,7 +30,7 @@ public class Swordman extends Enemy {
 	public Swordman(TileMap tm, int level) {
 		super(tm);
 		moveSpeed = 0.3;
-		maxSpeed = 1.1;
+		setMaxSpeed(1.1);
 		fallSpeed = 0.2;
 		maxFallSpeed = 10.0;
 		
@@ -130,13 +130,13 @@ public class Swordman extends Enemy {
 			}
 			if(left) {
 				dx -= moveSpeed;
-			if(dx < -maxSpeed) {
-				dx = -maxSpeed;
+			if(dx < -getMaxSpeed()) {
+				dx = -getMaxSpeed();
 			}
 			} else if(right) {
 				dx += moveSpeed;
-				if(dx > maxSpeed) {
-					dx = maxSpeed;
+				if(dx > getMaxSpeed()) {
+					dx = getMaxSpeed();
 				}
 			}
 		} else {

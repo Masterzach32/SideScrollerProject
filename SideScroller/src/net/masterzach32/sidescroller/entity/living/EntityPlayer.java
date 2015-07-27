@@ -20,8 +20,6 @@ import java.util.HashMap;
 public class EntityPlayer extends EntityLiving {
 	
 	// player stuff
-	private float healthRegen;
-	private float shieldRegen;
 	private boolean inCombat;
 	private int combatTimer;
 	private float exp;
@@ -72,7 +70,7 @@ public class EntityPlayer extends EntityLiving {
 		cheight = 20;
 		
 		moveSpeed = 0.4;
-		maxSpeed = 1.5;
+		setMaxSpeed(1.5);
 		stopSpeed = 0.5;
 		fallSpeed = 0.15;
 		maxFallSpeed = 10.0;
@@ -284,22 +282,22 @@ public class EntityPlayer extends EntityLiving {
 		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}
 	
-	public void addEffect(int type, int strength) {
-		Effect e = new Effect(type, strength);
-		e.addToEntity(this);
+	public void addEffect(int type, int strength, int duration) {
+		Effect e = new Effect(this, type, strength, duration);
+		effects.add(e);
 	}
 	
 	private void getNextPosition() {
 		// movement
 		if(left) {
 			dx -= moveSpeed;
-			if(dx < -maxSpeed) {
-				dx = -maxSpeed;
+			if(dx < -getMaxSpeed()) {
+				dx = -getMaxSpeed();
 			}
 		} else if(right) {
 			dx += moveSpeed;
-			if(dx > maxSpeed) {
-				dx = maxSpeed;
+			if(dx > getMaxSpeed()) {
+				dx = getMaxSpeed();
 			}
 		} else {
 			if(dx > 0) {
@@ -479,6 +477,12 @@ public class EntityPlayer extends EntityLiving {
 				explosions.remove(i);
 				i--;
 			}
+		}
+		
+		// update effects
+		for(int i = 0; i < effects.size(); i++) {
+			effects.get(i).tick();
+			if(effects.get(i).shouldRemove()) effects.remove(i);
 		}
 		
 		if(exp >= maxExp) {
