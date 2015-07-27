@@ -7,7 +7,7 @@ import java.awt.Point;
 public class HealthBar {
 	
 	private EntityLiving e;
-	private float health, maxHealth, hlength, percent, length, shield = 0, slength;
+	private float health, maxHealth, hlength, length, shield = 0, maxShield = 0, slength;
 	private float dlength;
 	private int width, height, owidth, oheight;
 	
@@ -15,7 +15,10 @@ public class HealthBar {
 
 	/**
 	 * Creates a new health bar for the Entity passed.
-	 * @param e
+	 * @param entity
+	 * @param width
+	 * @param height
+	 * @param color
 	 */
 	public HealthBar(EntityLiving entity, int width, int height, Color color) {
 		e = entity;
@@ -32,20 +35,15 @@ public class HealthBar {
 		health = e.health;
 		maxHealth = e.maxHealth;
 		shield = e.shield;
+		maxShield = e.maxShield;
 		
-		float total = health + shield;
-		float healthPercent = health / total;
-		float shieldPercent = shield / total;
+		float maxTotal = maxHealth + shield;
+		float healthPercent = health / maxTotal;
+		float shieldPercent = shield / maxTotal;
 			
 		hlength = healthPercent * width;
 		slength = shieldPercent * width;
 		length = hlength + slength;
-		
-		if(shield == 0){
-			percent = health / maxHealth;
-			hlength = percent * width;
-			length = hlength;
-		}
 			
 		// damage bar
 		if(length >= dlength) dlength = length;
@@ -59,6 +57,8 @@ public class HealthBar {
 		int x = p.x;
 		int y = p.y;
 		
+		// FIXME: Fix render bugs - float to int rounding differences.
+		
 		// health bar
 		g.setColor(border);
 		g.drawRect((int) (x - owidth / 2), (int) (y - oheight / 2), (int) width, height);
@@ -67,10 +67,6 @@ public class HealthBar {
 		g.setColor(healthBar);
 		g.fillRect((int) (x - owidth / 2) + 1, (int) (y - oheight / 2) + 1, (int) hlength - 1, height - 1);
 		g.setColor(shieldBar);
-		g.fillRect((int) (x - owidth / 2 + hlength), (int) (y - oheight / 2) + 1, (int) slength, height - 1);
-	}
-	
-	public void setShield(float shieldValue) {
-		//shieldValue = shield;
+		g.fillRect((int) (x - owidth / 2 + hlength) + 1, (int) (y - oheight / 2) + 1, (int) slength - 1, height - 1);
 	}
 }

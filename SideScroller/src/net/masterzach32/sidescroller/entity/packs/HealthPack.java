@@ -21,7 +21,6 @@ public class HealthPack extends StemPacks {
 			
 			animation = new Animation();
 			animation.setFrames(sprites);
-			//animation.setDelay(-1);
 		}
 		catch(Exception e) {
 			e.printStackTrace();

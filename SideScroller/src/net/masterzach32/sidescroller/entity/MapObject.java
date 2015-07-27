@@ -290,7 +290,7 @@ public abstract class MapObject {
 			if(this instanceof Enemy) g.setColor(Color.RED);
 			else if(this instanceof Projectile) g.setColor(Color.YELLOW);
 			else if(this instanceof EntityPlayer) g.setColor(Color.GREEN);
-			else if(this instanceof StemPacks) g.setColor(Color.MAGENTA);		
+			else if(this instanceof StemPacks) g.setColor(Color.MAGENTA);
 			else g.setColor(Color.WHITE);
 			g.draw(new Rectangle((int) (x + xmap - width / 2 + ((width - cwidth) / 2)), (int) (y + ymap - height / 2 + ((height - cheight) / 2)), cwidth, cheight));
 			g.setColor(Color.WHITE);

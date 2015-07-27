@@ -277,8 +277,7 @@ public class EntityPlayer extends EntityLiving {
 		if(health == 0) this.setDead();
 		flinching = true;
 		flinchTimer = System.nanoTime();
-		healthBar.setShield(shield);
-		//combatTimer = 300;
+		combatTimer = 300;
 		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}
 	
@@ -442,7 +441,6 @@ public class EntityPlayer extends EntityLiving {
 				}
 				if(shield < maxShield) {
 					if(!inCombat) shield += shieldRegen;
-					healthBar.setShield(shield);
 				}
 			}
 		}
