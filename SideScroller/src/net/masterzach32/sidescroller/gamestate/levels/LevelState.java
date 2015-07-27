@@ -84,7 +84,7 @@ public abstract class LevelState extends GameState {
 	/**
 	 * Spawns the enemies on the map
 	 */
-	protected abstract void populateEnemies();
+	protected abstract void populateTileMap();
 	
 	public static EntityPlayer getPlayer() {
 		return player;

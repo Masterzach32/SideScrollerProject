@@ -24,7 +24,6 @@ public class EntityPlayer extends EntityLiving {
 	private int combatTimer;
 	private float exp;
 	private float maxExp;
-	private int damage;
 	private int level;
 	private int orbCurrentCd;
 	private int orbCd;
@@ -85,19 +84,18 @@ public class EntityPlayer extends EntityLiving {
 		shieldRegen = (float)  (maxShield * 0.004);
 		level = 1;
 		maxExp = 100;
-		orbCurrentCd = orbCd = 2500;
 		rewindCd = 300;
 		
 		damage = 6;
 		
 		orbCd = 360;
 		orbCurrentCd = 0;
-		orbDamage = (int)(2 + damage * 1.0);
 		explosions = new ArrayList<Explosion>();
 		orbs = new ArrayList<Orb>();
 		
-		scratchDamage = (int)(10 + damage * 0.8);
 		scratchRange = 30;
+		
+		resetStats(false);
 		
 		dead = false;
 		
@@ -133,11 +131,6 @@ public class EntityPlayer extends EntityLiving {
 		sfx.put("jump", new AudioPlayer(Assets.getAudioAsset("jump")));
 		sfx.put("scratch", new AudioPlayer(Assets.getAudioAsset("scratch")));
 		sfx.put("fire", new AudioPlayer(Assets.getAudioAsset("fire")));
-	}
-	
-	public void heal(float health) {
-		this.setHealth(this.getHealth() + health);
-		if(this.getHealth() > this.getMaxHealth()) this.setHealth(this.getMaxHealth());
 	}
 	
 	public boolean isInCombat() {
@@ -178,7 +171,6 @@ public class EntityPlayer extends EntityLiving {
 	
 	public void setDead() {
 		this.dead = true;
-		if(rewindCd < 300 + 250) rewindCd = 300 + 250;
 		currentAction = IDLE;
 		scratching = false;
 	}
@@ -201,6 +193,7 @@ public class EntityPlayer extends EntityLiving {
 	public void respawn() {
 		this.dead = false;
 		health = maxHealth;
+		if(rewindCd < 250) rewindCd = 250;
 		setPosition(100, 100);
 		setLeft(false);
 		setRight(false);
@@ -282,9 +275,16 @@ public class EntityPlayer extends EntityLiving {
 		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}
 	
-	public void addEffect(int type, int strength, int duration) {
-		Effect e = new Effect(this, type, strength, duration);
+	/**
+	 * Creates a new effect and adds it to the player
+	 * @param type
+	 * @param strength
+	 * @param duration
+	 */
+	public void addEffect(EntityLiving source, int type, int strength, int duration) {
+		Effect e = new Effect(this, source, type, strength, duration);
 		effects.add(e);
+		resetStats(false);
 	}
 	
 	private void getNextPosition() {
@@ -479,14 +479,8 @@ public class EntityPlayer extends EntityLiving {
 			}
 		}
 		
-		// update effects
-		for(int i = 0; i < effects.size(); i++) {
-			effects.get(i).tick();
-			if(effects.get(i).shouldRemove()) effects.remove(i);
-		}
-		
 		if(exp >= maxExp) {
-			levelUp();
+			resetStats(true);
 		}
 		
 		// stores the players x, y, and health for the past 4 seconds
@@ -520,6 +514,10 @@ public class EntityPlayer extends EntityLiving {
 		x4[0] = (int) x;
 		y4[0] = (int) y;
 		health4[0] = (int) health;
+		
+		resetStats(false);
+		
+		super.tick();
 	}
 	
 	public void render(Graphics2D g) {
@@ -571,18 +569,20 @@ public class EntityPlayer extends EntityLiving {
 		healthBar.render(g);
 	}
 	
-	private void levelUp() {
-		level += 1;
-		maxExp = 75 + 25 * level;
-		exp = 0;
-		damage += 3;
-		scratchDamage = (int)(4 + damage * 1.85);
-		orbDamage = (int)(2 + damage * 0.8);
-		orbCd -= 15;
-		maxHealth += 6;
-		health += 6;
-		healthRegen = (float) (maxHealth * 0.0001);
-		maxShield += 4;
-		shieldRegen = (float) (maxShield * 0.004);
+	private void resetStats(boolean levelUp) {
+		if(levelUp) {
+			level += 1;
+			maxExp = 75 + 25 * level;
+			exp = 0;
+			damage += 3;
+			orbCd -= 15;
+			maxHealth += 6;
+			health += 6;
+			healthRegen = (float) (maxHealth * 0.0001);
+			maxShield += 4;
+			shieldRegen = (float) (maxShield * 0.004);
+		}
+		scratchDamage = (int)(10 + damage * 0.8);
+		orbDamage = (int)(2 + damage * 1.0);
 	}
 }

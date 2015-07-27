@@ -1,4 +1,4 @@
-# SideScrollerProject- Alpha Build 0.1.5.213
+# SideScrollerProject- Alpha Build 0.1.5.214
 
 The SideScroller Project is an open source solution for people wanting to create an open source SideScrolling / RPG game. If you want to use my code, your code must be open source too. Thanks!
 
@@ -22,6 +22,9 @@ All changes that will be in v0.1.5 Alpha:
 - Rewrote level system
 - 2 new mobs - Swordman and Mage
 - Game can now self update
+- Universal Health bar system
+- Stem Packs
+- Effects
 
 ### Bugs:
 - Sometimes sluggers spawn traveling left

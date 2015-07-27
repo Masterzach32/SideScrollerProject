@@ -36,8 +36,8 @@ public class Enemy extends EntityLiving {
 		return damage; 
 	}
 	
-	public void hit(int damage, String type, MapObject source) {
-		if(dead || flinching) return;
+	public boolean hit(int damage, String type, MapObject source) {
+		if(dead || flinching) return false;
 		explosions.add(new Explosion(this.getx(), this.gety()));
 		damage = (int) (damage * damageMultiplier);
 		health -= damage;
@@ -45,10 +45,13 @@ public class Enemy extends EntityLiving {
 		if(health == 0) dead = true;
 		flinching = true;
 		flinchTimer = System.nanoTime();
+		return true;
 		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}
 	
-	public void tick() {}
+	public void tick() {
+		super.tick();
+	}
 	
 	protected ArrayList<Explosion> getExplosions() {
 		return explosions;

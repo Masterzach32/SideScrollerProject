@@ -70,6 +70,7 @@ public class HealthBar {
 		g.setColor(shieldBar);
 		g.fillRect((int) (x - owidth / 2 + hlength), (int) (y - oheight / 2) + 1, (int) slength - 1, height - 1);
 		
+		// render effects HUD
 		for(int i = 0; i < e.effects.size(); i++) {
 			e.effects.get(i).render(g, (int) (x - owidth / 2), (int) (y - oheight / 2), i);
 		}

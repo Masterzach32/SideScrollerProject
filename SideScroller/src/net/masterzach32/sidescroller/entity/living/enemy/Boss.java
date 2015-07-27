@@ -75,17 +75,6 @@ public class Boss extends Enemy {
 		facingRight = true;
 	}
 	
-	public void hit(int damage, String type, MapObject source) {
-		if(dead || flinching) return;
-		explosions.add(new Explosion(this.getx(), this.gety()));
-		damage = (int) (damage * damageMultiplier);
-		health -= damage;
-		if(health < 0) health = 0;
-		if(health == 0) dead = true;
-		flinching = true;
-		flinchTimer = System.nanoTime();
-	}
-	
 	/**
 	 * Checks to see if the attack succeeded
 	 * @param enemies
@@ -179,6 +168,8 @@ public class Boss extends Enemy {
 		
 		// update animation
 		animation.tick();
+		
+		super.tick();
 	}
 	
 	public void render(Graphics2D g) {

@@ -116,6 +116,8 @@ public class Slugger extends Enemy {
 		
 		// update animation
 		animation.tick();
+		
+		super.tick();
 	}
 	
 	public void render(Graphics2D g) {

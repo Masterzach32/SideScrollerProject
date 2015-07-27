@@ -26,7 +26,7 @@ public class Level1State extends LevelState {
 		explosions = new ArrayList<Explosion>();
 		
 		// load enemies
-		populateEnemies();
+		populateTileMap();
 		
 		bgMusic = new AudioPlayer(Assets.getAudioAsset("level1_1"));
 	}
@@ -56,7 +56,7 @@ public class Level1State extends LevelState {
 		GameState.setState(SideScroller.level1_2);
 	}
 	
-	protected void populateEnemies() {
+	protected void populateTileMap() {
 		enemies = new ArrayList<Enemy>();
 		Slugger s;
 		Point[] points = new Point[] {new Point(200, 100), new Point(800, 300), new Point(860, 300), new Point(1525, 300), new Point(1680, 300), new Point(1800, 300), new Point(2800, 300)};

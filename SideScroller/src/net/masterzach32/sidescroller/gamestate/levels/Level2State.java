@@ -11,7 +11,9 @@ import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.entity.living.enemy.Mage;
 import net.masterzach32.sidescroller.entity.living.enemy.Slugger;
 import net.masterzach32.sidescroller.entity.living.enemy.Swordman;
+import net.masterzach32.sidescroller.entity.packs.DamagePack;
 import net.masterzach32.sidescroller.entity.packs.HealthPack;
+import net.masterzach32.sidescroller.entity.packs.SpeedPack;
 import net.masterzach32.sidescroller.entity.packs.StemPacks;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
@@ -31,7 +33,7 @@ public class Level2State extends LevelState {
 		explosions = new ArrayList<Explosion>();
 		
 		// load enemies
-		populateEnemies();
+		populateTileMap();
 		
 		bgMusic = new AudioPlayer(Assets.getAudioAsset("level1_2"));
 	}
@@ -61,7 +63,7 @@ public class Level2State extends LevelState {
 		GameState.setState(SideScroller.endgame);
 	}
 	
-	protected void populateEnemies() {
+	protected void populateTileMap() {
 		enemies = new ArrayList<Enemy>();
 		Slugger s;
 		Point[] points = new Point[] {new Point(200, 100), new Point(860, 300), new Point(1700, 250), new Point(2000, 110)};
@@ -93,9 +95,17 @@ public class Level2State extends LevelState {
 		
 		stemPacks = new ArrayList<StemPacks>();
 		
-		HealthPack hp = new HealthPack(tileMap, 4);
-		hp.setPosition(2801, 320);
+		HealthPack sp1 = new HealthPack(tileMap, 4);
+		sp1.setPosition(2800, 320);
 		
-		stemPacks.add(hp);
+		DamagePack sp2 = new DamagePack(tileMap, 4);
+		sp2.setPosition(2750, 320);
+		
+		SpeedPack sp3 = new SpeedPack(tileMap, 4);
+		sp3.setPosition(150, 100);
+		
+		stemPacks.add(sp1);
+		stemPacks.add(sp2);
+		stemPacks.add(sp3);
 	}
 }
