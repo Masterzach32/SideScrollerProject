@@ -9,7 +9,7 @@ public class HealthBar {
 	
 	private EntityLiving e;
 	private float health, maxHealth, hlength, length, shield = 0, maxShield = 0, slength;
-	private float dlength;
+	private float dhlength;
 	private int width, height, owidth, oheight;
 	
 	private Color healthBar, damageBar = new Color(200, 0, 0), border = Color.GRAY, shieldBar = Color.BLUE;
@@ -26,7 +26,7 @@ public class HealthBar {
 		healthBar = color;
 		this.width = width;
 		this.height = height;
-		dlength = width;
+		dhlength = width;
 		owidth = e.getWidth();
 		oheight = e.getHeight();
 	}
@@ -38,17 +38,21 @@ public class HealthBar {
 		shield = e.shield;
 		maxShield = e.maxShield;
 		
-		float maxTotal = maxHealth + shield;
+		float maxTotal;
+		if(health + shield < maxHealth) maxTotal = maxHealth;
+		else maxTotal = maxHealth + (health + shield - maxHealth);
 		float healthPercent = health / maxTotal;
 		float shieldPercent = shield / maxTotal;
 			
 		hlength = healthPercent * width;
 		slength = shieldPercent * width;
 		length = hlength + slength;
+		
+		if(shield > 0) slength += 1;
 			
 		// damage bar
-		if(length >= dlength) dlength = (float) (length - 0.5);
-		if(length < dlength) dlength -= .7;
+		if(length >= dhlength) dhlength = (float) (length - 1);
+		if(length < dhlength) dhlength -= .7;
 	}
 	
 	public void render(Graphics2D g) {
@@ -64,11 +68,11 @@ public class HealthBar {
 		g.setColor(border);
 		g.drawRect((int) (x - owidth / 2), (int) (y - oheight / 2), (int) width, height);
 		g.setColor(damageBar);
-		g.fillRect((int) (x - owidth / 2) + 1, (int) (y - oheight / 2) + 1, (int) dlength - 1, height - 1);
+		g.fillRect((int) (x - owidth / 2) + 1, (int) (y - oheight / 2) + 1, (int) dhlength - 1, height - 1);
 		g.setColor(healthBar);
 		g.fillRect((int) (x - owidth / 2) + 1, (int) (y - oheight / 2) + 1, (int) hlength - 1, height - 1);
 		g.setColor(shieldBar);
-		g.fillRect((int) (x - owidth / 2 + hlength), (int) (y - oheight / 2) + 1, (int) slength - 1, height - 1);
+		g.fillRect((int) (x - owidth / 2 + hlength), (int) (y - oheight / 2) + 1, (int) slength, height - 1);
 		
 		// render effects HUD
 		for(int i = 0; i < e.effects.size(); i++) {

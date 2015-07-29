@@ -102,7 +102,7 @@ public class Level2State extends LevelState {
 		sp2.setPosition(2750, 320);
 		
 		SpeedPack sp3 = new SpeedPack(tileMap, 4);
-		sp3.setPosition(150, 100);
+		sp3.setPosition(150, 110);
 		
 		stemPacks.add(sp1);
 		stemPacks.add(sp2);

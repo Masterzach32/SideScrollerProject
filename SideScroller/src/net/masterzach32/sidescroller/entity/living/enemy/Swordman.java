@@ -42,12 +42,12 @@ public class Swordman extends Enemy {
 		sight = 250;
 		hsight = 36;
 		
-		health = maxHealth = (10) + (8*level);
+		health = maxHealth = (8) + (8*level);
 		damage = (2) + (4*level);
 		
 		exp = (15);
 		
-		armor = 40 + (5*level);
+		armor = 35 + (5*level);
 		damageMultiplier = (double) (100) / (100 + armor);
 		
 		attacking = false;

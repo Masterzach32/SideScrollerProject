@@ -41,7 +41,7 @@ public class Effect {
 		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() + 0.5 * strength);
 		if(this.type == HEALTHREGEN) return;
 		if(this.type == POISION) return;
-		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() - 0.3 * strength);
+		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() - 0.35 * strength);
 	}
 	
 	private void removeFromEntity() {
@@ -49,7 +49,7 @@ public class Effect {
 		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() - 0.5 * strength);
 		if(this.type == HEALTHREGEN) return;
 		if(this.type == POISION) return;
-		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() + 0.3 * strength);;
+		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() + 0.35 * strength);;
 	}
 	
 	public void tick() {
@@ -62,8 +62,8 @@ public class Effect {
 		if(this.type == ATTACK) return;
 		if(this.type == SPEED) return;
 		if(this.type == HEALTHREGEN) entity.heal((float) (0.0005 * strength));
-		if(this.type == POISION) entity.hit((int) (1.5 * strength), "Poision", source);
-		if(this.type == WITHER) entity.hit((int) (strength), "Wither", source);
+		if(this.type == POISION) entity.hit((int) (0.4 * strength), "Poision", source);
+		if(this.type == WITHER) entity.hit((int) (0.2 * strength), "Wither", source);
 	}
 	
 	public void render(Graphics2D g, int x, int y, int space) {

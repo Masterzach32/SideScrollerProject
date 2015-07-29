@@ -30,7 +30,7 @@ public class DamagePack extends StemPacks {
 	
 	public void tick() {
 		if(player.intersects(this)) {
-			player.addEffect(null, Effect.ATTACK, 1 * strength, 10);
+			player.addEffect(null, Effect.ATTACK, strength, 10);
 			remove = true;
 		}
 	}

@@ -78,9 +78,9 @@ public class EntityPlayer extends EntityLiving {
 		
 		facingRight = true;
 		
-		health = maxHealth = 12;
+		health = maxHealth = 14;
 		healthRegen = (float) (maxHealth * 0.0001);
-		shield = maxShield = 8;
+		shield = maxShield = 6;
 		shieldRegen = (float)  (maxShield * 0.004);
 		level = 1;
 		maxExp = 100;
@@ -169,10 +169,11 @@ public class EntityPlayer extends EntityLiving {
 		return dead;
 	}
 	
-	public void setDead() {
+	public void setDead(MapObject source) {
 		this.dead = true;
 		currentAction = IDLE;
 		scratching = false;
+		flinching = false;
 	}
 	
 	public void setFiring() { 
@@ -267,7 +268,7 @@ public class EntityPlayer extends EntityLiving {
 		damage -= (s - shield);
 		health -= damage;
 		if(health < 0) health = 0;
-		if(health == 0) this.setDead();
+		if(health == 0) this.setDead(source);
 		flinching = true;
 		flinchTimer = System.nanoTime();
 		combatTimer = 300;
@@ -370,7 +371,7 @@ public class EntityPlayer extends EntityLiving {
 			// check done flinching
 			if(flinching) {
 				long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
-				if(elapsed > 1000) {
+				if(elapsed > 500) {
 					flinching = false;
 				}
 			}
@@ -439,7 +440,7 @@ public class EntityPlayer extends EntityLiving {
 			}
 			
 			// check to see if the player is dead or not
-			if(health == 0) this.setDead();
+			if(health == 0) this.setDead(null);
 			if(health > 0) {
 				dead = false;
 				if(health < maxHealth) {
@@ -550,16 +551,13 @@ public class EntityPlayer extends EntityLiving {
 		if(flinching) {
 			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
 			if(elapsed / 100 % 2 == 0) {
-				// draw explosions
-				for(int i = 0; i < explosions.size(); i++) {
-					explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
-					explosions.get(i).render(g);
-				}
-				return;
+				
+			} else {
+				if(!dead) super.render(g);
 			}
+		} else {
+			if(!dead) super.render(g);
 		}
-
-		if(!dead) super.render(g);
 		
 		for(int i = 0; i < explosions.size(); i++) {
 			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
@@ -574,15 +572,15 @@ public class EntityPlayer extends EntityLiving {
 			level += 1;
 			maxExp = 75 + 25 * level;
 			exp = 0;
-			damage += 3;
+			damage += 4;
 			orbCd -= 15;
-			maxHealth += 6;
-			health += 6;
+			maxHealth += 7;
+			health += 7;
 			healthRegen = (float) (maxHealth * 0.0001);
-			maxShield += 4;
+			maxShield += 3;
 			shieldRegen = (float) (maxShield * 0.004);
 		}
-		scratchDamage = (int)(10 + damage * 0.8);
-		orbDamage = (int)(2 + damage * 1.0);
+		scratchDamage = (int)(10 + damage * 0.9);
+		orbDamage = (int)(4 + damage * 1.0);
 	}
 }

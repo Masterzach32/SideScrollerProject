@@ -30,7 +30,7 @@ public class SpeedPack extends StemPacks {
 	
 	public void tick() {
 		if(player.intersects(this)) {
-			player.addEffect(null, Effect.SPEED, 1 * strength, 8);
+			player.addEffect(null, Effect.SPEED, strength, 8);
 			remove = true;
 		}
 	}
