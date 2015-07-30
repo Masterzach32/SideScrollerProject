@@ -259,7 +259,7 @@ public class EntityPlayer extends EntityLiving {
 	 * @param source (should always be <code>this</code>)
 	 * @return true if attack succeeded
 	 */
-	public boolean hit(int damage, String type, MapObject source) {
+	public boolean hit(float damage, String type, MapObject source) {
 		if(flinching) return false;
 		explosions.add(new Explosion(this.getx(), this.gety()));
 		float s = shield;

@@ -46,7 +46,7 @@ public class EntityLiving extends MapObject {
 		if(this.getHealth() > this.getMaxHealth()) this.setHealth(this.getMaxHealth());
 	}
 
-	public boolean hit(int damage, String type, MapObject source) {
+	public boolean hit(float damage, String type, MapObject source) {
 		this.health -= damage;
 		if(this.health < 0) this.health = 0;
 		return true;

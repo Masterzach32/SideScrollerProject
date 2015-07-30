@@ -217,7 +217,7 @@ public class Utilities {
 			}
 			if(result == JOptionPane.YES_OPTION) {
 				String path = saveAs(".jar");
-				download(SideScroller.getGame().getDownloadURL(), path, "Downloading Update", false);
+				download(SideScroller.getGame().getDownloadURL() + s[0] + ".jar", path, "Downloading Update", false);
 				if(!error) {
 					int result2 = JOptionPane.showConfirmDialog((Component) null, (Object) "Download complete. Do you want to close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					if(result2 == JOptionPane.YES_OPTION) {

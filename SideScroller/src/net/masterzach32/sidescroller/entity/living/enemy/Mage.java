@@ -15,7 +15,6 @@ import net.masterzach32.sidescroller.entity.living.EntityPlayer;
 import net.masterzach32.sidescroller.entity.living.HealthBar;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Mage extends Enemy {
 	
@@ -130,8 +129,6 @@ public class Mage extends Enemy {
 						orb.setPosition(x, y);
 						orbs.add(orb);
 					}
-				} else {
-					LogHelper.logInfo("Orb On Cooldown");
 				}
 			}
 		} else if(LevelState.getPlayer().intersects(new Rectangle((int) (x - sight / 2), (int) (y - hsight / 2), sight, hsight))) {
@@ -196,6 +193,8 @@ public class Mage extends Enemy {
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);
 		
+		checkAttack();
+		
 		// check attack has stopped
 		if(currentAction == ORB) {
 			if(animation.hasPlayedOnce()) attacking = false;
@@ -203,7 +202,6 @@ public class Mage extends Enemy {
 		
 		// set animation
 		if(attacking) {
-			checkAttack();
 			if(currentAction != ORB) {
 				//sfx.get("scratch").play();
 				currentAction = ORB;
