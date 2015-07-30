@@ -238,7 +238,7 @@ public class EntityPlayer extends EntityLiving {
 			// check enemy collision
 			if(intersects(e)) {
 				combatTimer = 300;
-				hit(e.getDamage(), "Collision", e);
+				hit(e.getDamage() / 2, "Collision", e);
 			}	
 		}
 	}

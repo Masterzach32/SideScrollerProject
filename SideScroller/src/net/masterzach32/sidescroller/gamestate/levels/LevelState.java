@@ -107,7 +107,6 @@ public abstract class LevelState extends GameState {
 		player.checkAttack(enemies);
 		//LogHelper.logInfo(player.getx() + ", " + player.gety());
 		
-		
 		// set background
 		tileMap.setPosition(SideScroller.WIDTH / 2 - player.getx(), SideScroller.HEIGHT / 2 - player.gety());
 		bg.setPosition(tileMap.getx(), tileMap.gety());

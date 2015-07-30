@@ -164,6 +164,10 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		frame.setVisible(v);
 	}
 	
+	public JFrame getFrame() {
+		return frame;
+	}
+	
 	/**
 	 * Saves the current console textArea to the designated file.
 	 */

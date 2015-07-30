@@ -23,6 +23,10 @@ public class Assets {
 		sounds = new HashMap<String, AudioInputStream>(1024);
 		maps = new HashMap<String, String>(1024);
 		
+		// window assets
+		images.put("icon_console", SideScroller.al.loadImage("/icons/console.png"));
+		images.put("icon_game", SideScroller.al.loadImage("/icons/game.png"));
+		
 		// loading screen assets
 		images.put("zaunbg", SideScroller.al.loadImage("/backgrounds/zaun_bg.jpg"));
 	}
