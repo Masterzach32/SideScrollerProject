@@ -1,18 +1,19 @@
 package net.masterzach32.sidescroller.entity.packs;
 
 import java.awt.Graphics2D;
+
 import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
-public class SpeedPack extends StemPacks {
+public class RegenPack extends StemPacks {
 
-	public SpeedPack(TileMap tm, int strength) {
-		super(tm, SPEED, strength);
+	protected RegenPack(TileMap tm, int strength) {
+		super(tm, HEALTHREGEN, strength);
 	}
 	
 	public void tick() {
 		if(player.intersects(this)) {
-			player.addEffect(null, Effect.SPEED, strength, 8);
+			player.addEffect(null, Effect.HEALTHREGEN, strength, 7);
 			remove = true;
 		}
 	}

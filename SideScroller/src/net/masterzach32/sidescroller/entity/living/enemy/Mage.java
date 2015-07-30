@@ -46,7 +46,7 @@ public class Mage extends Enemy {
 		hsight = 36;
 		
 		health = maxHealth = (6) + (6 * level);
-		damage = (4) + (6 * level);
+		damage = (4) + (4 * level);
 		
 		exp = (20);
 		
@@ -115,7 +115,7 @@ public class Mage extends Enemy {
 			dx = 0;
 			if(attackCd == 0) {
 				attacking = true;
-				attackCd = 180;
+				attackCd = 150;
 				left = false;
 				right = false;
 				// orb attack

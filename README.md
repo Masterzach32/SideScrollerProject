@@ -1,4 +1,4 @@
-# SideScrollerProject- Alpha Build 0.1.5.219
+# SideScrollerProject- Alpha Build 0.1.6.220
 
 The SideScroller Project is an open source solution for people wanting to create an open source SideScrolling / RPG game. If you want to use my code, your code must be open source too. Thanks!
 
@@ -13,18 +13,9 @@ You need Java 8 to compile and run this!
 
 --
 
-All changes that will be in v0.1.5 Alpha - Mob Update:
-- Text can be properly centered
-- Progress bar in loading screen
-- Player can now rewind
-- New debug mode (for testing only, may be removed)
-- All targeting now uses hitbox to hitbox rather than center to center
-- Rewrote level system
-- 2 new mobs - Swordman and Mage
-- Game can now self update
-- Universal Health bar system
-- Stem Packs
-- Effects
+All changes that will be in v0.1.6 Alpha:
+- Mage deals less damage but attacks slightly faster
+- Swordman deals slightly more damage and attacks slightly faster
 
 ### Bugs:
 - Sometimes sluggers spawn traveling left

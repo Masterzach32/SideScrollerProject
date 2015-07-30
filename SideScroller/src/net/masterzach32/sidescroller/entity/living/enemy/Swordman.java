@@ -43,7 +43,7 @@ public class Swordman extends Enemy {
 		hsight = 36;
 		
 		health = maxHealth = (8) + (8*level);
-		damage = (2) + (4*level);
+		damage = (3) + (5*level);
 		
 		exp = (15);
 		
@@ -113,7 +113,7 @@ public class Swordman extends Enemy {
 			dx = 0;
 			if(attackCd == 0) {
 				attacking = true;
-				attackCd = 120;
+				attackCd = 90;
 				left = false;
 				right = false;
 			}

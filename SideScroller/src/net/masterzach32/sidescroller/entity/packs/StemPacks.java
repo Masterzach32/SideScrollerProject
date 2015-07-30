@@ -1,5 +1,9 @@
 package net.masterzach32.sidescroller.entity.packs;
 
+import java.awt.image.BufferedImage;
+
+import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.EntityPlayer;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
@@ -29,6 +33,19 @@ public class StemPacks extends MapObject {
 		
 		this.strength = strength;
 		this.type = type;
+		
+		// load sprites
+		try {
+			BufferedImage spritesheet = Assets.getImageAsset("pack_" + type);
+			
+			sprites = new BufferedImage[1];
+			sprites[0] = spritesheet;
+			
+			animation = new Animation();
+			animation.setFrames(sprites);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 		player = LevelState.getPlayer();
 	}

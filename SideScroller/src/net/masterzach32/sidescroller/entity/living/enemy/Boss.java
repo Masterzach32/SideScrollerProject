@@ -40,7 +40,7 @@ public class Boss extends Enemy {
 		hsight = 160;
 		
 		health = maxHealth = (250) + (75*level);
-		damage = (10) + (5*level);
+		damage = (5) + (5*level);
 		attackRange = 50;
 		
 		exp = 0;

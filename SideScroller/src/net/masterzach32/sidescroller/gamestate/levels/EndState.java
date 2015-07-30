@@ -1,5 +1,6 @@
 package net.masterzach32.sidescroller.gamestate.levels;
 
+import java.awt.Font;
 import java.awt.Graphics2D;
 
 import net.masterzach32.sidescroller.assets.Assets;
@@ -43,6 +44,8 @@ public class EndState extends GameState {
 
 	@Override
 	public void render(Graphics2D g) {
+		Font f = new Font("Arial", Font.PLAIN, 12);
+		g.setFont(f);
 		bg.render(g);
 		Utilities.drawCenteredString(g, "Game Completed! Press any key to exit", 180);
 	}
