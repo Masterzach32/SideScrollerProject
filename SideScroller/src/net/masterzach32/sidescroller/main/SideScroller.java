@@ -31,7 +31,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String VERSION = "0.1.5.216";
+	public static final String TYPE = "Pre-Release", VERSION = "0.1.5.217";
 	public static final boolean isUpdateEnabled = true;
 	
 	// game thread
@@ -93,12 +93,12 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch") + " - " + System.getProperty("sun.arch.data.model"));
 		LogHelper.logInfo("Java Version: " + System.getProperty("java.version") + " distributed by " + System.getProperty("java.vendor"));
 		
-		LogHelper.logInfo("Starting pre-initialzation.");
-		Assets.preinit();
-		
 		LogHelper.logInfo("Loading Java Graphics");
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
+		
+		LogHelper.logInfo("Starting pre-initialzation.");
+		Assets.preinit();
 		
 		LogHelper.logInfo("Creating Window");
 		Game.getFrame().setVisible(true);
@@ -201,6 +201,11 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public void render() {
 		if(GameState.getState() != null)
 			GameState.getState().render(g);
+		Font f = new Font("Arial", Font.PLAIN, 9);
+		g.setFont(f);
+		g.setColor(Color.LIGHT_GRAY);
+		g.drawString("SideScroller Project " + TYPE + " Build " + VERSION, 437, 8);
+		g.setColor(Color.WHITE);
 		renderToScreen();
 	}
 	

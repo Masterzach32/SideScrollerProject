@@ -16,7 +16,7 @@ public class Game {
 	private static Console console;
 	
 	public static void main(String[] args) {
-		System.out.println("Launching SideScroller Project - Build " + SideScroller.VERSION);
+		System.out.println("Launching SideScroller Project - " + SideScroller.TYPE + " Build " + SideScroller.VERSION);
 		System.out.println("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")");
 		System.out.println("OS Archetecture: " + System.getProperty("os.arch"));
 		System.out.println("Java Version: " + System.getProperty("java.version"));
@@ -25,7 +25,7 @@ public class Game {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		window = new JFrame("SideScrollerProject Beta Build " + SideScroller.VERSION);
+		window = new JFrame("SideScroller Project " + SideScroller.TYPE + " Build " + SideScroller.VERSION);
 		resizeGameFrame(false);
 		window.setContentPane(new SideScroller());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

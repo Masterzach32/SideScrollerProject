@@ -37,6 +37,8 @@ public class LoadingState extends GameState {
 	public void tick() {}
 
 	public void render(Graphics2D g) {
+		Font f = new Font("Arial", Font.PLAIN, 12);
+		g.setFont(f);
 		g.drawImage(Assets.getImageAsset("zaunbg"), 0, 0, SideScroller.WIDTH, SideScroller.HEIGHT, null);
 		g.setColor(Color.WHITE);
 		g.drawString(text, 10, 17);

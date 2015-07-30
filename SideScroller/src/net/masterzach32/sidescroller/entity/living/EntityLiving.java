@@ -37,8 +37,8 @@ public class EntityLiving extends MapObject {
 		return maxShield;
 	}
 	
-	public void setHealth(float h) {
-		health = h;
+	public void setHealth(float health) {
+		this.health = health;
 	}
 	
 	public void heal(float health) {
