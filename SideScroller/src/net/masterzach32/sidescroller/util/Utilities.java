@@ -186,12 +186,14 @@ public class Utilities {
 	}
 	
 	/**
-	 * Checks to see if their is a newer version of the game available, and provides the link to download it in the console.
+	 * Checks to see if their is a newer version of the game available, and provides the link to download it in the console.<br>
+	 * This method does not return if the user runs the updated build
+	 * @return true if update succeded, false otherwise
 	 */
-	public static void checkForUpdates() {
+	public static boolean checkForUpdates() {
 		if(!SideScroller.isUpdateEnabled) {
 			LogHelper.logInfo("Updates are disabled. This is probably because you are running a beta or nightly build.");
-			return;
+			return false;
 		}
 		LogHelper.logInfo("Checking for updates");
 		Path p = FileSystems.getDefault().getPath("latest.txt");
@@ -199,7 +201,7 @@ public class Utilities {
 		
 		if(s == null || s[0] == null) {
 			LogHelper.logInfo("Error while checking for updates: Could not read server update file.");
-		} else if(s[0] != SideScroller.getGame().getLocalVersion()) {
+		} else if(!s[0].equals(SideScroller.getGame().getLocalVersion())) {
 			LogHelper.logInfo("An update is available, you have build " + SideScroller.getGame().getLocalVersion() + ", Server build is " + s[0]);
 			LogHelper.logInfo("You can download the update here: " + SideScroller.getGame().getUpdateURL());
 			LogHelper.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
@@ -229,14 +231,15 @@ public class Utilities {
 							e.printStackTrace();
 						}
 					}
-					else if(result2 == JOptionPane.NO_OPTION) return;
+					else if(result2 == JOptionPane.NO_OPTION) return true;
 				}
 			} else {
-				return;
+				return false;
 			}
 		} else {
-			LogHelper.logInfo("No update is available.");
+			LogHelper.logInfo("No update is available");
 		}
+		return false;
 	}
 	
 	/**
