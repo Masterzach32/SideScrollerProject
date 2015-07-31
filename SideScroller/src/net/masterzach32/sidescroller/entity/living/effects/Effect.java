@@ -2,7 +2,11 @@ package net.masterzach32.sidescroller.entity.living.effects;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
+import net.masterzach32.sidescroller.assets.Assets;
+import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.living.EntityLiving;
 import net.masterzach32.sidescroller.main.SideScroller;
 
@@ -19,6 +23,11 @@ public class Effect {
 	public static final int HEALTHREGEN   = 3;
 	public static final int POISION       = 4;
 	public static final int WITHER        = 5;
+	public static final int FIRE          = 6;
+	private final int[] numFrames = {3, 3, 3, 3, 3, 3, 3};
+	
+	private ArrayList<BufferedImage[]> sprites;
+	private Animation animation;
 	
 	/**
 	 * Creates a new effect on the entity
@@ -34,22 +43,50 @@ public class Effect {
 		this.entity = target;
 		this.source = source;
 		this.addToEntity();
+		
+		// load sprites
+		try {
+			BufferedImage spritesheet = Assets.getImageAsset("effects");
+			
+			sprites = new ArrayList<BufferedImage[]>();
+			for(int i = 0; i < numFrames.length; i++) {
+				BufferedImage[] bi = new BufferedImage[numFrames[i]];
+				for(int j = 0; j < numFrames[i]; j++) {
+					bi[j] = spritesheet.getSubimage(j * 30, i * 30, 30, 30);
+				}
+				sprites.add(bi);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		animation = new Animation();/*
+		if(this.type == ATTACK) animation.setFrames(sprites.get(ATTACK));
+		if(this.type == SPEED) animation.setFrames(sprites.get(SPEED));
+		if(this.type == HEALTHREGEN) animation.setFrames(sprites.get(HEALTHREGEN));
+		if(this.type == POISION) animation.setFrames(sprites.get(POISION));
+		if(this.type == WITHER) animation.setFrames(sprites.get(WITHER));
+		if(this.type == FIRE) animation.setFrames(sprites.get(FIRE));*/
+		animation.setDelay(40);
 	}
 	
 	private void addToEntity() {
 		if(this.type == ATTACK) entity.damage += 2 * strength;
-		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() + 0.4 * strength);
+		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() + 0.2 * strength);
 		if(this.type == HEALTHREGEN) return;
 		if(this.type == POISION) return;
 		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() - 0.25 * strength);
+		if(this.type == FIRE) return;
 	}
 	
 	private void removeFromEntity() {
 		if(this.type == ATTACK) entity.damage -= 2 * strength;
-		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() - 0.4 * strength);
+		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() - 0.2 * strength);
 		if(this.type == HEALTHREGEN) return;
 		if(this.type == POISION) return;
-		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() + 0.25 * strength);;
+		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() + 0.25 * strength);
+		if(this.type == FIRE) return;
 	}
 	
 	public void tick() {
@@ -58,22 +95,26 @@ public class Effect {
 			removeFromEntity();
 			remove = true;
 		}
-		
 		if(this.type == ATTACK) return;
 		if(this.type == SPEED) return;
 		if(this.type == HEALTHREGEN) entity.heal((float) (0.0005 * strength));
-		if(this.type == POISION) entity.hit((float) (0.3 * strength), "Poision", source);
-		if(this.type == WITHER) entity.hit((float) (0.15 * strength), "Wither", source);
+		if(this.type == POISION) entity.hit((float) (0.4 * strength), "Poision", source);
+		if(this.type == WITHER) entity.hit((float) (0.2 * strength), "Wither", source);
+		if(this.type == FIRE) entity.hit((float) (0.3 * strength), "Fire", source);
+		//animation.tick();
 	}
 	
 	public void render(Graphics2D g, int x, int y, int space) {
+		// render status HUD
 		g.setColor(Color.WHITE);
-		if(this.type == ATTACK) g.setColor(Color.ORANGE);
+		if(this.type == ATTACK) g.setColor(Color.RED);
 		if(this.type == SPEED) g.setColor(Color.GREEN);
 		if(this.type == HEALTHREGEN) g.setColor(Color.PINK);
 		if(this.type == POISION) g.setColor(new Color(0, 200, 0));
 		if(this.type == WITHER) g.setColor(Color.BLACK);
+		if(this.type == FIRE) g.setColor(Color.ORANGE);
 		g.fillRect(x + (5 * space), y - 5, 4, 4);
+		//animation.render(g, x, y, 30, 30);
 	}
 	
 	public boolean shouldRemove() {

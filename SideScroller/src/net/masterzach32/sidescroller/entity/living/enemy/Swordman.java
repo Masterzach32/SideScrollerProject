@@ -28,7 +28,7 @@ public class Swordman extends Enemy {
 	private static final int IDLE = 0, WALKING = 1, ORB = 5, SCRATCHING = 6;
 
 	public Swordman(TileMap tm, int level) {
-		super(tm);
+		super(tm, level);
 		moveSpeed = 0.3;
 		setMaxSpeed(1.1);
 		fallSpeed = 0.2;

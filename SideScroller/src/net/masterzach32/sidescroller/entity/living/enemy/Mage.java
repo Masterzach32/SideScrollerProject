@@ -31,7 +31,7 @@ public class Mage extends Enemy {
 	private static final int IDLE = 0, WALKING = 1, ORB = 5, SCRATCHING = 6;
 
 	public Mage(TileMap tm, int level) {
-		super(tm);
+		super(tm, level);
 		moveSpeed = 0.4;
 		setMaxSpeed(0.8);
 		fallSpeed = 0.2;

@@ -99,7 +99,7 @@ public class EntityPlayer extends EntityLiving {
 		
 		dead = false;
 		
-		healthBar = new HealthBar(this, 30, 5, new Color(0, 170, 0));
+		healthBar = new HealthBar(this, 30, 4, new Color(0, 170, 0));
 		
 		// load sprites
 		try {
@@ -209,6 +209,8 @@ public class EntityPlayer extends EntityLiving {
 	 * @param enemies
 	 */
 	public void checkAttack(ArrayList<Enemy> enemies) {
+		scratchDamage = (int)(10 + damage * 0.9);
+		orbDamage = (int)(4 + damage * 1.0);
 		// loop through enemies
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
@@ -580,7 +582,5 @@ public class EntityPlayer extends EntityLiving {
 			maxShield += 3;
 			shieldRegen = (float) (maxShield * 0.004);
 		}
-		scratchDamage = (int)(10 + damage * 0.9);
-		orbDamage = (int)(4 + damage * 1.0);
 	}
 }

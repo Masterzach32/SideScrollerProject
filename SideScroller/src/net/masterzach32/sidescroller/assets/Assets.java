@@ -44,6 +44,8 @@ public class Assets {
 		images.put("pack_" + StemPacks.ATTACK, SideScroller.al.loadImage("/sprites/packs/damage_pack.png"));
 		images.put("pack_" + StemPacks.SPEED, SideScroller.al.loadImage("/sprites/packs/speed_pack.png"));
 		images.put("pack_" + StemPacks.HEALTHREGEN, SideScroller.al.loadImage("/sprites/packs/regen_pack.png"));
+		// Effects Animations
+		images.put("effects", SideScroller.al.loadImage("/sprites/particles/regen_pack.png"));
 		// Spawn Animation
 		images.put("spawn_animation", SideScroller.al.loadImage("/sprites/player/spawn_animation_base.png"));
 		images.put("spawn_animation_p", SideScroller.al.loadImage("/sprites/player/spawn_animation_placeholder.png"));

@@ -66,13 +66,13 @@ public class HealthBar {
 		
 		// health bar
 		g.setColor(border);
-		g.drawRect((int) (x - owidth / 2), (int) (y - oheight / 2), (int) width, height);
+		g.drawRect((int) (x - width / 2), (int) (y - oheight / 2), (int) width, height);
 		g.setColor(damageBar);
-		g.fillRect((int) (x - owidth / 2) + 1, (int) (y - oheight / 2) + 1, (int) dhlength - 1, height - 1);
+		g.fillRect((int) (x - width / 2) + 1, (int) (y - oheight / 2) + 1, (int) dhlength - 1, height - 1);
 		g.setColor(healthBar);
-		g.fillRect((int) (x - owidth / 2) + 1, (int) (y - oheight / 2) + 1, (int) hlength - 1, height - 1);
+		g.fillRect((int) (x - width / 2) + 1, (int) (y - oheight / 2) + 1, (int) hlength - 1, height - 1);
 		g.setColor(shieldBar);
-		g.fillRect((int) (x - owidth / 2 + hlength), (int) (y - oheight / 2) + 1, (int) slength, height - 1);
+		g.fillRect((int) (x - width / 2 + hlength), (int) (y - oheight / 2) + 1, (int) slength, height - 1);
 		
 		// render effects HUD
 		for(int i = 0; i < e.effects.size(); i++) {

@@ -15,7 +15,7 @@ public class Slugger extends Enemy {
 	private BufferedImage[] sprites;
 
 	public Slugger(TileMap tm, int level) {
-		super(tm);
+		super(tm, level);
 		
 		moveSpeed = 0.3;
 		setMaxSpeed(0.3);

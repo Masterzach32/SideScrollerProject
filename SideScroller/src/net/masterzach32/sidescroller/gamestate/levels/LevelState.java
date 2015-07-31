@@ -156,14 +156,14 @@ public abstract class LevelState extends GameState {
 			stemPacks.get(i).render(g);
 		}
 		
-		// draw player
-		renderSpawnAnimation(g);
-		if(i >= spawnTimer) player.render(g);
-		
 		// draw enemies
 		for(int i = 0; i < enemies.size(); i++) {
 			enemies.get(i).render(g);
 		}
+		
+		// draw player
+		renderSpawnAnimation(g);
+		if(i >= spawnTimer) player.render(g);
 		
 		// draw explosions
 		for(int i = 0; i < explosions.size(); i++) {

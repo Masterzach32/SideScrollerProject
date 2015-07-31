@@ -13,6 +13,7 @@ import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.EntityPlayer;
 import net.masterzach32.sidescroller.entity.living.HealthBar;
+import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 public class Boss extends Enemy {
@@ -22,10 +23,12 @@ public class Boss extends Enemy {
 	private int attackRange;
 	private int attack;
 	
+	private boolean hit = false;
+	
 	private Random r = new Random();
 
 	public Boss(TileMap tm, int level) {
-		super(tm);
+		super(tm, level);
 		moveSpeed = 0.2;
 		setMaxSpeed(0.3);
 		fallSpeed = 0.2;
@@ -40,7 +43,7 @@ public class Boss extends Enemy {
 		hsight = 160;
 		
 		health = maxHealth = (250) + (75*level);
-		damage = (5) + (5*level);
+		damage = (3) + (5*level);
 		attackRange = 50;
 		
 		exp = 0;
@@ -48,7 +51,7 @@ public class Boss extends Enemy {
 		armor = -40;
 		damageMultiplier = (double) (100) / (100 + armor);
 		
-		healthBar = new HealthBar(this, 30, 6, new Color(255, 0, 0));
+		healthBar = new HealthBar(this, 60, 6, new Color(255, 0, 0));
 		
 		// load sprites
 			
@@ -80,16 +83,20 @@ public class Boss extends Enemy {
 	 * @param enemies
 	 */
 	public void checkAttack() {
+		if(hit) return;
 		EntityPlayer p = LevelState.getPlayer();
 		// scratch attack
 		if(facingRight) {
 			if(p.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				p.hit(damage, "Scratch", this);
+				hit = p.hit(damage, "Scratch", this);
 			}
 		} else {
 			if(p.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				p.hit(damage, "Scratch", this);
+				hit = p.hit(damage, "Scratch", this);
 			}
+		}
+		if(hit) {
+			p.addEffect(this, Effect.WITHER, 3 * level, 3);
 		}
 	}
 	
@@ -130,9 +137,8 @@ public class Boss extends Enemy {
 		else if(attack <= 150) {
 			dx = 0;
 			dy = 0;
-			
 		}
-		// attack (151 - 180)
+		// attack (151 - 160)
 		else if(attack <= 160) {
 			checkAttack();
 		}
@@ -140,6 +146,7 @@ public class Boss extends Enemy {
 		else if(attack <= 270) {
 			
 		} else {
+			hit = false;
 			attack = 0;
 		}
 	}

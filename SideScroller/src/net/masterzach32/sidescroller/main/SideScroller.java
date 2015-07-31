@@ -31,7 +31,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Alpha", VERSION = "0.1.6.220";
+	public static final String TYPE = "Alpha", VERSION = "0.1.6.221";
 	public static final boolean isUpdateEnabled = false;
 	
 	// game thread
@@ -208,7 +208,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		FontMetrics fontMetrics = g.getFontMetrics();
 		g.setColor(Color.LIGHT_GRAY);
 		String s = new String("SideScroller Project " + TYPE + " Build " + VERSION);
-		g.drawString(s, WIDTH - fontMetrics.stringWidth(s) - 4, 8);
+		g.drawString(s, WIDTH - fontMetrics.stringWidth(s) - 2, 8);
 		g.setColor(Color.WHITE);
 		renderToScreen();
 	}

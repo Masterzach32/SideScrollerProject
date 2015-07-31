@@ -9,6 +9,7 @@ import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class Enemy extends EntityLiving {
 	
+	protected int level;
 	protected boolean dead;
 	protected int damage;
 	protected int armor; 
@@ -21,8 +22,9 @@ public class Enemy extends EntityLiving {
 	
 	protected ArrayList<Explosion> explosions;
 	
-	public Enemy(TileMap tm) {
+	public Enemy(TileMap tm, int level) {
 		super(tm);
+		this.level = level;
 	}
 	
 	public boolean isDead() {
