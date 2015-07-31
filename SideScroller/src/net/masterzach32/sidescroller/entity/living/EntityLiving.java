@@ -9,9 +9,9 @@ import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class EntityLiving extends MapObject {
 	
-	public float health, maxHealth, shield = 0, maxShield = 0;
-	public float healthRegen;
-	public float shieldRegen;
+	public double health, maxHealth, shield = 0, maxShield = 0;
+	public double healthRegen;
+	public double shieldRegen;
 	public int exp, damage;
 	
 	public int level;
@@ -30,32 +30,32 @@ public class EntityLiving extends MapObject {
 		effects = new ArrayList<Effect>();
 	}
 
-	public float getHealth() { 
+	public double getHealth() { 
 		return health; 
 	}
 	
-	public float getMaxHealth() {
+	public double getMaxHealth() {
 		return maxHealth; 
 	}
 	
-	public float getShield() {
+	public double getShield() {
 		return shield;
 	}
 	
-	public float getMaxShield() {
+	public double getMaxShield() {
 		return maxShield;
 	}
 	
-	public void setHealth(float health) {
+	public void setHealth(double health) {
 		this.health = health;
 	}
 	
-	public void heal(float health) {
+	public void heal(double health) {
 		this.setHealth(this.getHealth() + health);
 		if(this.getHealth() > this.getMaxHealth()) this.setHealth(this.getMaxHealth());
 	}
 
-	public boolean hit(float damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
+	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
 		if(!ignoreFlinching) {
 			if(flinching) return false;
 			flinching = true;
@@ -65,7 +65,7 @@ public class EntityLiving extends MapObject {
 			health -= damage;
 			if(health < 0) health = 0;
 		} else {
-			float s = shield;
+			double s = shield;
 			shield -= damage;
 			if(shield < 0) shield = 0;
 			damage -= (s - shield);
@@ -84,7 +84,7 @@ public class EntityLiving extends MapObject {
 	 * @param strength
 	 * @param duration
 	 */
-	public void addEffect(EntityLiving source, int type, int strength, int duration) {
+	public void addEffect(EntityLiving source, int type, double strength, double duration) {
 		Effect e = new Effect(this, source, type, strength, duration);
 		effects.add(e);
 	}

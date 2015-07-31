@@ -22,7 +22,7 @@ public class LoadingState extends GameState {
 	
 	private static String text = null;
 	
-	private static float percent = 0;
+	private static double percent = 0;
 
 	public LoadingState(SideScroller game) {
 		super(game);
@@ -47,7 +47,7 @@ public class LoadingState extends GameState {
 		g.fillRect(((Game.getFrame().getWidth() / 4) - (200)) + 1, 300 + 1, (int) (percent * 4) - 1, 20 - 1);
 	}
 	
-	public static void setInfo(String s, float i) {
+	public static void setInfo(String s, double i) {
 		text = s;
 		percent = i;
 		SideScroller.getGame().render();

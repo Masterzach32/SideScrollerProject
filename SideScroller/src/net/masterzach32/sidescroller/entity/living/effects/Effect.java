@@ -12,7 +12,8 @@ import net.masterzach32.sidescroller.main.SideScroller;
 
 public class Effect {
 	
-	private int type, strength, timer, delay, delayTimer;
+	private int type, delay, delayTimer;
+	private double strength, timer;
 	private EntityLiving entity, source;
 	
 	private boolean remove;
@@ -36,7 +37,7 @@ public class Effect {
 	 * @param strength
 	 * @param duration in seconds
 	 */
-	public Effect(EntityLiving target, EntityLiving source, int type, int strength, int duration) {
+	public Effect(EntityLiving target, EntityLiving source, int type, double strength, double duration) {
 		this.type = type;
 		this.strength = strength;
 		this.timer = duration * SideScroller.FPS;
@@ -78,7 +79,7 @@ public class Effect {
 		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() + 0.2 * strength);
 		if(this.type == HEALTHREGEN) return;
 		if(this.type == POISION) return;
-		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() - 0.05 * strength);
+		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() - 0.07 * strength);
 		if(this.type == FIRE) return;
 	}
 	
@@ -87,7 +88,7 @@ public class Effect {
 		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() - 0.2 * strength);
 		if(this.type == HEALTHREGEN) return;
 		if(this.type == POISION) return;
-		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() + 0.05 * strength);
+		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() + 0.07 * strength);
 		if(this.type == FIRE) return;
 	}
 	
@@ -112,7 +113,7 @@ public class Effect {
 			if(this.type == SPEED) return;
 			if(this.type == HEALTHREGEN) entity.heal((float) (0.0005 * strength));
 			if(this.type == POISION) entity.hit((float) ((0.2 * strength) + (0.06 * (entity.getMaxHealth() - entity.getHealth()))), false, true, "Poision", source);
-			if(this.type == WITHER) entity.hit((float) (0.3 * strength), false, true, "Wither", source);
+			if(this.type == WITHER) entity.hit((float) (0.4 * strength), false, true, "Wither", source);
 			if(this.type == FIRE) entity.hit((float) ((0.04 + 0.02 * strength) * entity.getHealth()), false, true, "Fire", source);
 			delayTimer = 0;
 		}

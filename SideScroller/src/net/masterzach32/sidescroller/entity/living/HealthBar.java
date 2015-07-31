@@ -8,8 +8,8 @@ import java.awt.Point;
 public class HealthBar {
 	
 	private EntityLiving entity;
-	private float health, maxHealth, hlength, length, shield = 0, maxShield = 0, slength;
-	private float dhlength;
+	private double health, maxHealth, hlength, length, shield = 0, maxShield = 0, slength;
+	private double dhlength;
 	private int width, height, owidth, oheight;
 	
 	private Color healthBar, damageBar = new Color(200, 0, 0), border = Color.GRAY, shieldBar = Color.BLUE;
@@ -38,11 +38,11 @@ public class HealthBar {
 		shield = entity.shield;
 		maxShield = entity.maxShield;
 		
-		float maxTotal;
+		double maxTotal;
 		if(health + shield < maxHealth) maxTotal = maxHealth;
 		else maxTotal = maxHealth + (health + shield - maxHealth);
-		float healthPercent = health / maxTotal;
-		float shieldPercent = shield / maxTotal;
+		double healthPercent = health / maxTotal;
+		double shieldPercent = shield / maxTotal;
 			
 		hlength = healthPercent * width;
 		slength = shieldPercent * width;
@@ -51,7 +51,7 @@ public class HealthBar {
 		//if(shield > 0) slength += 1;
 			
 		// damage bar
-		if(length >= dhlength) dhlength = (float) (length - 1);
+		if(length >= dhlength) dhlength = (double) (length - 1);
 		if(length < dhlength) dhlength -= .7;
 	}
 	
@@ -62,7 +62,7 @@ public class HealthBar {
 		int x = p.x;
 		int y = p.y;
 		
-		// FIXME: Fix render bugs - float to int rounding differences.
+		// FIXME: Fix render bugs - double to int rounding differences.
 		
 		// health bar
 		g.setColor(border);

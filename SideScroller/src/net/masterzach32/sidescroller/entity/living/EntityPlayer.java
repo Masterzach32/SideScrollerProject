@@ -22,8 +22,8 @@ public class EntityPlayer extends EntityLiving {
 	// player stuff
 	private boolean inCombat;
 	private int combatTimer;
-	private float exp;
-	private float maxExp;
+	private double exp;
+	private double maxExp;
 	private int level;
 	private int orbCurrentCd;
 	private int orbCd;
@@ -78,10 +78,10 @@ public class EntityPlayer extends EntityLiving {
 		
 		facingRight = true;
 		
-		health = maxHealth = 14;
-		healthRegen = (float) (maxHealth * 0.0001);
-		shield = maxShield = 6;
-		shieldRegen = (float)  (maxShield * 0.004);
+		health = maxHealth = 21;
+		healthRegen = (double) (maxHealth * 0.0001);
+		shield = maxShield = 9;
+		shieldRegen = (double)  (maxShield * 0.004);
 		level = 1;
 		maxExp = 100;
 		rewindCd = 300;
@@ -137,19 +137,19 @@ public class EntityPlayer extends EntityLiving {
 		return inCombat;
 	}
 	
-	public float getExp() {
+	public double getExp() {
 		return exp;
 	}
 
-	public void setExp(float exp) {
+	public void setExp(double exp) {
 		this.exp = exp;
 	}
 
-	public float getMaxExp() {
+	public double getMaxExp() {
 		return maxExp;
 	}
 
-	public void setMaxExp(float maxExp) {
+	public void setMaxExp(double maxExp) {
 		this.maxExp = maxExp;
 	}
 
@@ -210,7 +210,7 @@ public class EntityPlayer extends EntityLiving {
 	 */
 	public void checkAttack(ArrayList<Enemy> enemies) {
 		scratchDamage = (int)(10 + damage * 0.9);
-		orbDamage = (int)(4 + damage * 1.0);
+		orbDamage = (int)(4 + damage * 1.2);
 		// loop through enemies
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
@@ -236,7 +236,7 @@ public class EntityPlayer extends EntityLiving {
 					orbs.get(j).addToHitList(e);
 					combatTimer = 300;
 					e.hit(orbDamage, false, false, "Orb", this);
-					//e.addEffect(this, Effect.FIRE, 2 * level, 4);
+					e.addEffect(this, Effect.FIRE, 2 * level, 4);
 				}
 			}
 						
@@ -264,7 +264,7 @@ public class EntityPlayer extends EntityLiving {
 	 * @param source (should always be <code>this</code>)
 	 * @return true if attack succeeded
 	 */
-	public boolean hit(float damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
+	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
 		if(!ignoreFlinching) {
 			if(flinching) return false;
 			flinching = true;
@@ -274,7 +274,7 @@ public class EntityPlayer extends EntityLiving {
 			health -= damage;
 			if(health < 0) health = 0;
 		} else {
-			float s = shield;
+			double s = shield;
 			shield -= damage;
 			if(shield < 0) shield = 0;
 			damage -= (s - shield);
@@ -594,9 +594,9 @@ public class EntityPlayer extends EntityLiving {
 			orbCd -= 15;
 			maxHealth += 7;
 			health += 7;
-			healthRegen = (float) (maxHealth * 0.0001);
+			healthRegen = (double) (maxHealth * 0.0001);
 			maxShield += 3;
-			shieldRegen = (float) (maxShield * 0.004);
+			shieldRegen = (double) (maxShield * 0.004);
 		}
 	}
 }

@@ -15,7 +15,7 @@ public class HUD {
 	private BufferedImage image;
 	private Font font;
 	
-	private float dhlength = 51;
+	private double dhlength = 51;
 	
 	public HUD(EntityPlayer p) {
 		player = p;
@@ -32,19 +32,19 @@ public class HUD {
 	public void render(Graphics2D g) {
 		g.drawImage(image, 0, 15, null);
 		
-		float health = player.getHealth();
-		float maxHealth = player.getMaxHealth();
-		float shield = player.getShield();
+		double health = player.getHealth();
+		double maxHealth = player.getMaxHealth();
+		double shield = player.getShield();
 		
-		float maxTotal;
+		double maxTotal;
 		if(health + shield < maxHealth) maxTotal = maxHealth;
 		else maxTotal = maxHealth + (health + shield - maxHealth);
-		float healthPercent = health / maxTotal;
-		float shieldPercent = shield / maxTotal;
+		double healthPercent = health / maxTotal;
+		double shieldPercent = shield / maxTotal;
 			
-		float hlength = healthPercent * 51;
-		float slength = shieldPercent * 51;
-		float length = hlength + slength;
+		double hlength = healthPercent * 51;
+		double slength = shieldPercent * 51;
+		double length = hlength + slength;
 		
 		//if(h1 >= b0) b0 = h1;
 		//if(h1 < b0) b0 -= .7;
@@ -52,7 +52,7 @@ public class HUD {
 		//if(m1 < b1) b1 -= .7;
 		
 		// damage bar
-		if(length >= dhlength) dhlength = (float) (length - 1);
+		if(length >= dhlength) dhlength = (double) (length - 1);
 		if(length < dhlength) dhlength -= .7;
 		
 		// health bar

@@ -42,18 +42,18 @@ public class Enemy extends EntityLiving {
 		return exp;
 	}
 	
-	public boolean hit(float damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
+	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
 		if(!ignoreFlinching) {
 			if(flinching) return false;
 			flinching = true;
 			flinchTimer = System.nanoTime();
 		}
-		damage = (float) (damage * damageMultiplier);
+		damage = (double) (damage * damageMultiplier);
 		if(ignoreShield || shield == 0) {
 			health -= damage;
 			if(health < 0) health = 0;
 		} else {
-			float s = shield;
+			double s = shield;
 			shield -= damage;
 			if(shield < 0) shield = 0;
 			damage -= (s - shield);

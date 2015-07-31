@@ -126,13 +126,13 @@ public class Utilities {
 			URL path = new URL(site);
 			HttpURLConnection connection = (HttpURLConnection) path.openConnection();
 			int filesize = connection.getContentLength();
-			float totalDataRead = 0;
+			double totalDataRead = 0;
 			BufferedInputStream in = new BufferedInputStream(connection.getInputStream());
 			FileOutputStream fos = new FileOutputStream(filename);
 			BufferedOutputStream bout = new BufferedOutputStream(fos, 1024);
 			byte[] data = new byte[1024];
 			int i = 0;
-			float percent = 0;
+			double percent = 0;
 			long l = System.nanoTime();
 			while((i = in.read(data, 0, 1024)) >= 0) {
 				totalDataRead = totalDataRead + i;
