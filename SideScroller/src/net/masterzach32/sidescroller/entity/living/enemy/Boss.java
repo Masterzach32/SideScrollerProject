@@ -88,15 +88,15 @@ public class Boss extends Enemy {
 		// scratch attack
 		if(facingRight) {
 			if(p.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				hit = p.hit(damage, false, "Scratch", this);
+				hit = p.hit(damage, false, false, "Scratch", this);
 			}
 		} else {
 			if(p.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				hit = p.hit(damage, false, "Scratch", this);
+				hit = p.hit(damage, false, false, "Scratch", this);
 			}
 		}
 		if(hit) {
-			p.addEffect(this, Effect.POISION, 3 * level, 3);
+			p.addEffect(this, Effect.WITHER, 3 * level, 3);
 		}
 	}
 	

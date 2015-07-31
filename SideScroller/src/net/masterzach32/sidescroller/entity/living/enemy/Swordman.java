@@ -97,11 +97,11 @@ public class Swordman extends Enemy {
 		// scratch attack
 		if(facingRight) {
 			if(p.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				p.hit(damage, false, "Scratch", this);
+				p.hit(damage, false, false, "Scratch", this);
 			}
 		} else {
 			if(p.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				p.hit(damage, false, "Scratch", this);
+				p.hit(damage, false, false, "Scratch", this);
 			}
 		}
 	}

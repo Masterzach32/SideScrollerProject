@@ -69,6 +69,10 @@ public class FireBall extends Projectile {
 		dy = 0;
 	}
 	
+	public boolean isHit() {
+		return hit;
+	}
+	
 	/**
 	 * Should this be removed?
 	 * @return

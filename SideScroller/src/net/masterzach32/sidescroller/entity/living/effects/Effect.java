@@ -12,7 +12,7 @@ import net.masterzach32.sidescroller.main.SideScroller;
 
 public class Effect {
 	
-	private int type, strength, timer;
+	private int type, strength, timer, delay, delayTimer;
 	private EntityLiving entity, source;
 	
 	private boolean remove;
@@ -42,6 +42,8 @@ public class Effect {
 		this.timer = duration * SideScroller.FPS;
 		this.entity = target;
 		this.source = source;
+		delay = 30;
+		delayTimer = 0;
 		this.addToEntity();
 		
 		// load sprites
@@ -89,18 +91,31 @@ public class Effect {
 		if(this.type == FIRE) return;
 	}
 	
+	/**
+	 * Sets the delay between hits on dots, Default is 30 ticks
+	 */
+	public void setDelay(int delay) {
+		this.delay = delay;
+	}
+	
 	public void tick() {
 		if(timer > 0) timer--;
 		if(timer == 0) {
 			removeFromEntity();
 			remove = true;
 		}
-		if(this.type == ATTACK) return;
-		if(this.type == SPEED) return;
-		if(this.type == HEALTHREGEN) entity.heal((float) (0.0005 * strength));
-		if(this.type == POISION) entity.hit((float) ((0.2 * strength) + (0.06 * (entity.getMaxHealth() - entity.getHealth()))), false, "Poision", source);
-		if(this.type == WITHER) entity.hit((float) (0.3 * strength), false, "Wither", source);
-		if(this.type == FIRE) entity.hit((float) ((0.04 + 0.02 * strength) * entity.getHealth()), false, "Fire", source);
+		if(delayTimer < delay) {
+			delayTimer++;
+			return;
+		} else if(delayTimer == delay) {
+			if(this.type == ATTACK) return;
+			if(this.type == SPEED) return;
+			if(this.type == HEALTHREGEN) entity.heal((float) (0.0005 * strength));
+			if(this.type == POISION) entity.hit((float) ((0.2 * strength) + (0.06 * (entity.getMaxHealth() - entity.getHealth()))), false, true, "Poision", source);
+			if(this.type == WITHER) entity.hit((float) (0.3 * strength), false, true, "Wither", source);
+			if(this.type == FIRE) entity.hit((float) ((0.04 + 0.02 * strength) * entity.getHealth()), false, true, "Fire", source);
+			delayTimer = 0;
+		}
 		//animation.tick();
 	}
 	

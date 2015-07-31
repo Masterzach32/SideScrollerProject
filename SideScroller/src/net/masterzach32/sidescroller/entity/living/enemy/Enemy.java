@@ -42,9 +42,12 @@ public class Enemy extends EntityLiving {
 		return exp;
 	}
 	
-	public boolean hit(float damage, boolean ignoreShield, String type, MapObject source) {
-		if(flinching) return false;
-		explosions.add(new Explosion(this.getx(), this.gety()));
+	public boolean hit(float damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
+		if(!ignoreFlinching) {
+			if(flinching) return false;
+			flinching = true;
+			flinchTimer = System.nanoTime();
+		}
 		damage = (float) (damage * damageMultiplier);
 		if(ignoreShield || shield == 0) {
 			health -= damage;
@@ -56,10 +59,9 @@ public class Enemy extends EntityLiving {
 			damage -= (s - shield);
 			health -= damage;
 		}
+		explosions.add(new Explosion(this.getx(), this.gety()));
 		if(health < 0) health = 0;
 		if(health == 0) this.setDead(source);
-		flinching = true;
-		flinchTimer = System.nanoTime();
 		return true;
 		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}

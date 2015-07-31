@@ -219,12 +219,12 @@ public class EntityPlayer extends EntityLiving {
 				if(facingRight) {
 					if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
 						combatTimer = 300;
-						e.hit(scratchDamage, false, "Scratch", this);
+						e.hit(scratchDamage, false, false, "Scratch", this);
 					}
 				} else {
 					if(e.intersects(new Rectangle((int) (x - scratchRange), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
 						combatTimer = 300;
-						e.hit(scratchDamage, false, "Scratch", this);
+						e.hit(scratchDamage, false, false, "Scratch", this);
 					}
 				}
 			}
@@ -235,7 +235,7 @@ public class EntityPlayer extends EntityLiving {
 					if(orbs.get(j).isHit(e)) return;
 					orbs.get(j).addToHitList(e);
 					combatTimer = 300;
-					e.hit(orbDamage, false, "Orb", this);
+					e.hit(orbDamage, false, false, "Orb", this);
 					//e.addEffect(this, Effect.FIRE, 2 * level, 4);
 				}
 			}
@@ -243,7 +243,7 @@ public class EntityPlayer extends EntityLiving {
 			// check enemy collision
 			if(intersects(e)) {
 				combatTimer = 300;
-				hit(e.getDamage() / 2, false, "Collision", e);
+				hit(e.getDamage() / 2, false, false, "Collision", e);
 			}	
 		}
 	}
@@ -264,18 +264,25 @@ public class EntityPlayer extends EntityLiving {
 	 * @param source (should always be <code>this</code>)
 	 * @return true if attack succeeded
 	 */
-	public boolean hit(float damage, boolean ignoreShield, String type, MapObject source) {
-		if(flinching) return false;
+	public boolean hit(float damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
+		if(!ignoreFlinching) {
+			if(flinching) return false;
+			flinching = true;
+			flinchTimer = System.nanoTime();
+		}
+		if(ignoreShield) {
+			health -= damage;
+			if(health < 0) health = 0;
+		} else {
+			float s = shield;
+			shield -= damage;
+			if(shield < 0) shield = 0;
+			damage -= (s - shield);
+			health -= damage;
+		}
 		explosions.add(new Explosion(this.getx(), this.gety()));
-		float s = shield;
-		shield -= damage;
-		if(shield < 0) shield = 0;
-		damage -= (s - shield);
-		health -= damage;
 		if(health < 0) health = 0;
 		if(health == 0) this.setDead(source);
-		flinching = true;
-		flinchTimer = System.nanoTime();
 		combatTimer = 300;
 		return true;
 		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());

@@ -13,6 +13,7 @@ import net.masterzach32.sidescroller.entity.FireBall;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.EntityPlayer;
 import net.masterzach32.sidescroller.entity.living.HealthBar;
+import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
@@ -46,7 +47,7 @@ public class Mage extends Enemy {
 		hsight = 36;
 		
 		health = maxHealth = (6) + (6 * level);
-		damage = (4) + (4 * level);
+		damage = (2) + (4 * level);
 		
 		exp = (20);
 		
@@ -102,7 +103,9 @@ public class Mage extends Enemy {
 		// orbs
 		for(int j = 0; j < orbs.size(); j++) {
 			if(orbs.get(j).intersects(p)) {
-				p.hit(damage, false, "Orb", this);
+				if(orbs.get(j).isHit()) return;
+				p.hit(damage, false, false, "Orb", this);
+				p.addEffect(this, Effect.FIRE, 2 * level, 2);
 				orbs.get(j).setHit();
 			}
 		}
@@ -112,6 +115,15 @@ public class Mage extends Enemy {
 		// movement
 		if(LevelState.getPlayer().intersects(new Rectangle((int) (x - attackRange * 1.5 / 2), (int) (y - hsight / 2), (int) (attackRange * 1.5), hsight))) {
 			// player within attacking range
+			if(LevelState.getPlayer().getx() < this.getx()) {
+				right = false;
+				left = true;
+				facingRight = false;
+			} else if (LevelState.getPlayer().getx() > this.getx()) {
+				right = true;
+				left = false;
+				facingRight = true;
+			}
 			dx = 0;
 			if(attackCd == 0) {
 				attacking = true;
