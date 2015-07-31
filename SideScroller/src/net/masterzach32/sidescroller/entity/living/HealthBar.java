@@ -7,7 +7,7 @@ import java.awt.Point;
 @SuppressWarnings("unused")
 public class HealthBar {
 	
-	private EntityLiving e;
+	private EntityLiving entity;
 	private float health, maxHealth, hlength, length, shield = 0, maxShield = 0, slength;
 	private float dhlength;
 	private int width, height, owidth, oheight;
@@ -22,21 +22,21 @@ public class HealthBar {
 	 * @param color
 	 */
 	public HealthBar(EntityLiving entity, int width, int height, Color color) {
-		e = entity;
+		this.entity = entity;
 		healthBar = color;
 		this.width = width;
 		this.height = height;
 		dhlength = width;
-		owidth = e.getWidth();
-		oheight = e.getHeight();
+		owidth = this.entity.getWidth();
+		oheight = this.entity.getHeight();
 	}
 	
 	private void tick() {
 		// health bar
-		health = e.health;
-		maxHealth = e.maxHealth;
-		shield = e.shield;
-		maxShield = e.maxShield;
+		health = entity.health;
+		maxHealth = entity.maxHealth;
+		shield = entity.shield;
+		maxShield = entity.maxShield;
 		
 		float maxTotal;
 		if(health + shield < maxHealth) maxTotal = maxHealth;
@@ -58,7 +58,7 @@ public class HealthBar {
 	public void render(Graphics2D g) {
 		tick();
 		
-		Point p = e.getScreenLocation();
+		Point p = entity.getScreenLocation();
 		int x = p.x;
 		int y = p.y;
 		
@@ -75,8 +75,8 @@ public class HealthBar {
 		g.fillRect((int) (x - width / 2 + hlength), (int) (y - oheight / 2) + 1, (int) slength, height - 1);
 		
 		// render effects HUD
-		for(int i = 0; i < e.effects.size(); i++) {
-			e.effects.get(i).render(g, (int) (x - owidth / 2), (int) (y - oheight / 2), i);
+		for(int i = 0; i < entity.effects.size(); i++) {
+			entity.effects.get(i).render(g, (int) (x - width / 2), (int) (y - oheight / 2), i);
 		}
 	}
 }

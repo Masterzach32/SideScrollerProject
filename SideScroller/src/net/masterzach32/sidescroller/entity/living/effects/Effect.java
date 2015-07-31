@@ -98,7 +98,7 @@ public class Effect {
 		if(this.type == ATTACK) return;
 		if(this.type == SPEED) return;
 		if(this.type == HEALTHREGEN) entity.heal((float) (0.0005 * strength));
-		if(this.type == POISION) entity.hit((float) ((0.2 * strength) + (0.08 * (entity.getMaxHealth() - entity.getHealth()))), false, "Poision", source);
+		if(this.type == POISION) entity.hit((float) ((0.2 * strength) + (0.06 * (entity.getMaxHealth() - entity.getHealth()))), false, "Poision", source);
 		if(this.type == WITHER) entity.hit((float) (0.3 * strength), false, "Wither", source);
 		if(this.type == FIRE) entity.hit((float) ((0.04 + 0.02 * strength) * entity.getHealth()), false, "Fire", source);
 		//animation.tick();

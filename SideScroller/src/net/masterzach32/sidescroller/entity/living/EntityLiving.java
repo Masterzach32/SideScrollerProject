@@ -20,13 +20,14 @@ public class EntityLiving extends MapObject {
 	public boolean flinching;
 	public long flinchTimer;
 	
-	public ArrayList<Effect> effects = new ArrayList<Effect>();
+	public ArrayList<Effect> effects;
 	public ArrayList<Explosion> explosions;
 	
 	public HealthBar healthBar;
 
 	public EntityLiving(TileMap tm) {
 		super(tm);
+		effects = new ArrayList<Effect>();
 	}
 
 	public float getHealth() { 
@@ -73,6 +74,17 @@ public class EntityLiving extends MapObject {
 		flinchTimer = System.nanoTime();
 		return true;
 		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
+	}
+	
+	/**
+	 * Creates a new effect and adds it to the entity
+	 * @param type
+	 * @param strength
+	 * @param duration
+	 */
+	public void addEffect(EntityLiving source, int type, int strength, int duration) {
+		Effect e = new Effect(this, source, type, strength, duration);
+		effects.add(e);
 	}
 	
 	public void tick() {

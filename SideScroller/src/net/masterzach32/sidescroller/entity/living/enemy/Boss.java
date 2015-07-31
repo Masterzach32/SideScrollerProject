@@ -96,7 +96,7 @@ public class Boss extends Enemy {
 			}
 		}
 		if(hit) {
-			p.addEffect(this, Effect.FIRE, 3 * level, 3);
+			p.addEffect(this, Effect.POISION, 3 * level, 3);
 		}
 	}
 	

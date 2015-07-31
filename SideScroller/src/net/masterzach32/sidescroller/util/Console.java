@@ -172,7 +172,7 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	 * Saves the current console textArea to the designated file.
 	 */
 	public void saveAs() {
-		FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Text File", "txt");
+		FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Text File", "log");
 	    final JFileChooser saveAsFileChooser = new JFileChooser();
 	    saveAsFileChooser.setApproveButtonText("Save");
 	    saveAsFileChooser.setFileFilter(extensionFilter);
@@ -182,8 +182,8 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	    }
 	    
 	    File file = saveAsFileChooser.getSelectedFile();
-	    if (!file.getName().endsWith(".txt")) {
-	       file = new File(file.getAbsolutePath() + ".txt");
+	    if (!file.getName().endsWith(".log")) {
+	       file = new File(file.getAbsolutePath() + ".log");
 	    }
 
 	    BufferedWriter outFile = null;

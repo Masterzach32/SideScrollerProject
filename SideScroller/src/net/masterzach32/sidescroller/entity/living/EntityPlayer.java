@@ -99,7 +99,7 @@ public class EntityPlayer extends EntityLiving {
 		
 		dead = false;
 		
-		healthBar = new HealthBar(this, 30, 4, new Color(0, 170, 0));
+		healthBar = new HealthBar(this, 40, 4, new Color(0, 170, 0));
 		
 		// load sprites
 		try {
@@ -232,8 +232,11 @@ public class EntityPlayer extends EntityLiving {
 			// orbs
 			for(int j = 0; j < orbs.size(); j++) {
 				if(orbs.get(j).intersects(e)) {
+					if(orbs.get(j).isHit(e)) return;
+					orbs.get(j).addToHitList(e);
 					combatTimer = 300;
 					e.hit(orbDamage, false, "Orb", this);
+					//e.addEffect(this, Effect.FIRE, 2 * level, 4);
 				}
 			}
 						

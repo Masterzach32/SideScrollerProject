@@ -1,4 +1,4 @@
-# SideScrollerProject- Alpha Build 0.1.6.222
+# SideScrollerProject- Alpha Build 0.1.6.223
 
 The SideScroller Project is an open source solution for people wanting to create an open source SideScrolling / RPG game. If you want to use my code, your code must be open source too. Thanks!
 
@@ -18,7 +18,7 @@ All changes that will be in v0.1.6 Alpha:
 - Swordman deals slightly more damage and attacks slightly faster
 - Fire effect
 - Fire does current health damage, poison now does missing health damage
--
+- Orbs can now only hit an entity once on the way out and once on the way back
 
 ### Bugs:
 - Sometimes sluggers spawn traveling left

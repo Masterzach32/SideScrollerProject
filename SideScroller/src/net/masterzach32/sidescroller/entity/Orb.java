@@ -1,10 +1,13 @@
 package net.masterzach32.sidescroller.entity;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.entity.living.*;
 
 public class Orb extends Projectile {
 	
@@ -12,6 +15,8 @@ public class Orb extends Projectile {
 	private BufferedImage[] sprites;
 	private double range, range2, r0, r1, r2;
 	private int stage;
+	
+	private ArrayList<EntityLiving> hits;
 	
 	public Orb(TileMap tm, boolean right) {
 		super(tm);
@@ -31,6 +36,8 @@ public class Orb extends Projectile {
 		cwidth = 16;
 		cheight = 16;
 		
+		hits = new ArrayList<EntityLiving>();
+		
 		// load sprites
 		try {
 			BufferedImage spritesheet = Assets.getImageAsset("orb");
@@ -43,8 +50,7 @@ public class Orb extends Projectile {
 			animation = new Animation();
 			animation.setFrames(sprites);
 			animation.setDelay(70);
-		}
-		catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -74,6 +80,7 @@ public class Orb extends Projectile {
 				if(r1 >= range2) {
 					stage = 3;
 					r1 = 0;
+					removeHits();
 				}
 			}
 			if(stage == 3) {
@@ -99,6 +106,7 @@ public class Orb extends Projectile {
 				if(r1 >= range2) {
 					stage = 3;
 					r1 = 0;
+					removeHits();
 				}
 			}
 			if(stage == 3) {
@@ -110,6 +118,24 @@ public class Orb extends Projectile {
 				}
 			}
 		}
+	}
+	
+	public void addToHitList(EntityLiving entity) {
+		hits.add(entity);
+	}
+	
+	public boolean isHit(EntityLiving entity) {
+		for(int i = 0; i < hits.size(); i++) {
+			if(hits.get(i).equals(entity)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void removeHits() {
+		for(int i = 0; i < hits.size(); i++)
+			hits.remove(i);
 	}
 	
 	public void tick() {

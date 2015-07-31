@@ -86,7 +86,11 @@ public class Level1State extends LevelState {
 		DamagePack sp2 = new DamagePack(tileMap, 2);
 		sp2.setPosition(2750, 320);
 		
+		DamagePack sp3 = new DamagePack(tileMap, 2);
+		sp3.setPosition(150, 110);
+		
 		stemPacks.add(sp1);
 		stemPacks.add(sp2);
+		stemPacks.add(sp3);
 	}
 }

@@ -31,7 +31,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Alpha", VERSION = "0.1.6.222";
+	public static final String TYPE = "Alpha", VERSION = "0.1.6.223";
 	public static final boolean isUpdateEnabled = false;
 	
 	// game thread
@@ -88,7 +88,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	private void init() {
 		game = this;
 		Game.startConsole();
-		LogHelper.logInfo("Launching SideScroller Game - Build " + VERSION);
+		LogHelper.logInfo("Launching SideScroller Project - " + TYPE + " Build " + VERSION);
 		LogHelper.logInfo("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")");
 		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch") + " - " + System.getProperty("sun.arch.data.model"));
 		LogHelper.logInfo("Java Version: " + System.getProperty("java.version") + " distributed by " + System.getProperty("java.vendor"));
