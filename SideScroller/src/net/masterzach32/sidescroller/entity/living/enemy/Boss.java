@@ -43,7 +43,7 @@ public class Boss extends Enemy {
 		hsight = 160;
 		
 		health = maxHealth = (250) + (75*level);
-		damage = (3) + (5*level);
+		damage = (5) + (3*level);
 		attackRange = 50;
 		
 		exp = 0;
@@ -88,15 +88,15 @@ public class Boss extends Enemy {
 		// scratch attack
 		if(facingRight) {
 			if(p.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				hit = p.hit(damage, "Scratch", this);
+				hit = p.hit(damage, false, "Scratch", this);
 			}
 		} else {
 			if(p.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				hit = p.hit(damage, "Scratch", this);
+				hit = p.hit(damage, false, "Scratch", this);
 			}
 		}
 		if(hit) {
-			p.addEffect(this, Effect.WITHER, 3 * level, 3);
+			p.addEffect(this, Effect.FIRE, 3 * level, 3);
 		}
 	}
 	

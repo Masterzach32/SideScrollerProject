@@ -114,8 +114,8 @@ public class Orb extends Projectile {
 	
 	public void tick() {
 		getNextPosition();
-		checkTileMapCollision();
-		setPosition(xtemp, ytemp);
+		//checkTileMapCollision();
+		setPosition(x + dx, y);
 		
 		if(dx == 0 && !hit) {
 			setHit();

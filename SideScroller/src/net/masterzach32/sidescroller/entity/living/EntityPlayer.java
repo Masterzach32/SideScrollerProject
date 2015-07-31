@@ -219,12 +219,12 @@ public class EntityPlayer extends EntityLiving {
 				if(facingRight) {
 					if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
 						combatTimer = 300;
-						e.hit(scratchDamage, "Scratch", this);
+						e.hit(scratchDamage, false, "Scratch", this);
 					}
 				} else {
 					if(e.intersects(new Rectangle((int) (x - scratchRange), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
 						combatTimer = 300;
-						e.hit(scratchDamage, "Scratch", this);
+						e.hit(scratchDamage, false, "Scratch", this);
 					}
 				}
 			}
@@ -233,14 +233,14 @@ public class EntityPlayer extends EntityLiving {
 			for(int j = 0; j < orbs.size(); j++) {
 				if(orbs.get(j).intersects(e)) {
 					combatTimer = 300;
-					e.hit(orbDamage, "Orb", this);
+					e.hit(orbDamage, false, "Orb", this);
 				}
 			}
 						
 			// check enemy collision
 			if(intersects(e)) {
 				combatTimer = 300;
-				hit(e.getDamage() / 2, "Collision", e);
+				hit(e.getDamage() / 2, false, "Collision", e);
 			}	
 		}
 	}
@@ -261,7 +261,7 @@ public class EntityPlayer extends EntityLiving {
 	 * @param source (should always be <code>this</code>)
 	 * @return true if attack succeeded
 	 */
-	public boolean hit(float damage, String type, MapObject source) {
+	public boolean hit(float damage, boolean ignoreShield, String type, MapObject source) {
 		if(flinching) return false;
 		explosions.add(new Explosion(this.getx(), this.gety()));
 		float s = shield;
@@ -451,6 +451,12 @@ public class EntityPlayer extends EntityLiving {
 				if(shield < maxShield) {
 					if(!inCombat) shield += shieldRegen;
 				}
+			}
+			if(health > maxHealth) {
+				health = maxHealth;
+			}
+			if(shield > maxShield) {
+				shield = maxShield;
 			}
 		}
 		

@@ -102,7 +102,7 @@ public class Mage extends Enemy {
 		// orbs
 		for(int j = 0; j < orbs.size(); j++) {
 			if(orbs.get(j).intersects(p)) {
-				p.hit(damage, "Orb", this);
+				p.hit(damage, false, "Orb", this);
 				orbs.get(j).setHit();
 			}
 		}

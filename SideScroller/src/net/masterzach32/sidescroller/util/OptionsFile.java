@@ -23,7 +23,7 @@ public class OptionsFile {
 	 */
 	public static final int OPTIONS_VERSION = 1;
 	// FIXME: We should use an appropriate path, such as the user's preferences folder
-	public static final String OPTIONS_FILENAME = "SideScroller_Options.json";
+	public static final String OPTIONS_FILENAME = "game_options.json";
 	
 	@SuppressWarnings("unchecked")
 	private static String optionsToJSON() {
@@ -70,7 +70,7 @@ public class OptionsFile {
 	private static Integer getInteger(JSONObject obj, String key) {
 		Object keyobj = obj.get(key);
 		if (keyobj instanceof java.lang.Number) {
-			return new Integer(((Number)keyobj).intValue());
+			return new Integer(((Number) keyobj).intValue());
 		}
 		else return null;
 	}
@@ -81,7 +81,7 @@ public class OptionsFile {
 	private static Boolean getBoolean(JSONObject obj, String key) {
 		Object keyobj = obj.get(key);
 		if (keyobj instanceof java.lang.Boolean) {
-			return (Boolean)keyobj;
+			return (Boolean) keyobj;
 		}
 		else return null;
 	}
@@ -93,7 +93,7 @@ public class OptionsFile {
 	private static String getString(JSONObject obj, String key) {
 		Object keyobj = obj.get(key);
 		if (keyobj instanceof java.lang.String) {
-			return (String)keyobj;
+			return (String) keyobj;
 		}
 		else return null;
 	}
@@ -104,7 +104,7 @@ public class OptionsFile {
 	private static JSONObject getJSONObject(JSONObject obj, String key) {
 		Object keyobj = obj.get(key);
 		if (keyobj instanceof JSONObject) {
-			return (JSONObject)keyobj;
+			return (JSONObject) keyobj;
 		}
 		else return null;
 	}
@@ -204,8 +204,7 @@ public class OptionsFile {
 			LogHelper.logError("Problem writing " + path);
 			e.printStackTrace();
 			return false;
-		}
-		finally {
+		} finally {
 			Utilities.closeStream(fout);
 		}
 
@@ -233,8 +232,7 @@ public class OptionsFile {
 			LogHelper.logError("Problem reading " + path);
 			e.printStackTrace();
 			return false;
-		}
-		finally {
+		} finally {
 			Utilities.closeStream(fin);
 		}
 		

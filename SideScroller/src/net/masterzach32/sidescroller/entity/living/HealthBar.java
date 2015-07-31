@@ -48,7 +48,7 @@ public class HealthBar {
 		slength = shieldPercent * width;
 		length = hlength + slength;
 		
-		if(shield > 0) slength += 1;
+		//if(shield > 0) slength += 1;
 			
 		// damage bar
 		if(length >= dhlength) dhlength = (float) (length - 1);
