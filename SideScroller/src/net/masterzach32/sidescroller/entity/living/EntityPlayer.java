@@ -236,7 +236,7 @@ public class EntityPlayer extends EntityLiving {
 					orbs.get(j).addToHitList(e);
 					combatTimer = 300;
 					e.hit(orbDamage, false, false, "Orb", this);
-					e.addEffect(this, Effect.FIRE, 2 * level, 4);
+					e.addEffect(this, Effect.KNOCKUP, 2 * level, 1.5);
 				}
 			}
 						
@@ -352,6 +352,7 @@ public class EntityPlayer extends EntityLiving {
 		if(!isDead()) {
 			// update position
 			getNextPosition();
+			super.tick();
 			checkTileMapCollision();
 			setPosition(xtemp, ytemp);
 		
@@ -535,8 +536,6 @@ public class EntityPlayer extends EntityLiving {
 		health4[0] = (int) health;
 		
 		resetStats(false);
-		
-		super.tick();
 	}
 	
 	public void render(Graphics2D g) {

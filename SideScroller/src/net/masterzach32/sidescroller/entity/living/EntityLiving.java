@@ -14,6 +14,9 @@ public class EntityLiving extends MapObject {
 	public double shieldRegen;
 	public int exp, damage;
 	
+	public boolean knockedUp;
+	public double knockUpTimer, backup;
+	
 	public int level;
 	public boolean dead;
 	
@@ -95,10 +98,25 @@ public class EntityLiving extends MapObject {
 			effects.get(i).tick();
 			if(effects.get(i).shouldRemove()) effects.remove(i);
 		}
+		
+		if(knockedUp) {
+			knockUpTimer--;
+			dx = 0;
+			dy = -0.1;
+			if(knockUpTimer == 0) {
+				knockedUp = false;
+				dy = 0.1 * backup;
+			}
+		}
 	}
 	
 	public void setDead(MapObject source) {
 		this.dead = true;
 		flinching = false;
+	}
+
+	public void knockUp(double duration) {
+		knockedUp = true;
+		knockUpTimer = duration;
 	}
 }

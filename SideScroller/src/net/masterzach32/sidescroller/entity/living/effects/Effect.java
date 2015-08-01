@@ -25,7 +25,8 @@ public class Effect {
 	public static final int POISION       = 4;
 	public static final int WITHER        = 5;
 	public static final int FIRE          = 6;
-	private final int[] numFrames = {3, 3, 3, 3, 3, 3, 3};
+	public static final int KNOCKUP       = 7;
+	private final int[] numFrames = {3, 3, 3, 3, 3, 3, 3, 3};
 	
 	private ArrayList<BufferedImage[]> sprites;
 	private Animation animation;
@@ -70,7 +71,8 @@ public class Effect {
 		if(this.type == HEALTHREGEN) animation.setFrames(sprites.get(HEALTHREGEN));
 		if(this.type == POISION) animation.setFrames(sprites.get(POISION));
 		if(this.type == WITHER) animation.setFrames(sprites.get(WITHER));
-		if(this.type == FIRE) animation.setFrames(sprites.get(FIRE));*/
+		if(this.type == FIRE) animation.setFrames(sprites.get(FIRE));
+		if(this.type == KNOCKUP) animation.setFrames(sprites.get(KNOCKUP));*/
 		animation.setDelay(40);
 	}
 	
@@ -81,6 +83,7 @@ public class Effect {
 		if(this.type == POISION) return;
 		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() - 0.07 * strength);
 		if(this.type == FIRE) return;
+		if(this.type == KNOCKUP) entity.knockUp(timer);
 	}
 	
 	private void removeFromEntity() {
@@ -90,6 +93,7 @@ public class Effect {
 		if(this.type == POISION) return;
 		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() + 0.07 * strength);
 		if(this.type == FIRE) return;
+		if(this.type == KNOCKUP) return;
 	}
 	
 	/**
@@ -111,10 +115,11 @@ public class Effect {
 		} else if(delayTimer == delay) {
 			if(this.type == ATTACK) return;
 			if(this.type == SPEED) return;
-			if(this.type == HEALTHREGEN) entity.heal((float) (0.0005 * strength));
+			if(this.type == HEALTHREGEN) entity.heal((float) (0.5 * strength));
 			if(this.type == POISION) entity.hit((float) ((0.2 * strength) + (0.06 * (entity.getMaxHealth() - entity.getHealth()))), false, true, "Poision", source);
 			if(this.type == WITHER) entity.hit((float) (0.4 * strength), false, true, "Wither", source);
-			if(this.type == FIRE) entity.hit((float) ((0.04 + 0.02 * strength) * entity.getHealth()), false, true, "Fire", source);
+			if(this.type == FIRE) entity.hit((float) (0.05 + (0.04 + 0.02 * strength) * entity.getHealth()), false, true, "Fire", source);
+			if(this.type == KNOCKUP) return;
 			delayTimer = 0;
 		}
 		//animation.tick();
@@ -129,6 +134,7 @@ public class Effect {
 		if(this.type == POISION) g.setColor(new Color(0, 200, 0));
 		if(this.type == WITHER) g.setColor(Color.BLACK);
 		if(this.type == FIRE) g.setColor(Color.ORANGE);
+		if(this.type == KNOCKUP) g.setColor(Color.WHITE);
 		g.fillRect(x + (5 * space), y - 5, 4, 4);
 		//animation.render(g, x, y, 30, 30);
 	}

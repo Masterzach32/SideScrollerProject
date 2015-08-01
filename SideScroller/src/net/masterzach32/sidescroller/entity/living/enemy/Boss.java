@@ -43,7 +43,7 @@ public class Boss extends Enemy {
 		hsight = 160;
 		
 		health = maxHealth = (250) + (75*level);
-		damage = (5) + (3*level);
+		damage = (6) + (3*level);
 		attackRange = 50;
 		
 		exp = 0;
@@ -61,9 +61,8 @@ public class Boss extends Enemy {
 			sprites = new BufferedImage[3];
 				
 			for(int i = 0; i < sprites.length; i++) {
-			sprites[i] = spritesheet.getSubimage(i * width, 0, width, height);
-		}
-	
+				sprites[i] = spritesheet.getSubimage(i * width, 0, width, height);
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -96,7 +95,7 @@ public class Boss extends Enemy {
 			}
 		}
 		if(hit) {
-			p.addEffect(this, Effect.WITHER, 3 * level, 3);
+			p.addEffect(this, Effect.WITHER, 1 + 3 * level, 3);
 		}
 	}
 	
@@ -154,6 +153,7 @@ public class Boss extends Enemy {
 	public void tick() {
 		if(dead) return;
 		getNextPosition();
+		super.tick();
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);
 		// check flinching
@@ -175,8 +175,6 @@ public class Boss extends Enemy {
 		
 		// update animation
 		animation.tick();
-		
-		super.tick();
 	}
 	
 	public void render(Graphics2D g) {

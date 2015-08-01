@@ -176,6 +176,7 @@ public class Swordman extends Enemy {
 		if(dead) return;
 		// update position
 		getNextPosition();
+		super.tick();
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);
 		
@@ -235,8 +236,6 @@ public class Swordman extends Enemy {
 		
 		// update animation
 		animation.tick();
-		
-		super.tick();
 	}
 	
 	public void render(Graphics2D g) {
