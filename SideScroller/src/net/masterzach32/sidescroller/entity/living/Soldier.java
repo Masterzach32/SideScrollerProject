@@ -20,9 +20,8 @@ import net.masterzach32.sidescroller.util.Utilities;
 public class Soldier extends MapObject {
 	
 	private EntityPlayer player;
-	private boolean moving, attacking,  remove;
-	private int attackDelay;
-	private int time;
+	private boolean moving, attacking, remove;
+	private int attackDelay, timer, moveLocation, time;
 	
 	private int attackRange;
 	
@@ -45,13 +44,14 @@ public class Soldier extends MapObject {
 		moveSpeed = 0.5;
 		setMaxSpeed(2.5);
 		stopSpeed = 0.5;
-		fallSpeed = 0.15;
+		fallSpeed = 0.5;
 		maxFallSpeed = 10.0;
 		jumpStart = -4.8;
 		stopJumpSpeed = 0.3;
 		
 		attackRange = 40;
-		attackDelay = 90 - (5 * level);
+		attackDelay = 95 - (5 * level);
+		timer = 0;
 		
 		time = 9 * SideScroller.FPS;
 		this.player = player;
@@ -89,14 +89,15 @@ public class Soldier extends MapObject {
 	protected boolean checkAttack(ArrayList<Enemy> enemies, int damage) {
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
+			boolean hit;
 			if(facingRight) {
 				if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-					e.hit(damage, false, false, "Soldier", this);
+					e.hit(damage, false, false, "Soldier Attack", this);
 					return true;
 				}
 			} else {
 				if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-					e.hit(damage, false, false, "Soldier", this);
+					e.hit(damage, false, false, "Soldier Attack", this);
 					return true;
 				}
 			}
@@ -105,6 +106,8 @@ public class Soldier extends MapObject {
 	}
 	
 	protected void attack() {
+		if(timer > 0) return;
+		timer = attackDelay;
 		attacking = true;
 	}
 	
@@ -112,8 +115,23 @@ public class Soldier extends MapObject {
 		return attacking;
 	}
 	
+	protected boolean isMoving() {
+		return moving;
+		
+	}
+	
 	protected void move(int x) {
 		moving = true;
+		moveLocation = x;
+		if(x < this.getx()) {
+			facingRight = false;
+			left = true;
+			right = false;
+		} else if (x > this.getx()) {
+			facingRight = true;
+			left = false;
+			right = true;
+		}
 	}
 	
 	protected boolean shouldRemove() {
@@ -128,6 +146,22 @@ public class Soldier extends MapObject {
 		// movement
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
+		
+		if(moving) {
+			if(this.x < moveLocation) {
+				if(moveLocation - this.x < 6) {
+					moving = false;
+					left = false;
+					right = false;
+				}
+			} else if (x > moveLocation) {
+				if(x - moveLocation < 6)
+					moving = false;
+					left = false;
+					right = false;
+			}
+		}
+		
 		if(x < this.getx()) {
 			facingRight = false;
 		} else if (x > this.getx()) {
@@ -208,6 +242,8 @@ public class Soldier extends MapObject {
 		
 		if(time > 0) time--;
 		if(time <= 0) remove = true;
+		
+		if(timer > 0) timer--;
 		
 		animation.tick();
 	}

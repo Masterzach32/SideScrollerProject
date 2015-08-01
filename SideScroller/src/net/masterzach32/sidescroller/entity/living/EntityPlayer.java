@@ -197,7 +197,7 @@ public class EntityPlayer extends EntityLiving {
 	 * @param enemies
 	 */
 	public void checkAttack(ArrayList<Enemy> enemies) {
-		scratchDamage = (int)(8 + damage * 0.9);
+		scratchDamage = (int)(6 + damage * 0.8);
 		soldierDamage = (int)(4 + damage * 1.2);
 		// loop through enemies
 		for(int i = 0; i < enemies.size(); i++) {
@@ -222,6 +222,13 @@ public class EntityPlayer extends EntityLiving {
 						if(soldiers.get(j).isAttacking()) {
 							soldiers.get(j).checkAttack(enemies, soldierDamage);
 							combatTimer = 300;
+						}
+						
+						if(soldiers.get(j).isMoving()) {
+							if(e.intersects(soldiers.get(j))) {
+								e.hit(soldierDamage / 3, false, false, "Conquering Sands", soldiers.get(j));
+								combatTimer = 300;
+							}
 						}
 					}
 				}
@@ -255,6 +262,14 @@ public class EntityPlayer extends EntityLiving {
 	public void addEffect(EntityLiving source, int type, int strength, int duration) {
 		super.addEffect(source, type, strength, duration);
 		resetStats(false);
+	}
+	
+	public void ability1() {
+		Point p = Utilities.getMousePosition();
+		int x = (int) (p.x / SideScroller.SCALE - xmap);
+		for(int i = 0; i < soldiers.size(); i++) {
+			soldiers.get(i).move((int) x);
+		}
 	}
 	
 	private void getNextPosition() {
@@ -464,6 +479,7 @@ public class EntityPlayer extends EntityLiving {
 		
 		super.render(g);
 		
+		if(soldiers.size() > 0) return;
 		if(MapObject.isHitboxEnabled()) {
 			if(attacking) {
 				g.setColor(Color.YELLOW);

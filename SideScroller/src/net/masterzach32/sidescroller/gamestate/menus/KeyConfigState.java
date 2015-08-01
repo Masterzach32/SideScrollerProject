@@ -124,10 +124,10 @@ public class KeyConfigState extends MenuState {
 		keyBinding[KEY_RIGHT] = KeyEvent.VK_D;
 		keyBinding[KEY_LEFT] = KeyEvent.VK_A;
 		keyBinding[KEY_JUMP] = KeyEvent.VK_SPACE;
-		keyBinding[KEY_SCRATCH] = KeyEvent.VK_R;
+		keyBinding[KEY_SCRATCH] = KeyEvent.VK_Q;
 		keyBinding[KEY_ORB] = KeyEvent.VK_F;
 		keyBinding[KEY_GLIDE] = KeyEvent.VK_E;
-		keyBinding[KEY_REWIND] = KeyEvent.VK_Q;
+		keyBinding[KEY_REWIND] = KeyEvent.VK_R;
 	}
 
 	public void keyReleased(int k) {}

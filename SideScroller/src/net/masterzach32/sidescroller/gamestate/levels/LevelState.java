@@ -188,11 +188,9 @@ public abstract class LevelState extends GameState {
 		if(!player.isDead()) {
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_LEFT]) player.setLeft(true);
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_RIGHT]) player.setRight(true);
-			if(k == KeyEvent.VK_W) player.setUp(true);
-			if(k == KeyEvent.VK_S) player.setDown(true);
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_JUMP]) player.setJumping(true);
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_GLIDE]) player.setGliding(true);
-			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_SCRATCH]) player.setAttacking();
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_SCRATCH]) player.ability1();
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_ORB]) player.setSpawning();
 			if(k == KeyEvent.VK_ESCAPE) GameState.setState(SideScroller.menuState);
 		}
@@ -206,8 +204,6 @@ public abstract class LevelState extends GameState {
 		if(!player.isDead()) {
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_LEFT]) player.setLeft(false);
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_RIGHT]) player.setRight(false);
-			if(k == KeyEvent.VK_W) player.setUp(false);
-			if(k == KeyEvent.VK_S) player.setDown(false);
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_JUMP]) player.setJumping(false);
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_GLIDE]) player.setGliding(false);
 		}
