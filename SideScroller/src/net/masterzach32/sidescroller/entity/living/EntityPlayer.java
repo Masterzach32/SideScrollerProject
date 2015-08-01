@@ -7,6 +7,7 @@ import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.Orb;
+import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.tilemap.*;
 
@@ -224,6 +225,7 @@ public class EntityPlayer extends EntityLiving {
 			// orbs
 			for(int j = 0; j < orbs.size(); j++) {
 				if(orbs.get(j).intersects(e)) {
+					if(orbs.get(j).getStage() == 2) e.addEffect(this, Effect.SLOW, 1 * level, .5);
 					if(orbs.get(j).isHit(e)) return;
 					orbs.get(j).addToHitList(e);
 					combatTimer = 300;

@@ -29,10 +29,30 @@ public class Effect {
 	public static final int FIRE         = 6;
 	public static final int KNOCKUP      = 7;
 	public static final int SLOW         = 8;
-	private final int[] numFrames = {3, 3, 3, 3, 3, 3, 3, 3};
+	public static final int STUN         = 9;
+	private static final int[] numFrames = {3, 3, 3, 3, 3, 3, 3, 3};
 	
-	private ArrayList<BufferedImage[]> sprites;
+	private static ArrayList<BufferedImage[]> sprites;
 	private Animation animation;
+	
+	public static void loadSprites() {
+		// load sprites
+		try {
+			BufferedImage spritesheet = Assets.getImageAsset("effects");
+			
+			sprites = new ArrayList<BufferedImage[]>();
+			for(int i = 0; i < numFrames.length; i++) {
+				BufferedImage[] bi = new BufferedImage[numFrames[i]];
+				for(int j = 0; j < numFrames[i]; j++) {
+					bi[j] = spritesheet.getSubimage(j * 30, i * 30, 30, 30);
+				}
+				sprites.add(bi);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Creates a new effect on the entity
@@ -51,23 +71,6 @@ public class Effect {
 		delayTimer = 0;
 		this.addToEntity();
 		
-		// load sprites
-		try {
-			BufferedImage spritesheet = Assets.getImageAsset("effects");
-			
-			sprites = new ArrayList<BufferedImage[]>();
-			for(int i = 0; i < numFrames.length; i++) {
-				BufferedImage[] bi = new BufferedImage[numFrames[i]];
-				for(int j = 0; j < numFrames[i]; j++) {
-					bi[j] = spritesheet.getSubimage(j * 30, i * 30, 30, 30);
-				}
-				sprites.add(bi);
-			}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		
 		animation = new Animation();/*
 		if(this.type == ATTACK) animation.setFrames(sprites.get(ATTACK));
 		if(this.type == SPEED) animation.setFrames(sprites.get(SPEED));
@@ -76,11 +79,12 @@ public class Effect {
 		if(this.type == WITHER) animation.setFrames(sprites.get(WITHER));
 		if(this.type == FIRE) animation.setFrames(sprites.get(FIRE));
 		if(this.type == KNOCKUP) animation.setFrames(sprites.get(KNOCKUP));
-		if(this.type == SLOW) animation.setFrames(sprites.get(SLOW));*/
+		if(this.type == SLOW) animation.setFrames(sprites.get(SLOW));
+		if(this.type == STUN) animation.setFrames(sprites.get(STUN));*/
 		animation.setDelay(40);
 	}
 	
-	private void addToEntity() {
+	public void addToEntity() {
 		if(this.type == ATTACK) entity.damage += 2 * strength;
 		if(this.type == SPEED) {
 			speed = entity.getMaxSpeed() * (0.15 * strength);
@@ -98,9 +102,10 @@ public class Effect {
 			speed = entity.getMaxSpeed() * (0.08 * strength);
 			entity.setMaxSpeed(entity.getMaxSpeed() - speed);
 		}
+		if(this.type == STUN) entity.stun(timer);
 	}
 	
-	private void removeFromEntity() {
+	public void removeFromEntity() {
 		if(this.type == ATTACK) entity.damage -= 2 * strength;
 		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() - speed);
 		if(this.type == HEALTHREGEN) return;
@@ -109,6 +114,7 @@ public class Effect {
 		if(this.type == FIRE) return;
 		if(this.type == KNOCKUP) return;
 		if(this.type == SLOW) entity.setMaxSpeed(entity.getMaxSpeed() + speed);
+		if(this.type == STUN) return;
 	}
 	
 	/**
@@ -137,6 +143,7 @@ public class Effect {
 			if(this.type == FIRE) entity.hit((float) (0.1 + (0.04 + 0.02 * strength) * entity.getHealth()), false, true, "Fire", source);
 			if(this.type == KNOCKUP) return;
 			if(this.type == SLOW) return;
+			if(this.type == STUN) return;
 			delayTimer = 0;
 		}
 		//animation.tick();
@@ -149,15 +156,28 @@ public class Effect {
 		if(this.type == SPEED) g.setColor(Color.GREEN);
 		if(this.type == HEALTHREGEN) g.setColor(Color.PINK);
 		if(this.type == POISION) g.setColor(new Color(0, 200, 0));
-		if(this.type == WITHER) g.setColor(Color.MAGENTA);
+		if(this.type == WITHER) g.setColor(new Color(51, 0, 51));
 		if(this.type == FIRE) g.setColor(Color.ORANGE);
 		if(this.type == KNOCKUP) g.setColor(Color.WHITE);
 		if(this.type == SLOW) g.setColor(Color.BLACK);
+		if(this.type == STUN) g.setColor(new Color(204, 0, 204));
 		g.fillRect(x + (5 * space), y - 5, 4, 4);
 		//animation.render(g, x, y, 30, 30);
 	}
 	
 	public boolean shouldRemove() {
 		return remove;
+	}
+	
+	public int getType() {
+		return type;
+	}
+	
+	public double getStrength() {
+		return strength;
+	}
+	
+	public void addDuration(double duration) {
+		timer += duration * SideScroller.FPS;
 	}
 }

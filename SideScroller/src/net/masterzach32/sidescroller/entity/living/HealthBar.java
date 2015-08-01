@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import net.masterzach32.sidescroller.util.LogHelper;
+
 @SuppressWarnings("unused")
 public class HealthBar {
 	
@@ -75,8 +77,9 @@ public class HealthBar {
 		g.fillRect((int) (x - width / 2 + hlength), (int) (y - oheight / 2) + 1, (int) slength, height - 1);
 		
 		// render effects HUD
-		for(int i = 0; i < entity.effects.size(); i++) {
-			entity.effects.get(i).render(g, (int) (x - width / 2), (int) (y - oheight / 2), i);
+		for(int i = 0; i < entity.getEffects().size(); i++) {
+			entity.getEffects().get(i).render(g, (int) (x - width / 2), (int) (y - oheight / 2), i);
+			LogHelper.logInfo("" + entity.getEffects().get(i).getType());
 		}
 	}
 }

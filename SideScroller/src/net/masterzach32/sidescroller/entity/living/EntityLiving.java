@@ -15,8 +15,8 @@ public class EntityLiving extends MapObject {
 	public double shieldRegen;
 	public int exp, damage;
 	
-	public boolean knockedUp;
-	public double knockUpTimer, backup;
+	public boolean stunned, knockedUp;
+	public double stunTimer, backup;
 	
 	public int level;
 	public boolean dead;
@@ -91,6 +91,19 @@ public class EntityLiving extends MapObject {
 	 */
 	public void addEffect(EntityLiving source, int type, double strength, double duration) {
 		Effect e = new Effect(this, source, type, strength, duration);
+		for(int i = 0; i < effects.size(); i++) {
+			if(effects.get(i).getType() == type) {
+				if(effects.get(i).getStrength() > strength) {
+					effects.get(i).addDuration(duration / 2);
+					return;
+				} else {
+					effects.get(i).removeFromEntity();
+					effects.remove(i);
+					effects.add(e);
+					return;
+				}
+			}
+		}
 		effects.add(e);
 	}
 	
@@ -113,11 +126,18 @@ public class EntityLiving extends MapObject {
 			}
 		}
 		
-		if(knockedUp) {
-			knockUpTimer--;
+		if(stunned) {
+			stunTimer--;
 			dx = 0;
+			if(stunTimer == 0) {
+				knockedUp = false;
+				dy = 0.1 * backup;
+			}
+		}
+		
+		if(knockedUp) {
 			dy = -0.1;
-			if(knockUpTimer == 0) {
+			if(stunTimer == 0) {
 				knockedUp = false;
 				dy = 0.1 * backup;
 			}
@@ -152,7 +172,17 @@ public class EntityLiving extends MapObject {
 	}
 
 	public void knockUp(double duration) {
+		stunned = true;
 		knockedUp = true;
-		knockUpTimer = duration;
+		stunTimer = duration;
+	}
+	
+	public void stun(double duration) {
+		stunned = true;
+		stunTimer = duration;
+	}
+	
+	public ArrayList<Effect> getEffects() {
+		return effects;
 	}
 }

@@ -13,6 +13,7 @@ import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.living.EntityPlayer;
+import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.entity.living.enemy.Boss;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.entity.packs.StemPacks;
@@ -70,6 +71,8 @@ public abstract class LevelState extends GameState {
 		for(int i = 0; i < sprites.length; i++) {
 			sprites[i] = spritesheet.getSubimage(i * width, 0, width, height);
 		}
+		
+		Effect.loadSprites();
 		
 		animation = new Animation();
 		animation.setFrames(sprites);
