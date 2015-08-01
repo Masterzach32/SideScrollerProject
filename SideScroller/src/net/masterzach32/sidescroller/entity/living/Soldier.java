@@ -3,14 +3,18 @@ package net.masterzach32.sidescroller.entity.living;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
+import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
+import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.util.Utilities;
 
 @SuppressWarnings("unused")
 public class Soldier extends MapObject {
@@ -24,7 +28,7 @@ public class Soldier extends MapObject {
 	
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
-	private final int[] numFrames = {2, 2, 2, 2};
+	private final int[] numFrames = {2, 8, 1, 2, 4, 2, 5};
 	
 	// animation actions
 	//private static final int IDLE = 0, MOVING = 1, ATTACKING = 2, DECAY = 3;
@@ -82,12 +86,26 @@ public class Soldier extends MapObject {
 		animation.setDelay(400);
 	}
 	
-	private boolean checkAttack() {
+	protected boolean checkAttack(ArrayList<Enemy> enemies, int damage) {
+		for(int i = 0; i < enemies.size(); i++) {
+			Enemy e = enemies.get(i);
+			if(facingRight) {
+				if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
+					e.hit(damage, false, false, "Soldier", this);
+					return true;
+				}
+			} else {
+				if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
+					e.hit(damage, false, false, "Soldier", this);
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 	
 	protected void attack() {
-		checkAttack();
+		attacking = true;
 	}
 	
 	protected boolean isAttacking() {
@@ -102,8 +120,19 @@ public class Soldier extends MapObject {
 		return remove;
 	}
 	
+	protected int getTimeLeft() {
+		return time;
+	}
+	
 	private void getNextPosition() {
 		// movement
+		Point p = Utilities.getMousePosition();
+		int x = (int) (p.x / SideScroller.SCALE - xmap);
+		if(x < this.getx()) {
+			facingRight = false;
+		} else if (x > this.getx()) {
+			facingRight = true;
+		}
 		if(left) {
 			dx -= moveSpeed;
 			if(dx < -getMaxSpeed()) {
@@ -168,6 +197,13 @@ public class Soldier extends MapObject {
 				animation.setDelay(40);
 				width = 30;
 			}
+		} else {
+			if(currentAction != IDLE) {
+				currentAction = IDLE;
+				animation.setFrames(sprites.get(IDLE));
+				animation.setDelay(400);
+				width = 30;
+			}
 		}
 		
 		if(time > 0) time--;
@@ -182,7 +218,20 @@ public class Soldier extends MapObject {
 		Point p = player.getScreenLocation();
 		int x = p.x;
 		int y = p.y;
+		
 		g.setColor(new Color(218, 165, 32));
 		g.drawLine(p.x, p.y, (int) (this.x + xmap), (int) (this.y + ymap));
+		
+		if(MapObject.isHitboxEnabled()) {
+			if(attacking) {
+				g.setColor(Color.YELLOW);
+				if(facingRight) {
+					g.drawRect((int)(this.x + xmap), (int)(this.y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
+				} else {
+					g.drawRect((int)(this.x + xmap  - attackRange), (int)(this.y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
+				}
+			}
+		}
+		g.setColor(Color.WHITE);
 	}
 }

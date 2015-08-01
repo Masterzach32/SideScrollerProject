@@ -204,24 +204,26 @@ public class EntityPlayer extends EntityLiving {
 			Enemy e = enemies.get(i);
 			// scratch attack
 			if(attacking) {
-				if(facingRight) {
-					if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
-						combatTimer = 300;
-						e.hit(scratchDamage, false, false, "Scratch", this);
+				if(soldiers.size() == 0) {
+					if(facingRight) {
+						if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
+							combatTimer = 300;
+							e.hit(scratchDamage, false, false, "Scratch", this);
+						}
+					} else {
+						if(e.intersects(new Rectangle((int) (x - scratchRange), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
+							combatTimer = 300;
+							e.hit(scratchDamage, false, false, "Scratch", this);
+						}
 					}
-				} else {
-					if(e.intersects(new Rectangle((int) (x - scratchRange), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
-						combatTimer = 300;
-						e.hit(scratchDamage, false, false, "Scratch", this);
+				} else if(soldiers.size() > 0) {
+					for(int j = 0; j < soldiers.size(); j++) {
+						soldiers.get(j).attack();
+						if(soldiers.get(j).isAttacking()) {
+							soldiers.get(j).checkAttack(enemies, soldierDamage);
+							combatTimer = 300;
+						}
 					}
-				}
-			}
-			
-			// soldiers
-			for(int j = 0; j < soldiers.size(); j++) {
-				if(soldiers.get(j).isAttacking()) {
-					combatTimer = 300;
-					e.hit(soldierDamage, false, false, "Orb", soldiers.get(i));
 				}
 			}
 						
@@ -319,8 +321,13 @@ public class EntityPlayer extends EntityLiving {
 			}
 		
 			// orb attack
-			if(spawning && currentAction != SOLDIER) {
+			if(spawning && currentAction != SOLDIER && soldiers.size() < 3) {
 				if(orbCurrentCd == 0) {
+					if(soldiers.size() == 3) {
+						for(int i = 0; i < soldiers.size(); i++) {
+							soldiers.get(i).getTimeLeft();
+						}
+					}
 					Soldier soldier = null;
 					Point p = Utilities.getMousePosition();
 					int x = (int) (p.x / SideScroller.SCALE - xmap);
