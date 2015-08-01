@@ -69,7 +69,7 @@ public class EntityPlayer extends EntityLiving {
 		cheight = 20;
 		
 		moveSpeed = 0.4;
-		setMaxSpeed(1.5);
+		setMaxSpeed(1.6);
 		stopSpeed = 0.5;
 		fallSpeed = 0.15;
 		maxFallSpeed = 10.0;
@@ -235,8 +235,7 @@ public class EntityPlayer extends EntityLiving {
 					if(orbs.get(j).isHit(e)) return;
 					orbs.get(j).addToHitList(e);
 					combatTimer = 300;
-					e.hit(orbDamage, false, false, "Orb", this);
-					e.addEffect(this, Effect.KNOCKUP, 2 * level, 1.5);
+					e.hit(orbDamage, false, true, "Orb", this);
 				}
 			}
 						

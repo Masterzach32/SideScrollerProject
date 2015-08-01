@@ -171,7 +171,7 @@ public class Utilities {
         FontMetrics fm = g.getFontMetrics();
         int totalWidth = (fm.stringWidth(text) * 2) + 4;
         
-        int x = (((Game.getFrame().getWidth() / 2) - (totalWidth / 2)) / 2);
+        int x = (((Game.getFrame().getWidth() / SideScroller.SCALE) - (totalWidth / 2)) / 2);
         g.drawString(text, x, y);
 	}
 	
@@ -206,7 +206,7 @@ public class Utilities {
 			LogHelper.logInfo("You can download the update here: " + SideScroller.getGame().getUpdateURL());
 			LogHelper.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
 			
-			int result = JOptionPane.showConfirmDialog((Component) null, (Object) "An newer version of the game, (Build " + s[0] +") is avaliable, do you want to download it now? ", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			int result = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "An newer version of the game, (Build " + s[0] +") is avaliable, do you want to download it now? ", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			try {
 			    Files.delete(p);
 			} catch (NoSuchFileException e) {
@@ -221,12 +221,13 @@ public class Utilities {
 				String path = saveAs(".jar");
 				download(SideScroller.getGame().getDownloadURL() + s[0] + ".jar", path, "Downloading Update", false);
 				if(!error) {
-					int result2 = JOptionPane.showConfirmDialog((Component) null, (Object) "Download complete. Do you want to close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					int result2 = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "Download complete. Do you want to close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					if(result2 == JOptionPane.YES_OPTION) {
 						try {
 							ProcessBuilder pb = new ProcessBuilder("java", "-jar", path);
 							pb.start();
 							System.exit(0);
+							return true;
 						} catch (IOException e) {
 							e.printStackTrace();
 						}

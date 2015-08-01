@@ -1,6 +1,8 @@
-# SideScrollerProject- Alpha Build 0.1.6.226
+# SideScrollerProject- Alpha Build 0.1.6.227
 
 The SideScroller Project is an open source solution for people wanting to create an open source SideScrolling / RPG game. If you want to use my code, your code must be open source too. Thanks!
+
+Remember this is an in-development game. Expect things to be hilariously over-powered or under-powered.
 
 You need Java 8 to compile and run this!
 

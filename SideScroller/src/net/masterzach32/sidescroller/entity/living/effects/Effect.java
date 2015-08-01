@@ -16,16 +16,19 @@ public class Effect {
 	private double strength, timer;
 	private EntityLiving entity, source;
 	
+	private double speed;
+	
 	private boolean remove;
 	
-	public static final int HEAL          = 0;
-	public static final int ATTACK        = 1;
-	public static final int SPEED         = 2;
-	public static final int HEALTHREGEN   = 3;
-	public static final int POISION       = 4;
-	public static final int WITHER        = 5;
-	public static final int FIRE          = 6;
-	public static final int KNOCKUP       = 7;
+	public static final int HEAL         = 0;
+	public static final int ATTACK       = 1;
+	public static final int SPEED        = 2;
+	public static final int HEALTHREGEN  = 3;
+	public static final int POISION      = 4;
+	public static final int WITHER       = 5;
+	public static final int FIRE         = 6;
+	public static final int KNOCKUP      = 7;
+	public static final int SLOW         = 8;
 	private final int[] numFrames = {3, 3, 3, 3, 3, 3, 3, 3};
 	
 	private ArrayList<BufferedImage[]> sprites;
@@ -72,32 +75,48 @@ public class Effect {
 		if(this.type == POISION) animation.setFrames(sprites.get(POISION));
 		if(this.type == WITHER) animation.setFrames(sprites.get(WITHER));
 		if(this.type == FIRE) animation.setFrames(sprites.get(FIRE));
-		if(this.type == KNOCKUP) animation.setFrames(sprites.get(KNOCKUP));*/
+		if(this.type == KNOCKUP) animation.setFrames(sprites.get(KNOCKUP));
+		if(this.type == SLOW) animation.setFrames(sprites.get(SLOW));*/
 		animation.setDelay(40);
 	}
 	
 	private void addToEntity() {
 		if(this.type == ATTACK) entity.damage += 2 * strength;
-		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() + 0.2 * strength);
+		if(this.type == SPEED) {
+			speed = entity.getMaxSpeed() * (0.15 * strength);
+			entity.setMaxSpeed(entity.getMaxSpeed() + speed);
+		}
 		if(this.type == HEALTHREGEN) return;
 		if(this.type == POISION) return;
-		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() - 0.07 * strength);
+		if(this.type == WITHER) {
+			speed = entity.getMaxSpeed() * (0.06 * strength);
+			entity.setMaxSpeed(entity.getMaxSpeed() - speed);
+		}
 		if(this.type == FIRE) return;
 		if(this.type == KNOCKUP) entity.knockUp(timer);
+		if(this.type == SLOW) {
+			speed = entity.getMaxSpeed() * (0.08 * strength);
+			entity.setMaxSpeed(entity.getMaxSpeed() - speed);
+		}
 	}
 	
 	private void removeFromEntity() {
 		if(this.type == ATTACK) entity.damage -= 2 * strength;
-		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() - 0.2 * strength);
+		if(this.type == SPEED) entity.setMaxSpeed(entity.getMaxSpeed() - speed);
 		if(this.type == HEALTHREGEN) return;
 		if(this.type == POISION) return;
-		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() + 0.07 * strength);
+		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() + speed);
 		if(this.type == FIRE) return;
 		if(this.type == KNOCKUP) return;
+		if(this.type == SLOW) {
+			speed = entity.getMaxSpeed() * (0.08 * strength);
+			entity.setMaxSpeed(entity.getMaxSpeed() + speed);
+		}
 	}
 	
 	/**
-	 * Sets the delay between hits on dots, Default is 30 ticks
+	 * Sets the delay between hits on dots, Default is 30 ticks (.5 seconds)<br>
+	 * NOTE: This does not affect damage, so lower numbers WILL CAUSE THE EFFECT TO DEAL EXPONENTIAL DAMAGE
 	 */
 	public void setDelay(int delay) {
 		this.delay = delay;
@@ -118,8 +137,9 @@ public class Effect {
 			if(this.type == HEALTHREGEN) entity.heal((float) (0.5 * strength));
 			if(this.type == POISION) entity.hit((float) ((0.2 * strength) + (0.06 * (entity.getMaxHealth() - entity.getHealth()))), false, true, "Poision", source);
 			if(this.type == WITHER) entity.hit((float) (0.4 * strength), false, true, "Wither", source);
-			if(this.type == FIRE) entity.hit((float) (0.05 + (0.04 + 0.02 * strength) * entity.getHealth()), false, true, "Fire", source);
+			if(this.type == FIRE) entity.hit((float) (0.1 + (0.04 + 0.02 * strength) * entity.getHealth()), false, true, "Fire", source);
 			if(this.type == KNOCKUP) return;
+			if(this.type == SLOW) return;
 			delayTimer = 0;
 		}
 		//animation.tick();
@@ -132,9 +152,10 @@ public class Effect {
 		if(this.type == SPEED) g.setColor(Color.GREEN);
 		if(this.type == HEALTHREGEN) g.setColor(Color.PINK);
 		if(this.type == POISION) g.setColor(new Color(0, 200, 0));
-		if(this.type == WITHER) g.setColor(Color.BLACK);
+		if(this.type == WITHER) g.setColor(Color.MAGENTA);
 		if(this.type == FIRE) g.setColor(Color.ORANGE);
 		if(this.type == KNOCKUP) g.setColor(Color.WHITE);
+		if(this.type == SLOW) g.setColor(Color.BLACK);
 		g.fillRect(x + (5 * space), y - 5, 4, 4);
 		//animation.render(g, x, y, 30, 30);
 	}

@@ -24,8 +24,8 @@ public class Orb extends Projectile {
 		x = LevelState.getPlayer().getx();
 		y = LevelState.getPlayer().gety();
 		
-		range = 130;
-		range2 = 40;
+		range = 140;
+		range2 = 30;
 		stage = 1;
 		
 		facingRight = right;
@@ -75,8 +75,8 @@ public class Orb extends Projectile {
 				}
 			}
 			if(stage == 2) {
-				dx = (moveSpeed/15);
-				r1 += (moveSpeed/15);
+				dx = (moveSpeed/22);
+				r1 += (moveSpeed/22);
 				if(r1 >= range2) {
 					stage = 3;
 					r1 = 0;
@@ -101,8 +101,8 @@ public class Orb extends Projectile {
 				}
 			}
 			if(stage == 2) {
-				dx = -(moveSpeed/15);
-				r1 += (moveSpeed/15);
+				dx = -(moveSpeed/22);
+				r1 += (moveSpeed/22);
 				if(r1 >= range2) {
 					stage = 3;
 					r1 = 0;
@@ -118,6 +118,10 @@ public class Orb extends Projectile {
 				}
 			}
 		}
+	}
+	
+	public int getStage() {
+		return stage;
 	}
 	
 	public void addToHitList(EntityLiving entity) {
