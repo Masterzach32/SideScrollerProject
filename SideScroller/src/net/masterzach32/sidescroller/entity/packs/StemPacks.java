@@ -9,7 +9,7 @@ import net.masterzach32.sidescroller.entity.living.EntityPlayer;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 
-public class StemPacks extends MapObject {
+public abstract class StemPacks extends MapObject {
 	
 	protected static EntityPlayer player;
 	
@@ -23,7 +23,7 @@ public class StemPacks extends MapObject {
 	public static final int HEALTHREGEN   = 3;
 
 
-	protected StemPacks(TileMap tm, int type, int strength) {
+	public StemPacks(TileMap tm, int type, int strength) {
 		super(tm);
 		
 		width = 30;
@@ -54,6 +54,6 @@ public class StemPacks extends MapObject {
 		return remove;
 	}
 
-	public void tick() {}
+	public abstract void tick();
 	
 }

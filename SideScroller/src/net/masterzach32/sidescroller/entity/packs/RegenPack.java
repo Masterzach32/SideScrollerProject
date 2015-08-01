@@ -7,13 +7,13 @@ import net.masterzach32.sidescroller.tilemap.TileMap;
 
 public class RegenPack extends StemPacks {
 
-	protected RegenPack(TileMap tm, int strength) {
+	public RegenPack(TileMap tm, int strength) {
 		super(tm, HEALTHREGEN, strength);
 	}
 	
 	public void tick() {
 		if(player.intersects(this)) {
-			player.addEffect(null, Effect.HEALTHREGEN, strength, 7);
+			player.addEffect(null, Effect.HEALTHREGEN, strength, 6);
 			remove = true;
 		}
 	}

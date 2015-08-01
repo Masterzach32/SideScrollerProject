@@ -31,6 +31,7 @@ public class EntityLiving extends MapObject {
 	public EntityLiving(TileMap tm) {
 		super(tm);
 		effects = new ArrayList<Effect>();
+		explosions = new ArrayList<Explosion>();
 	}
 
 	public double getHealth() { 
@@ -97,6 +98,15 @@ public class EntityLiving extends MapObject {
 		for(int i = 0; i < effects.size(); i++) {
 			effects.get(i).tick();
 			if(effects.get(i).shouldRemove()) effects.remove(i);
+		}
+		
+		// update explosions
+		for(int i = 0; i < explosions.size(); i++) {
+			explosions.get(i).tick();
+			if(explosions.get(i).shouldRemove()) {
+				explosions.remove(i);
+				i--;
+			}
 		}
 		
 		if(knockedUp) {

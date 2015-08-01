@@ -225,15 +225,6 @@ public class Swordman extends Enemy {
 			}
 		}
 		
-		// update explosions
-		for(int i = 0; i < explosions.size(); i++) {
-			explosions.get(i).tick();
-			if(explosions.get(i).shouldRemove()) {
-				explosions.remove(i);
-				i--;
-			}
-		}
-		
 		// update animation
 		animation.tick();
 	}

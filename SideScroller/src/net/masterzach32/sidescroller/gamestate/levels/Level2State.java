@@ -13,6 +13,7 @@ import net.masterzach32.sidescroller.entity.living.enemy.Slugger;
 import net.masterzach32.sidescroller.entity.living.enemy.Swordman;
 import net.masterzach32.sidescroller.entity.packs.DamagePack;
 import net.masterzach32.sidescroller.entity.packs.HealthPack;
+import net.masterzach32.sidescroller.entity.packs.RegenPack;
 import net.masterzach32.sidescroller.entity.packs.SpeedPack;
 import net.masterzach32.sidescroller.entity.packs.StemPacks;
 import net.masterzach32.sidescroller.gamestate.GameState;
@@ -104,8 +105,12 @@ public class Level2State extends LevelState {
 		SpeedPack sp3 = new SpeedPack(tileMap, 4);
 		sp3.setPosition(150, 110);
 		
+		RegenPack sp4 = new RegenPack(tileMap, 4);
+		sp4.setPosition(180, 110);
+		
 		stemPacks.add(sp1);
 		stemPacks.add(sp2);
 		stemPacks.add(sp3);
+		stemPacks.add(sp4);
 	}
 }

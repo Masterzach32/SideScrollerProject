@@ -90,7 +90,6 @@ public class EntityPlayer extends EntityLiving {
 		
 		orbCd = 360;
 		orbCurrentCd = 0;
-		explosions = new ArrayList<Explosion>();
 		orbs = new ArrayList<Orb>();
 		
 		scratchRange = 30;
@@ -485,15 +484,6 @@ public class EntityPlayer extends EntityLiving {
 			orbs.get(i).tick();
 			if(orbs.get(i).removeOrb()) {
 				orbs.remove(i);
-				i--;
-			}
-		}
-		
-		// update explosions
-		for(int i = 0; i < explosions.size(); i++) {
-			explosions.get(i).tick();
-			if(explosions.get(i).shouldRemove()) {
-				explosions.remove(i);
 				i--;
 			}
 		}

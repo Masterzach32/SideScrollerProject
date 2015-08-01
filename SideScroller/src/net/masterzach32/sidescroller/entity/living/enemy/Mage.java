@@ -252,15 +252,6 @@ public class Mage extends Enemy {
 			}
 		}
 		
-		// update explosions
-		for(int i = 0; i < explosions.size(); i++) {
-			explosions.get(i).tick();
-			if(explosions.get(i).shouldRemove()) {
-				explosions.remove(i);
-				i--;
-			}
-		}
-		
 		// update orbs
 		for(int i = 0; i < orbs.size(); i++) {
 			orbs.get(i).tick();
