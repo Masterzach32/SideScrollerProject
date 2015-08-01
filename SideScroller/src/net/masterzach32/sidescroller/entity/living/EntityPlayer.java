@@ -267,8 +267,10 @@ public class EntityPlayer extends EntityLiving {
 	public void moveSoldiers() {
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
+		int space = -70;
 		for(int i = 0; i < soldiers.size(); i++) {
-			soldiers.get(i).move((int) x);
+			space += 35;
+			soldiers.get(i).move((int) x + space);
 		}
 	}
 	
