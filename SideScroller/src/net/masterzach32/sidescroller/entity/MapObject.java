@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.entity.living.EntityPlayer;
+import net.masterzach32.sidescroller.entity.living.Soldier;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.entity.packs.StemPacks;
 import net.masterzach32.sidescroller.main.SideScroller;
@@ -296,9 +297,10 @@ public abstract class MapObject {
 		
 		if(showHitbox) { 
 			if(this instanceof Enemy) g.setColor(Color.RED);
-			else if(this instanceof Projectile) g.setColor(Color.YELLOW);
+			else if(this instanceof Projectile) g.setColor(new Color(255,215,0));
 			else if(this instanceof EntityPlayer) g.setColor(Color.GREEN);
 			else if(this instanceof StemPacks) g.setColor(Color.MAGENTA);
+			else if(this instanceof Soldier) g.setColor(new Color(218, 165, 32));
 			else g.setColor(Color.WHITE);
 			g.draw(new Rectangle((int) (x + xmap - width / 2 + ((width - cwidth) / 2)), (int) (y + ymap - height / 2 + ((height - cheight) / 2)), cwidth, cheight));
 			g.setColor(Color.WHITE);

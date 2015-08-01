@@ -192,10 +192,9 @@ public abstract class LevelState extends GameState {
 			if(k == KeyEvent.VK_S) player.setDown(true);
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_JUMP]) player.setJumping(true);
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_GLIDE]) player.setGliding(true);
-			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_SCRATCH]) player.setScratching();
-			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_ORB]) player.setFiring();
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_SCRATCH]) player.setAttacking();
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_ORB]) player.setSpawning();
 			if(k == KeyEvent.VK_ESCAPE) GameState.setState(SideScroller.menuState);
-			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_REWIND]) player.rewind();
 		}
 		if(player.isDead() && j == 0) { 
 			player.respawn();
@@ -216,8 +215,8 @@ public abstract class LevelState extends GameState {
 	
 	public void mousePressed(int k) {
 		if(!player.isDead()) {
-			if(k == MouseEvent.BUTTON1_DOWN_MASK) player.setScratching();
-			if(k == MouseEvent.BUTTON3_DOWN_MASK) player.setFiring();
+			if(k == MouseEvent.BUTTON1_DOWN_MASK) player.setAttacking();
+			if(k == MouseEvent.BUTTON3_DOWN_MASK) player.setSpawning();
 		}
 	}
 	

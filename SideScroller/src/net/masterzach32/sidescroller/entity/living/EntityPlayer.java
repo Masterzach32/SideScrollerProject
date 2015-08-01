@@ -6,8 +6,6 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
-import net.masterzach32.sidescroller.entity.Orb;
-import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.tilemap.*;
 
@@ -27,30 +25,25 @@ public class EntityPlayer extends EntityLiving {
 	private int orbCd;
 	public int rewindCd;
 	
-	private int[] x4 = new int[240], y4 = new int[240], health4 = new int[240];
-	
 	// fireball
-	private boolean firing;
-	private int orbDamage;
-	private ArrayList<Orb> orbs;
+	private boolean spawning;
+	private int soldierDamage;
+	private ArrayList<Soldier> soldiers;
 	
 	// scratch
-	private boolean scratching;
+	private boolean attacking;
 	private int scratchDamage;
 	private int scratchRange;
 	
 	// gliding
 	private boolean gliding;
 	
-	private boolean rewind = false;
-	int r = 0;
-	
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
 	private final int[] numFrames = {2, 8, 1, 2, 4, 2, 5};
 	
 	// animation actions
-	private static final int IDLE = 0, WALKING = 1, JUMPING = 2, FALLING = 3, GLIDING = 4, ORB = 5, SCRATCHING = 6;
+	private static final int IDLE = 0, WALKING = 1, JUMPING = 2, FALLING = 3, GLIDING = 4, SOLDIER = 5, ATTACKING = 6;
 	
 	private HashMap<String, AudioPlayer> sfx;
 	
@@ -84,9 +77,9 @@ public class EntityPlayer extends EntityLiving {
 		
 		orbCd = 360;
 		orbCurrentCd = 0;
-		orbs = new ArrayList<Orb>();
+		soldiers = new ArrayList<Soldier>();
 		
-		scratchRange = 30;
+		scratchRange = 50;
 		
 		resetStats(false);
 		
@@ -102,7 +95,7 @@ public class EntityPlayer extends EntityLiving {
 			for(int i = 0; i < 7; i++) {
 				BufferedImage[] bi = new BufferedImage[numFrames[i]];
 				for(int j = 0; j < numFrames[i]; j++) {
-					if(i != SCRATCHING) {
+					if(i != ATTACKING) {
 						bi[j] = spritesheet.getSubimage(j * width, i * height, width, height);
 					} else {
 						bi[j] = spritesheet.getSubimage(j * width * 2, i * height, width * 2, height);
@@ -123,7 +116,7 @@ public class EntityPlayer extends EntityLiving {
 		sfx = new HashMap<String, AudioPlayer>();
 		sfx.put("jump", new AudioPlayer(Assets.getAudioAsset("jump")));
 		sfx.put("scratch", new AudioPlayer(Assets.getAudioAsset("scratch")));
-		sfx.put("fire", new AudioPlayer(Assets.getAudioAsset("fire")));
+		sfx.put("spawn", new AudioPlayer(Assets.getAudioAsset("spawn")));
 	}
 	
 	public boolean isInCombat() {
@@ -165,16 +158,16 @@ public class EntityPlayer extends EntityLiving {
 	public void setDead(MapObject source) {
 		this.dead = true;
 		currentAction = IDLE;
-		scratching = false;
+		attacking = false;
 		flinching = false;
 	}
 	
-	public void setFiring() { 
-		firing = true;
+	public void setSpawning() { 
+		spawning = true;
 	}
 	
-	public void setScratching() {
-		scratching = true;
+	public void setAttacking() {
+		attacking = true;
 	}
 	
 	public void setGliding(boolean b) { 
@@ -202,13 +195,13 @@ public class EntityPlayer extends EntityLiving {
 	 * @param enemies
 	 */
 	public void checkAttack(ArrayList<Enemy> enemies) {
-		scratchDamage = (int)(10 + damage * 0.9);
-		orbDamage = (int)(4 + damage * 1.2);
+		scratchDamage = (int)(8 + damage * 0.9);
+		soldierDamage = (int)(4 + damage * 1.2);
 		// loop through enemies
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
 			// scratch attack
-			if(scratching) {
+			if(attacking) {
 				if(facingRight) {
 					if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
 						combatTimer = 300;
@@ -222,14 +215,11 @@ public class EntityPlayer extends EntityLiving {
 				}
 			}
 			
-			// orbs
-			for(int j = 0; j < orbs.size(); j++) {
-				if(orbs.get(j).intersects(e)) {
-					if(orbs.get(j).getStage() == 2) e.addEffect(this, Effect.SLOW, 1 * level, .5);
-					if(orbs.get(j).isHit(e)) return;
-					orbs.get(j).addToHitList(e);
+			// soldiers
+			for(int j = 0; j < soldiers.size(); j++) {
+				if(soldiers.get(j).isAttacking()) {
 					combatTimer = 300;
-					e.hit(orbDamage, false, true, "Orb", this);
+					e.hit(soldierDamage, false, false, "Orb", soldiers.get(i));
 				}
 			}
 						
@@ -239,16 +229,6 @@ public class EntityPlayer extends EntityLiving {
 				hit(e.getDamage() / 2, false, false, "Collision", e);
 			}	
 		}
-	}
-	
-	/**
-	 * Executes the player's rewind ability
-	 */
-	public void rewind() {
-		if(rewindCd > 0) return;
-		rewind = true;
-		flinching = true;
-		flinchTimer = System.nanoTime();
 	}
 	
 	/**
@@ -300,7 +280,7 @@ public class EntityPlayer extends EntityLiving {
 		}
 		
 		// cannot move while attacking, except in air
-		if((currentAction == SCRATCHING || currentAction == ORB) && !(jumping || falling)) {
+		if((currentAction == ATTACKING || currentAction == SOLDIER) && !(jumping || falling)) {
 			dx = 0;
 		}
 		
@@ -330,26 +310,26 @@ public class EntityPlayer extends EntityLiving {
 			setPosition(xtemp, ytemp);
 		
 			// check attack has stopped
-			if(currentAction == SCRATCHING) {
-				if(animation.hasPlayedOnce()) scratching = false;
-			} if(currentAction == ORB) {
-				if(animation.hasPlayedOnce()) firing = false;
+			if(currentAction == ATTACKING) {
+				if(animation.hasPlayedOnce()) attacking = false;
+			} if(currentAction == SOLDIER) {
+				if(animation.hasPlayedOnce()) spawning = false;
 			}
 		
 			// orb attack
-			if(firing && currentAction != ORB) {
+			if(spawning && currentAction != SOLDIER) {
 				if(orbCurrentCd == 0) {
-					orbCurrentCd = orbCd;
-					Orb orb = null;
+					Soldier soldier = null;
 					if(facingRight)
-						orb = new Orb(tileMap, true);
+						soldier = new Soldier(tileMap, 0, 0, level, this);
 					if(!facingRight)
-						orb = new Orb(tileMap, false);
-					if(orb != null) {
-						orb.setPosition(x, y);
-						orbs.add(orb);
+						soldier = new Soldier(tileMap, 0, 0, level, this);
+					if(soldier != null) {
+						soldier.setPosition(x, y);
+						soldiers.add(soldier);
 					}
 				} else {
+					
 				}
 			}
 		
@@ -362,19 +342,19 @@ public class EntityPlayer extends EntityLiving {
 			}
 		
 			// set animation
-			if(scratching) {
-				if(currentAction != SCRATCHING) {
+			if(attacking) {
+				if(currentAction != ATTACKING) {
 					sfx.get("scratch").play();
-					currentAction = SCRATCHING;
-					animation.setFrames(sprites.get(SCRATCHING));
+					currentAction = ATTACKING;
+					animation.setFrames(sprites.get(ATTACKING));
 					animation.setDelay(50);
 					width = 60;
 				}
-			} else if(firing) {
-				if(currentAction != ORB) {
-					sfx.get("fire").play();
-					currentAction = ORB;
-					animation.setFrames(sprites.get(ORB));
+			} else if(spawning) {
+				if(currentAction != SOLDIER) {
+					sfx.get("spawn").play();
+					currentAction = SOLDIER;
+					animation.setFrames(sprites.get(SOLDIER));
 					animation.setDelay(100);
 					width = 30;
 				}
@@ -417,7 +397,7 @@ public class EntityPlayer extends EntityLiving {
 			}
 		
 			// set direction
-			if(currentAction != SCRATCHING && currentAction != ORB) {
+			if(currentAction != ATTACKING && currentAction != SOLDIER) {
 				if(right) facingRight = true;
 				if(left) facingRight = false;
 			}
@@ -446,16 +426,11 @@ public class EntityPlayer extends EntityLiving {
 		if(combatTimer > 0) inCombat = true;
 		if(combatTimer == 0) inCombat = false;
 		
-		if(rewindCd > 0) rewindCd--;
-		
-		if(orbCurrentCd > 0) orbCurrentCd--;
-		if(orbCurrentCd > orbCd) orbCurrentCd = orbCd;
-		
 		// update orbs
-		for(int i = 0; i < orbs.size(); i++) {
-			orbs.get(i).tick();
-			if(orbs.get(i).removeOrb()) {
-				orbs.remove(i);
+		for(int i = 0; i < soldiers.size(); i++) {
+			soldiers.get(i).tick();
+			if(soldiers.get(i).shouldRemove()) {
+				soldiers.remove(i);
 				i--;
 			}
 		}
@@ -464,59 +439,21 @@ public class EntityPlayer extends EntityLiving {
 			resetStats(true);
 		}
 		
-		// stores the players x, y, and health for the past 4 seconds
-		for(int i = 239; i > 0; i--) {
-			if(rewindCd >= 240) {
-				x4[i] = (int) x;
-				y4[i] = (int) y;
-				health4[i] = (int) health;
-			} else if(!rewind) {
-				x4[i] = x4[i-1];
-				y4[i] = y4[i-1];
-				health4[i] = health4[i-1];
-			}
-		}
-		
-		// does the rewind ability while active
-		if(rewind) {
-			r += 4;
-			if(r <= 239) {
-				x = x4[r];
-				y = y4[r];
-				health = health4[r];
-			}
-			if(r >= 239) {
-				rewind = false;
-				r = 0;
-				rewindCd = 2000;
-			}
-		}
-		
-		x4[0] = (int) x;
-		y4[0] = (int) y;
-		health4[0] = (int) health;
-		
 		resetStats(false);
 	}
 	
 	public void render(Graphics2D g) {
 		setMapPosition();
 		
-		g.setColor(Color.BLUE);
-		if(rewindCd < 240) {
-			g.drawRect((int)(x4[239] + xmap - 30 / 2), (int)(y4[239] + ymap - height / 2), 30, 30);
-			for(int i = 0; i < 240; i++) g.drawLine((int)(x4[i] + xmap), (int)(y4[i] + ymap), (int)(x4[i] + xmap), (int)(y4[i] + ymap));
-		}
-		
 		// draw orbs
-		for(int i = 0; i < orbs.size(); i++) {
-			orbs.get(i).render(g);
+		for(int i = 0; i < soldiers.size(); i++) {
+			soldiers.get(i).render(g);
 		}
 		
 		super.render(g);
 		
 		if(MapObject.isHitboxEnabled()) {
-			if(scratching) {
+			if(attacking) {
 				g.setColor(Color.YELLOW);
 				if(facingRight) {
 					g.drawRect((int)(x + xmap), (int)(y + ymap - height / 2 + (height - cheight) / 2), scratchRange, cheight);

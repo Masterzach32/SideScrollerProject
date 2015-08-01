@@ -51,6 +51,7 @@ public class Assets {
 		images.put("spawn_animation_p", SideScroller.al.loadImage("/sprites/player/spawn_animation_placeholder.png"));
 		// Player
 		images.put("player", SideScroller.al.loadImage("/sprites/player/playersprites.gif"));
+		images.put("soldier", SideScroller.al.loadImage("/sprites/player/soldier_sprites.png"));
 		images.put("player_blue", SideScroller.al.loadImage("/sprites/player/player.png"));
 		// Enemies
 		images.put("slugger", SideScroller.al.loadImage("/sprites/enemies/slugger.gif"));
