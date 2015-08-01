@@ -7,7 +7,9 @@ import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
+import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
+import net.masterzach32.sidescroller.util.Utilities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -320,10 +322,13 @@ public class EntityPlayer extends EntityLiving {
 			if(spawning && currentAction != SOLDIER) {
 				if(orbCurrentCd == 0) {
 					Soldier soldier = null;
+					Point p = Utilities.getMousePosition();
+					int x = (int) (p.x / SideScroller.SCALE - xmap);
+					int y = (int) (p.y / SideScroller.SCALE - ymap);
 					if(facingRight)
-						soldier = new Soldier(tileMap, 0, 0, level, this);
+						soldier = new Soldier(tileMap, level, this);
 					if(!facingRight)
-						soldier = new Soldier(tileMap, 0, 0, level, this);
+						soldier = new Soldier(tileMap, level, this);
 					if(soldier != null) {
 						soldier.setPosition(x, y);
 						soldiers.add(soldier);

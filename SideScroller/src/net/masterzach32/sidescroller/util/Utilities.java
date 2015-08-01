@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -216,5 +218,11 @@ public class Utilities {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public static Point getMousePosition() {
+		Point p1 = MouseInfo.getPointerInfo().getLocation();
+		Point p2 = Game.getFrame().getLocationOnScreen();
+		return new Point(p1.x - p2.x, p1.y - p2.y);
 	}
 }

@@ -30,7 +30,7 @@ public class Soldier extends MapObject {
 	//private static final int IDLE = 0, MOVING = 1, ATTACKING = 2, DECAY = 3;
 	private static final int IDLE = 0, MOVING = 1, JUMPING = 2, FALLING = 3, GLIDING = 4, SOLDIER = 5, ATTACKING = 6;
 
-	protected Soldier(TileMap tm, int x, int y, int level, EntityPlayer player) {
+	protected Soldier(TileMap tm, int level, EntityPlayer player) {
 		super(tm);
 		
 		width = 30;
