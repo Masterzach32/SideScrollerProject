@@ -5,8 +5,6 @@ import java.awt.image.BufferedImage;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.living.EntityPlayer;
-import net.masterzach32.sidescroller.gamestate.levels.LevelState;
-import net.masterzach32.sidescroller.util.Utilities;
 
 public class HUD {
 	
@@ -66,8 +64,6 @@ public class HUD {
 		
 		g.setFont(font);
 		g.setColor(Color.WHITE);
-		if(!player.isDead()) g.drawString("Orb: " + Utilities.getCooldown(player.getOrbCurrentCd()) + " Rewind: " + Utilities.getCooldown(player.rewindCd), 0, 12);
-		if(player.isDead()) g.drawString("Death Timer: " + Utilities.getCooldown(LevelState.j) + " Orb: " + Utilities.getCooldown(player.getOrbCurrentCd()) + " Rewind: " + Utilities.getCooldown(player.rewindCd), 0, 12);
 		g.drawString(player.getLevel() + " - " + (int) player.getExp() + "/" + (int) player.getMaxExp(), 1, 70);
 		g.setFont(font);
 		g.drawString((int) (player.getHealth()) + "/" + (int) (player.getMaxHealth()), 16, 29);

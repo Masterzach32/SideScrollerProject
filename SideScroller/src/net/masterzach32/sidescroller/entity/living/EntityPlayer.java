@@ -6,6 +6,7 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
+import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*;
@@ -23,9 +24,6 @@ public class EntityPlayer extends EntityLiving {
 	private double exp;
 	private double maxExp;
 	private int level;
-	private int orbCurrentCd;
-	private int orbCd;
-	public int rewindCd;
 	
 	// fireball
 	private boolean spawning;
@@ -73,12 +71,9 @@ public class EntityPlayer extends EntityLiving {
 		shieldRegen = (double)  (maxShield * 0.004);
 		level = 1;
 		maxExp = 100;
-		rewindCd = 300;
 		
 		damage = 6;
 		
-		orbCd = 360;
-		orbCurrentCd = 0;
 		soldiers = new ArrayList<Soldier>();
 		
 		scratchRange = 50;
@@ -118,7 +113,7 @@ public class EntityPlayer extends EntityLiving {
 		sfx = new HashMap<String, AudioPlayer>();
 		sfx.put("jump", new AudioPlayer(Assets.getAudioAsset("jump")));
 		sfx.put("scratch", new AudioPlayer(Assets.getAudioAsset("scratch")));
-		sfx.put("spawn", new AudioPlayer(Assets.getAudioAsset("spawn")));
+		sfx.put("movement", new AudioPlayer(Assets.getAudioAsset("movement")));
 	}
 	
 	public boolean isInCombat() {
@@ -143,14 +138,6 @@ public class EntityPlayer extends EntityLiving {
 
 	public int getLevel() {
 		return level;
-	}
-
-	public int getOrbCurrentCd() { 
-		return orbCurrentCd; 
-	}
-	
-	public int getOrbCd() { 
-		return orbCd; 
 	}
 	
 	public boolean isDead() {
@@ -182,7 +169,6 @@ public class EntityPlayer extends EntityLiving {
 	public void respawn() {
 		this.dead = false;
 		health = maxHealth;
-		if(rewindCd < 250) rewindCd = 250;
 		setPosition(100, 100);
 		setLeft(false);
 		setRight(false);
@@ -198,7 +184,7 @@ public class EntityPlayer extends EntityLiving {
 	 */
 	public void checkAttack(ArrayList<Enemy> enemies) {
 		scratchDamage = (int)(6 + damage * 0.8);
-		soldierDamage = (int)(4 + damage * 1.2);
+		soldierDamage = (int)(2 + damage * 0.7);
 		// loop through enemies
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
@@ -208,12 +194,12 @@ public class EntityPlayer extends EntityLiving {
 					if(facingRight) {
 						if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
 							combatTimer = 300;
-							e.hit(scratchDamage, false, false, "Scratch", this);
+							e.hit(scratchDamage, false, false, "Attack", this);
 						}
 					} else {
 						if(e.intersects(new Rectangle((int) (x - scratchRange), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
 							combatTimer = 300;
-							e.hit(scratchDamage, false, false, "Scratch", this);
+							e.hit(scratchDamage, false, false, "Attack", this);
 						}
 					}
 				} else if(soldiers.size() > 0) {
@@ -223,17 +209,20 @@ public class EntityPlayer extends EntityLiving {
 							soldiers.get(j).checkAttack(enemies, soldierDamage);
 							combatTimer = 300;
 						}
-						
-						if(soldiers.get(j).isMoving()) {
-							if(e.intersects(soldiers.get(j))) {
-								e.hit(soldierDamage / 3, false, false, "Conquering Sands", soldiers.get(j));
-								combatTimer = 300;
-							}
-						}
 					}
 				}
 			}
-						
+			
+			for(int j = 0; j < soldiers.size(); j++) {
+				if(soldiers.get(j).isMoving()) {
+					if(e.intersects(soldiers.get(j))) {
+						e.hit(soldierDamage / 2, false, false, "Conquering Sands", soldiers.get(j));
+						e.addEffect(soldiers.get(j), Effect.SLOW, 4 * soldiers.size(), 0.5);
+						combatTimer = 300;
+					}
+				}
+			}
+			
 			// check enemy collision
 			if(intersects(e)) {
 				combatTimer = 300;
@@ -259,7 +248,7 @@ public class EntityPlayer extends EntityLiving {
 	 * @param strength
 	 * @param duration
 	 */
-	public void addEffect(EntityLiving source, int type, int strength, int duration) {
+	public void addEffect(MapObject source, int type, int strength, int duration) {
 		super.addEffect(source, type, strength, duration);
 		resetStats(false);
 	}
@@ -268,6 +257,7 @@ public class EntityPlayer extends EntityLiving {
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
 		int space = -70;
+		sfx.get("movement").play();
 		for(int i = 0; i < soldiers.size(); i++) {
 			space += 35;
 			soldiers.get(i).move((int) x + space);
@@ -277,27 +267,25 @@ public class EntityPlayer extends EntityLiving {
 	public void spawnSoldier() {
 		// orb attack
 		if(currentAction != SOLDIER && soldiers.size() < 3) {
-			if(orbCurrentCd == 0) {
-				if(soldiers.size() == 3) {
-					for(int i = 0; i < soldiers.size(); i++) {
-						soldiers.get(i).getTimeLeft();
-					}
+			if(soldiers.size() == 3) {
+				for(int i = 0; i < soldiers.size(); i++) {
+					soldiers.get(i).getTimeLeft();
 				}
-				Soldier soldier = null;
-				Point p = Utilities.getMousePosition();
-				int x = (int) (p.x / SideScroller.SCALE - xmap);
-				int y = (int) (p.y / SideScroller.SCALE - ymap);
-				if(facingRight)
-					soldier = new Soldier(tileMap, level, this);
-				if(!facingRight)
-					soldier = new Soldier(tileMap, level, this);
-				if(soldier != null) {
-					soldier.setPosition(x, y);
-					soldiers.add(soldier);
-				}
-			} else {
-				
 			}
+			Soldier soldier = null;
+			Point p = Utilities.getMousePosition();
+			int x = (int) (p.x / SideScroller.SCALE - xmap);
+			int y = (int) (p.y / SideScroller.SCALE - ymap);
+			if(facingRight)
+				soldier = new Soldier(tileMap, level, this);
+			if(!facingRight)
+				soldier = new Soldier(tileMap, level, this);
+			if(soldier != null) {
+				soldier.setPosition(x, y);
+				soldiers.add(soldier);
+			}
+		} else {
+			
 		}
 	}
 	
@@ -503,7 +491,6 @@ public class EntityPlayer extends EntityLiving {
 			maxExp = 75 + 25 * level;
 			exp = 0;
 			damage += 4;
-			orbCd -= 15;
 			maxHealth += 7;
 			health += 7;
 			healthRegen = (double) (maxHealth * 0.0001);

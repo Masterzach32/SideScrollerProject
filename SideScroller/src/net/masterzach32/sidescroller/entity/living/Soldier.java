@@ -14,6 +14,7 @@ import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.util.LogHelper;
 import net.masterzach32.sidescroller.util.Utilities;
 
 @SuppressWarnings("unused")
@@ -24,6 +25,8 @@ public class Soldier extends MapObject {
 	private int attackDelay, timer, moveLocation, time;
 	
 	private int attackRange;
+	
+	private boolean hit;
 	
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
@@ -42,7 +45,7 @@ public class Soldier extends MapObject {
 		cheight = 20;
 		
 		moveSpeed = 0.5;
-		setMaxSpeed(2.5);
+		setMaxSpeed(3.7);
 		stopSpeed = 0.5;
 		fallSpeed = 0.5;
 		maxFallSpeed = 10.0;
@@ -50,7 +53,7 @@ public class Soldier extends MapObject {
 		stopJumpSpeed = 0.3;
 		
 		attackRange = 40;
-		attackDelay = 95 - (5 * level);
+		attackDelay = 75 - (5 * level);
 		timer = 0;
 		
 		time = 9 * SideScroller.FPS;
@@ -87,26 +90,27 @@ public class Soldier extends MapObject {
 	}
 	
 	protected boolean checkAttack(ArrayList<Enemy> enemies, int damage) {
+		if(hit) return false;
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
-			boolean hit;
 			if(facingRight) {
 				if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-					e.hit(damage, false, false, "Soldier Attack", this);
-					return true;
+					e.hit(damage, false, true, "Soldier Attack", this);
+					return hit = true;
 				}
 			} else {
 				if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-					e.hit(damage, false, false, "Soldier Attack", this);
-					return true;
+					e.hit(damage, false, true, "Soldier Attack", this);
+					return hit = true;
 				}
 			}
 		}
-		return false;
+		return hit = false;
 	}
 	
 	protected void attack() {
 		if(timer > 0) return;
+		hit = false;
 		timer = attackDelay;
 		attacking = true;
 	}
@@ -149,13 +153,13 @@ public class Soldier extends MapObject {
 		
 		if(moving) {
 			if(this.x < moveLocation) {
-				if(moveLocation - this.x < 6) {
+				if(moveLocation - this.x < 5) {
 					moving = false;
 					left = false;
 					right = false;
 				}
 			} else if (x > moveLocation) {
-				if(x - moveLocation < 6)
+				if(x - moveLocation < 5)
 					moving = false;
 					left = false;
 					right = false;

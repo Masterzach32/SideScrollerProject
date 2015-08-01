@@ -89,7 +89,7 @@ public class EntityLiving extends MapObject {
 	 * @param strength
 	 * @param duration
 	 */
-	public void addEffect(EntityLiving source, int type, double strength, double duration) {
+	public void addEffect(MapObject source, int type, double strength, double duration) {
 		Effect e = new Effect(this, source, type, strength, duration);
 		for(int i = 0; i < effects.size(); i++) {
 			if(effects.get(i).getType() == type) {

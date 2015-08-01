@@ -135,8 +135,10 @@ public abstract class MapObject {
 	
 	/**
 	 * Checks to see if the mapobject is coliding with the terrain
+	 * @returns true if a collision occured, false otherwise
 	 */
-	public void checkTileMapCollision() {
+	public boolean checkTileMapCollision() {
+		boolean collision = false;
 		currCol = (int)x / tileSize;
 		currRow = (int)y / tileSize;
 		
@@ -151,6 +153,7 @@ public abstract class MapObject {
 			if(topLeft || topRight) {
 				dy = 0;
 				ytemp = currRow * tileSize + cheight / 2;
+				collision = true;
 			} else {
 				ytemp += dy;
 			}
@@ -160,6 +163,7 @@ public abstract class MapObject {
 				dy = 0;
 				falling = false;
 				ytemp = (currRow + 1) * tileSize - cheight / 2;
+				collision = true;
 			}
 			else {
 				ytemp += dy;
@@ -171,6 +175,7 @@ public abstract class MapObject {
 			if(topLeft || bottomLeft) {
 				dx = 0;
 				xtemp = currCol * tileSize + cwidth / 2;
+				collision = true;
 			} else {
 				xtemp += dx;
 			}
@@ -179,6 +184,7 @@ public abstract class MapObject {
 			if(topRight || bottomRight) {
 				dx = 0;
 				xtemp = (currCol + 1) * tileSize - cwidth / 2;
+				collision = true;
 			} else {
 				xtemp += dx;
 			}
@@ -190,6 +196,7 @@ public abstract class MapObject {
 				falling = true;
 			}
 		}
+		return collision;
 	}
 	
 	public int getx() { 

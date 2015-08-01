@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
+import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.EntityLiving;
 import net.masterzach32.sidescroller.main.SideScroller;
 
@@ -14,7 +15,8 @@ public class Effect {
 	
 	private int type, delay, delayTimer;
 	private double strength, timer;
-	private EntityLiving entity, source;
+	private EntityLiving entity;
+	private MapObject source;
 	
 	private double speed;
 	
@@ -61,7 +63,7 @@ public class Effect {
 	 * @param strength
 	 * @param duration in seconds
 	 */
-	public Effect(EntityLiving target, EntityLiving source, int type, double strength, double duration) {
+	public Effect(EntityLiving target, MapObject source, int type, double strength, double duration) {
 		this.type = type;
 		this.strength = strength;
 		this.timer = duration * SideScroller.FPS;
