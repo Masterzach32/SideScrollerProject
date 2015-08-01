@@ -12,11 +12,11 @@ import net.masterzach32.sidescroller.util.Utilities;
 
 public class MenuState extends GameState {
 	
-	protected Background bg;
+	protected static Background bg;
 	
 	protected static String info = "Use the Up and Down arrows to navigate, and ENTER to select.";
 	
-	public static int currentChoice;
+	public int currentChoice;
 	public static String[] options = {
 		"Play",
 		"Help", 
@@ -25,16 +25,17 @@ public class MenuState extends GameState {
 		"Quit"
 	};
 	
-	protected Color titleColor;
-	protected Font titleFont;
+	protected static Color titleColor;
+	protected static Font titleFont;
+	protected static Font subtitleFont;
 	
-	protected Font font;
-	protected Font selectfont;
+	protected static Font font;
+	protected static Font selectfont;
 	
 	public static AudioPlayer bgMusic;
 	
 	public MenuState(SideScroller game) {
-		super(game);	
+		super(game);
 	}
 	
 	public void init() {
@@ -43,6 +44,7 @@ public class MenuState extends GameState {
 		
 		titleColor = new Color(128, 0, 0);
 		titleFont = new Font("Century Gothic", Font.BOLD, 32);
+		subtitleFont = new Font("Century Gothic", Font.BOLD, 20);
 		
 		font = new Font("Arial", Font.PLAIN, 12);
 		selectfont = new Font("Arial", Font.PLAIN, 14);

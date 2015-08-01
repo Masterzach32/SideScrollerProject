@@ -1,21 +1,16 @@
 package net.masterzach32.sidescroller.gamestate.menus;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
-import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
-import net.masterzach32.sidescroller.tilemap.Background;
 import net.masterzach32.sidescroller.util.Utilities;
 
 public class OptionsState extends MenuState {
-
-	private Font subtitleFont;
 	
 	public static int currentChoice;
 	public static String[] options = new String[8]; 
@@ -25,17 +20,7 @@ public class OptionsState extends MenuState {
 		super(game);
 	}
 
-	public void init() {
-		bg = new Background(Assets.getImageAsset("grassbg"), 1);
-		bg.setVector(-0.25, 0);
-		
-		titleColor = new Color(128, 0, 0);
-		titleFont = new Font("Century Gothic", Font.BOLD, 32);
-		subtitleFont = new Font("Century Gothic", Font.BOLD, 20);
-			
-		font = new Font("Arial", Font.PLAIN, 12);
-		selectfont = new Font("Arial", Font.PLAIN, 14);
-	}
+	public void init() {}
 
 	protected void load() {
 		currentChoice = 0;

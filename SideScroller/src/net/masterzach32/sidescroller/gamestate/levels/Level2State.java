@@ -29,7 +29,7 @@ public class Level2State extends LevelState {
 	
 	public void init() {
 		levelComplete = false;
-		bg = new Background(Assets.getImageAsset("grassbg"), 0.1);
+		bg = new Background(Assets.getImageAsset("shurima_bg"), 0.1);
 		
 		explosions = new ArrayList<Explosion>();
 		

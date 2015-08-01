@@ -28,7 +28,7 @@ public class Assets {
 		images.put("icon_game", SideScroller.al.loadImage("/icons/game.png"));
 		
 		// loading screen assets
-		images.put("zaunbg", SideScroller.al.loadImage("/backgrounds/zaun_bg.jpg"));
+		images.put("shurima_bg", SideScroller.al.loadImage("/backgrounds/shurima_bg.jpg"));
 	}
 	
 	public static void init() {
@@ -63,11 +63,17 @@ public class Assets {
 		// Tile Sets
 		images.put("grasstileset", SideScroller.al.loadImage("/tilesets/grasstileset.png"));
 		images.put("metaltileset", SideScroller.al.loadImage("/tilesets/placeholder_metaltileset.png"));
+		images.put("shurimatileset", SideScroller.al.loadImage("/tilesets/shurimatileset.png"));
+		
 		
 		// Backgrounds
 		images.put("grassbg", SideScroller.al.loadImage("/backgrounds/grassbg1.gif"));
 		images.put("zaunbg", SideScroller.al.loadImage("/backgrounds/zaun_bg.jpg"));
 		images.put("level1_1bg", SideScroller.al.loadImage("/backgrounds/placeholder_level1_1.png"));
+		images.put("shurima_bright", SideScroller.al.loadImage("/backgrounds/shurima_bright.png"));
+		images.put("shurima_dark", SideScroller.al.loadImage("/backgrounds/shurima_dark.jpg"));
+		images.put("end_splash_normal", SideScroller.al.loadImage("/backgrounds/azir_endGame.png"));
+		images.put("end_splash_galactic", SideScroller.al.loadImage("/backgrounds/azir_galactic_endGame.jpg"));
 		
 		LoadingState.setInfo("Loading Audio...", 40);
 		

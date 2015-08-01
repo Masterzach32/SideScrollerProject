@@ -1,49 +1,33 @@
 package net.masterzach32.sidescroller.gamestate.menus;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
-import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
-import net.masterzach32.sidescroller.tilemap.Background;
 import net.masterzach32.sidescroller.util.Utilities;
 
 public class HelpState extends MenuState {
 	
-	private Font subtitleFont;
-	
-	public static int currentChoice = 0;
 	public static String[] helpText = {
+		"How To Play:", 
 		"Default Controls:", 
-		"Left: A", 
-		"Right: D", 
-		"Up: W", 
-		"Down: S", 
+		"Movement:", 
+		"A and D for movement", 
+		"Space to jump", 
 		"Jump: W or SPACE", 
-		"Glide: E", 
-		"Scratch: R or Left Click", 
-		"Fire: F or Right Click", 
-		"Main Menu: ESCAPE"
+		"Goal:", 
+		"Defeat all enemies and restore Shurima", 
+		"as the new ascended emperor Azir!", 
+		"Exit these menus with ESCAPE"
 	};
 
 	public HelpState(SideScroller game) {
 		super(game);
 	}
 
-	public void init() {
-		bg = new Background(Assets.getImageAsset("grassbg"), 1);
-		bg.setVector(-0.25, 0);
-		
-		titleColor = new Color(128, 0, 0);
-		titleFont = new Font("Century Gothic", Font.BOLD, 32);
-		subtitleFont = new Font("Century Gothic", Font.BOLD, 20);
-			
-		font = new Font("Arial", Font.PLAIN, 12);
-		selectfont = new Font("Arial", Font.PLAIN, 14);
-	}
+	public void init() {}
 
 	protected void load() {}
 	
