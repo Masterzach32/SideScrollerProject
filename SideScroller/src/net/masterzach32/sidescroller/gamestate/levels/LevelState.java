@@ -190,8 +190,10 @@ public abstract class LevelState extends GameState {
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_RIGHT]) player.setRight(true);
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_JUMP]) player.setJumping(true);
 			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_GLIDE]) player.setGliding(true);
-			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_SCRATCH]) player.ability1();
-			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_ORB]) player.setSpawning();
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_CONCSANDS]) player.moveSoldiers();
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_ARISE]) player.spawnSoldier();
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_SHIFTSANDS]) return;
+			if(k == KeyConfigState.keyBinding[KeyConfigState.KEY_EMPERORSDIVIDE]) return;
 			if(k == KeyEvent.VK_ESCAPE) GameState.setState(SideScroller.menuState);
 		}
 		if(player.isDead() && j == 0) { 

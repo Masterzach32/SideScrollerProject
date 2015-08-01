@@ -10,18 +10,19 @@ import net.masterzach32.sidescroller.util.Utilities;
 
 public class KeyConfigState extends MenuState {
 	
-	public static final int KEY_RIGHT   = 0;
-	public static final int KEY_LEFT    = 1;
-	public static final int KEY_JUMP    = 2;
-	public static final int KEY_SCRATCH = 3;
-	public static final int KEY_ORB     = 4;
-	public static final int KEY_GLIDE   = 5;
-	public static final int KEY_REWIND  = 6;
+	public static final int KEY_RIGHT           = 0;
+	public static final int KEY_LEFT            = 1;
+	public static final int KEY_JUMP            = 2;
+	public static final int KEY_GLIDE           = 3;
+	public static final int KEY_CONCSANDS       = 4;
+	public static final int KEY_ARISE           = 5;
+	public static final int KEY_SHIFTSANDS      = 6;
+	public static final int KEY_EMPERORSDIVIDE  = 7;
 	
-	public static String[] options = new String[9]; 
+	public static String[] options = new String[10]; 
 	
 	private boolean changingKey;
-	public static int[] keyBinding = new int[7];
+	public static int[] keyBinding = new int[8];
 
 	public KeyConfigState(SideScroller game) {
 		super(game);
@@ -47,12 +48,13 @@ public class KeyConfigState extends MenuState {
 		options[0] = "Right: " + KeyEvent.getKeyText(keyBinding[KEY_RIGHT]); 
 		options[1] = "Left: " + KeyEvent.getKeyText(keyBinding[KEY_LEFT]);
 		options[2] = "Jump: " + KeyEvent.getKeyText(keyBinding[KEY_JUMP]);
-		options[3] = "Scratch: " + KeyEvent.getKeyText(keyBinding[KEY_SCRATCH]);
-		options[4] = "Orb: " + KeyEvent.getKeyText(keyBinding[KEY_ORB]);
-		options[5] = "Glide: " + KeyEvent.getKeyText(keyBinding[KEY_GLIDE]);
-		options[6] = "Rewind: " + KeyEvent.getKeyText(keyBinding[KEY_REWIND]);
-		options[7] = "Reset KeyConfig";
-		options[8] = "Back";
+		options[3] = "Glide: " + KeyEvent.getKeyText(keyBinding[KEY_GLIDE]);
+		options[4] = "Concquring Sands: " + KeyEvent.getKeyText(keyBinding[KEY_CONCSANDS]);
+		options[5] = "Arise: " + KeyEvent.getKeyText(keyBinding[KEY_ARISE]);
+		options[6] = "Shifting Sands: " + KeyEvent.getKeyText(keyBinding[KEY_SHIFTSANDS]);
+		options[7] = "Emperors Divide: " + KeyEvent.getKeyText(keyBinding[KEY_EMPERORSDIVIDE]);
+		options[8] = "Reset KeyConfig";
+		options[9] = "Back";
 		// draw bg
 		bg.render(g);						
 		// draw title
@@ -83,11 +85,11 @@ public class KeyConfigState extends MenuState {
 	}
 	
 	private void select() {
-		if(currentChoice < 7) {
+		if(currentChoice < 8) {
 			changeKeyConfig();
-		} else if(currentChoice == 7) {
-			resetKeyBindings();
 		} else if(currentChoice == 8) {
+			resetKeyBindings();
+		} else if(currentChoice == 9) {
 			GameState.setState(SideScroller.optionsState);
 		}
 	}
@@ -124,10 +126,11 @@ public class KeyConfigState extends MenuState {
 		keyBinding[KEY_RIGHT] = KeyEvent.VK_D;
 		keyBinding[KEY_LEFT] = KeyEvent.VK_A;
 		keyBinding[KEY_JUMP] = KeyEvent.VK_SPACE;
-		keyBinding[KEY_SCRATCH] = KeyEvent.VK_Q;
-		keyBinding[KEY_ORB] = KeyEvent.VK_F;
-		keyBinding[KEY_GLIDE] = KeyEvent.VK_E;
-		keyBinding[KEY_REWIND] = KeyEvent.VK_R;
+		keyBinding[KEY_GLIDE] = KeyEvent.VK_F;
+		keyBinding[KEY_CONCSANDS] = KeyEvent.VK_Q;
+		keyBinding[KEY_ARISE] = KeyEvent.VK_W;
+		keyBinding[KEY_SHIFTSANDS] = KeyEvent.VK_E;
+		keyBinding[KEY_EMPERORSDIVIDE] = KeyEvent.VK_R;
 	}
 
 	public void keyReleased(int k) {}

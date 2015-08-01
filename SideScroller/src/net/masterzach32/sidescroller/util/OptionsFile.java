@@ -44,9 +44,10 @@ public class OptionsFile {
 		keyBindings.put("right", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_RIGHT]));
 		keyBindings.put("jump", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_JUMP]));
 		keyBindings.put("glide", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_GLIDE]));
-		keyBindings.put("scratch", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_SCRATCH]));
-		keyBindings.put("orb", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_ORB]));
-		keyBindings.put("rewind", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_REWIND]));
+		keyBindings.put("conquringSands", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_CONCSANDS]));
+		keyBindings.put("arise", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_ARISE]));
+		keyBindings.put("shiftingSands", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_SHIFTSANDS]));
+		keyBindings.put("emperorsDivide", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_EMPERORSDIVIDE]));
 		gameOptions.put("keyBindings", keyBindings);
 
 		gameOptions.put("ticksPerSec", new Integer(SideScroller.FPS));
@@ -167,12 +168,14 @@ public class OptionsFile {
 			if (i != null) KeyConfigState.keyBinding[KeyConfigState.KEY_JUMP] = i;
 			i = getInteger(keyBindings, "glide");
 			if (i != null) KeyConfigState.keyBinding[KeyConfigState.KEY_GLIDE] = i;
-			i = getInteger(keyBindings, "scratch");
-			if (i != null) KeyConfigState.keyBinding[KeyConfigState.KEY_SCRATCH] = i;
-			i = getInteger(keyBindings, "orb");
-			if (i != null) KeyConfigState.keyBinding[KeyConfigState.KEY_ORB] = i;
-			i = getInteger(keyBindings, "rewind");
-			if (i != null) KeyConfigState.keyBinding[KeyConfigState.KEY_REWIND] = i;
+			i = getInteger(keyBindings, "conquringSands");
+			if (i != null) KeyConfigState.keyBinding[KeyConfigState.KEY_CONCSANDS] = i;
+			i = getInteger(keyBindings, "arise");
+			if (i != null) KeyConfigState.keyBinding[KeyConfigState.KEY_ARISE] = i;
+			i = getInteger(keyBindings, "shiftingSands");
+			if (i != null) KeyConfigState.keyBinding[KeyConfigState.KEY_SHIFTSANDS] = i;
+			i = getInteger(keyBindings, "emperorsDivide");
+			if (i != null) KeyConfigState.keyBinding[KeyConfigState.KEY_EMPERORSDIVIDE] = i;
 		}
 
 		i = getInteger(gameOptions, "ticksPerSec");

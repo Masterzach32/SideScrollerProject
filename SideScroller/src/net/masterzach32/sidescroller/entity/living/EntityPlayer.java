@@ -264,11 +264,38 @@ public class EntityPlayer extends EntityLiving {
 		resetStats(false);
 	}
 	
-	public void ability1() {
+	public void moveSoldiers() {
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
 		for(int i = 0; i < soldiers.size(); i++) {
 			soldiers.get(i).move((int) x);
+		}
+	}
+	
+	public void spawnSoldier() {
+		// orb attack
+		if(currentAction != SOLDIER && soldiers.size() < 3) {
+			if(orbCurrentCd == 0) {
+				if(soldiers.size() == 3) {
+					for(int i = 0; i < soldiers.size(); i++) {
+						soldiers.get(i).getTimeLeft();
+					}
+				}
+				Soldier soldier = null;
+				Point p = Utilities.getMousePosition();
+				int x = (int) (p.x / SideScroller.SCALE - xmap);
+				int y = (int) (p.y / SideScroller.SCALE - ymap);
+				if(facingRight)
+					soldier = new Soldier(tileMap, level, this);
+				if(!facingRight)
+					soldier = new Soldier(tileMap, level, this);
+				if(soldier != null) {
+					soldier.setPosition(x, y);
+					soldiers.add(soldier);
+				}
+			} else {
+				
+			}
 		}
 	}
 	
@@ -333,31 +360,6 @@ public class EntityPlayer extends EntityLiving {
 				if(animation.hasPlayedOnce()) attacking = false;
 			} if(currentAction == SOLDIER) {
 				if(animation.hasPlayedOnce()) spawning = false;
-			}
-		
-			// orb attack
-			if(spawning && currentAction != SOLDIER && soldiers.size() < 3) {
-				if(orbCurrentCd == 0) {
-					if(soldiers.size() == 3) {
-						for(int i = 0; i < soldiers.size(); i++) {
-							soldiers.get(i).getTimeLeft();
-						}
-					}
-					Soldier soldier = null;
-					Point p = Utilities.getMousePosition();
-					int x = (int) (p.x / SideScroller.SCALE - xmap);
-					int y = (int) (p.y / SideScroller.SCALE - ymap);
-					if(facingRight)
-						soldier = new Soldier(tileMap, level, this);
-					if(!facingRight)
-						soldier = new Soldier(tileMap, level, this);
-					if(soldier != null) {
-						soldier.setPosition(x, y);
-						soldiers.add(soldier);
-					}
-				} else {
-					
-				}
 			}
 		
 			// check done flinching
