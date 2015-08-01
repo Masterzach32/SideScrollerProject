@@ -15,10 +15,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.file.DirectoryNotEmptyException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalTime;
@@ -186,7 +183,7 @@ public class Utilities {
 	}
 	
 	/**
-	 * Saves the current console textArea to the designated file.
+	 * Opens a {@link JFileChooser} for the user to select a location, and returns the path as a String
 	 * @param extension
 	 */
 	public static String saveAs(String extension) {

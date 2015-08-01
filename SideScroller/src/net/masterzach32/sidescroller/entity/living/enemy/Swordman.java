@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
-import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.EntityPlayer;
 import net.masterzach32.sidescroller.entity.living.HealthBar;
@@ -72,12 +71,9 @@ public class Swordman extends Enemy {
 				}
 				sprites.add(bi);
 			}
-		}
-		catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		explosions = new ArrayList<Explosion>();
 				
 		animation = new Animation();
 		currentAction = IDLE;
@@ -224,9 +220,6 @@ public class Swordman extends Enemy {
 				flinching = false;
 			}
 		}
-		
-		// update animation
-		animation.tick();
 	}
 	
 	public void render(Graphics2D g) {
@@ -248,13 +241,5 @@ public class Swordman extends Enemy {
 			}
 		}
 		g.setColor(Color.WHITE);
-		
-		// draw explosions
-		for(int i = 0; i < explosions.size(); i++) {
-			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
-			explosions.get(i).render(g);
-		}
-		
-		healthBar.render(g);
 	}
 }

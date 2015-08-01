@@ -1,5 +1,6 @@
 package net.masterzach32.sidescroller.entity.living;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.entity.Explosion;
@@ -94,6 +95,9 @@ public class EntityLiving extends MapObject {
 	}
 	
 	public void tick() {
+		// update entity animation
+		animation.tick();
+		
 		// update effects
 		for(int i = 0; i < effects.size(); i++) {
 			effects.get(i).tick();
@@ -118,6 +122,28 @@ public class EntityLiving extends MapObject {
 				dy = 0.1 * backup;
 			}
 		}
+	}
+	
+	public void render(Graphics2D g) {
+		// draw entity
+		if(flinching) {
+			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
+			if(elapsed / 100 % 2 == 0) {
+				
+			} else {
+				if(!dead) super.render(g);
+			}
+		} else {
+			if(!dead) super.render(g);
+		}
+		super.render(g);
+		
+		for(int i = 0; i < explosions.size(); i++) {
+			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
+			explosions.get(i).render(g);
+		}
+		
+		healthBar.render(g);
 	}
 	
 	public void setDead(MapObject source) {

@@ -3,7 +3,6 @@ package net.masterzach32.sidescroller.entity.living.enemy;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.*;
@@ -48,8 +47,6 @@ public class Slugger extends Enemy {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		explosions = new ArrayList<Explosion>();
 		
 		animation = new Animation();
 		animation.setFrames(sprites);
@@ -105,22 +102,11 @@ public class Slugger extends Enemy {
 			left = false;
 			facingRight = true;
 		}
-		
-		// update animation
-		animation.tick();
 	}
 	
 	public void render(Graphics2D g) {
 		setMapPosition();
 		
 		super.render(g);
-		
-		// draw explosions
-		for(int i = 0; i < explosions.size(); i++) {
-			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
-			explosions.get(i).render(g);
-		}
-		
-		healthBar.render(g);
 	}
 }

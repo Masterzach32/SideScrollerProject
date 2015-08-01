@@ -108,10 +108,7 @@ public class Effect {
 		if(this.type == WITHER) entity.setMaxSpeed(entity.getMaxSpeed() + speed);
 		if(this.type == FIRE) return;
 		if(this.type == KNOCKUP) return;
-		if(this.type == SLOW) {
-			speed = entity.getMaxSpeed() * (0.08 * strength);
-			entity.setMaxSpeed(entity.getMaxSpeed() + speed);
-		}
+		if(this.type == SLOW) entity.setMaxSpeed(entity.getMaxSpeed() + speed);
 	}
 	
 	/**
@@ -134,7 +131,7 @@ public class Effect {
 		} else if(delayTimer == delay) {
 			if(this.type == ATTACK) return;
 			if(this.type == SPEED) return;
-			if(this.type == HEALTHREGEN) entity.heal((float) (0.5 * strength));
+			if(this.type == HEALTHREGEN) entity.heal((float) (0.4 * strength));
 			if(this.type == POISION) entity.hit((float) ((0.2 * strength) + (0.06 * (entity.getMaxHealth() - entity.getHealth()))), false, true, "Poision", source);
 			if(this.type == WITHER) entity.hit((float) (0.4 * strength), false, true, "Wither", source);
 			if(this.type == FIRE) entity.hit((float) (0.1 + (0.04 + 0.02 * strength) * entity.getHealth()), false, true, "Fire", source);

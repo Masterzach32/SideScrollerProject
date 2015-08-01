@@ -4,12 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Random;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
-import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.EntityPlayer;
 import net.masterzach32.sidescroller.entity.living.HealthBar;
@@ -66,8 +64,6 @@ public class Boss extends Enemy {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		explosions = new ArrayList<Explosion>();
 		
 		animation = new Animation();
 		animation.setFrames(sprites);
@@ -163,9 +159,6 @@ public class Boss extends Enemy {
 				flinching = false;
 			}
 		}
-		
-		// update animation
-		animation.tick();
 	}
 	
 	public void render(Graphics2D g) {
@@ -177,18 +170,6 @@ public class Boss extends Enemy {
 			g.setColor(Color.WHITE);
 			g.draw(new Rectangle((int) (x + xmap - sight / 2), (int) (y + ymap - hsight / 2), sight, hsight));
 		}
-		
-		if(flinching) {
-			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
-			if(elapsed / 100 % 2 == 0) {
-				// draw explosions
-				for(int i = 0; i < explosions.size(); i++) {
-					explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
-					explosions.get(i).render(g);
-				}
-				return;
-			}
-		}	
 		
 		// find player direction (0-60)
 		if(attack <= 60) {
@@ -222,10 +203,5 @@ public class Boss extends Enemy {
 		}
 		
 		super.render(g);
-		
-		for(int i = 0; i < explosions.size(); i++) {
-			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
-			explosions.get(i).render(g);
-		}
 	}
 }

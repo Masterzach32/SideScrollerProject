@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Animation;
-import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.Orb;
-import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.tilemap.*;
-import net.masterzach32.sidescroller.util.LogHelper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,16 +25,12 @@ public class EntityPlayer extends EntityLiving {
 	private int orbCurrentCd;
 	private int orbCd;
 	public int rewindCd;
-	private boolean dead;
-	private boolean flinching;
-	private long flinchTimer;
 	
 	private int[] x4 = new int[240], y4 = new int[240], health4 = new int[240];
 	
 	// fireball
 	private boolean firing;
 	private int orbDamage;
-	private ArrayList<Explosion> explosions;
 	private ArrayList<Orb> orbs;
 	
 	// scratch
@@ -79,7 +72,7 @@ public class EntityPlayer extends EntityLiving {
 		facingRight = true;
 		
 		health = maxHealth = 21;
-		healthRegen = (double) (maxHealth * 0.0001);
+		healthRegen = (double) (maxHealth * 0.0002);
 		shield = maxShield = 9;
 		shieldRegen = (double)  (maxShield * 0.004);
 		level = 1;
@@ -263,27 +256,8 @@ public class EntityPlayer extends EntityLiving {
 	 * @return true if attack succeeded
 	 */
 	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
-		if(!ignoreFlinching) {
-			if(flinching) return false;
-			flinching = true;
-			flinchTimer = System.nanoTime();
-		}
-		if(ignoreShield) {
-			health -= damage;
-			if(health < 0) health = 0;
-		} else {
-			double s = shield;
-			shield -= damage;
-			if(shield < 0) shield = 0;
-			damage -= (s - shield);
-			health -= damage;
-		}
-		explosions.add(new Explosion(this.getx(), this.gety()));
-		if(health < 0) health = 0;
-		if(health == 0) this.setDead(source);
 		combatTimer = 300;
-		return true;
-		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
+		return super.hit(damage, ignoreShield, ignoreFlinching, type, source);
 	}
 	
 	/**
@@ -293,8 +267,7 @@ public class EntityPlayer extends EntityLiving {
 	 * @param duration
 	 */
 	public void addEffect(EntityLiving source, int type, int strength, int duration) {
-		Effect e = new Effect(this, source, type, strength, duration);
-		effects.add(e);
+		super.addEffect(source, type, strength, duration);
 		resetStats(false);
 	}
 	
@@ -375,7 +348,6 @@ public class EntityPlayer extends EntityLiving {
 						orbs.add(orb);
 					}
 				} else {
-					LogHelper.logInfo("Orb On Cooldown");
 				}
 			}
 		
@@ -441,8 +413,6 @@ public class EntityPlayer extends EntityLiving {
 					width = 30;
 				}
 			}
-			
-			animation.tick();
 		
 			// set direction
 			if(currentAction != SCRATCHING && currentAction != ORB) {
@@ -541,6 +511,8 @@ public class EntityPlayer extends EntityLiving {
 			orbs.get(i).render(g);
 		}
 		
+		super.render(g);
+		
 		if(MapObject.isHitboxEnabled()) {
 			if(scratching) {
 				g.setColor(Color.YELLOW);
@@ -552,25 +524,6 @@ public class EntityPlayer extends EntityLiving {
 			}
 		}
 		g.setColor(Color.WHITE);
-			
-		// draw player
-		if(flinching) {
-			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
-			if(elapsed / 100 % 2 == 0) {
-				
-			} else {
-				if(!dead) super.render(g);
-			}
-		} else {
-			if(!dead) super.render(g);
-		}
-		
-		for(int i = 0; i < explosions.size(); i++) {
-			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
-			explosions.get(i).render(g);
-		}
-		
-		healthBar.render(g);
 	}
 	
 	private void resetStats(boolean levelUp) {

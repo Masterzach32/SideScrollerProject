@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
-import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.FireBall;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.EntityPlayer;
@@ -78,12 +77,9 @@ public class Mage extends Enemy {
 				}
 				sprites.add(bi);
 			}
-		}
-		catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		explosions = new ArrayList<Explosion>();
 				
 		animation = new Animation();
 		currentAction = IDLE;
@@ -260,9 +256,7 @@ public class Mage extends Enemy {
 				i--;
 			}
 		}
-		
-		// update animation
-		animation.tick();
+		super.tick();
 	}
 	
 	public void render(Graphics2D g) {
@@ -288,17 +282,9 @@ public class Mage extends Enemy {
 		}
 		g.setColor(Color.WHITE);
 		
-		// draw explosions
-		for(int i = 0; i < explosions.size(); i++) {
-			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
-			explosions.get(i).render(g);
-		}
-		
 		// draw orbs
 		for(int i = 0; i < orbs.size(); i++) {
 			orbs.get(i).render(g);
 		}
-		
-		healthBar.render(g);
 	}
 }

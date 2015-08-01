@@ -43,26 +43,7 @@ public class Enemy extends EntityLiving {
 	}
 	
 	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
-		if(!ignoreFlinching) {
-			if(flinching) return false;
-			flinching = true;
-			flinchTimer = System.nanoTime();
-		}
 		damage = (double) (damage * damageMultiplier);
-		if(ignoreShield || shield == 0) {
-			health -= damage;
-			if(health < 0) health = 0;
-		} else {
-			double s = shield;
-			shield -= damage;
-			if(shield < 0) shield = 0;
-			damage -= (s - shield);
-			health -= damage;
-		}
-		explosions.add(new Explosion(this.getx(), this.gety()));
-		if(health < 0) health = 0;
-		if(health == 0) this.setDead(source);
-		return true;
-		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
+		return super.hit(damage, ignoreShield, ignoreFlinching, type, source);
 	}
 }
