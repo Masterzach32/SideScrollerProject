@@ -95,13 +95,15 @@ public class Effect {
 		if(this.type == HEALTHREGEN) return;
 		if(this.type == POISION) return;
 		if(this.type == WITHER) {
-			speed = entity.getMaxSpeed() * (0.06 * strength);
+			if(0.06 * strength >= 0.9) speed = entity.getMaxSpeed() * (0.9);
+			else speed = entity.getMaxSpeed() * (0.06 * strength);
 			entity.setMaxSpeed(entity.getMaxSpeed() - speed);
 		}
 		if(this.type == FIRE) return;
 		if(this.type == KNOCKUP) entity.knockUp(timer);
 		if(this.type == SLOW) {
-			speed = entity.getMaxSpeed() * (0.08 * strength);
+			if(0.08 * strength >= 0.9) speed = entity.getMaxSpeed() * (0.9);
+			else speed = entity.getMaxSpeed() * (0.08 * strength);
 			entity.setMaxSpeed(entity.getMaxSpeed() - speed);
 		}
 		if(this.type == STUN) entity.stun(timer);

@@ -260,13 +260,14 @@ public class EntityPlayer extends EntityLiving {
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
 		int space = 0;
-		if(level == 1) space = 0 - 35 / 2;
-		if(level == 2) space = 0 - 35;
-		if(level == 3) space = 0 - 35 / 2 - 35;
+		if(soldiers.size() == 1) space = 0;
+		if(soldiers.size() == 2) space = 0 - 35 / 2;
+		if(soldiers.size() == 3) space = 0 - 35;
+		if(soldiers.size() == 4) space = 0 - 35 / 2 - 35;
 		sfx.get("movement").play();
 		for(int i = 0; i < soldiers.size(); i++) {
 			soldiers.get(i).move((int) x + space);
-			space += 35;
+			space += 40 - 5 * soldiers.size();
 		}
 	}
 	

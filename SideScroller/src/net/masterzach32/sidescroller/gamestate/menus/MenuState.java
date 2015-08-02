@@ -39,15 +39,15 @@ public class MenuState extends GameState {
 	}
 	
 	public void init() {
-		bg = new Background(Assets.getImageAsset("grassbg"), 1);
-		bg.setVector(-.25, 0);
+		bg = new Background(Assets.getImageAsset("shurima_bright"), 1);
+		//bg.setVector(-.25, 0);
 		
 		titleColor = new Color(128, 0, 0);
 		titleFont = new Font("Century Gothic", Font.BOLD, 32);
 		subtitleFont = new Font("Century Gothic", Font.BOLD, 20);
 		
-		font = new Font("Arial", Font.PLAIN, 12);
-		selectfont = new Font("Arial", Font.PLAIN, 14);
+		font = new Font("Arial", Font.BOLD, 12);
+		selectfont = new Font("Arial", Font.BOLD, 14);
 		bgMusic = new AudioPlayer(Assets.getAudioAsset("warriors"));
 	}
 	
@@ -67,7 +67,7 @@ public class MenuState extends GameState {
 		
 		g.setFont(font);
 		g.setColor(Color.BLACK);
-		g.drawString(info, 290, 355);
+		g.drawString(info, 280, 355);
 		
 		// draw title
 		g.setColor(titleColor);

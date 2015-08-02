@@ -55,7 +55,7 @@ public class OptionsState extends MenuState {
 		
 		g.setFont(font);
 		g.setColor(Color.BLACK);
-		g.drawString(info, 290, 355);
+		g.drawString(info, 280, 355);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {

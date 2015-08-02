@@ -57,7 +57,7 @@ public class AboutState extends MenuState {
 		}
 		g.setFont(font);
 		g.setColor(Color.BLACK);
-		g.drawString(info, 290, 355);
+		g.drawString(info, 280, 355);
 		g.setColor(Color.WHITE);
 	}
 

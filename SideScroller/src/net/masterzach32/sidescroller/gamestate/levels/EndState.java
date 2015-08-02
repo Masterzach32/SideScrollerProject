@@ -22,9 +22,9 @@ public class EndState extends GameState {
 	@Override
 	public void init() {
 		bg = new Background(Assets.getImageAsset("end_splash_normal"), 1);
-		bg.setVector(-0.25, 0);
+		//bg.setVector(-0.25, 0);
 		
-		bgMusic = new AudioPlayer(Assets.getAudioAsset("warriors"));
+		bgMusic = new AudioPlayer(Assets.getAudioAsset("shurima"));
 	}
 
 	@Override

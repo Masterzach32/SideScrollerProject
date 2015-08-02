@@ -66,7 +66,7 @@ public class KeyConfigState extends MenuState {
 		
 		g.setFont(font);
 		g.setColor(Color.BLACK);
-		g.drawString(info, 290, 355);
+		g.drawString(info, 280, 355);
 		g.setFont(selectfont);
 		if(!changingKey) Utilities.drawCenteredString(g, "Select the function you want to change", 110);
 		else Utilities.drawCenteredString(g, "Press the key you want to change it to", 110);
