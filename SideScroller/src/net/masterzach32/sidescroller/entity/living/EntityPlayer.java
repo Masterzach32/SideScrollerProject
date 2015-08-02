@@ -34,7 +34,9 @@ public class EntityPlayer extends EntityLiving {
 	// scratch
 	private boolean attacking;
 	private int scratchDamage;
-	private int scratchRange;
+	private int attackRange;
+	private int moveRange;
+	private int spawnRange;
 	
 	// gliding
 	private boolean gliding;
@@ -77,7 +79,9 @@ public class EntityPlayer extends EntityLiving {
 		
 		soldiers = new ArrayList<Soldier>();
 		
-		scratchRange = 50;
+		attackRange = 50;
+		moveRange = 300;
+		spawnRange = 60;
 		
 		resetStats(false);
 		
@@ -195,12 +199,12 @@ public class EntityPlayer extends EntityLiving {
 			if(attacking) {
 				if(soldiers.size() == 0) {
 					if(facingRight) {
-						if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
+						if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
 							combatTimer = 300;
 							e.hit(scratchDamage, false, false, "Attack", this);
 						}
 					} else {
-						if(e.intersects(new Rectangle((int) (x - scratchRange), (int) (y - height / 2 + (height - cheight) / 2), scratchRange, cheight))) {
+						if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
 							combatTimer = 300;
 							e.hit(scratchDamage, false, false, "Attack", this);
 						}
@@ -259,6 +263,11 @@ public class EntityPlayer extends EntityLiving {
 	public void moveSoldiers() {
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
+		if(this.x - x > moveRange) {
+			x = (int) (this.x - moveRange);
+		} else if(this.x - x < -moveRange) {
+			x = (int) (this.x + moveRange);
+		}
 		int space = 0;
 		if(soldiers.size() == 1) space = 0;
 		if(soldiers.size() == 2) space = 0 - 35 / 2;
@@ -278,6 +287,16 @@ public class EntityPlayer extends EntityLiving {
 			Point p = Utilities.getMousePosition();
 			int x = (int) (p.x / SideScroller.SCALE - xmap);
 			int y = (int) (p.y / SideScroller.SCALE - ymap);
+			if(this.x - x > spawnRange) {
+				x = (int) (this.x - spawnRange);
+			} else if(this.x - x < -spawnRange) {
+				x = (int) (this.x + spawnRange);
+			}
+			if(this.y - y > spawnRange) {
+				y = (int) (this.y - spawnRange);
+			} else if(this.y - y < -spawnRange) {
+				y = (int) (this.y + spawnRange);
+			}
 			soldier = new Soldier(tileMap, level, this);
 			if(soldier != null) {
 				soldier.setPosition(x, y);
@@ -476,9 +495,9 @@ public class EntityPlayer extends EntityLiving {
 			if(attacking) {
 				g.setColor(Color.YELLOW);
 				if(facingRight) {
-					g.drawRect((int)(x + xmap), (int)(y + ymap - height / 2 + (height - cheight) / 2), scratchRange, cheight);
+					g.drawRect((int)(x + xmap), (int)(y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
 				} else {
-					g.drawRect((int)(x + xmap  - scratchRange), (int)(y + ymap - height / 2 + (height - cheight) / 2), scratchRange, cheight);
+					g.drawRect((int)(x + xmap  - attackRange), (int)(y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
 				}
 			}
 		}
