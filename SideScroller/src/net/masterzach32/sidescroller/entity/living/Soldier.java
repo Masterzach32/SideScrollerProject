@@ -19,7 +19,7 @@ public class Soldier extends MapObject {
 	
 	private EntityPlayer player;
 	private boolean moving, attacking, remove;
-	private int attackDelay, timer, moveLocation, time;
+	private int attackDelay, attackTimer, moveLocation, time;
 	
 	private int attackRange;
 	
@@ -33,7 +33,7 @@ public class Soldier extends MapObject {
 	//private static final int IDLE = 0, MOVING = 1, ATTACKING = 2, DECAY = 3;
 	private static final int IDLE = 0, MOVING = 1, ATTACKING = 6;
 
-	protected Soldier(TileMap tm, int level, int x, int y, EntityPlayer player) {
+	protected Soldier(TileMap tm, int level, EntityPlayer player) {
 		super(tm);
 		
 		width = 30;
@@ -44,14 +44,14 @@ public class Soldier extends MapObject {
 		moveSpeed = 0.75;
 		setMaxSpeed(3.5);
 		stopSpeed = 0.5;
-		fallSpeed = 0.5;
+		fallSpeed = 1;
 		maxFallSpeed = 10.0;
 		jumpStart = -4.8;
 		stopJumpSpeed = 0.3;
 		
 		attackRange = 40;
-		attackDelay = 75 - (5 * level);
-		timer = 0;
+		attackDelay = 90 - (15 * level);
+		attackTimer = 0;
 		
 		time = 9 * SideScroller.FPS;
 		this.player = player;
@@ -84,16 +84,6 @@ public class Soldier extends MapObject {
 		currentAction = IDLE;
 		animation.setFrames(sprites.get(IDLE));
 		animation.setDelay(400);
-		
-		setPosition(x, y);
-		boolean b = false;
-		do {
-			dy = -1;
-			b = checkTileMapCollision();
-			if(b) {
-				setPosition(this.x, this.y + 1);
-			}
-		} while(b);
 	}
 	
 	protected boolean checkAttack(ArrayList<Enemy> enemies, int damage) {
@@ -116,9 +106,9 @@ public class Soldier extends MapObject {
 	}
 	
 	protected void attack() {
-		if(timer > 0) return;
+		if(attackTimer > 0) return;
 		hit = false;
-		timer = attackDelay;
+		attackTimer = attackDelay;
 		attacking = true;
 	}
 	
@@ -134,11 +124,11 @@ public class Soldier extends MapObject {
 	protected void move(int x) {
 		moving = true;
 		moveLocation = x;
-		if(x < this.getx()) {
+		if(moveLocation < this.getx()) {
 			facingRight = false;
 			left = true;
 			right = false;
-		} else if (x > this.getx()) {
+		} else if (moveLocation > this.getx()) {
 			facingRight = true;
 			left = false;
 			right = true;
@@ -158,37 +148,46 @@ public class Soldier extends MapObject {
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
 		
+		if(this.x < x) {
+			facingRight = true;
+		} else if(this.x > x) {
+			facingRight = false;
+		}
+		
 		if(moving) {
 			if(this.x < moveLocation) {
-				if(moveLocation - this.x < 5) {
-					moving = false;
-					left = false;
-					right = false;
+				facingRight = true;
+			} else if(this.x > moveLocation) {
+				facingRight = false;
+			}
+			if(moving && dx == 0) {
+				dy = -5;
+			} else {
+				dy = 0;
+			}
+			
+			if(facingRight) {
+				dx += moveSpeed;
+				if(dx > getMaxSpeed()) {
+					dx = getMaxSpeed();
 				}
-			} else if (x > moveLocation) {
-				if(x - moveLocation < 5)
+				if((moveLocation - this.x) < 10) {
 					moving = false;
-					left = false;
-					right = false;
+				}
+			} else {
+				dx -= moveSpeed;
+				if(dx < -getMaxSpeed()) {
+					dx = -getMaxSpeed();
+				}
+				if((this.x - moveLocation) < 10) {
+					moving = false;
+				}
 			}
 		}
 		
-		if(x < this.getx()) {
-			facingRight = false;
-		} else if (x > this.getx()) {
-			facingRight = true;
-		}
-		if(left) {
-			dx -= moveSpeed;
-			if(dx < -getMaxSpeed()) {
-				dx = -getMaxSpeed();
-			}
-		} else if(right) {
-			dx += moveSpeed;
-			if(dx > getMaxSpeed()) {
-				dx = getMaxSpeed();
-			}
-		} else {
+		if(!moving) {
+			right = false;
+			left = false;
 			if(dx > 0) {
 				dx -= stopSpeed;
 				if(dx < 0) {
@@ -202,14 +201,9 @@ public class Soldier extends MapObject {
 			}
 		}
 		
-		// cannot move while attacking
-		if(attacking) {
-			dx = 0;
-		}
-		
 		// falling
 		if(falling) {
-			if(dy > 0) dy += fallSpeed * 0.1;
+			if(dy > 0) dy += fallSpeed;
 			else dy += fallSpeed;
 			if(dy > 0) jumping = false;
 			if(dy < 0 && !jumping) dy += stopJumpSpeed;
@@ -235,7 +229,7 @@ public class Soldier extends MapObject {
 				animation.setDelay(50);
 				width = 60;
 			}
-		} else if(left || right) {
+		} else if(moving && (left || right)) {
 			if(currentAction != MOVING) {
 				currentAction = MOVING;
 				animation.setFrames(sprites.get(MOVING));
@@ -254,7 +248,7 @@ public class Soldier extends MapObject {
 		if(time > 0) time--;
 		if(time <= 0) remove = true;
 		
-		if(timer > 0) timer--;
+		if(attackTimer > 0) attackTimer--;
 		
 		animation.tick();
 	}

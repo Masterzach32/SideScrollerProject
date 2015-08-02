@@ -79,7 +79,6 @@ public class HealthBar {
 		// render effects HUD
 		for(int i = 0; i < entity.getEffects().size(); i++) {
 			entity.getEffects().get(i).render(g, (int) (x - width / 2), (int) (y - oheight / 2), i);
-			LogHelper.logInfo("" + entity.getEffects().get(i).getType());
 		}
 	}
 }

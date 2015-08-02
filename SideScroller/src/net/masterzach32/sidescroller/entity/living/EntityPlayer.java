@@ -70,7 +70,7 @@ public class EntityPlayer extends EntityLiving {
 		healthRegen = (double) (maxHealth * 0.0002);
 		shield = maxShield = 0;
 		shieldRegen = (double)  (maxShield * 0.004);
-		level = 1;
+		level = 3;
 		maxExp = 100;
 		
 		damage = 6;
@@ -186,7 +186,7 @@ public class EntityPlayer extends EntityLiving {
 	 * @param enemies
 	 */
 	public void checkAttack(ArrayList<Enemy> enemies) {
-		scratchDamage = (int)(2 + damage * 1.0);
+		scratchDamage = (int)(2 + damage * 0.5);
 		soldierDamage = (int)(2 + damage * 0.7);
 		// loop through enemies
 		for(int i = 0; i < enemies.size(); i++) {
@@ -220,7 +220,7 @@ public class EntityPlayer extends EntityLiving {
 				if(soldiers.get(j).isMoving()) {
 					if(e.intersects(soldiers.get(j))) {
 						e.hit(soldierDamage / 2, false, false, "Conquering Sands", soldiers.get(j));
-						e.addEffect(soldiers.get(j), Effect.SLOW, 4 * soldiers.size(), 0.5);
+						e.addEffect(soldiers.get(j), Effect.SLOW, 4 * soldiers.size(), 1);
 						combatTimer = 300;
 					}
 				}
@@ -260,9 +260,9 @@ public class EntityPlayer extends EntityLiving {
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
 		int space = 0;
-		if(level == 1) space = 0;
-		if(level == 2) space = 0 - 35 / 2;
-		if(level == 3) space = 0 - 35;
+		if(level == 1) space = 0 - 35 / 2;
+		if(level == 2) space = 0 - 35;
+		if(level == 3) space = 0 - 35 / 2 - 35;
 		sfx.get("movement").play();
 		for(int i = 0; i < soldiers.size(); i++) {
 			soldiers.get(i).move((int) x + space);
@@ -272,21 +272,14 @@ public class EntityPlayer extends EntityLiving {
 	
 	public void spawnSoldier() {
 		// orb attack
-		if(currentAction != SOLDIER && soldiers.size() < level) {
-			if(soldiers.size() == 3) {
-				for(int i = 0; i < soldiers.size(); i++) {
-					soldiers.get(i).getTimeLeft();
-				}
-			}
+		if(currentAction != SOLDIER && soldiers.size() < 1 + level) {
 			Soldier soldier = null;
 			Point p = Utilities.getMousePosition();
 			int x = (int) (p.x / SideScroller.SCALE - xmap);
 			int y = (int) (p.y / SideScroller.SCALE - ymap);
-			if(facingRight)
-				soldier = new Soldier(tileMap, level, x, y, this);
-			if(!facingRight)
-				soldier = new Soldier(tileMap, level, x, y, this);
+			soldier = new Soldier(tileMap, level, this);
 			if(soldier != null) {
+				soldier.setPosition(x, y);
 				soldiers.add(soldier);
 				Random r = new Random();
 				sfx.get("spawn_" + r.nextInt(1)).play();
