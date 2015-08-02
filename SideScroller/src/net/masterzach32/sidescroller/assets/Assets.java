@@ -89,8 +89,10 @@ public class Assets {
 		sounds.put("jump", SideScroller.al.loadAudio("/sfx/jump.mp3"));
 		sounds.put("scratch", SideScroller.al.loadAudio("/sfx/scratch.mp3"));
 		sounds.put("complete", SideScroller.al.loadAudio("/sfx/level_complete.mp3"));
-		sounds.put("movement", SideScroller.al.loadAudio("/sfx/spawn.mp3"));
+		sounds.put("movement", SideScroller.al.loadAudio("/sfx/soldier_movement.mp3"));
 		sounds.put("start", SideScroller.al.loadAudio("/sfx/start_quote.mp3"));
+		sounds.put("soldier_spawn_0", SideScroller.al.loadAudio("/sfx/soldier_spawn_0.mp3"));
+		sounds.put("soldier_spawn_1", SideScroller.al.loadAudio("/sfx/soldier_spawn_1.mp3"));
 		
 		
 		LoadingState.setInfo("Loading Maps...", 60);

@@ -1,6 +1,7 @@
 package net.masterzach32.sidescroller.entity.living;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
@@ -65,9 +66,9 @@ public class EntityPlayer extends EntityLiving {
 		
 		facingRight = true;
 		
-		health = maxHealth = 21;
+		health = maxHealth = 15;
 		healthRegen = (double) (maxHealth * 0.0002);
-		shield = maxShield = 9;
+		shield = maxShield = 0;
 		shieldRegen = (double)  (maxShield * 0.004);
 		level = 1;
 		maxExp = 100;
@@ -114,6 +115,8 @@ public class EntityPlayer extends EntityLiving {
 		sfx.put("jump", new AudioPlayer(Assets.getAudioAsset("jump")));
 		sfx.put("scratch", new AudioPlayer(Assets.getAudioAsset("scratch")));
 		sfx.put("movement", new AudioPlayer(Assets.getAudioAsset("movement")));
+		sfx.put("spawn_0", new AudioPlayer(Assets.getAudioAsset("soldier_spawn_0")));
+		sfx.put("spawn_1", new AudioPlayer(Assets.getAudioAsset("soldier_spawn_1")));
 	}
 	
 	public boolean isInCombat() {
@@ -183,7 +186,7 @@ public class EntityPlayer extends EntityLiving {
 	 * @param enemies
 	 */
 	public void checkAttack(ArrayList<Enemy> enemies) {
-		scratchDamage = (int)(6 + damage * 0.8);
+		scratchDamage = (int)(2 + damage * 1.0);
 		soldierDamage = (int)(2 + damage * 0.7);
 		// loop through enemies
 		for(int i = 0; i < enemies.size(); i++) {
@@ -256,17 +259,20 @@ public class EntityPlayer extends EntityLiving {
 	public void moveSoldiers() {
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
-		int space = -70;
+		int space = 0;
+		if(level == 1) space = 0;
+		if(level == 2) space = 0 - 35 / 2;
+		if(level == 3) space = 0 - 35;
 		sfx.get("movement").play();
 		for(int i = 0; i < soldiers.size(); i++) {
-			space += 35;
 			soldiers.get(i).move((int) x + space);
+			space += 35;
 		}
 	}
 	
 	public void spawnSoldier() {
 		// orb attack
-		if(currentAction != SOLDIER && soldiers.size() < 3) {
+		if(currentAction != SOLDIER && soldiers.size() < level) {
 			if(soldiers.size() == 3) {
 				for(int i = 0; i < soldiers.size(); i++) {
 					soldiers.get(i).getTimeLeft();
@@ -277,12 +283,13 @@ public class EntityPlayer extends EntityLiving {
 			int x = (int) (p.x / SideScroller.SCALE - xmap);
 			int y = (int) (p.y / SideScroller.SCALE - ymap);
 			if(facingRight)
-				soldier = new Soldier(tileMap, level, this);
+				soldier = new Soldier(tileMap, level, x, y, this);
 			if(!facingRight)
-				soldier = new Soldier(tileMap, level, this);
+				soldier = new Soldier(tileMap, level, x, y, this);
 			if(soldier != null) {
-				soldier.setPosition(x, y);
 				soldiers.add(soldier);
+				Random r = new Random();
+				sfx.get("spawn_" + r.nextInt(1)).play();
 			}
 		} else {
 			
@@ -371,7 +378,6 @@ public class EntityPlayer extends EntityLiving {
 				}
 			} else if(spawning) {
 				if(currentAction != SOLDIER) {
-					sfx.get("spawn").play();
 					currentAction = SOLDIER;
 					animation.setFrames(sprites.get(SOLDIER));
 					animation.setDelay(100);
@@ -491,10 +497,9 @@ public class EntityPlayer extends EntityLiving {
 			maxExp = 75 + 25 * level;
 			exp = 0;
 			damage += 4;
-			maxHealth += 7;
-			health += 7;
+			maxHealth += 8;
+			health += 8;
 			healthRegen = (double) (maxHealth * 0.0001);
-			maxShield += 3;
 			shieldRegen = (double) (maxShield * 0.004);
 		}
 	}

@@ -11,13 +11,10 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
-import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.TileMap;
-import net.masterzach32.sidescroller.util.LogHelper;
 import net.masterzach32.sidescroller.util.Utilities;
 
-@SuppressWarnings("unused")
 public class Soldier extends MapObject {
 	
 	private EntityPlayer player;
@@ -34,9 +31,9 @@ public class Soldier extends MapObject {
 	
 	// animation actions
 	//private static final int IDLE = 0, MOVING = 1, ATTACKING = 2, DECAY = 3;
-	private static final int IDLE = 0, MOVING = 1, JUMPING = 2, FALLING = 3, GLIDING = 4, SOLDIER = 5, ATTACKING = 6;
+	private static final int IDLE = 0, MOVING = 1, ATTACKING = 6;
 
-	protected Soldier(TileMap tm, int level, EntityPlayer player) {
+	protected Soldier(TileMap tm, int level, int x, int y, EntityPlayer player) {
 		super(tm);
 		
 		width = 30;
@@ -44,8 +41,8 @@ public class Soldier extends MapObject {
 		cwidth = 20;
 		cheight = 20;
 		
-		moveSpeed = 0.5;
-		setMaxSpeed(3.7);
+		moveSpeed = 0.75;
+		setMaxSpeed(3.5);
 		stopSpeed = 0.5;
 		fallSpeed = 0.5;
 		maxFallSpeed = 10.0;
@@ -87,6 +84,16 @@ public class Soldier extends MapObject {
 		currentAction = IDLE;
 		animation.setFrames(sprites.get(IDLE));
 		animation.setDelay(400);
+		
+		setPosition(x, y);
+		boolean b = false;
+		do {
+			dy = -1;
+			b = checkTileMapCollision();
+			if(b) {
+				setPosition(this.x, this.y + 1);
+			}
+		} while(b);
 	}
 	
 	protected boolean checkAttack(ArrayList<Enemy> enemies, int damage) {
@@ -260,7 +267,7 @@ public class Soldier extends MapObject {
 		int y = p.y;
 		
 		g.setColor(new Color(218, 165, 32));
-		g.drawLine(p.x, p.y, (int) (this.x + xmap), (int) (this.y + ymap));
+		g.drawLine(x, y, (int) (this.x + xmap), (int) (this.y + ymap));
 		
 		if(MapObject.isHitboxEnabled()) {
 			if(attacking) {
