@@ -282,7 +282,8 @@ public class EntityPlayer extends EntityLiving {
 	
 	public void spawnSoldier() {
 		// orb attack
-		if(currentAction != SOLDIER && soldiers.size() < 1 + level) {
+		if(currentAction != SOLDIER) {
+			if(soldiers.size() == 1 + level) soldiers.remove(soldiers.get(Soldier.getOldest(soldiers)));
 			Soldier soldier = null;
 			Point p = Utilities.getMousePosition();
 			int x = (int) (p.x / SideScroller.SCALE - xmap);

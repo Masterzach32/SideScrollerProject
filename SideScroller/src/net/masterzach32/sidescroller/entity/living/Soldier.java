@@ -275,4 +275,24 @@ public class Soldier extends MapObject {
 		}
 		g.setColor(Color.WHITE);
 	}
+
+	protected static int getOldest(ArrayList<Soldier> s) {
+		int oldest = 0;
+		int min = Integer.MAX_VALUE;
+		int[] soldiers = new int[s.size()];
+		for(int j = 0; j < s.size(); j++) {
+			soldiers[j] = s.get(j).getTimeLeft();
+		}
+		
+		int i = 0;
+		while (i < soldiers.length) {
+			if(soldiers[i] < min) {
+				min = soldiers[i];
+				oldest = i;
+			}
+			i++;
+		}
+		
+		return oldest;
+	}
 }
