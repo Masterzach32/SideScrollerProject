@@ -267,9 +267,9 @@ public class Soldier extends MapObject {
 			if(attacking) {
 				g.setColor(Color.YELLOW);
 				if(facingRight) {
-					g.drawRect((int)(this.x + xmap), (int)(this.y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
+					g.drawRect((int) (this.x + xmap), (int) (this.y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
 				} else {
-					g.drawRect((int)(this.x + xmap  - attackRange), (int)(this.y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
+					g.drawRect((int) (this.x + xmap  - attackRange), (int) (this.y + ymap - height / 2 + (height - cheight) / 2), attackRange, cheight);
 				}
 			}
 		}

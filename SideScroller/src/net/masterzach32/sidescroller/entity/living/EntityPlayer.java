@@ -10,7 +10,7 @@ import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.main.SideScroller;
-import net.masterzach32.sidescroller.tilemap.*;
+import net.masterzach32.sidescroller.tilemap.*; 
 import net.masterzach32.sidescroller.util.Utilities;
 
 import java.awt.*;
@@ -26,10 +26,17 @@ public class EntityPlayer extends EntityLiving {
 	private double maxExp;
 	private int level;
 	
-	// fireball
+	// soldiers
 	private boolean spawning;
 	private int soldierDamage;
 	private ArrayList<Soldier> soldiers;
+	
+	// cooldowns
+	public int concSands;
+	public int shiftSands;
+	public int empDivide;
+	public int ariseTimer;
+	public int storedSoldiers;
 	
 	// scratch
 	private boolean attacking;
@@ -261,6 +268,7 @@ public class EntityPlayer extends EntityLiving {
 	}
 	
 	public void moveSoldiers() {
+		if(concSands > 0 || soldiers.size() == 0) return;
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
 		if(this.x - x > moveRange) {
@@ -274,6 +282,7 @@ public class EntityPlayer extends EntityLiving {
 		if(soldiers.size() == 3) space = 0 - 35;
 		if(soldiers.size() == 4) space = 0 - 35 / 2 - 35;
 		sfx.get("movement").play();
+		concSands = 240;
 		for(int i = 0; i < soldiers.size(); i++) {
 			soldiers.get(i).move((int) x + space);
 			space += 40 - 5 * soldiers.size();
@@ -281,8 +290,7 @@ public class EntityPlayer extends EntityLiving {
 	}
 	
 	public void spawnSoldier() {
-		// orb attack
-		if(currentAction != SOLDIER) {
+		if(currentAction != SOLDIER && storedSoldiers > 0) {
 			if(soldiers.size() == 1 + level) soldiers.remove(soldiers.get(Soldier.getOldest(soldiers)));
 			Soldier soldier = null;
 			Point p = Utilities.getMousePosition();
@@ -304,6 +312,7 @@ public class EntityPlayer extends EntityLiving {
 				soldiers.add(soldier);
 				Random r = new Random();
 				sfx.get("spawn_" + r.nextInt(1)).play();
+				storedSoldiers--;
 			}
 		} else {
 			
@@ -464,6 +473,16 @@ public class EntityPlayer extends EntityLiving {
 		if(combatTimer > 0) combatTimer--;
 		if(combatTimer > 0) inCombat = true;
 		if(combatTimer == 0) inCombat = false;
+		
+		if(concSands > 0) concSands--;
+		if(shiftSands > 0) shiftSands--;
+		if(empDivide > 0) empDivide--;
+		
+		if(ariseTimer > 0) ariseTimer--;
+		if(ariseTimer == 0 && storedSoldiers < 3) {
+			storedSoldiers += 1;
+			ariseTimer = 270;
+		}
 		
 		// update orbs
 		for(int i = 0; i < soldiers.size(); i++) {
