@@ -31,7 +31,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Alpha", VERSION = "0.1.6.245";
+	public static final String TYPE = "Alpha", VERSION = "0.1.6.246";
 	public static final boolean isUpdateEnabled = false;
 	
 	// game thread
@@ -76,9 +76,14 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		}
 	}
 	
-	public static void stop() {
+	public synchronized void stop() {
 		OptionsFile.save();
 		Game.getConsole().saveAs();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		System.exit(0);
 	}
 

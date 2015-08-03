@@ -271,10 +271,16 @@ public class EntityPlayer extends EntityLiving {
 		if(concSands > 0 || soldiers.size() == 0) return;
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
+		int y = (int) (p.y / SideScroller.SCALE - ymap);
 		if(this.x - x > moveRange) {
 			x = (int) (this.x - moveRange);
 		} else if(this.x - x < -moveRange) {
 			x = (int) (this.x + moveRange);
+		}
+		if(this.y - y > spawnRange) {
+			y = (int) (this.y - spawnRange);
+		} else if(this.y - y < -spawnRange) {
+			y = (int) (this.y + spawnRange);
 		}
 		int space = 0;
 		if(soldiers.size() == 1) space = 0;
@@ -284,7 +290,7 @@ public class EntityPlayer extends EntityLiving {
 		sfx.get("movement").play();
 		concSands = 240;
 		for(int i = 0; i < soldiers.size(); i++) {
-			soldiers.get(i).move((int) x + space);
+			soldiers.get(i).move((int) x + space, y);
 			space += 40 - 5 * soldiers.size();
 		}
 	}

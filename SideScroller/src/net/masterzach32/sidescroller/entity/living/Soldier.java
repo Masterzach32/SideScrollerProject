@@ -19,7 +19,7 @@ public class Soldier extends MapObject {
 	
 	private EntityPlayer player;
 	private boolean moving, attacking, remove;
-	private int attackDelay, attackTimer, moveLocation, time;
+	private int attackDelay, attackTimer, moveX, /*moveY,*/ time;
 	
 	private int attackRange;
 	
@@ -121,14 +121,15 @@ public class Soldier extends MapObject {
 		
 	}
 	
-	protected void move(int x) {
+	protected void move(int x, int y) {
 		moving = true;
-		moveLocation = x;
-		if(moveLocation < this.getx()) {
+		moveX = x;
+		//moveY = y;
+		if(moveX < this.getx()) {
 			facingRight = false;
 			left = true;
 			right = false;
-		} else if (moveLocation > this.getx()) {
+		} else if (moveX > this.getx()) {
 			facingRight = true;
 			left = false;
 			right = true;
@@ -155,23 +156,17 @@ public class Soldier extends MapObject {
 		}
 		
 		if(moving) {
-			if(this.x < moveLocation) {
+			if(this.x < moveX) {
 				facingRight = true;
-			} else if(this.x > moveLocation) {
+			} else if(this.x > moveX) {
 				facingRight = false;
 			}
-			if(moving && dx == 0) {
-				dy = -5;
-			} else {
-				dy = 0;
-			}
-			
 			if(facingRight) {
 				dx += moveSpeed;
 				if(dx > getMaxSpeed()) {
 					dx = getMaxSpeed();
 				}
-				if((moveLocation - this.x) < 10) {
+				if((moveX - this.x) < 10) {
 					moving = false;
 				}
 			} else {
@@ -179,10 +174,32 @@ public class Soldier extends MapObject {
 				if(dx < -getMaxSpeed()) {
 					dx = -getMaxSpeed();
 				}
-				if((this.x - moveLocation) < 10) {
+				if((this.x - moveX) < 10) {
 					moving = false;
 				}
 			}
+			/*if(this.y < moveY) {
+				facingRight = true;
+			} else if(this.y > moveY) {
+				facingRight = false;
+			}
+			if(facingRight) {
+				dy += moveSpeed;
+				if(dy > getMaxSpeed()) {
+					dy = getMaxSpeed();
+				}
+				if((moveY - this.y) < 4) {
+					moving = false;
+				}
+			} else {
+				dy -= moveSpeed;
+				if(dy < -getMaxSpeed()) {
+					dy = -getMaxSpeed();
+				}
+				if((this.y - moveY) < 4) {
+					moving = false;
+				}
+			}*/
 		}
 		
 		if(!moving) {
@@ -213,8 +230,12 @@ public class Soldier extends MapObject {
 	
 	public void tick() {
 		getNextPosition();
-		checkTileMapCollision();
-		setPosition(xtemp, ytemp);
+		if(moving) {
+			setPosition(x + dx, y + dy);
+		} else {
+			checkTileMapCollision();
+			setPosition(xtemp, ytemp);
+		}
 		
 		// check attack has stopped
 		if(currentAction == ATTACKING) {
@@ -262,6 +283,11 @@ public class Soldier extends MapObject {
 		
 		g.setColor(new Color(218, 165, 32));
 		g.drawLine(x, y, (int) (this.x + xmap), (int) (this.y + ymap));
+		
+		g.setColor(new Color(218, 165, 32));
+		for(int i = time / 60 + 1; i > 0; i--) {
+			g.fillRect((int) (this.x + xmap - 30 / 2 + 3 * i), (int) (this.y + ymap - height / 2) + 2, 2, 2);
+		}
 		
 		if(MapObject.isHitboxEnabled()) {
 			if(attacking) {
