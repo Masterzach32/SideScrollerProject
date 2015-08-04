@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="Libs/mp3spi1.9.5.jar"/>
 	<classpathentry kind="lib" path="Libs/tritonus_share.jar"/>
 	<classpathentry kind="lib" path="Libs/json_simple-1.1.jar"/>
+	<classpathentry kind="lib" path="Libs/transform-3.0.2.jar"/>
+	<classpathentry kind="lib" path="Libs/transform-3.0.2-source.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

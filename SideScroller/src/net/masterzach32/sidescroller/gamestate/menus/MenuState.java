@@ -90,7 +90,7 @@ public class MenuState extends GameState {
 	private void select() {
 		if(currentChoice == 0) {
 			bgMusic.stop();
-			GameState.setState(SideScroller.level1_1);
+			GameState.setState(SideScroller.endgame);
 		}
 		if(currentChoice == 1)
 			GameState.setState(SideScroller.helpState); // Help

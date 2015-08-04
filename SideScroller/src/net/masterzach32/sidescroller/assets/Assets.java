@@ -102,6 +102,8 @@ public class Assets {
 		maps.put("level1_1", SideScroller.al.loadMap("/maps/level1-1.map"));
 		maps.put("level1_2", SideScroller.al.loadMap("/maps/level1-2.map"));
 		maps.put("level1_3", SideScroller.al.loadMap("/maps/level1-3.map"));
+		
+		maps.put("end", SideScroller.al.loadMap("/swf/azir.swf"));
 	}
 	
 	/**

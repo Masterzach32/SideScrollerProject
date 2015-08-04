@@ -14,7 +14,7 @@ public class EndState extends GameState {
 	
 	private AudioPlayer bgMusic;
 	private Background bg;
-
+	
 	public EndState(SideScroller game) {
 		super(game);
 	}
