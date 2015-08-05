@@ -7,7 +7,6 @@ import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
-import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.*; 
@@ -197,8 +196,8 @@ public class EntityPlayer extends EntityLiving {
 	 * @param enemies
 	 */
 	public void checkAttack(ArrayList<Enemy> enemies) {
-		scratchDamage = (int)(2 + damage * 0.5);
-		soldierDamage = (int)(2 + damage * 0.7);
+		scratchDamage = (int)(1 + damage * 0.5);
+		soldierDamage = (int)(4 + damage * 1.0);
 		// loop through enemies
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
@@ -217,6 +216,8 @@ public class EntityPlayer extends EntityLiving {
 						}
 					}
 				} else if(soldiers.size() > 0) {
+					Soldier.stack = null;
+					Soldier.stack = new ArrayList<Enemy>();
 					for(int j = 0; j < soldiers.size(); j++) {
 						soldiers.get(j).attack();
 						if(soldiers.get(j).isAttacking()) {
@@ -226,13 +227,15 @@ public class EntityPlayer extends EntityLiving {
 					}
 				}
 			}
-			
-			for(int j = 0; j < soldiers.size(); j++) {
-				if(soldiers.get(j).isMoving()) {
-					if(e.intersects(soldiers.get(j))) {
-						e.hit(soldierDamage / 2, false, false, "Conquering Sands", soldiers.get(j));
-						e.addEffect(soldiers.get(j), Effect.SLOW, 4 * soldiers.size(), 1);
-						combatTimer = 300;
+			if(soldiers.size() > 0) {
+				Soldier.stack = null;
+				Soldier.stack = new ArrayList<Enemy>();
+				for(int j = 0; j < soldiers.size(); j++) {
+					if(soldiers.get(j).isMoving()) {
+						if(e.intersects(soldiers.get(j))) {
+							soldiers.get(j).checkAttack(enemies, soldierDamage);
+							combatTimer = 300;
+						}
 					}
 				}
 			}

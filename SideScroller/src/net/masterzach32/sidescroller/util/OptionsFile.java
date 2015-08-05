@@ -18,7 +18,7 @@ public class OptionsFile {
 
 	/** OPTIONS_VERSION identifies the version of the options file format.
 	 *  Increase this value whenever incompatible changes are made to the 
-	 *  options file format.  (Just adding a new JSON field will not
+	 *  options file format. (Just adding a new JSON field will not
 	 *  break compatibility).
 	 */
 	public static final int OPTIONS_VERSION = 1;
@@ -240,7 +240,7 @@ public class OptionsFile {
 		}
 		
 		String json = new String(buffer);
-		// LogHelper.logInfo(json);
+		LogHelper.logInfo(json);
 		return parseOptionsFromJSON(json);
 	}
 }

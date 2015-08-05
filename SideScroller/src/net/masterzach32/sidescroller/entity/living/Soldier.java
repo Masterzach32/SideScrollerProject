@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
+import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.TileMap;
@@ -22,6 +23,7 @@ public class Soldier extends MapObject {
 	private int attackDelay, attackTimer, moveX, /*moveY,*/ time;
 	
 	private int attackRange;
+	private int level;
 	
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
@@ -31,6 +33,7 @@ public class Soldier extends MapObject {
 	//private static final int IDLE = 0, MOVING = 1, ATTACKING = 2, DECAY = 3;
 	private static final int IDLE = 0, MOVING = 1, ATTACKING = 6;
 	
+	protected static ArrayList<Enemy> stack;
 	private ArrayList<Enemy> hits;
 
 	protected Soldier(TileMap tm, int level, EntityPlayer player) {
@@ -52,6 +55,8 @@ public class Soldier extends MapObject {
 		attackRange = 40;
 		attackDelay = 90 - (15 * level);
 		attackTimer = 0;
+		
+		this.level = level;
 		
 		time = 9 * SideScroller.FPS;
 		this.player = player;
@@ -91,14 +96,24 @@ public class Soldier extends MapObject {
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
 			if(isHit(e)) return false;
-			if(facingRight) {
-				if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-					hit = e.hit(damage, false, true, "Soldier Attack", this);
-					addToHitList(e);
+			int attack = damage;
+			if(reduceDamage(e)) attack = (int) (damage * .33);
+			if(attacking) {
+				if(facingRight) {
+					if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
+						hit = e.hit(attack, false, true, "Soldier Attack", this);
+						addToHitList(e);
+					}
+				} else {
+					if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
+						hit = e.hit(attack, false, true, "Soldier Attack", this);
+						addToHitList(e);
+					}
 				}
-			} else {
-				if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-					hit = e.hit(damage, false, true, "Soldier Attack", this);
+			} else if(moving) {
+				if(e.intersects(this)) {
+					hit = e.hit(attack / 2, false, true, null, e);
+					e.addEffect(this, Effect.SLOW, 4 * level, 1);
 					addToHitList(e);
 				}
 			}
@@ -124,6 +139,8 @@ public class Soldier extends MapObject {
 	}
 	
 	protected void move(int x, int y) {
+		hits = null;
+		hits = new ArrayList<Enemy>();
 		moving = true;
 		moveX = x;
 		//moveY = y;
@@ -317,17 +334,26 @@ public class Soldier extends MapObject {
 			}
 			i++;
 		}
-		
 		return oldest;
 	}
 	
-	public void addToHitList(Enemy entity) {
+	protected void addToHitList(Enemy entity) {
 		hits.add(entity);
+		stack.add(entity);
 	}
 	
-	public boolean isHit(Enemy entity) {
+	protected boolean isHit(Enemy entity) {
 		for(int i = 0; i < hits.size(); i++) {
 			if(hits.get(i).equals(entity)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	protected boolean reduceDamage(Enemy entity) {
+		for(int i = 0; i < stack.size(); i++) {
+			if(stack.get(i).equals(entity)) {
 				return true;
 			}
 		}

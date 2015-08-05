@@ -31,8 +31,9 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Alpha", VERSION = "0.1.6.249";
+	public static final String TYPE = "Alpha", VERSION = "0.1.6.250";
 	public static final boolean isUpdateEnabled = false;
+	public static boolean isSoundEnabled = false;
 	
 	// game thread
 	private Thread tickAndRender, init;
@@ -40,8 +41,6 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	private boolean running;
 	public static int FPS = 60;
 	private long targetTime = 1000 / FPS;
-	
-	public static boolean isSoundEnabled = false;
 	
 	// image 
 	private BufferedImage image;
@@ -105,7 +104,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
 		
-		LogHelper.logInfo("Starting pre-initialzation.");
+		LogHelper.logInfo("Starting pre-initialzation");
 		Assets.preinit();
 		
 		Game.getConsole().getFrame().setIconImage(Assets.getImageAsset("icon_console"));
