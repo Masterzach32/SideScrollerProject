@@ -46,7 +46,7 @@ public class Mage extends Enemy {
 		hsight = 36;
 		
 		health = maxHealth = (6) + (6 * level);
-		damage = (2) + (4 * level);
+		damage = (2) + (2 * level);
 		
 		exp = (20);
 		
@@ -100,8 +100,8 @@ public class Mage extends Enemy {
 		for(int j = 0; j < orbs.size(); j++) {
 			if(orbs.get(j).intersects(p)) {
 				if(orbs.get(j).isHit()) return;
-				p.hit(damage, false, false, "Orb", this);
-				p.addEffect(this, Effect.FIRE, 2 * level, 2);
+				p.hit(damage, false, false, "FireBall", this);
+				p.addEffect(this, Effect.FIRE, 3 * level, 3);
 				orbs.get(j).setHit();
 			}
 		}
@@ -123,7 +123,7 @@ public class Mage extends Enemy {
 			dx = 0;
 			if(attackCd == 0) {
 				attacking = true;
-				attackCd = 150;
+				attackCd = 120;
 				left = false;
 				right = false;
 				// orb attack

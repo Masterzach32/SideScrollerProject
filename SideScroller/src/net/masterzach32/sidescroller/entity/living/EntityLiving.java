@@ -7,6 +7,7 @@ import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.util.LogHelper;
 
 public class EntityLiving extends MapObject {
 	
@@ -63,8 +64,6 @@ public class EntityLiving extends MapObject {
 	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
 		if(!ignoreFlinching) {
 			if(flinching) return false;
-			flinching = true;
-			flinchTimer = System.nanoTime();
 		}
 		if(ignoreShield) {
 			health -= damage;
@@ -76,11 +75,13 @@ public class EntityLiving extends MapObject {
 			damage -= (s - shield);
 			health -= damage;
 		}
+		flinching = true;
+		flinchTimer = System.nanoTime();
 		explosions.add(new Explosion(this.getx(), this.gety()));
 		if(health < 0) health = 0;
 		if(health == 0) this.setDead(source);
+		LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " was hit by " + source.getClass().getSimpleName() + " with " + type + " for " + damage + " damage");
 		return true;
-		//LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " hit for " + damage + " damage from " + type + " by " + source.getClass().getSimpleName());
 	}
 	
 	/**
@@ -156,7 +157,6 @@ public class EntityLiving extends MapObject {
 		} else {
 			if(!dead) super.render(g);
 		}
-		super.render(g);
 		
 		for(int i = 0; i < explosions.size(); i++) {
 			explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());

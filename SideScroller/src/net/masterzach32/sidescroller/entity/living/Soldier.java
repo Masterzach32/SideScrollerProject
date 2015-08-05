@@ -23,8 +23,6 @@ public class Soldier extends MapObject {
 	
 	private int attackRange;
 	
-	private boolean hit;
-	
 	// animations
 	private ArrayList<BufferedImage[]> sprites;
 	private final int[] numFrames = {2, 8, 1, 2, 4, 2, 5};
@@ -32,6 +30,8 @@ public class Soldier extends MapObject {
 	// animation actions
 	//private static final int IDLE = 0, MOVING = 1, ATTACKING = 2, DECAY = 3;
 	private static final int IDLE = 0, MOVING = 1, ATTACKING = 6;
+	
+	private ArrayList<Enemy> hits;
 
 	protected Soldier(TileMap tm, int level, EntityPlayer player) {
 		super(tm);
@@ -87,29 +87,31 @@ public class Soldier extends MapObject {
 	}
 	
 	protected boolean checkAttack(ArrayList<Enemy> enemies, int damage) {
-		if(hit) return false;
+		boolean hit = false;
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
+			if(isHit(e)) return false;
 			if(facingRight) {
 				if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-					e.hit(damage, false, true, "Soldier Attack", this);
-					return hit = true;
+					hit = e.hit(damage, false, true, "Soldier Attack", this);
+					addToHitList(e);
 				}
 			} else {
 				if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-					e.hit(damage, false, true, "Soldier Attack", this);
-					return hit = true;
+					hit = e.hit(damage, false, true, "Soldier Attack", this);
+					addToHitList(e);
 				}
 			}
 		}
-		return hit = false;
+		return hit;
 	}
 	
 	protected void attack() {
 		if(attackTimer > 0) return;
-		hit = false;
 		attackTimer = attackDelay;
 		attacking = true;
+		hits = null;
+		hits = new ArrayList<Enemy>();
 	}
 	
 	protected boolean isAttacking() {
@@ -203,8 +205,6 @@ public class Soldier extends MapObject {
 		}
 		
 		if(!moving) {
-			right = false;
-			left = false;
 			if(dx > 0) {
 				dx -= stopSpeed;
 				if(dx < 0) {
@@ -284,7 +284,6 @@ public class Soldier extends MapObject {
 		g.setColor(new Color(218, 165, 32));
 		g.drawLine(x, y, (int) (this.x + xmap), (int) (this.y + ymap));
 		
-		g.setColor(new Color(218, 165, 32));
 		for(int i = time / 60 + 1; i > 0; i--) {
 			g.fillRect((int) (this.x + xmap - 30 / 2 + 3 * i), (int) (this.y + ymap - height / 2) + 2, 2, 2);
 		}
@@ -320,5 +319,18 @@ public class Soldier extends MapObject {
 		}
 		
 		return oldest;
+	}
+	
+	public void addToHitList(Enemy entity) {
+		hits.add(entity);
+	}
+	
+	public boolean isHit(Enemy entity) {
+		for(int i = 0; i < hits.size(); i++) {
+			if(hits.get(i).equals(entity)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

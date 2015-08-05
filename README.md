@@ -1,4 +1,4 @@
-# SideScrollerProject- Alpha Build 0.1.6.248
+# SideScrollerProject- Alpha Build 0.1.6.249
 
 The SideScroller Project is an open source solution for people wanting to create an open source SideScrolling / RPG game. If you want to use my code, your code must be open source too. Thanks!
 
@@ -22,8 +22,8 @@ All changes that will be in v0.1.6 Alpha:
 - Fire does current health damage, poison now does missing health damage
 - All number data types use double instead of float for accuracy
 - All new assets, bg, playtheme
-- You now play as the fallen emperor Azir, who wants to take bask Shurima
-- The player cah now spawn soldiers that attack for him, and that he can move around
+- You now play as the fallen emperor Azir, who wants to take back Shurima
+- The player can now spawn soldiers that attack for him, and that he can move around
 
 ### Bugs:
 - Sometimes sluggers spawn traveling left

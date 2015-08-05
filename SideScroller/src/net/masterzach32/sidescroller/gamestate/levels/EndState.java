@@ -8,7 +8,6 @@ import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
-import net.masterzach32.sidescroller.util.Utilities;
 
 public class EndState extends GameState {
 	
@@ -22,7 +21,6 @@ public class EndState extends GameState {
 	@Override
 	public void init() {
 		bg = new Background(Assets.getImageAsset("end_splash_normal"), 1);
-		//bg.setVector(-0.25, 0);
 		
 		bgMusic = new AudioPlayer(Assets.getAudioAsset("shurima"));
 	}
@@ -47,7 +45,7 @@ public class EndState extends GameState {
 		Font f = new Font("Arial", Font.PLAIN, 12);
 		g.setFont(f);
 		bg.render(g);
-		Utilities.drawCenteredString(g, "Game Completed! Press any key to exit", 180);
+		g.drawString("Game Completed! Press any key to exit", 1, 355);
 	}
 
 	@Override

@@ -67,7 +67,7 @@ public class HUD {
 		g.setFont(font);
 		g.setColor(Color.WHITE);
 		if(!player.isDead()) g.drawString("Conquering Sands: " + Utilities.getCooldown(player.concSands) + " Arise - Stored: " + player.storedSoldiers + " Shifting Sands: " + Utilities.getCooldown(player.shiftSands) + " Emperors Divide: " + Utilities.getCooldown(player.empDivide), 0, 12);
-		if(player.isDead()) g.drawString("Death Timer: " + Utilities.getCooldown(LevelState.j) + "Conquering Sands: " + Utilities.getCooldown(player.concSands) + " Arise - Stored: " + player.storedSoldiers + " Shifting Sands: " + Utilities.getCooldown(player.shiftSands) + " Emperors Divide: " + Utilities.getCooldown(player.empDivide), 0, 12);
+		if(player.isDead()) g.drawString("Death Timer: " + Utilities.getCooldown(LevelState.j) + " Conquering Sands: " + Utilities.getCooldown(player.concSands) + " Arise - Stored: " + player.storedSoldiers + " Shifting Sands: " + Utilities.getCooldown(player.shiftSands) + " Emperors Divide: " + Utilities.getCooldown(player.empDivide), 0, 12);
 		g.drawString(player.getLevel() + " - " + (int) player.getExp() + "/" + (int) player.getMaxExp(), 1, 70);
 		g.drawString((int) (player.getHealth()) + "/" + (int) (player.getMaxHealth()), 16, 29);
 	}
