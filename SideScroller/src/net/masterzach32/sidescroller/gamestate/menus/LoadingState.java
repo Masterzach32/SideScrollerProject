@@ -37,6 +37,9 @@ public class LoadingState extends GameState {
 	public void tick() {}
 
 	public void render(Graphics2D g) {
+		//if(v < percent) v += 1;
+		//if(v > percent) v = percent;
+		
 		Font f = new Font("Arial", Font.PLAIN, 12);
 		g.setFont(f);
 		g.drawImage(Assets.getImageAsset("shurima_bg"), 0, 0, SideScroller.WIDTH, SideScroller.HEIGHT, null);

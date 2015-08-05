@@ -13,16 +13,11 @@ public class Assets {
 	
 	// Anything with placeholder in front of it is a placeholder art
 	
-	private static HashMap<String, BufferedImage> images;
-	private static HashMap<String, AudioInputStream> sounds;
-	private static HashMap<String, String> maps;
+	private static HashMap<String, BufferedImage> images = new HashMap<String, BufferedImage>(1024);
+	private static HashMap<String, AudioInputStream> sounds = new HashMap<String, AudioInputStream>(1024);
+	private static HashMap<String, String> maps = new HashMap<String, String>(1024);
 	
 	public static void preinit() {
-		// initialize hashmaps
-		images = new HashMap<String, BufferedImage>(1024);
-		sounds = new HashMap<String, AudioInputStream>(1024);
-		maps = new HashMap<String, String>(1024);
-		
 		// window assets
 		images.put("icon_console", SideScroller.al.loadImage("/icons/console.png"));
 		images.put("icon_game", SideScroller.al.loadImage("/icons/game.png"));
