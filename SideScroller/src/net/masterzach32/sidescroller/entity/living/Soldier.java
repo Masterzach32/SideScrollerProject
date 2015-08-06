@@ -112,7 +112,7 @@ public class Soldier extends MapObject {
 				}
 			} else if(moving) {
 				if(e.intersects(this)) {
-					hit = e.hit(attack / 2, false, true, null, e);
+					hit = e.hit(attack / 2, false, true, "Conquering Sands", this);
 					e.addEffect(this, Effect.SLOW, 4 * level, 1);
 					addToHitList(e);
 				}
