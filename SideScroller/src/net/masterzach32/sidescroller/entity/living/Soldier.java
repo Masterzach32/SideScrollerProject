@@ -64,6 +64,10 @@ public class Soldier extends MapObject {
 		moving = false;
 		attacking = false;
 		
+		hits = new ArrayList<Enemy>();
+		attackStack = new ArrayList<Enemy>();
+		moveStack = new ArrayList<Enemy>();
+		
 		// load sprites
 		try {
 			BufferedImage spritesheet = Assets.getImageAsset("player");
@@ -93,26 +97,27 @@ public class Soldier extends MapObject {
 	
 	protected boolean checkAttack(Enemy e, int damage, int type) {
 		boolean hit = false;
-		if(isHit(e)) return false;
+		if(isHit(e)) return hit;
 		int attack = damage;
 		if(reduceDamage(e, type)) attack = (int) (damage * .33);
-		if(attacking) {
+		if(isAttacking()) {
 			if(facingRight) {
 				if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
 					hit = e.hit(attack, false, true, "Soldier Attack", this);
 					addToHitList(e, 0);	
-				} else {
-					if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-						hit = e.hit(attack, false, true, "Soldier Attack", this);
-						addToHitList(e, 0);
-					}
 				}
-			} else if(moving) {
-				if(e.intersects(this)) {
-					hit = e.hit(attack / 1.5, false, true, "Conquering Sands", this);
-					e.addEffect(this, Effect.SLOW, 4 * level, 1);
-					addToHitList(e, 1);
+			} else if(!facingRight) {
+				if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
+					hit = e.hit(attack, false, true, "Soldier Attack", this);
+					addToHitList(e, 0);
 				}
+			}
+		}
+		if(isMoving()) {
+			if(e.intersects(this)) {
+				hit = e.hit(attack / 1.5, false, true, "Conquering Sands", this);
+				e.addEffect(this, Effect.SLOW, 4 * level, 1);
+				addToHitList(e, 1);
 			}
 		}
 		return hit;

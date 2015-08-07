@@ -197,7 +197,8 @@ public class EntityPlayer extends EntityLiving {
 	 * Checks to see if the attack succeeded
 	 * @param enemies
 	 */
-	public void checkAttack(ArrayList<Enemy> enemies) {
+	public boolean checkAttack(ArrayList<Enemy> enemies) {
+		boolean hit = false;
 		scratchDamage = (int)(1 + damage * 0.5);
 		soldierDamage = (int)(4 + damage * 1.0);
 		// loop through enemies
@@ -208,42 +209,35 @@ public class EntityPlayer extends EntityLiving {
 				if(soldiers.size() == 0) {
 					if(facingRight) {
 						if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-							combatTimer = 300;
-							e.hit(scratchDamage, false, false, "Basic Attack", this);
+							hit = e.hit(scratchDamage, false, false, "Basic Attack", this);
 						}
 					} else {
 						if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-							combatTimer = 300;
-							e.hit(scratchDamage, false, false, "Basic Attack", this);
+							hit = e.hit(scratchDamage, false, false, "Basic Attack", this);
 						}
 					}
 				} else if(soldiers.size() > 0) {
 					for(int j = 0; j < soldiers.size(); j++) {
 						soldiers.get(j).attack();
-						if(soldiers.get(j).isAttacking()) {
-							soldiers.get(j).checkAttack(e, soldierDamage, 0);
-							combatTimer = 300;
-						}
+						hit = soldiers.get(j).checkAttack(e, soldierDamage, 0);
 					}
 				}
 			}
 			if(soldiers.size() > 0) {
 				for(int j = 0; j < soldiers.size(); j++) {
-					if(soldiers.get(j).isMoving()) {
-						if(e.intersects(soldiers.get(j))) {
-							soldiers.get(j).checkAttack(e, soldierDamage, 1);
-							combatTimer = 300;
-						}
+					if(e.intersects(soldiers.get(j))) {
+						hit = soldiers.get(j).checkAttack(e, soldierDamage, 1);
 					}
 				}
 			}
 			
 			// check enemy collision
 			if(intersects(e)) {
-				combatTimer = 300;
-				hit(e.getDamage() / 2, false, false, "Collision", e);
+				hit = hit(e.getDamage() / 2, false, false, "Collision", e);
 			}	
 		}
+		if(hit) combatTimer = 300;
+		return hit;
 	}
 	
 	/**
