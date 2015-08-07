@@ -14,6 +14,8 @@ public class FireBall extends Projectile {
 	private BufferedImage[] sprites;
 	private BufferedImage[] hitSprites;
 	
+	private int distance;
+	
 	public FireBall(TileMap tm, double ms, boolean right) {
 		super(tm);
 		
@@ -84,6 +86,8 @@ public class FireBall extends Projectile {
 	private void getNextPosition() {
 		if(facingRight) dx = moveSpeed;
 		else dx = -moveSpeed;
+		distance += dx;
+		if(distance >= 150) setHit();
 		// use point slope formula to find next y value
 		// (y-y1) = a(x-x1)
 		// y = a(x-x1) + y1

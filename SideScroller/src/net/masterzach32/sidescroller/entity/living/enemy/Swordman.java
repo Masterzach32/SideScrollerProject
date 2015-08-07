@@ -185,7 +185,6 @@ public class Swordman extends Enemy {
 		if(attacking) {
 			checkAttack();
 			if(currentAction != SCRATCHING) {
-				//sfx.get("scratch").play();
 				currentAction = SCRATCHING;
 				animation.setFrames(sprites.get(SCRATCHING));
 				animation.setDelay(50);

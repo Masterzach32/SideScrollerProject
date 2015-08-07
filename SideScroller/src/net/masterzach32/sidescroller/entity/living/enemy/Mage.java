@@ -112,12 +112,8 @@ public class Mage extends Enemy {
 		if(LevelState.getPlayer().intersects(new Rectangle((int) (x - attackRange * 1.5 / 2), (int) (y - hsight / 2), (int) (attackRange * 1.5), hsight))) {
 			// player within attacking range
 			if(LevelState.getPlayer().getx() < this.getx()) {
-				right = false;
-				left = true;
 				facingRight = false;
 			} else if (LevelState.getPlayer().getx() > this.getx()) {
-				right = true;
-				left = false;
 				facingRight = true;
 			}
 			dx = 0;
@@ -212,7 +208,6 @@ public class Mage extends Enemy {
 		// set animation
 		if(attacking) {
 			if(currentAction != ORB) {
-				//sfx.get("scratch").play();
 				currentAction = ORB;
 				animation.setFrames(sprites.get(ORB));
 				animation.setDelay(100);
