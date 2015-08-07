@@ -170,6 +170,8 @@ public class EntityPlayer extends EntityLiving {
 	
 	public void setAttacking() {
 		attacking = true;
+		Soldier.attackStack = null;
+		Soldier.attackStack = new ArrayList<Enemy>();
 	}
 	
 	public void setGliding(boolean b) { 
@@ -207,33 +209,29 @@ public class EntityPlayer extends EntityLiving {
 					if(facingRight) {
 						if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
 							combatTimer = 300;
-							e.hit(scratchDamage, false, false, "Attack", this);
+							e.hit(scratchDamage, false, false, "Basic Attack", this);
 						}
 					} else {
 						if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
 							combatTimer = 300;
-							e.hit(scratchDamage, false, false, "Attack", this);
+							e.hit(scratchDamage, false, false, "Basic Attack", this);
 						}
 					}
 				} else if(soldiers.size() > 0) {
-					Soldier.stack = null;
-					Soldier.stack = new ArrayList<Enemy>();
 					for(int j = 0; j < soldiers.size(); j++) {
 						soldiers.get(j).attack();
 						if(soldiers.get(j).isAttacking()) {
-							soldiers.get(j).checkAttack(enemies, soldierDamage);
+							soldiers.get(j).checkAttack(e, soldierDamage, 0);
 							combatTimer = 300;
 						}
 					}
 				}
 			}
 			if(soldiers.size() > 0) {
-				Soldier.stack = null;
-				Soldier.stack = new ArrayList<Enemy>();
 				for(int j = 0; j < soldiers.size(); j++) {
 					if(soldiers.get(j).isMoving()) {
 						if(e.intersects(soldiers.get(j))) {
-							soldiers.get(j).checkAttack(enemies, soldierDamage);
+							soldiers.get(j).checkAttack(e, soldierDamage, 1);
 							combatTimer = 300;
 						}
 					}
@@ -272,6 +270,8 @@ public class EntityPlayer extends EntityLiving {
 	
 	public void moveSoldiers() {
 		if(concSands > 0 || soldiers.size() == 0) return;
+		Soldier.moveStack = null;
+		Soldier.moveStack = new ArrayList<Enemy>();
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
 		int y = (int) (p.y / SideScroller.SCALE - ymap);

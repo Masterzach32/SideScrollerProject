@@ -33,7 +33,7 @@ public class Soldier extends MapObject {
 	//private static final int IDLE = 0, MOVING = 1, ATTACKING = 2, DECAY = 3;
 	private static final int IDLE = 0, MOVING = 1, ATTACKING = 6;
 	
-	protected static ArrayList<Enemy> stack;
+	protected static ArrayList<Enemy> attackStack, moveStack;
 	private ArrayList<Enemy> hits;
 
 	protected Soldier(TileMap tm, int level, EntityPlayer player) {
@@ -91,30 +91,27 @@ public class Soldier extends MapObject {
 		animation.setDelay(400);
 	}
 	
-	protected boolean checkAttack(ArrayList<Enemy> enemies, int damage) {
+	protected boolean checkAttack(Enemy e, int damage, int type) {
 		boolean hit = false;
-		for(int i = 0; i < enemies.size(); i++) {
-			Enemy e = enemies.get(i);
-			if(isHit(e)) return false;
-			int attack = damage;
-			if(reduceDamage(e)) attack = (int) (damage * .33);
-			if(attacking) {
-				if(facingRight) {
-					if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-						hit = e.hit(attack, false, true, "Soldier Attack", this);
-						addToHitList(e);
-					}
+		if(isHit(e)) return false;
+		int attack = damage;
+		if(reduceDamage(e, type)) attack = (int) (damage * .33);
+		if(attacking) {
+			if(facingRight) {
+				if(e.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
+					hit = e.hit(attack, false, true, "Soldier Attack", this);
+					addToHitList(e, 0);	
 				} else {
 					if(e.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
 						hit = e.hit(attack, false, true, "Soldier Attack", this);
-						addToHitList(e);
+						addToHitList(e, 0);
 					}
 				}
 			} else if(moving) {
 				if(e.intersects(this)) {
-					hit = e.hit(attack / 2, false, true, "Conquering Sands", this);
+					hit = e.hit(attack / 1.5, false, true, "Conquering Sands", this);
 					e.addEffect(this, Effect.SLOW, 4 * level, 1);
-					addToHitList(e);
+					addToHitList(e, 1);
 				}
 			}
 		}
@@ -337,9 +334,10 @@ public class Soldier extends MapObject {
 		return oldest;
 	}
 	
-	protected void addToHitList(Enemy entity) {
+	protected void addToHitList(Enemy entity, int type) {
 		hits.add(entity);
-		stack.add(entity);
+		if(type == 0) attackStack.add(entity);
+		if(type == 1) moveStack.add(entity);
 	}
 	
 	protected boolean isHit(Enemy entity) {
@@ -351,10 +349,19 @@ public class Soldier extends MapObject {
 		return false;
 	}
 	
-	protected boolean reduceDamage(Enemy entity) {
-		for(int i = 0; i < stack.size(); i++) {
-			if(stack.get(i).equals(entity)) {
-				return true;
+	protected boolean reduceDamage(Enemy entity, int type) {
+		if(type == 0) {
+			for(int i = 0; i < attackStack.size(); i++) {
+				if(attackStack.get(i).equals(entity)) {
+					return true;
+				}
+			}
+		}
+		if(type == 1) {
+			for(int i = 0; i < moveStack.size(); i++) {
+				if(moveStack.get(i).equals(entity)) {
+					return true;
+				}
 			}
 		}
 		return false;
