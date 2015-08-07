@@ -46,7 +46,7 @@ public class Mage extends Enemy {
 		hsight = 36;
 		
 		health = maxHealth = (6) + (6 * level);
-		damage = (2) + (2 * level);
+		damage = (2) + (3 * level);
 		
 		exp = (20);
 		
@@ -100,8 +100,8 @@ public class Mage extends Enemy {
 		for(int j = 0; j < orbs.size(); j++) {
 			if(orbs.get(j).intersects(p)) {
 				if(orbs.get(j).isHit()) return;
-				p.hit(damage, false, false, "FireBall", this);
-				p.addEffect(this, Effect.FIRE, 3 * level, 3);
+				p.hit(damage / 2, false, false, "FireBall", this);
+				p.addEffect(this, Effect.FIRE, 1 + 3 * level, 3);
 				orbs.get(j).setHit();
 			}
 		}

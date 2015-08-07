@@ -64,6 +64,8 @@ public class EntityLiving extends MapObject {
 	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
 		if(!ignoreFlinching) {
 			if(flinching) return false;
+			flinching = true;
+			flinchTimer = System.nanoTime();
 		}
 		if(ignoreShield) {
 			health -= damage;
@@ -75,8 +77,6 @@ public class EntityLiving extends MapObject {
 			damage -= (s - shield);
 			health -= damage;
 		}
-		flinching = true;
-		flinchTimer = System.nanoTime();
 		explosions.add(new Explosion(this.getx(), this.gety()));
 		if(health < 0) health = 0;
 		if(health == 0) this.setDead(source);

@@ -60,8 +60,7 @@ public class Assets {
 		images.put("grasstileset", SideScroller.al.loadImage("/tilesets/grasstileset.png"));
 		images.put("metaltileset", SideScroller.al.loadImage("/tilesets/placeholder_metaltileset.png"));
 		images.put("shurimatileset", SideScroller.al.loadImage("/tilesets/shurimatileset.png"));
-		
-		
+			
 		// Backgrounds
 		images.put("grassbg", SideScroller.al.loadImage("/backgrounds/grassbg1.gif"));
 		images.put("zaunbg", SideScroller.al.loadImage("/backgrounds/zaun_bg.jpg"));
@@ -72,7 +71,6 @@ public class Assets {
 		images.put("end_splash_galactic", SideScroller.al.loadImage("/backgrounds/azir_galactic_endGame.jpg"));
 		
 		LoadingState.setInfo("Loading Audio...", 40);
-		
 		// Audio
 		sounds.put("gamebosstheme", SideScroller.al.loadAudio("/music/gamebosstheme.mp3"));
 		sounds.put("warriors", SideScroller.al.loadAudio("/music/warriors.mp3"));
@@ -81,6 +79,7 @@ public class Assets {
 		sounds.put("spawn2", SideScroller.al.loadAudio("/music/spawn_new.mp3"));
 		sounds.put("level1_1", SideScroller.al.loadAudio("/music/level1_1theme.mp3"));
 		sounds.put("level1_2", SideScroller.al.loadAudio("/music/level1_2theme.mp3"));
+		
 		// SFX
 		sounds.put("jump", SideScroller.al.loadAudio("/sfx/jump.mp3"));
 		sounds.put("scratch", SideScroller.al.loadAudio("/sfx/scratch.mp3"));

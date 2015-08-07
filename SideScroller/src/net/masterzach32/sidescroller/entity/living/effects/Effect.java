@@ -11,6 +11,7 @@ import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.EntityLiving;
 import net.masterzach32.sidescroller.main.SideScroller;
 
+@SuppressWarnings("unused")
 public class Effect {
 	
 	private int type, delay, delayTimer;
@@ -40,15 +41,15 @@ public class Effect {
 	public static void loadSprites() {
 		// load sprites
 		try {
-			BufferedImage spritesheet = Assets.getImageAsset("effects");
+			//BufferedImage spritesheet = Assets.getImageAsset("effects");
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			for(int i = 0; i < numFrames.length; i++) {
-				BufferedImage[] bi = new BufferedImage[numFrames[i]];
+				//BufferedImage[] bi = new BufferedImage[numFrames[i]];
 				for(int j = 0; j < numFrames[i]; j++) {
-					bi[j] = spritesheet.getSubimage(j * 30, i * 30, 30, 30);
+					//bi[j] = spritesheet.getSubimage(j * 30, i * 30, 30, 30);
 				}
-				sprites.add(bi);
+				//sprites.add(bi);
 			}
 		}
 		catch(Exception e) {
@@ -95,14 +96,14 @@ public class Effect {
 		if(this.type == HEALTHREGEN) return;
 		if(this.type == POISION) return;
 		if(this.type == WITHER) {
-			if(0.06 * strength >= 0.9) speed = entity.getMaxSpeed() * (0.9);
+			if(0.05 * strength >= 0.9) speed = entity.getMaxSpeed() * (0.9);
 			else speed = entity.getMaxSpeed() * (0.06 * strength);
 			entity.setMaxSpeed(entity.getMaxSpeed() - speed);
 		}
 		if(this.type == FIRE) return;
 		if(this.type == KNOCKUP) entity.knockUp(timer);
 		if(this.type == SLOW) {
-			if(0.08 * strength >= 0.9) speed = entity.getMaxSpeed() * (0.9);
+			if(0.07 * strength >= 0.9) speed = entity.getMaxSpeed() * (0.9);
 			else speed = entity.getMaxSpeed() * (0.08 * strength);
 			entity.setMaxSpeed(entity.getMaxSpeed() - speed);
 		}
@@ -141,9 +142,9 @@ public class Effect {
 		} else if(delayTimer == delay) {
 			if(this.type == ATTACK) return;
 			if(this.type == SPEED) return;
-			if(this.type == HEALTHREGEN) entity.heal((float) (0.4 * strength));
-			if(this.type == POISION) entity.hit((float) ((0.2 * strength) + (0.06 * (entity.getMaxHealth() - entity.getHealth()))), false, true, "Poision", source);
-			if(this.type == WITHER) entity.hit((float) (0.4 * strength), false, true, "Wither", source);
+			if(this.type == HEALTHREGEN) entity.heal((float) (0.3 * strength));
+			if(this.type == POISION) entity.hit((float) ((0.2 * strength) + (0.07 * (entity.getMaxHealth() - entity.getHealth()))), false, true, "Poision", source);
+			if(this.type == WITHER) entity.hit((float) (0.35 * strength), false, true, "Wither", source);
 			if(this.type == FIRE) entity.hit((float) (0.1 + (0.04 + 0.02 * strength) * entity.getHealth()), false, true, "Fire", source);
 			if(this.type == KNOCKUP) return;
 			if(this.type == SLOW) return;
@@ -166,6 +167,7 @@ public class Effect {
 		if(this.type == SLOW) g.setColor(Color.BLACK);
 		if(this.type == STUN) g.setColor(new Color(204, 0, 204));
 		g.fillRect(x + (5 * space), y - 5, 4, 4);
+		g.setColor(Color.WHITE);
 		//animation.render(g, x, y, 30, 30);
 	}
 	

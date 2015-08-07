@@ -86,7 +86,7 @@ public class FireBall extends Projectile {
 	private void getNextPosition() {
 		if(facingRight) dx = moveSpeed;
 		else dx = -moveSpeed;
-		distance += dx;
+		distance += moveSpeed;
 		if(distance >= 150) setHit();
 		// use point slope formula to find next y value
 		// (y-y1) = a(x-x1)
