@@ -80,7 +80,7 @@ public class EntityLiving extends MapObject {
 		explosions.add(new Explosion(this.getx(), this.gety()));
 		if(health < 0) health = 0;
 		if(health == 0) this.setDead(source);
-		LogHelper.logInfo("[COMBAT] " + this.getClass().hashCode() + " was hit by " + source.getClass().getSimpleName() + " with " + type + " for " + damage + " damage");
+		LogHelper.logInfo("[COMBAT] " + this.getClass().getSimpleName() + " was hit by " + source.getClass().getSimpleName() + " with " + type + " for " + damage + " damage");
 		return true;
 	}
 	
