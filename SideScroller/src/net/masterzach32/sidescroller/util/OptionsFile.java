@@ -29,6 +29,7 @@ public class OptionsFile {
 	private static String optionsToJSON() {
 		JSONObject gameOptions = new JSONObject();
 		gameOptions.put("gameVersion", SideScroller.VERSION);
+		gameOptions.put("buildType", new String(SideScroller.TYPE));
 		gameOptions.put("optionsVersion", new Integer(OPTIONS_VERSION));
 
 		JSONObject windowSettings = new JSONObject();
@@ -214,7 +215,7 @@ public class OptionsFile {
 		return true;
 	}
 
-	/* Thanks to StackOverflow user barjak for the example of reading an entire file to a String at
+	/** Thanks to StackOverflow user barjak for the example of reading an entire file to a String at
 	 * <http://stackoverflow.com/questions/326390/how-to-create-a-java-string-from-the-contents-of-a-file>
 	 */
 	public static boolean load() {

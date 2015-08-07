@@ -94,17 +94,19 @@ public class Mage extends Enemy {
 	 * Checks to see if the attack succeeded
 	 * @param enemies
 	 */
-	public void checkAttack() {
+	public boolean checkAttack() {
+		boolean hit = false;
 		EntityPlayer p = LevelState.getPlayer();
 		// orbs
 		for(int j = 0; j < orbs.size(); j++) {
 			if(orbs.get(j).intersects(p)) {
-				if(orbs.get(j).isHit()) return;
-				p.hit(damage / 2, false, false, "FireBall", this);
+				if(orbs.get(j).isHit()) return hit;
+				hit = p.hit(damage / 2, false, false, "FireBall", this);
 				p.addEffect(this, Effect.FIRE, 1 + 3 * level, 3);
 				orbs.get(j).setHit();
 			}
 		}
+		return hit;
 	}
 
 	public void getNextPosition() {

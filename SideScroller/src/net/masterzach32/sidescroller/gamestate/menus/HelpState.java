@@ -16,7 +16,7 @@ public class HelpState extends MenuState {
 		"Movement:", 
 		"A and D for movement", 
 		"Space to jump", 
-		"Jump: W or SPACE", 
+		"Jump: SPACE", 
 		"Goal:", 
 		"Defeat all enemies and restore Shurima", 
 		"as the new ascended emperor Azir!", 

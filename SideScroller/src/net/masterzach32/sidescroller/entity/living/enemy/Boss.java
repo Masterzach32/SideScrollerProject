@@ -77,10 +77,9 @@ public class Boss extends Enemy {
 	 * Checks to see if the attack succeeded
 	 * @param enemies
 	 */
-	public void checkAttack() {
-		if(hit) return;
+	public boolean checkAttack() {
+		if(hit) return hit;
 		EntityPlayer p = LevelState.getPlayer();
-		// scratch attack
 		if(facingRight) {
 			if(p.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
 				hit = p.hit(damage, false, false, "Wither Bite", this);
@@ -93,6 +92,7 @@ public class Boss extends Enemy {
 		if(hit) {
 			p.addEffect(this, Effect.WITHER, 1 + 3 * level, 3);
 		}
+		return hit;
 	}
 	
 	public void getNextPosition() {

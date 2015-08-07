@@ -240,12 +240,6 @@ public class EntityPlayer extends EntityLiving {
 		return hit;
 	}
 	
-	/**
-	 * Deals damage to the entity
-	 * @param damage
-	 * @param source (should always be <code>this</code>)
-	 * @return true if attack succeeded
-	 */
 	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
 		combatTimer = 300;
 		return super.hit(damage, ignoreShield, ignoreFlinching, type, source);

@@ -61,6 +61,12 @@ public abstract class EntityLiving extends MapObject {
 		if(this.getHealth() > this.getMaxHealth()) this.setHealth(this.getMaxHealth());
 	}
 
+	/**
+	 * Deals damage to the entity
+	 * @param damage
+	 * @param source (should always be <code>this</code>)
+	 * @return true if attack succeeded
+	 */
 	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
 		if(!ignoreFlinching) {
 			if(flinching) return false;
