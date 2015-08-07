@@ -107,7 +107,7 @@ public class Mage extends Enemy {
 		}
 	}
 
-	private void getNextPosition() {
+	public void getNextPosition() {
 		// movement
 		if(LevelState.getPlayer().intersects(new Rectangle((int) (x - attackRange * 1.5 / 2), (int) (y - hsight / 2), (int) (attackRange * 1.5), hsight))) {
 			// player within attacking range
@@ -192,8 +192,6 @@ public class Mage extends Enemy {
 	
 	public void tick() {
 		if(dead) return;
-		// update position
-		getNextPosition();
 		super.tick();
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);

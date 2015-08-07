@@ -322,7 +322,7 @@ public class EntityPlayer extends EntityLiving {
 		}
 	}
 	
-	private void getNextPosition() {
+	public void getNextPosition() {
 		// movement
 		if(left) {
 			dx -= moveSpeed;
@@ -372,8 +372,6 @@ public class EntityPlayer extends EntityLiving {
 	
 	public void tick() {
 		if(!isDead()) {
-			// update position
-			getNextPosition();
 			super.tick();
 			checkTileMapCollision();
 			setPosition(xtemp, ytemp);

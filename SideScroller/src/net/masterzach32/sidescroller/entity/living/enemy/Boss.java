@@ -49,14 +49,14 @@ public class Boss extends Enemy {
 		armor = -40;
 		damageMultiplier = (double) (100) / (100 + armor);
 		
-		healthBar = new HealthBar(this, 60, 6, new Color(255, 0, 0));
+		healthBar = new HealthBar(this, 60, 4, new Color(255, 0, 0));
 		
 		// load sprites
 			
 		try {
-			BufferedImage spritesheet = Assets.getImageAsset("slugger");
+			BufferedImage spritesheet = Assets.getImageAsset("boss");
 			
-			sprites = new BufferedImage[3];
+			sprites = new BufferedImage[1];
 				
 			for(int i = 0; i < sprites.length; i++) {
 				sprites[i] = spritesheet.getSubimage(i * width, 0, width, height);
@@ -83,11 +83,11 @@ public class Boss extends Enemy {
 		// scratch attack
 		if(facingRight) {
 			if(p.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				hit = p.hit(damage, false, false, "Scratch", this);
+				hit = p.hit(damage, false, false, "Wither Bite", this);
 			}
 		} else {
 			if(p.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				hit = p.hit(damage, false, false, "Scratch", this);
+				hit = p.hit(damage, false, false, "Wither Bite", this);
 			}
 		}
 		if(hit) {
@@ -95,7 +95,7 @@ public class Boss extends Enemy {
 		}
 	}
 	
-	private void getNextPosition() {
+	public void getNextPosition() {
 		if(!LevelState.getPlayer().intersects(new Rectangle((int) (x - sight / 2), (int) (y - hsight / 2), sight, hsight))) return;
 		attack++;
 		// find player direction (0-60)
@@ -148,7 +148,6 @@ public class Boss extends Enemy {
 	
 	public void tick() {
 		if(dead) return;
-		getNextPosition();
 		super.tick();
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);

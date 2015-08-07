@@ -42,7 +42,7 @@ public class Swordman extends Enemy {
 		hsight = 36;
 		
 		health = maxHealth = (8) + (8*level);
-		damage = (3) + (5*level);
+		damage = (3) + (4*level);
 		
 		exp = (15);
 		
@@ -90,19 +90,18 @@ public class Swordman extends Enemy {
 	 */
 	public void checkAttack() {
 		EntityPlayer p = LevelState.getPlayer();
-		// scratch attack
 		if(facingRight) {
 			if(p.intersects(new Rectangle((int) (x), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				p.hit(damage, false, false, "Scratch", this);
+				p.hit(damage, false, false, "Sword Swing", this);
 			}
 		} else {
 			if(p.intersects(new Rectangle((int) (x - attackRange), (int) (y - height / 2 + (height - cheight) / 2), attackRange, cheight))) {
-				p.hit(damage, false, false, "Scratch", this);
+				p.hit(damage, false, false, "Sword Swing", this);
 			}
 		}
 	}
 
-	private void getNextPosition() {
+	public void getNextPosition() {
 		// movement
 		if(LevelState.getPlayer().intersects(new Rectangle((int) (x - attackRange * 1.5 / 2), (int) (y - hsight / 2), (int) (attackRange * 1.5), hsight))) {
 			// player within attacking range
@@ -126,9 +125,9 @@ public class Swordman extends Enemy {
 			}
 			if(left) {
 				dx -= moveSpeed;
-			if(dx < -getMaxSpeed()) {
-				dx = -getMaxSpeed();
-			}
+				if(dx < -getMaxSpeed()) {
+					dx = -getMaxSpeed();
+				}
 			} else if(right) {
 				dx += moveSpeed;
 				if(dx > getMaxSpeed()) {
@@ -171,7 +170,6 @@ public class Swordman extends Enemy {
 	public void tick() {
 		if(dead) return;
 		// update position
-		getNextPosition();
 		super.tick();
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);
@@ -222,8 +220,6 @@ public class Swordman extends Enemy {
 	}
 	
 	public void render(Graphics2D g) {
-		setMapPosition();
-		
 		super.render(g);
 		
 		if(MapObject.isHitboxEnabled()) {

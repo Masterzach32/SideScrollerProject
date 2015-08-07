@@ -9,7 +9,7 @@ import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 import net.masterzach32.sidescroller.util.LogHelper;
 
-public class EntityLiving extends MapObject {
+public abstract class EntityLiving extends MapObject {
 	
 	public double health, maxHealth, shield = 0, maxShield = 0;
 	public double healthRegen;
@@ -108,7 +108,10 @@ public class EntityLiving extends MapObject {
 		effects.add(e);
 	}
 	
+	public abstract void getNextPosition();
+	
 	public void tick() {
+		getNextPosition();
 		// update entity animation
 		animation.tick();
 		
@@ -146,6 +149,7 @@ public class EntityLiving extends MapObject {
 	}
 	
 	public void render(Graphics2D g) {
+		setMapPosition();
 		// draw entity
 		if(flinching) {
 			long elapsed = (System.nanoTime() - flinchTimer) / 1000000;

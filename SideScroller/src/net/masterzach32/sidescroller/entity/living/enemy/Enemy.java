@@ -46,4 +46,7 @@ public class Enemy extends EntityLiving {
 		damage = (double) (damage * damageMultiplier);
 		return super.hit(damage, ignoreShield, ignoreFlinching, type, source);
 	}
+	
+	public void getNextPosition() {}
+	
 }

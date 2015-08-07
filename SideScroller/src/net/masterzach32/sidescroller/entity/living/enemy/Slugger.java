@@ -56,7 +56,7 @@ public class Slugger extends Enemy {
 		facingRight = true;
 	}
 	
-	private void getNextPosition() {
+	public void getNextPosition() {
 		// movement
 		if(left) {
 			dx -= moveSpeed;
@@ -78,8 +78,6 @@ public class Slugger extends Enemy {
 	
 	public void tick() {
 		if(dead) return;
-		// update position
-		getNextPosition();
 		super.tick();
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);

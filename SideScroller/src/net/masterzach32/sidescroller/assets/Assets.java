@@ -50,7 +50,7 @@ public class Assets {
 		images.put("player_blue", SideScroller.al.loadImage("/sprites/player/player.png"));
 		// Enemies
 		images.put("slugger", SideScroller.al.loadImage("/sprites/enemies/slugger.gif"));
-		images.put("boss", SideScroller.al.loadImage("/sprites/enemies/boss.png"));
+		images.put("boss", SideScroller.al.loadImage("/sprites/enemies/arachnik.gif"));
 		// HUD
 		images.put("mouse", SideScroller.al.loadImage("/hud/mouse.png"));
 		images.put("hud", SideScroller.al.loadImage("/hud/hud.gif"));
