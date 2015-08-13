@@ -1,5 +1,6 @@
 package net.masterzach32.sidescroller.api;
 
+import java.awt.Component;
 import java.io.IOException;
 import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.FileSystems;

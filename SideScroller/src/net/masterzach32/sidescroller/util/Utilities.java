@@ -151,7 +151,7 @@ public class Utilities {
 			LoadingState.setInfo("Download Failed!", 0);
 			LogHelper.logError("An error occured while downloading: " + url);
 			e.printStackTrace();
-			JOptionPane.showConfirmDialog((Component) null, (Object) "Could not download file: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE); 
+			JOptionPane.showConfirmDialog((Component) null, (Object) "Could not download file: " + url + ". Check your internet connection. Error Message: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			error = true;
 		}
 		frame.setVisible(false);

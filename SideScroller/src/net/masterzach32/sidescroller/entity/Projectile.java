@@ -8,4 +8,7 @@ public class Projectile extends MapObject {
 		super(tm);
 	}
 
+	public void tick() {
+		
+	}
 }

@@ -12,6 +12,7 @@ import net.masterzach32.sidescroller.assets.gfx.HUD;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.Explosion;
+import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.EntityPlayer;
 import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.entity.living.enemy.Boss;
@@ -35,6 +36,7 @@ public abstract class LevelState extends GameState {
 	protected static BufferedImage[] sprites;
 	protected static AudioPlayer spawnSound;
 	protected boolean levelComplete = false;
+	protected ArrayList<MapObject> objects;
 	protected ArrayList<Enemy> enemies;
 	protected ArrayList<Explosion> explosions;
 	protected ArrayList<StemPacks> stemPacks;
@@ -127,7 +129,7 @@ public abstract class LevelState extends GameState {
 			}
 		}
 		
-		// update all enemies
+		// update all stempacks
 		for(int i = 0; i < stemPacks.size(); i++) {
 			StemPacks sp = stemPacks.get(i);
 			sp.tick();

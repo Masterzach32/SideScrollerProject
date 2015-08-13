@@ -295,6 +295,8 @@ public abstract class MapObject {
 		return x + xmap + width < 0 || x + xmap - width > SideScroller.WIDTH || y + ymap + height < 0 || y + ymap - height > SideScroller.HEIGHT;
 	}
 	
+	public abstract void tick();
+	
 	public void render(Graphics2D g) {
 		if(facingRight) {
 			animation.render(g, (int) (x + xmap - width / 2), (int) (y + ymap - height / 2), width, height);

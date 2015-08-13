@@ -31,9 +31,9 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Alpha", VERSION = "0.1.6.258";
-	public static final boolean isUpdateEnabled = false;
-	public static boolean isSoundEnabled = false;
+	public static final String TYPE = "Alpha", VERSION = "0.1.6.259";
+	public static final boolean isUpdateEnabled = true;
+	public static boolean isSoundEnabled = true;
 	
 	// game thread
 	private Thread tickAndRender, init;
@@ -209,7 +209,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		FontMetrics fontMetrics = g.getFontMetrics();
 		g.setColor(Color.LIGHT_GRAY);
 		String s = new String("SideScroller Project " + TYPE + " Build " + VERSION);
-		g.drawString(s, WIDTH - fontMetrics.stringWidth(s) - 2, 8);
+		g.drawString(s, WIDTH - fontMetrics.stringWidth(s) - 3, 8);
 		g.setColor(Color.WHITE);
 		renderToScreen();
 	}
@@ -229,12 +229,12 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	}
 	
 	public void keyPressed(KeyEvent e) {
-		if(GameState.getState() != null) 
+		if(GameState.getState() != null)
 			GameState.getState().keyPressed(e.getKeyCode());
 	}
 	
 	public void keyReleased(KeyEvent e) {
-		if(GameState.getState() != null) 
+		if(GameState.getState() != null)
 			GameState.getState().keyReleased(e.getKeyCode());
 	}
 	
