@@ -228,9 +228,7 @@ public class EntityPlayer extends EntityLiving {
 					int type = 2;
 					if(soldiers.get(j).isAttacking()) type = 0;
 					if(soldiers.get(j).isMoving()) type = 1;
-					if(e.intersects(soldiers.get(j))) {
-						hit = soldiers.get(j).checkAttack(e, soldierDamage, type);
-					}
+					hit = soldiers.get(j).checkAttack(e, soldierDamage, type);
 				}
 			}
 			

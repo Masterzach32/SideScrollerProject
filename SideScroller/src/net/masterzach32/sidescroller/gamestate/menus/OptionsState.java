@@ -8,6 +8,7 @@ import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
+import net.masterzach32.sidescroller.util.OptionsFile;
 import net.masterzach32.sidescroller.util.Utilities;
 
 public class OptionsState extends MenuState {
@@ -106,12 +107,14 @@ public class OptionsState extends MenuState {
 			setConsole(!console);
 		}
 		if(currentChoice == 5) {
+			OptionsFile.save();
 			GameState.setState(SideScroller.keyConfigState);
 		}
 		if(currentChoice == 6) {
 			setDebug(!debug);
 		}
 		if(currentChoice == 7) {
+			OptionsFile.save();
 			GameState.setState(SideScroller.menuState);
 		}
 	}
@@ -143,6 +146,7 @@ public class OptionsState extends MenuState {
 		if(k == KeyEvent.VK_ENTER) {
 			select();
 		} if(k == KeyEvent.VK_ESCAPE) {
+			OptionsFile.save();
 			GameState.setState(SideScroller.menuState);
 		} if(k == KeyEvent.VK_UP) {
 			currentChoice--;

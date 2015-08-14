@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
+import net.masterzach32.sidescroller.util.OptionsFile;
 import net.masterzach32.sidescroller.util.Utilities;
 
 public class KeyConfigState extends MenuState {
@@ -90,6 +91,7 @@ public class KeyConfigState extends MenuState {
 		} else if(currentChoice == 8) {
 			resetKeyBindings();
 		} else if(currentChoice == 9) {
+			OptionsFile.save();
 			GameState.setState(SideScroller.optionsState);
 		}
 	}
@@ -99,6 +101,7 @@ public class KeyConfigState extends MenuState {
 			if(k == KeyEvent.VK_ENTER) {
 				select();
 			} if(k == KeyEvent.VK_ESCAPE) {
+				OptionsFile.save();
 				GameState.setState(SideScroller.optionsState);
 			} if(k == KeyEvent.VK_UP) {
 				currentChoice--;

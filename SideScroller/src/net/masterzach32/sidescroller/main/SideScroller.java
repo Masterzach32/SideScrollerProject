@@ -23,6 +23,10 @@ import net.masterzach32.sidescroller.gamestate.menus.OptionsState;
 import net.masterzach32.sidescroller.util.*;
 
 /**
+ * The SideScroller Project is an open source solution for people wanting to create an open source SideScrolling / RPG game.<br>
+ * If you want to use my code, your code must be open source too. Thanks!<br>
+ *
+ * Remember this is an in-development game. Expect things to be hilariously over-powered or under-powered.
  * 
  * @author Zachary Kozar, Anthony Kozar
  */
@@ -35,7 +39,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Alpha", VERSION = "0.1.6.260";
+	public static final String TYPE = "Alpha", VERSION = "0.1.6.261";
 	public static final boolean isUpdateEnabled = true;
 	public static boolean isSoundEnabled = true;
 	
@@ -111,7 +115,6 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 		Assets.preinit();
 		
 		Game.getConsole().getFrame().setIconImage(Assets.getImageAsset("icon_console"));
-		Game.getFrame().setIconImage(Assets.getImageAsset("icon_game"));
 		
 		LogHelper.logInfo("Creating Window");
 		Game.getFrame().setVisible(true);
