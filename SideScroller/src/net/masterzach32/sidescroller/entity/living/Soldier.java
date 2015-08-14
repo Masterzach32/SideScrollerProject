@@ -34,7 +34,7 @@ public class Soldier extends MapObject {
 	private static final int IDLE = 0, MOVING = 1, ATTACKING = 6;
 	
 	protected static ArrayList<Enemy> attackStack, moveStack;
-	private ArrayList<Enemy> hits;
+	private ArrayList<Enemy> attackHits, moveHits;
 
 	protected Soldier(TileMap tm, int level, EntityPlayer player) {
 		super(tm);
@@ -64,7 +64,8 @@ public class Soldier extends MapObject {
 		moving = false;
 		attacking = false;
 		
-		hits = new ArrayList<Enemy>();
+		attackHits = new ArrayList<Enemy>();
+		moveHits = new ArrayList<Enemy>();
 		attackStack = new ArrayList<Enemy>();
 		moveStack = new ArrayList<Enemy>();
 		
@@ -97,7 +98,7 @@ public class Soldier extends MapObject {
 	
 	protected boolean checkAttack(Enemy e, int damage, int type) {
 		boolean hit = false;
-		if(isHit(e)) return hit;
+		if(isHit(e, type)) return hit = false;
 		int attack = damage;
 		if(reduceDamage(e, type)) attack = (int) (damage * .33);
 		if(isAttacking()) {
@@ -127,8 +128,8 @@ public class Soldier extends MapObject {
 		if(attackTimer > 0) return;
 		attackTimer = attackDelay;
 		attacking = true;
-		hits = null;
-		hits = new ArrayList<Enemy>();
+		attackHits = null;
+		attackHits = new ArrayList<Enemy>();
 	}
 	
 	protected boolean isAttacking() {
@@ -141,8 +142,8 @@ public class Soldier extends MapObject {
 	}
 	
 	protected void move(int x, int y) {
-		hits = null;
-		hits = new ArrayList<Enemy>();
+		moveHits = null;
+		moveHits = new ArrayList<Enemy>();
 		moving = true;
 		moveX = x;
 		//moveY = y;
@@ -199,28 +200,6 @@ public class Soldier extends MapObject {
 					moving = false;
 				}
 			}
-			/*if(this.y < moveY) {
-				facingRight = true;
-			} else if(this.y > moveY) {
-				facingRight = false;
-			}
-			if(facingRight) {
-				dy += moveSpeed;
-				if(dy > getMaxSpeed()) {
-					dy = getMaxSpeed();
-				}
-				if((moveY - this.y) < 4) {
-					moving = false;
-				}
-			} else {
-				dy -= moveSpeed;
-				if(dy < -getMaxSpeed()) {
-					dy = -getMaxSpeed();
-				}
-				if((this.y - moveY) < 4) {
-					moving = false;
-				}
-			}*/
 		}
 		
 		if(!moving) {
@@ -340,15 +319,28 @@ public class Soldier extends MapObject {
 	}
 	
 	protected void addToHitList(Enemy entity, int type) {
-		hits.add(entity);
-		if(type == 0) attackStack.add(entity);
-		if(type == 1) moveStack.add(entity);
+		if(type == 0) {
+			attackHits.add(entity);
+			attackStack.add(entity);
+		} else if(type == 1) {
+			moveHits.add(entity);
+			moveStack.add(entity);
+		}
 	}
 	
-	protected boolean isHit(Enemy entity) {
-		for(int i = 0; i < hits.size(); i++) {
-			if(hits.get(i).equals(entity)) {
-				return true;
+	protected boolean isHit(Enemy entity, int type) {
+		if(type == 0) {
+			for(int i = 0; i < attackHits.size(); i++) {
+				if(attackHits.get(i).equals(entity)) {
+					return true;
+				}
+			}
+		}
+		if(type == 1) {
+			for(int i = 0; i < moveHits.size(); i++) {
+				if(moveHits.get(i).equals(entity)) {
+					return true;
+				}
 			}
 		}
 		return false;

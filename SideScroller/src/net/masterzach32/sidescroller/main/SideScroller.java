@@ -22,6 +22,10 @@ import net.masterzach32.sidescroller.gamestate.menus.MenuState;
 import net.masterzach32.sidescroller.gamestate.menus.OptionsState;
 import net.masterzach32.sidescroller.util.*;
 
+/**
+ * 
+ * @author Zachary Kozar, Anthony Kozar
+ */
 @SuppressWarnings("serial")
 public class SideScroller extends JPanel implements Runnable, KeyListener, MouseListener, IUpdatable {
 	
@@ -31,7 +35,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Alpha", VERSION = "0.1.6.259";
+	public static final String TYPE = "Alpha", VERSION = "0.1.6.260";
 	public static final boolean isUpdateEnabled = true;
 	public static boolean isSoundEnabled = true;
 	

@@ -40,7 +40,6 @@ public class MenuState extends GameState {
 	
 	public void init() {
 		bg = new Background(Assets.getImageAsset("shurima_bright"), 1);
-		//bg.setVector(-.25, 0);
 		
 		titleColor = new Color(128, 0, 0);
 		titleFont = new Font("Century Gothic", Font.BOLD, 32);

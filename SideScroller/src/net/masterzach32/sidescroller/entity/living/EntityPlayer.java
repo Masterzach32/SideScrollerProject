@@ -219,14 +219,17 @@ public class EntityPlayer extends EntityLiving {
 				} else if(soldiers.size() > 0) {
 					for(int j = 0; j < soldiers.size(); j++) {
 						soldiers.get(j).attack();
-						hit = soldiers.get(j).checkAttack(e, soldierDamage, 0);
 					}
 				}
 			}
+			
 			if(soldiers.size() > 0) {
 				for(int j = 0; j < soldiers.size(); j++) {
+					int type = 2;
+					if(soldiers.get(j).isAttacking()) type = 0;
+					if(soldiers.get(j).isMoving()) type = 1;
 					if(e.intersects(soldiers.get(j))) {
-						hit = soldiers.get(j).checkAttack(e, soldierDamage, 1);
+						hit = soldiers.get(j).checkAttack(e, soldierDamage, type);
 					}
 				}
 			}
