@@ -125,6 +125,7 @@ public class Soldier extends MapObject {
 	}
 	
 	protected void attack() {
+		if(isMoving()) return;
 		if(attackTimer > 0) return;
 		attackTimer = attackDelay;
 		attacking = true;
@@ -142,6 +143,7 @@ public class Soldier extends MapObject {
 	}
 	
 	protected void move(int x, int y) {
+		if(isAttacking()) return;
 		moveHits = null;
 		moveHits = new ArrayList<Enemy>();
 		moving = true;

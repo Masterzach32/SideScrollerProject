@@ -174,6 +174,11 @@ public class EntityPlayer extends EntityLiving {
 		attacking = true;
 		Soldier.attackStack = null;
 		Soldier.attackStack = new ArrayList<Enemy>();
+		if(soldiers.size() > 0) {
+			for(int j = 0; j < soldiers.size(); j++) {
+				soldiers.get(j).attack();
+			}
+		}
 	}
 	
 	public void setGliding(boolean b) { 
@@ -218,16 +223,12 @@ public class EntityPlayer extends EntityLiving {
 							hit = e.hit(scratchDamage, false, false, "Basic Attack", this);
 						}
 					}
-				} else if(soldiers.size() > 0) {
-					for(int j = 0; j < soldiers.size(); j++) {
-						soldiers.get(j).attack();
-					}
 				}
 			}
 			
 			if(soldiers.size() > 0) {
 				for(int j = 0; j < soldiers.size(); j++) {
-					int type = 2;
+					int type = -1;
 					if(soldiers.get(j).isAttacking()) type = 0;
 					if(soldiers.get(j).isMoving()) type = 1;
 					hit = soldiers.get(j).checkAttack(e, soldierDamage, type);

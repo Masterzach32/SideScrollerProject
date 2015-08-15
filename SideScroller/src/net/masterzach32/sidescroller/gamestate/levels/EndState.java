@@ -1,5 +1,6 @@
 package net.masterzach32.sidescroller.gamestate.levels;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
@@ -47,9 +48,11 @@ public class EndState extends GameState {
 		Font f = new Font("Arial", Font.PLAIN, 12);
 		g.setFont(f);
 		bg.render(g);
+		g.setColor(Color.BLACK);
 		for(int i = 0; i < Stats.getNumberOfStats(); i++) {
 			Utilities.drawCenteredString(g, Stats.getType(i) + ": " +  Integer.toString((int) Stats.getStat(i)), 100 + (i * 15));
 		}
+		g.setColor(Color.WHITE);
 		g.drawString("Game Completed! Press any key to exit", 1, 354);
 	}
 

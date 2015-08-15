@@ -39,7 +39,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Alpha", VERSION = "0.1.6.262";
+	public static final String TYPE = "Alpha", VERSION = "0.1.6.263";
 	public static final boolean isUpdateEnabled = false;
 	public static boolean isSoundEnabled = true;
 	

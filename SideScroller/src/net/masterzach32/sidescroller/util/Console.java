@@ -61,17 +61,17 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 			textArea.append("Couldn't redirect STDERR to this console\n" + io.getMessage());
 		} catch (SecurityException se) {
 			textArea.append("Couldn't redirect STDERR to this console\n" + se.getMessage());
-	    } 		
+	    }
 			
 		quit = false; // signals the Threads that they should exit
 				
 		// Starting two seperate threads to read from the PipedInputStreams
 		reader = new Thread(this);
-		reader.setDaemon(true);	
-		reader.start();	
+		reader.setDaemon(true);
+		reader.start();
 		//
-		reader2 = new Thread(this);	
-		reader2.setDaemon(true);	
+		reader2 = new Thread(this);
+		reader2.setDaemon(true);
 		reader2.start();
 	}
 	
@@ -80,14 +80,14 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		this.notifyAll(); // stop all threads
 		try { 
 			reader.join(1000);
-			pin.close();   
+			pin.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
 		
-		try { 
+		try {
 			reader2.join(1000);
-			pin2.close(); 
+			pin2.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
