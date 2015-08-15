@@ -9,7 +9,8 @@ import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
 import net.masterzach32.sidescroller.main.SideScroller;
-import net.masterzach32.sidescroller.tilemap.*; 
+import net.masterzach32.sidescroller.tilemap.*;
+import net.masterzach32.sidescroller.util.Stats;
 import net.masterzach32.sidescroller.util.Utilities;
 
 import java.awt.*;
@@ -158,6 +159,7 @@ public class EntityPlayer extends EntityLiving {
 	}
 	
 	public void setDead(MapObject source) {
+		Stats.setStat("deaths", 1);
 		this.dead = true;
 		currentAction = IDLE;
 		attacking = false;
@@ -243,7 +245,9 @@ public class EntityPlayer extends EntityLiving {
 	
 	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
 		combatTimer = 300;
-		return super.hit(damage, ignoreShield, ignoreFlinching, type, source);
+		boolean hit = super.hit(damage, ignoreShield, ignoreFlinching, type, source);
+		if(hit) Stats.setStat("damageTaken", (int) damage);
+		return hit;
 	}
 	
 	/**
@@ -370,6 +374,7 @@ public class EntityPlayer extends EntityLiving {
 			super.tick();
 			checkTileMapCollision();
 			setPosition(xtemp, ytemp);
+			Stats.setStat("distance", (int) dx);
 		
 			// check attack has stopped
 			if(currentAction == ATTACKING) {
@@ -447,7 +452,6 @@ public class EntityPlayer extends EntityLiving {
 			}
 			
 			// check to see if the player is dead or not
-			if(health == 0) this.setDead(null);
 			if(health > 0) {
 				dead = false;
 				if(health < maxHealth) {

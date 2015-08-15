@@ -23,6 +23,7 @@ import net.masterzach32.sidescroller.gamestate.menus.KeyConfigState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.util.Stats;
 import net.masterzach32.sidescroller.util.Utilities;
 
 public abstract class LevelState extends GameState {
@@ -107,6 +108,7 @@ public abstract class LevelState extends GameState {
 	}
 	
 	public void tick() {
+		Stats.setStat("time", 1);
 		// update player
 		player.tick();
 		player.checkAttack(enemies);
@@ -180,9 +182,9 @@ public abstract class LevelState extends GameState {
 		hud.render(g);
 		
 		if(player.isDead()) {
-			Utilities.drawCenteredString(g, "You Died!", 180);
+			Utilities.drawCenteredString(g, "You Died!", 170);
 			if(j > 0) j--;
-			if(j == 0) Utilities.drawCenteredString(g, "Press any key to respawn", 200);
+			if(j == 0) Utilities.drawCenteredString(g, "Press any key to respawn", 190);
 		}
 	}
 	

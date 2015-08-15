@@ -6,6 +6,7 @@ import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.EntityLiving;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.util.Stats;
 
 public class Enemy extends EntityLiving {
 	
@@ -44,7 +45,9 @@ public class Enemy extends EntityLiving {
 	
 	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
 		damage = (double) (damage * damageMultiplier);
-		return super.hit(damage, ignoreShield, ignoreFlinching, type, source);
+		boolean hit = super.hit(damage, ignoreShield, ignoreFlinching, type, source);
+		Stats.setStat("damageDelt", (int) damage);
+		return hit;
 	}
 	
 	public void getNextPosition() {}

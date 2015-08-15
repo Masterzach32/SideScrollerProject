@@ -56,7 +56,7 @@ public class OptionsState extends MenuState {
 		
 		g.setFont(font);
 		g.setColor(Color.BLACK);
-		g.drawString(info, 280, 355);
+		g.drawString(info, 285, 354);
 						
 		// draw menu options
 		for(int i = 0; i < options.length; i++) {
@@ -133,13 +133,13 @@ public class OptionsState extends MenuState {
 		if(debug) {
 			setConsole(true);
 		}
-		SideScroller.getGame().requestFocus();
+		SideScroller.getGame().requestFocusInWindow();
 	}
 
 	public static void setConsole(boolean enabled) {
 		console = enabled;
 		Game.getConsole().setVisible(console);
-		SideScroller.getGame().requestFocus();
+		SideScroller.getGame().requestFocusInWindow();
 	}
 
 	public void keyPressed(int k) {

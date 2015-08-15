@@ -54,7 +54,7 @@ public class HealthBar {
 			
 		// damage bar
 		if(length >= dhlength) dhlength = (double) (length - 1);
-		if(length < dhlength) dhlength -= .7;
+		if(length < dhlength) dhlength -= .6;
 	}
 	
 	public void render(Graphics2D g) {

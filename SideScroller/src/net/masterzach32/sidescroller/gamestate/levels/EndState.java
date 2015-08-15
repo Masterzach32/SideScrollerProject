@@ -8,6 +8,8 @@ import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
 import net.masterzach32.sidescroller.gamestate.GameState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Background;
+import net.masterzach32.sidescroller.util.Stats;
+import net.masterzach32.sidescroller.util.Utilities;
 
 public class EndState extends GameState {
 	
@@ -45,7 +47,10 @@ public class EndState extends GameState {
 		Font f = new Font("Arial", Font.PLAIN, 12);
 		g.setFont(f);
 		bg.render(g);
-		g.drawString("Game Completed! Press any key to exit", 1, 355);
+		for(int i = 0; i < Stats.getNumberOfStats(); i++) {
+			Utilities.drawCenteredString(g, Stats.getType(i) + ": " +  Integer.toString((int) Stats.getStat(i)), 100 + (i * 15));
+		}
+		g.drawString("Game Completed! Press any key to exit", 1, 354);
 	}
 
 	@Override

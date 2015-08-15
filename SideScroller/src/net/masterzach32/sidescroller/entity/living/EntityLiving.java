@@ -8,6 +8,7 @@ import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 import net.masterzach32.sidescroller.util.LogHelper;
+import net.masterzach32.sidescroller.util.Stats;
 
 public abstract class EntityLiving extends MapObject {
 	
@@ -57,8 +58,10 @@ public abstract class EntityLiving extends MapObject {
 	}
 	
 	public void heal(double health) {
+		double s = this.getHealth();
 		this.setHealth(this.getHealth() + health);
 		if(this.getHealth() > this.getMaxHealth()) this.setHealth(this.getMaxHealth());
+		if(this instanceof EntityPlayer) Stats.setStat("healing", (int) (this.getHealth() - s));
 	}
 
 	/**
@@ -68,6 +71,7 @@ public abstract class EntityLiving extends MapObject {
 	 * @return true if attack succeeded
 	 */
 	public boolean hit(double damage, boolean ignoreShield, boolean ignoreFlinching, String type, MapObject source) {
+		if(dead) return false;
 		if(!ignoreFlinching) {
 			if(flinching) return false;
 			flinching = true;
