@@ -29,6 +29,7 @@ import net.masterzach32.sidescroller.util.*;
  * Remember this is an in-development game. Expect things to be hilariously over-powered or under-powered.
  * 
  * @author Zachary Kozar, Anthony Kozar
+ * @version 0.1.6 Beta
  */
 @SuppressWarnings("serial")
 public class SideScroller extends JPanel implements Runnable, KeyListener, MouseListener, IUpdatable {
@@ -39,7 +40,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Alpha", VERSION = "0.1.6.263";
+	public static final String TYPE = "Beta", VERSION = "0.1.6.264";
 	public static final boolean isUpdateEnabled = false;
 	public static boolean isSoundEnabled = true;
 	

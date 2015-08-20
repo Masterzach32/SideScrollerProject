@@ -10,8 +10,10 @@ import javax.swing.text.DefaultCaret;
 
 public class Console extends WindowAdapter implements WindowListener, ActionListener, Runnable {
 	
+	private static final String VERSION = "0.1";
+	
 	private JFrame frame;
-	private JTextArea textArea;
+	private JTextArea console;
 	private Thread reader;
 	private Thread reader2;
 	private boolean quit;
@@ -26,19 +28,19 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	 */
 	public Console() {
 		// create all components and add them
-		frame = new JFrame("SideScroller Console");
+		frame = new JFrame("SideScroller Console - " + VERSION);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = new Dimension((int) (screenSize.width/2), (int) (screenSize.height/2));
 		frame.setBounds(0, 0, frameSize.width, frameSize.height);
 		
-		textArea = new JTextArea();
-		textArea.setEditable(false);
-		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
+		console = new JTextArea();
+		console.setEditable(false);
+		DefaultCaret caret = (DefaultCaret) console.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		JButton button = new JButton("Save This Log");
 		
 		frame.getContentPane().setLayout(new BorderLayout());
-		frame.getContentPane().add(new JScrollPane(textArea), BorderLayout.CENTER);
+		frame.getContentPane().add(new JScrollPane(console), BorderLayout.CENTER);
 		frame.getContentPane().add(button, BorderLayout.SOUTH);
 		frame.setVisible(true);
 		
@@ -49,18 +51,18 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 			PipedOutputStream pout = new PipedOutputStream(this.pin);
 			System.setOut(new PrintStream(pout, true)); 
 		} catch (IOException io) {
-			textArea.append("Couldn't redirect STDOUT to this console\n" + io.getMessage());
+			console.append("Couldn't redirect STDOUT to this console\n" + io.getMessage());
 		} catch (SecurityException se) {
-			textArea.append("Couldn't redirect STDOUT to this console\n" + se.getMessage());
+			console.append("Couldn't redirect STDOUT to this console\n" + se.getMessage());
 	    } 
 
 		try	{
 			PipedOutputStream pout2 = new PipedOutputStream(this.pin2);
 			System.setErr(new PrintStream(pout2, true));
 		} catch (IOException io) {
-			textArea.append("Couldn't redirect STDERR to this console\n" + io.getMessage());
+			console.append("Couldn't redirect STDERR to this console\n" + io.getMessage());
 		} catch (SecurityException se) {
-			textArea.append("Couldn't redirect STDERR to this console\n" + se.getMessage());
+			console.append("Couldn't redirect STDERR to this console\n" + se.getMessage());
 	    }
 			
 		quit = false; // signals the Threads that they should exit
@@ -81,20 +83,20 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		try { 
 			reader.join(1000);
 			pin.close();
-		} catch (Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}	
 		
 		try {
 			reader2.join(1000);
 			pin2.close();
-		} catch (Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}		
 		
 	public synchronized void windowClosing(WindowEvent evt) {
-		frame.setVisible(false); // default behaviour of JFrame	
+		frame.setVisible(false); // default behavior of JFrame	
 	}
 	
 	public synchronized void actionPerformed(ActionEvent evt) {
@@ -103,7 +105,7 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 
 	public synchronized void run() {
 		try {			
-			while (Thread.currentThread() == reader) {
+			while(Thread.currentThread() == reader) {
 				try { 
 					this.wait(100);
 				} catch(InterruptedException ie) {
@@ -112,27 +114,27 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 				
 				if (pin.available() != 0) {
 					String input = this.readLine(pin);
-					textArea.append(input);
+					console.append(input);
 				}
 				if (quit) return;
 			}
 		
-			while (Thread.currentThread() == reader2) {
+			while(Thread.currentThread() == reader2) {
 				try { 
 					this.wait(100);
 				} catch(InterruptedException ie) {
 					ie.printStackTrace();
 				}
 				
-				if (pin2.available() != 0) {
+				if(pin2.available() != 0) {
 					String input = this.readLine(pin2);
-					textArea.append(input);
+					console.append(input);
 				}
-				if (quit) return;
+				if(quit) return;
 			}			
-		} catch (Exception e) {
-			textArea.append("\nConsole reports an Internal error.");
-			textArea.append("The error is: " + e);
+		} catch(Exception e) {
+			console.append("\nConsole reports an Internal error.");
+			console.append("Error: " + e);
 			e.printStackTrace();
 		}
 		
@@ -145,7 +147,6 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 			}
 			throw new NullPointerException("Application test: throwing an NullPointerException. It should arrive at the console");
 		}
-
 	}
 	
 	public synchronized String readLine(PipedInputStream in) throws IOException {
@@ -190,7 +191,7 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	    try {
 	       outFile = new BufferedWriter(new FileWriter(file));
 	       
-	       textArea.write(outFile);
+	       console.write(outFile);
 	    } catch (IOException ex) {
 	       ex.printStackTrace();
 	    } finally {

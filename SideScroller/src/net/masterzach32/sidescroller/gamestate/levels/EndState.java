@@ -50,7 +50,8 @@ public class EndState extends GameState {
 		bg.render(g);
 		g.setColor(Color.BLACK);
 		for(int i = 0; i < Stats.getNumberOfStats(); i++) {
-			Utilities.drawCenteredString(g, Stats.getType(i) + ": " +  Integer.toString((int) Stats.getStat(i)), 100 + (i * 15));
+			if(i == 5) Utilities.drawCenteredString(g, Stats.getType(i) + ": " +  Integer.toString((int) Stats.getStat(i) / SideScroller.FPS), 100 + (i * 15));
+			else Utilities.drawCenteredString(g, Stats.getType(i) + ": " +  Integer.toString((int) Stats.getStat(i)), 100 + (i * 15));
 		}
 		g.setColor(Color.WHITE);
 		g.drawString("Game Completed! Press any key to exit", 1, 354);
