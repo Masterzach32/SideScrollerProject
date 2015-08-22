@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.util.LogHelper;
+import net.masterzach32.sidescroller.util.OsUtils;
 import net.masterzach32.sidescroller.util.Utilities;
 
 /**
@@ -39,8 +40,23 @@ public interface IUpdatable {
 			return false;
 		}
 		LogHelper.logInfo("Checking for updates");
-		Path p = FileSystems.getDefault().getPath("latest.txt");
-		String[] s = Utilities.readTextFile(SideScroller.getGame().getServerVersionURL(), p.toString(), false);
+		String latest = null;
+		OsUtils.OSType ostype = OsUtils.getOperatingSystemType();
+		switch (ostype) {
+		    case Windows:
+		    	latest = System.getProperty("user.home") + "\\SideScroller\\" + "latest.txt";
+		    	break;
+		    case MacOS: 
+		    	latest = System.getProperty("user.home") + "/SideScroller/" + "latest.txt";
+		    	break;
+		    case Linux: 
+		    	latest = System.getProperty("user.home") + "/SideScroller/" + "latest.txt";
+		    	break;
+		    case Other: 
+		    	latest = "latest.txt";
+		    	break;
+		}
+		String[] s = Utilities.readTextFile(SideScroller.getGame().getServerVersionURL(), latest, false);
 		
 		if(s == null || s[0] == null) {
 			LogHelper.logInfo("Error while checking for updates: Could not read server update file.");
@@ -50,8 +66,8 @@ public interface IUpdatable {
 			LogHelper.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
 			
 			int result = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "An newer version of the game, (Build " + s[0] +") is avaliable, do you want to download it now? ", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-			try {
-			    Files.delete(p);
+			/*try {
+			    Files.delete(latest);
 			} catch (NoSuchFileException e) {
 				LogHelper.logError("Could not find updates file.");
 				e.printStackTrace();
@@ -59,7 +75,7 @@ public interface IUpdatable {
 			    e.printStackTrace();
 			} catch (IOException e) {
 			    e.printStackTrace();
-			}
+			}*/
 			if(result == JOptionPane.YES_OPTION) {
 				String path = Utilities.saveAs(".jar");
 				Utilities.download(SideScroller.getGame().getDownloadURL() + s[0] + ".jar", path, "Downloading Update", false);

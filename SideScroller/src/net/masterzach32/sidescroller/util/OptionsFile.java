@@ -2,6 +2,7 @@ package net.masterzach32.sidescroller.util;
 
 import java.io.*;
 
+import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.gamestate.menus.KeyConfigState;
 import net.masterzach32.sidescroller.gamestate.menus.OptionsState;
 import net.masterzach32.sidescroller.main.Game;
@@ -14,6 +15,7 @@ import org.json.simple.parser.ParseException;
 /** OptionsFile contains static methods that use the JSON.simple library
  *  to manage writing and reading the game options to a file.
  */
+@SuppressWarnings("unused")
 public class OptionsFile {
 
 	/** OPTIONS_VERSION identifies the version of the options file format.
@@ -58,8 +60,8 @@ public class OptionsFile {
 		
 		JSONObject playerStats = new JSONObject();
 		// FIXME: Player exp and progression should be saved here later
-		playerStats.put("exp", new Integer(0));
-		playerStats.put("level", new Integer(0));
+		playerStats.put("exp", LevelState.getPlayer().getExp());
+		playerStats.put("level", LevelState.getPlayer().getLevel());
 		gameOptions.put("playerStats", playerStats);
 		
 		return gameOptions.toString();
@@ -91,7 +93,6 @@ public class OptionsFile {
 	/** Attempts to retrieve a String value from obj with the given key/name.
 	 *  Returns null if the key is not present or has a non-string value.
 	 */
-	@SuppressWarnings("unused")
 	private static String getString(JSONObject obj, String key) {
 		Object keyobj = obj.get(key);
 		if (keyobj instanceof java.lang.String) {
@@ -192,7 +193,23 @@ public class OptionsFile {
 	}
 	
 	private static String getOptionsPath() {
-		return OPTIONS_FILENAME;
+		String path = null;
+		OsUtils.OSType ostype = OsUtils.getOperatingSystemType();
+		switch (ostype) {
+		    case Windows:
+		    	path = System.getProperty("user.home") + "\\SideScroller\\" + OPTIONS_FILENAME;
+		    	break;
+		    case MacOS: 
+		    	path = System.getProperty("user.home") + "/SideScroller/" + OPTIONS_FILENAME;
+		    	break;
+		    case Linux: 
+		    	path = System.getProperty("user.home") + "/SideScroller/" + OPTIONS_FILENAME;
+		    	break;
+		    case Other: 
+		    	path = OPTIONS_FILENAME;
+		    	break;
+		}
+		return path;
 	}
 	
 	public static boolean save() {

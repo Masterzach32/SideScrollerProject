@@ -28,7 +28,7 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	 */
 	public Console() {
 		// create all components and add them
-		frame = new JFrame("SideScroller Console - " + VERSION);
+		frame = new JFrame("SideScroller Project Console - v" + VERSION);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = new Dimension((int) (screenSize.width/2), (int) (screenSize.height/2));
 		frame.setBounds(0, 0, frameSize.width, frameSize.height);
@@ -117,8 +117,7 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 					console.append(input);
 				}
 				if (quit) return;
-			}
-		
+			}		
 			while(Thread.currentThread() == reader2) {
 				try { 
 					this.wait(100);
