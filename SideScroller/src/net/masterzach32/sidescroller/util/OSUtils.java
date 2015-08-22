@@ -1,5 +1,6 @@
 package net.masterzach32.sidescroller.util;
 
+import java.io.File;
 /**
  * Helper class to check the operating system this Java VM runs in
  *
@@ -10,7 +11,7 @@ package net.masterzach32.sidescroller.util;
  * http://www.docjar.com/html/api/org/apache/commons/lang/SystemUtils.java.html
  */
 import java.util.Locale;
-public final class OsUtils {
+public final class OSUtils {
 	
 	/**
 	 * Types of Operating Systems
@@ -42,5 +43,27 @@ public final class OsUtils {
 			}
 		}
 		return detectedOS;
+	}
+	
+	public static String getHomeDirectory(String fileName) {
+		File file = null;
+		
+		OSUtils.OSType ostype = OSUtils.getOperatingSystemType();
+		switch (ostype) {
+		    case Windows:
+		    	file = new File(System.getProperty("user.home") + "\\" + fileName);
+		    	break;
+		    case MacOS: 
+		    	file = new File(System.getProperty("user.home") + "/" + fileName);
+		    	break;
+		    case Linux: 
+		    	file = new File(System.getProperty("user.home") + "/" + fileName);
+		    	break;
+		    case Other: 
+		    	file = new File(fileName);
+		    	break;
+		}
+		
+		return file.toString();
 	}
 }

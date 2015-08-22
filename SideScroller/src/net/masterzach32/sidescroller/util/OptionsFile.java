@@ -25,7 +25,7 @@ public class OptionsFile {
 	 */
 	public static final int OPTIONS_VERSION = 1;
 	// FIXME: We should use an appropriate path, such as the user's preferences folder
-	public static final String OPTIONS_FILENAME = "game_options.json";
+	public static final String OPTIONS_FILENAME = "ssproject_game_options.json";
 	
 	@SuppressWarnings("unchecked")
 	private static String optionsToJSON() {
@@ -193,23 +193,7 @@ public class OptionsFile {
 	}
 	
 	private static String getOptionsPath() {
-		String path = null;
-		OsUtils.OSType ostype = OsUtils.getOperatingSystemType();
-		switch (ostype) {
-		    case Windows:
-		    	path = System.getProperty("user.home") + "\\SideScroller\\" + OPTIONS_FILENAME;
-		    	break;
-		    case MacOS: 
-		    	path = System.getProperty("user.home") + "/SideScroller/" + OPTIONS_FILENAME;
-		    	break;
-		    case Linux: 
-		    	path = System.getProperty("user.home") + "/SideScroller/" + OPTIONS_FILENAME;
-		    	break;
-		    case Other: 
-		    	path = OPTIONS_FILENAME;
-		    	break;
-		}
-		return path;
+		return OSUtils.getHomeDirectory(OPTIONS_FILENAME);
 	}
 	
 	public static boolean save() {

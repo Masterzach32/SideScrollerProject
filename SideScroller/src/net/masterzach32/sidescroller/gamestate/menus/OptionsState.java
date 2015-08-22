@@ -15,7 +15,7 @@ public class OptionsState extends MenuState {
 	
 	public static int currentChoice;
 	public static String[] options = new String[8]; 
-	private static boolean console = true, debug = true;
+	private static boolean console = false, debug = false;
 	
 	public OptionsState(SideScroller game) {
 		super(game);

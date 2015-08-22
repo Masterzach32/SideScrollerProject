@@ -1,18 +1,13 @@
 package net.masterzach32.sidescroller.api;
 
 import java.io.IOException;
-import java.nio.file.DirectoryNotEmptyException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
 
 import javax.swing.JOptionPane;
 
 import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.util.LogHelper;
-import net.masterzach32.sidescroller.util.OsUtils;
+import net.masterzach32.sidescroller.util.OSUtils;
 import net.masterzach32.sidescroller.util.Utilities;
 
 /**
@@ -40,23 +35,7 @@ public interface IUpdatable {
 			return false;
 		}
 		LogHelper.logInfo("Checking for updates");
-		String latest = null;
-		OsUtils.OSType ostype = OsUtils.getOperatingSystemType();
-		switch (ostype) {
-		    case Windows:
-		    	latest = System.getProperty("user.home") + "\\SideScroller\\" + "latest.txt";
-		    	break;
-		    case MacOS: 
-		    	latest = System.getProperty("user.home") + "/SideScroller/" + "latest.txt";
-		    	break;
-		    case Linux: 
-		    	latest = System.getProperty("user.home") + "/SideScroller/" + "latest.txt";
-		    	break;
-		    case Other: 
-		    	latest = "latest.txt";
-		    	break;
-		}
-		String[] s = Utilities.readTextFile(SideScroller.getGame().getServerVersionURL(), latest, false);
+		String[] s = Utilities.readTextFile(SideScroller.getGame().getServerVersionURL(), OSUtils.getHomeDirectory("latest.txt"), false);
 		
 		if(s == null || s[0] == null) {
 			LogHelper.logInfo("Error while checking for updates: Could not read server update file.");
