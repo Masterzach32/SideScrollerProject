@@ -19,7 +19,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -79,14 +78,12 @@ public class Utilities {
 	 * @param show
 	 * @return String[]
 	 */
-	public static String[] readTextFile(String path, String location, boolean show) {
-		download(path, location, "Downloading Server Files", show);
-		Path p = Paths.get(location);
-		if(p == null) return null;
+	public static String[] readTextFile(String path, Path location, boolean show) {
+		download(path, location.toString(), "Downloading Server Files", show);
 		List<String> lines;
 		String[] contents;
 		try {
-			lines = Files.readAllLines(p, Charset.forName("UTF-8"));
+			lines = Files.readAllLines(location, Charset.forName("UTF-8"));
 			contents = lines.toArray(new String[lines.size()]);
 			return contents;
 		} catch (IOException e) {

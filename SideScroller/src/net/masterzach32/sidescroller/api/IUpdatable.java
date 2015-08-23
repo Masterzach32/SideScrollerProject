@@ -1,6 +1,11 @@
 package net.masterzach32.sidescroller.api;
 
 import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.JOptionPane;
 
@@ -35,7 +40,8 @@ public interface IUpdatable {
 			return false;
 		}
 		LogHelper.logInfo("Checking for updates");
-		String[] s = Utilities.readTextFile(SideScroller.getGame().getServerVersionURL(), OSUtils.getHomeDirectory("latest.txt"), false);
+		Path p = Paths.get(OSUtils.getHomeDirectory("latest.txt"));
+		String[] s = Utilities.readTextFile(SideScroller.getGame().getServerVersionURL(), p, false);
 		
 		if(s == null || s[0] == null) {
 			LogHelper.logInfo("Error while checking for updates: Could not read server update file.");
@@ -45,8 +51,8 @@ public interface IUpdatable {
 			LogHelper.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
 			
 			int result = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "An newer version of the game, (Build " + s[0] +") is avaliable, do you want to download it now? ", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-			/*try {
-			    Files.delete(latest);
+			try {
+			    Files.delete(p);
 			} catch (NoSuchFileException e) {
 				LogHelper.logError("Could not find updates file.");
 				e.printStackTrace();
@@ -54,7 +60,7 @@ public interface IUpdatable {
 			    e.printStackTrace();
 			} catch (IOException e) {
 			    e.printStackTrace();
-			}*/
+			}
 			if(result == JOptionPane.YES_OPTION) {
 				String path = Utilities.saveAs(".jar");
 				Utilities.download(SideScroller.getGame().getDownloadURL() + s[0] + ".jar", path, "Downloading Update", false);
