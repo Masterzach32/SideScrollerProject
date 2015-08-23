@@ -32,7 +32,7 @@ public class AssetLoader {
 				return bi;
 			}
 		} catch (IOException e) {
-			LogHelper.logWarning(s + "Missing Image: " + path + ". Will attempt to download.");
+			LogHelper.logWarning(s + "Missing Image: " + path + ".");
 			e.printStackTrace();
 			return null;
 		}

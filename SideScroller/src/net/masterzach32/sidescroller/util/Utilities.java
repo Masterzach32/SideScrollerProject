@@ -118,6 +118,7 @@ public class Utilities {
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.add(current);
 		frame.add(t);
+		frame.setResizable(false);
 		Dimension dim2 = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim2.width/2-frame.getSize().width/2, dim2.height/2-frame.getSize().height/2);
 		frame.setVisible(useWindow);
