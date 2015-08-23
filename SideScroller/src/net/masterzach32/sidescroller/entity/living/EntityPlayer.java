@@ -87,7 +87,7 @@ public class EntityPlayer extends EntityLiving {
 		soldiers = new ArrayList<Soldier>();
 		
 		attackRange = 50;
-		moveRange = 300;
+		moveRange = 250;
 		spawnRange = 60;
 		
 		resetStats(false);
@@ -172,8 +172,7 @@ public class EntityPlayer extends EntityLiving {
 	
 	public void setAttacking() {
 		attacking = true;
-		Soldier.attackStack = null;
-		Soldier.attackStack = new ArrayList<Enemy>();
+		Soldier.attackStack.clear();
 		if(soldiers.size() > 0) {
 			for(int j = 0; j < soldiers.size(); j++) {
 				soldiers.get(j).attack();
@@ -264,8 +263,7 @@ public class EntityPlayer extends EntityLiving {
 	
 	public void moveSoldiers() {
 		if(concSands > 0 || soldiers.size() == 0) return;
-		Soldier.moveStack = null;
-		Soldier.moveStack = new ArrayList<Enemy>();
+		Soldier.moveStack.clear();
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
 		int y = (int) (p.y / SideScroller.SCALE - ymap);
@@ -274,10 +272,10 @@ public class EntityPlayer extends EntityLiving {
 		} else if(this.x - x < -moveRange) {
 			x = (int) (this.x + moveRange);
 		}
-		if(this.y - y > spawnRange) {
-			y = (int) (this.y - spawnRange);
-		} else if(this.y - y < -spawnRange) {
-			y = (int) (this.y + spawnRange);
+		if(this.y - y > moveRange) {
+			y = (int) (this.y - moveRange);
+		} else if(this.y - y < -moveRange) {
+			y = (int) (this.y + moveRange);
 		}
 		int space = 0;
 		if(soldiers.size() == 1) space = 0;

@@ -12,6 +12,7 @@ import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.effects.Effect;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;
+import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 import net.masterzach32.sidescroller.util.Utilities;
@@ -23,6 +24,7 @@ public class Soldier extends MapObject {
 	private int attackDelay, attackTimer, moveX, /*moveY,*/ time;
 	
 	private int attackRange;
+	private int soldierAttackRange;
 	private int level;
 	
 	// animations
@@ -53,6 +55,7 @@ public class Soldier extends MapObject {
 		stopJumpSpeed = 0.3;
 		
 		attackRange = 40;
+		soldierAttackRange = 250;
 		attackDelay = 90 - (15 * level);
 		attackTimer = 0;
 		
@@ -127,10 +130,14 @@ public class Soldier extends MapObject {
 	protected void attack() {
 		if(isMoving()) return;
 		if(attackTimer > 0) return;
+		if(LevelState.getPlayer().getx() - this.x > soldierAttackRange) {
+			return;
+		} else if(LevelState.getPlayer().getx() - this.x < -soldierAttackRange) {
+			return;
+		}
 		attackTimer = attackDelay;
 		attacking = true;
-		attackHits = null;
-		attackHits = new ArrayList<Enemy>();
+		attackHits.clear();
 	}
 	
 	protected boolean isAttacking() {
@@ -144,8 +151,7 @@ public class Soldier extends MapObject {
 	
 	protected void move(int x, int y) {
 		if(isAttacking()) return;
-		moveHits = null;
-		moveHits = new ArrayList<Enemy>();
+		moveHits.clear();
 		moving = true;
 		moveX = x;
 		//moveY = y;
