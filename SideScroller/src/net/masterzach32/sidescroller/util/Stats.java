@@ -100,7 +100,7 @@ public class Stats {
 				type = "Distance Travled";
 				break;
 			case TIME:
-				type = "Total Time (ticks)";
+				type = "Total Time:";
 				break;
 		}
 		return type;

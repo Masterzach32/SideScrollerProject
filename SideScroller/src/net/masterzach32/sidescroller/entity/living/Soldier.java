@@ -99,10 +99,11 @@ public class Soldier extends MapObject {
 		animation.setDelay(400);
 	}
 	
-	protected boolean checkAttack(Enemy e, int damage, int type) {
+	protected boolean checkAttack(Enemy e, double damage, int type) {
 		boolean hit = false;
+		double attack = damage;
+		
 		if(isHit(e, type)) return hit = false;
-		int attack = damage;
 		if(reduceDamage(e, type)) attack = (int) (damage * .33);
 		if(isAttacking()) {
 			if(facingRight) {
@@ -119,7 +120,7 @@ public class Soldier extends MapObject {
 		}
 		if(isMoving()) {
 			if(e.intersects(this)) {
-				hit = e.hit(attack / 1.5, false, true, "Conquering Sands", this);
+				hit = e.hit(attack * 2 / 3, false, true, "Conquering Sands", this);
 				e.addEffect(this, Effect.SLOW, 3 * level, 1);
 				addToHitList(e, 1);
 			}

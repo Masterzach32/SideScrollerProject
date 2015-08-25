@@ -11,7 +11,7 @@ import net.masterzach32.sidescroller.util.Utilities;
 public class AboutState extends MenuState {
 	
 	public static String[] aboutText = {
-		"SideScroller RPG Created By:", 
+		"SideScroller Project Created By:", 
 		"Head Designer and Programmer:", 
 		"Zach Kozar", 
 		"Assistant Programmers:", 

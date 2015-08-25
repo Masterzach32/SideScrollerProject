@@ -28,7 +28,7 @@ public class EntityPlayer extends EntityLiving {
 	
 	// soldiers
 	private boolean spawning;
-	private int soldierDamage;
+	private double soldierDamage;
 	private ArrayList<Soldier> soldiers;
 	
 	// cooldowns
@@ -40,7 +40,7 @@ public class EntityPlayer extends EntityLiving {
 	
 	// scratch
 	private boolean attacking;
-	private int scratchDamage;
+	private double scratchDamage;
 	private int attackRange;
 	private int moveRange;
 	private int spawnRange;
@@ -205,8 +205,8 @@ public class EntityPlayer extends EntityLiving {
 	 */
 	public boolean checkAttack(ArrayList<Enemy> enemies) {
 		boolean hit = false;
-		scratchDamage = (int)(1 + damage * 0.5);
-		soldierDamage = (int)(4 + damage * 1.0);
+		scratchDamage = (1 + damage * 0.5);
+		soldierDamage = (2 + damage * 1.2);
 		// loop through enemies
 		for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
@@ -315,8 +315,6 @@ public class EntityPlayer extends EntityLiving {
 				sfx.get("spawn_" + r.nextInt(1)).play();
 				storedSoldiers--;
 			}
-		} else {
-			
 		}
 	}
 	

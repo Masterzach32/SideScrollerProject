@@ -27,7 +27,6 @@ public class Assets {
 	}
 	
 	public static void init() {
-		// load into hashmap
 		// Images
 		LoadingState.setInfo("Loading Images...", 20);
 		// Particles
