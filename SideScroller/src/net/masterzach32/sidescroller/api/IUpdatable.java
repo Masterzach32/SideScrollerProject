@@ -64,7 +64,7 @@ public interface IUpdatable {
 				Path path = Paths.get(OSUtils.getHomeDirectory("SideScroller_" + s[0] + ".jar"));
 				Utilities.download(SideScroller.getGame().getDownloadURL() + s[0] + ".jar", path.toString(), "Downloading Update", false);
 				if(!Utilities.error) {
-					int result2 = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "Download complete. Downloaded to: " + path.toString() + " Do you want to close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					int result2 = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "Download complete. Downloaded to: " + path.toString() + ". Do you want to close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					if(result2 == JOptionPane.YES_OPTION) {
 						try {
 							ProcessBuilder pb = new ProcessBuilder("java", "-jar", path.toString());

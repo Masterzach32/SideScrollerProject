@@ -1,6 +1,5 @@
 package net.masterzach32.sidescroller.util;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.FontMetrics;
@@ -35,6 +34,7 @@ import net.masterzach32.sidescroller.main.SideScroller;
 public class Utilities {
 	
 	public static boolean error = false;
+	private static Exception exception;
 
 	/**
 	 * Gets the time and returns it in hh:mm:ss
@@ -149,8 +149,15 @@ public class Utilities {
 			LoadingState.setInfo("Download Failed!", 0);
 			LogHelper.logError("An error occured while downloading: " + url);
 			e.printStackTrace();
-			JOptionPane.showConfirmDialog((Component) null, (Object) "Could not download file: " + url + ". Error Message: " + e.getMessage(), "Error Downloading File", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+		    StringBuilder sb = new StringBuilder(Utilities.getDownloadError().toString());
+		    for (StackTraceElement ste : Utilities.getDownloadError().getStackTrace()) {
+		        sb.append("\n\tat ");
+		        sb.append(ste);
+		    }
+		    String trace = sb.toString();
+		    JOptionPane.showMessageDialog(null, "An unexpected error has occurred:\n" + trace + '\n' + Thread.currentThread().getStackTrace(), "Error while Updating", JOptionPane.ERROR_MESSAGE);
 			error = true;
+			exception = e;
 		}
 		frame.setVisible(false);
 		frame.dispose();
@@ -240,5 +247,11 @@ public class Utilities {
 		boolean inRange = false;
 		
 		return inRange;
+	}
+	
+	public static Exception getDownloadError() {
+		Exception e = exception;
+		exception = null;
+		return e;
 	}
 }

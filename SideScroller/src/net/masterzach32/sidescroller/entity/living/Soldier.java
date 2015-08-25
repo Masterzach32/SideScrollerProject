@@ -180,10 +180,12 @@ public class Soldier extends MapObject {
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);
 		
-		if(this.x < x) {
-			facingRight = true;
-		} else if(this.x > x) {
-			facingRight = false;
+		if(!attacking) {
+			if(this.x < x) {
+				facingRight = true;
+			} else if(this.x > x) {
+				facingRight = false;
+			}
 		}
 		
 		if(moving) {
