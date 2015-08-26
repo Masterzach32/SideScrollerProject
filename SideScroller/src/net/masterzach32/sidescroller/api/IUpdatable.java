@@ -49,11 +49,10 @@ public interface IUpdatable {
 			LogHelper.logInfo("You can download the update here: " + SideScroller.getGame().getUpdateURL());
 			LogHelper.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
 			
-			int result = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "An newer version of the game, (Build " + s[0] +") is avaliable, do you want to download it now? ", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			int result = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "An update is available!\nLocal Build: " + SideScroller.getGame().getLocalVersion() + " Server Build: " + s[0] + "\nDo you want to update now?", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			try {
 			    Files.delete(p);
 			} catch (NoSuchFileException e) {
-				LogHelper.logError("Could not find updates file.");
 				e.printStackTrace();
 			} catch (DirectoryNotEmptyException e) {
 			    e.printStackTrace();

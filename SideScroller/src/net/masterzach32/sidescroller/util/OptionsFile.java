@@ -120,10 +120,11 @@ public class OptionsFile {
 		try {
 			obj = JSONValue.parseWithException(json);
 		} catch (ParseException e) {
+			
 			LogHelper.logError("Error while parsing game options file: " + e.toString());
 			return false;
 		}
-		if (! (obj instanceof JSONObject)) {
+		if (!(obj instanceof JSONObject)) {
 			// give up!
 			LogHelper.logError("Options file does not begin with a JSON Object");
 			return false;

@@ -1,7 +1,6 @@
 package net.masterzach32.sidescroller.assets;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -11,6 +10,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import net.masterzach32.sidescroller.gamestate.menus.LoadingState;
 import net.masterzach32.sidescroller.util.LogHelper;
+import net.masterzach32.sidescroller.util.Utilities;
 
 public class AssetLoader {
 
@@ -26,17 +26,14 @@ public class AssetLoader {
 		BufferedImage bi;
 		try {
 			URL imageLocation = getClass().getResource(path);
-			if(imageLocation != null) {
-				bi = ImageIO.read(imageLocation);
-				LogHelper.logInfo(s + "Loaded Image: " + path);
-				return bi;
-			}
-		} catch (IOException e) {
+			bi = ImageIO.read(imageLocation);
+			LogHelper.logInfo(s + "Loaded Image: " + path);
+			return bi;
+		} catch (Exception e) {
 			LogHelper.logWarning(s + "Missing Image: " + path + ".");
-			e.printStackTrace();
+			Utilities.createErrorDialog("Missing Image Asset!", "SideScroller Project can't seem to find this asset: " + path, e);
 			return null;
 		}
-		return null;
 	}
 	
 	/**
@@ -48,22 +45,19 @@ public class AssetLoader {
 		LoadingState.setInfo("Loading Asset: " + path, 40);
 		AudioInputStream ais;
 		try {
-			URL imageLocation = getClass().getResource(path);
-			if(imageLocation != null) {
-				ais = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(path));
-				LogHelper.logInfo(s + "Loaded Audio File: " + path);
-				return ais;
-			}
+			ais = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(path));
+			LogHelper.logInfo(s + "Loaded Audio File: " + path);
+			return ais;
 		} catch (UnsupportedAudioFileException e) {
 			LogHelper.logError(s + "Unsupported Audio File: " + path);
 			e.printStackTrace();
+			Utilities.createErrorDialog("Unsupported Audio File!", "SideScroller Project can't use this asset: " + path, e);
 			return null;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			LogHelper.logWarning(s + "Missing Audio File: " + path);
-			e.printStackTrace();
+			Utilities.createErrorDialog("Missing Audio Asset!", "SideScroller Project can't seem to find this asset: " + path, e);
 			return null;
 		}
-		return null;
 	}
 	
 	public String loadMap(String path) {

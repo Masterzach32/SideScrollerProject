@@ -37,7 +37,7 @@ public class Assets {
 		images.put("pack_" + StemPacks.HEAL, SideScroller.al.loadImage("/sprites/packs/health_pack.png"));
 		images.put("pack_" + StemPacks.ATTACK, SideScroller.al.loadImage("/sprites/packs/damage_pack.png"));
 		images.put("pack_" + StemPacks.SPEED, SideScroller.al.loadImage("/sprites/packs/speed_pack.png"));
-		images.put("pack_" + StemPacks.HEALTHREGEN, SideScroller.al.loadImage("/sprites/packs/regen_pack.png"));
+		images.put("pack_" + StemPacks.HEALTHREGEN, SideScroller.al.loadImage("/sprites/packs/health_pack.png"));
 		// Effects Animations
 		images.put("effects", SideScroller.al.loadImage("/sprites/particles/effect_sprites.png"));
 		// Spawn Animation
@@ -51,9 +51,7 @@ public class Assets {
 		images.put("slugger", SideScroller.al.loadImage("/sprites/enemies/slugger.gif"));
 		images.put("boss", SideScroller.al.loadImage("/sprites/enemies/arachnik.gif"));
 		// HUD
-		images.put("mouse", SideScroller.al.loadImage("/hud/mouse.png"));
 		images.put("hud", SideScroller.al.loadImage("/hud/hud.gif"));
-		images.put("hud2", SideScroller.al.loadImage("/hud/placeholder_hud.png"));
 		
 		// Tile Sets
 		images.put("grasstileset", SideScroller.al.loadImage("/tilesets/grasstileset.png"));
@@ -63,7 +61,6 @@ public class Assets {
 		// Backgrounds
 		images.put("grassbg", SideScroller.al.loadImage("/backgrounds/grassbg1.gif"));
 		images.put("zaunbg", SideScroller.al.loadImage("/backgrounds/zaun_bg.jpg"));
-		images.put("level1_1bg", SideScroller.al.loadImage("/backgrounds/placeholder_level1_1.png"));
 		images.put("shurima_bright", SideScroller.al.loadImage("/backgrounds/shurima_bright.png"));
 		images.put("shurima_dark", SideScroller.al.loadImage("/backgrounds/shurima_dark.jpg"));
 		images.put("end_splash_normal", SideScroller.al.loadImage("/backgrounds/azir_endGame.png"));

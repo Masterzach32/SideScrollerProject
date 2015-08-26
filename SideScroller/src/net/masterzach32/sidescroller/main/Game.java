@@ -9,6 +9,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import net.masterzach32.sidescroller.util.Console;
 import net.masterzach32.sidescroller.util.LogHelper;
+import net.masterzach32.sidescroller.util.Utilities;
 
 public class Game {
 	
@@ -16,21 +17,26 @@ public class Game {
 	private static Console console;
 	
 	public static void main(String[] args) {
-		System.out.println("Launching SideScroller Project - " + SideScroller.TYPE + " Build " + SideScroller.VERSION);
-		System.out.println("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")");
-		System.out.println("OS Archetecture: " + System.getProperty("os.arch"));
-		System.out.println("Java Version: " + System.getProperty("java.version"));
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+			System.out.println("Launching SideScroller Project - " + SideScroller.TYPE + " Build " + SideScroller.VERSION);
+			System.out.println("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")");
+			System.out.println("OS Archetecture: " + System.getProperty("os.arch"));
+			System.out.println("Java Version: " + System.getProperty("java.version"));
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+				e.printStackTrace();
+			}
+			window = new JFrame("SideScroller Project");
+			resizeGameFrame(false);
+			window.setContentPane(new SideScroller());
+			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			window.setResizable(false);
+			window.pack();
 		}
-		window = new JFrame("SideScroller Project");
-		resizeGameFrame(false);
-		window.setContentPane(new SideScroller());
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
-		window.pack();
+		catch(Exception e) {
+			Utilities.createErrorDialog("Error", "An unexpected error occured: " + e.toString(), e);
+		}
 	}
 	
 	public static void resizeGameFrame(boolean forceResize) {

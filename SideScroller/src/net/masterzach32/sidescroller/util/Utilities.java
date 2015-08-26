@@ -254,4 +254,15 @@ public class Utilities {
 		exception = null;
 		return e;
 	}
+	
+	public static void createErrorDialog(String title, String message, Exception e) {
+		e.printStackTrace();
+	    StringBuilder sb = new StringBuilder(e.toString());
+	    for (StackTraceElement ste : e.getStackTrace()) {
+	        sb.append("\n\tat ");
+	        sb.append(ste);
+	    }
+	    String trace = sb.toString();
+	    JOptionPane.showMessageDialog(null, message + ":\n\n" + trace + "\n\n" + "If this error continues please report it at https://github.com/Masterzach32/SideScrollerProject/issues", title, JOptionPane.ERROR_MESSAGE);
+	}
 }
