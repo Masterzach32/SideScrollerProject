@@ -8,12 +8,14 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultCaret;
 
-public class Console extends WindowAdapter implements WindowListener, ActionListener, Runnable {
+public class Console extends WindowAdapter implements WindowListener, ActionListener, Runnable, KeyListener {
 	
-	private static final String VERSION = "0.1";
+	private static final String VERSION = "0.2";
 	
 	private JFrame frame;
 	private JTextArea console;
+	private JTextField command;
+	private JButton enter, save;
 	private Thread reader;
 	private Thread reader2;
 	private boolean quit;
@@ -29,23 +31,45 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	public Console() {
 		// create all components and add them
 		frame = new JFrame("SideScroller Project Console - v" + VERSION);
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Dimension frameSize = new Dimension((int) (screenSize.width/2), (int) (screenSize.height/2));
-		frame.setBounds(0, 0, frameSize.width, frameSize.height);
 		
 		console = new JTextArea();
 		console.setEditable(false);
 		DefaultCaret caret = (DefaultCaret) console.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		JButton button = new JButton("Save This Log");
+		enter = new JButton("Enter");
+		enter.setToolTipText("You can also press ENTER to submit this command.");
+		save = new JButton("Save This Log");
+		enter.setToolTipText("Opens a Save As dialog to choose where you want to save this log.");
 		
-		frame.getContentPane().setLayout(new BorderLayout());
-		frame.getContentPane().add(new JScrollPane(console), BorderLayout.CENTER);
-		frame.getContentPane().add(button, BorderLayout.SOUTH);
-		frame.setVisible(true);
+		command = new JTextField();
+		command.setToolTipText("You can also press ENTER to submit this command.");
+		
+		JPanel topPanel = new JPanel();
+		topPanel.setLayout(new GridLayout(1, 1, 10, 10));
+		topPanel.add(new JScrollPane(console));
+		Dimension d = new Dimension(960, 500);
+		topPanel.setPreferredSize(d);
+		
+		JPanel midPanel = new JPanel();
+		midPanel.setLayout(new GridLayout(1, 1 , 10, 10));
+		midPanel.add(command);
+		
+		JPanel bottomPanel = new JPanel();
+		bottomPanel.setLayout(new GridLayout(1, 1, 10, 10));
+		bottomPanel.add(enter);
+		bottomPanel.add(save);
+		
+        frame.add(topPanel, BorderLayout.NORTH);
+        frame.add(midPanel, BorderLayout.CENTER);
+        frame.add(bottomPanel, BorderLayout.SOUTH);
+        
+        frame.pack();
+        frame.setVisible(true);
 		
 		frame.addWindowListener(this);
-		button.addActionListener(this);
+		enter.addActionListener(this);
+		save.addActionListener(this);
+		command.addKeyListener(this);
 		
 		try {
 			PipedOutputStream pout = new PipedOutputStream(this.pin);
@@ -100,7 +124,11 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	}
 	
 	public synchronized void actionPerformed(ActionEvent evt) {
-		saveAs();
+		if(evt.getSource().equals(enter)) {
+			sendCommand();
+		} else if(evt.getSource().equals(save)) {
+			saveAs();
+		}
 	}
 
 	public synchronized void run() {
@@ -201,4 +229,19 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	        }
 	    }
 	}
+	
+	public void sendCommand() {
+		String s = command.getText();
+		if(s == "" || s == null) return;
+		command.setText("");
+		LogHelper.logInfo("Command recived: " + s);
+	}
+
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) sendCommand();
+	}
+
+	public void keyReleased(KeyEvent e) {}
+	
+	public void keyTyped(KeyEvent e) {}
 }

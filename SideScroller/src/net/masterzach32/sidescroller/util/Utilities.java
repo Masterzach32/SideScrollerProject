@@ -149,13 +149,7 @@ public class Utilities {
 			LoadingState.setInfo("Download Failed!", 0);
 			LogHelper.logError("An error occured while downloading: " + url);
 			e.printStackTrace();
-		    StringBuilder sb = new StringBuilder(Utilities.getDownloadError().toString());
-		    for (StackTraceElement ste : Utilities.getDownloadError().getStackTrace()) {
-		        sb.append("\n\tat ");
-		        sb.append(ste);
-		    }
-		    String trace = sb.toString();
-		    JOptionPane.showMessageDialog(null, "An unexpected error has occurred:\n" + trace + '\n' + Thread.currentThread().getStackTrace(), "Error while Updating", JOptionPane.ERROR_MESSAGE);
+			createErrorDialog("Download Error", "An error occured while downloading this file:\n" + url, e);
 			error = true;
 			exception = e;
 		}
@@ -195,6 +189,7 @@ public class Utilities {
 	 */
 	public static String saveAs(String extension) {
 	    final JFileChooser saveAsFileChooser = new JFileChooser();
+	    
 	    saveAsFileChooser.setApproveButtonText("Save");
 	    int actionDialog = saveAsFileChooser.showSaveDialog(Game.getFrame());
 	    if (actionDialog != JFileChooser.APPROVE_OPTION) {
@@ -255,14 +250,22 @@ public class Utilities {
 		return e;
 	}
 	
+	/**
+	 * Creates an error dialog and prints the stacktrace to the console.
+	 * @param title
+	 * @param message
+	 * @param e
+	 */
 	public static void createErrorDialog(String title, String message, Exception e) {
 		e.printStackTrace();
+		
 	    StringBuilder sb = new StringBuilder(e.toString());
 	    for (StackTraceElement ste : e.getStackTrace()) {
 	        sb.append("\n\tat ");
 	        sb.append(ste);
 	    }
+	    
 	    String trace = sb.toString();
-	    JOptionPane.showMessageDialog(null, message + ":\n\n" + trace + "\n\n" + "If this error continues please report it at https://github.com/Masterzach32/SideScrollerProject/issues", title, JOptionPane.ERROR_MESSAGE);
+	    JOptionPane.showMessageDialog(null, message + "\n\n" + trace + "\n\n" + "If this error continues please report it at https://github.com/Masterzach32/SideScrollerProject/issues", title, JOptionPane.ERROR_MESSAGE);
 	}
 }

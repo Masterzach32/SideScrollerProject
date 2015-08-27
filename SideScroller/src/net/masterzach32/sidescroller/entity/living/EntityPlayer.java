@@ -3,8 +3,8 @@ package net.masterzach32.sidescroller.entity.living;
 import java.util.ArrayList;
 import java.util.Random;
 
-import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
+import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.MapObject;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;

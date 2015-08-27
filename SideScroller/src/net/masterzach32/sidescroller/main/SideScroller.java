@@ -28,7 +28,7 @@ import net.masterzach32.sidescroller.util.*;
  *
  * Remember this is an in-development game. Expect things to be hilariously over-powered or under-powered.
  * 
- * @author Zachary Kozar, Anthony Kozar
+ * @author Zachary Kozar
  * @version 0.1.6 Beta
  */
 @SuppressWarnings("serial")
@@ -40,7 +40,7 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Beta", VERSION = "0.1.6.272";
+	public static final String TYPE = "Beta", VERSION = "0.1.6.273";
 	public static final boolean isUpdateEnabled = false;
 	public static boolean isSoundEnabled = true;
 	
@@ -196,11 +196,6 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 
 				wait = targetTime - elapsed / 1000000;
 				if(wait < 0) wait = 5;
-				try {
-					Thread.sleep(wait);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
 			}
 		}
 		catch(Exception e) {

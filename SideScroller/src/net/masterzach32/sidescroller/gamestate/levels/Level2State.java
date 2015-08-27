@@ -3,8 +3,8 @@ package net.masterzach32.sidescroller.gamestate.levels;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
+import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.living.enemy.Boss;
 import net.masterzach32.sidescroller.entity.living.enemy.Enemy;

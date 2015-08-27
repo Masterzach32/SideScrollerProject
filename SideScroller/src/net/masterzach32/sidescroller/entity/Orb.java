@@ -4,9 +4,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.living.*;
 
 public class Orb extends Projectile {

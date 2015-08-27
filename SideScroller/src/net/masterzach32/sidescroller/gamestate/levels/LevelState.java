@@ -7,9 +7,9 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.assets.gfx.HUD;
 import net.masterzach32.sidescroller.assets.sfx.AudioPlayer;
+import net.masterzach32.sidescroller.assets.Assets;
 import net.masterzach32.sidescroller.entity.Animation;
 import net.masterzach32.sidescroller.entity.Explosion;
 import net.masterzach32.sidescroller.entity.MapObject;
