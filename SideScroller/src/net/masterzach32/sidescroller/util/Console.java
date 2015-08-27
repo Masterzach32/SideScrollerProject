@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultCaret;
 
+import net.masterzach32.sidescroller.util.commands.ConsoleCommand;
+
 public class Console extends WindowAdapter implements WindowListener, ActionListener, Runnable, KeyListener {
 	
 	private static final String VERSION = "0.2";
@@ -56,8 +58,8 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new GridLayout(1, 1, 10, 10));
-		bottomPanel.add(enter);
 		bottomPanel.add(save);
+		bottomPanel.add(enter);
 		
         frame.add(topPanel, BorderLayout.NORTH);
         frame.add(midPanel, BorderLayout.CENTER);
@@ -234,7 +236,7 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		String s = command.getText();
 		if(s == "" || s == null) return;
 		command.setText("");
-		LogHelper.logInfo("Command recived: " + s);
+		ConsoleCommand.reciveCommand(s);
 	}
 
 	public void keyPressed(KeyEvent e) {
