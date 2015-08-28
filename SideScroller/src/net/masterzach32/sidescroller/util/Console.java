@@ -1,6 +1,7 @@
 package net.masterzach32.sidescroller.util;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -21,6 +22,10 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	private Thread reader;
 	private Thread reader2;
 	private boolean quit;
+	
+	private int currentCommand;
+	
+	private ArrayList<String> commands = new ArrayList<String>();
 					
 	private final PipedInputStream pin = new PipedInputStream();
 	private final PipedInputStream pin2 = new PipedInputStream();
@@ -236,13 +241,32 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 	
 	public void sendCommand() {
 		String s = command.getText();
+		commands.add(s);
+		currentCommand = commands.size();
 		if(s == "" || s == null) return;
 		command.setText("");
 		ConsoleCommand.reciveCommand(s);
 	}
+	
+	public void setText(int i) {
+		if(i == 0) currentCommand--;
+		if(i == 1) currentCommand++;
+		if(currentCommand < 0) {
+			currentCommand = 0;
+			return;
+		}
+		if(currentCommand == commands.size()) {
+			currentCommand = commands.size() - 1;
+			command.setText("");
+			return;
+		}
+		command.setText(commands.get(currentCommand));
+	}
 
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) sendCommand();
+		if(e.getKeyCode() == KeyEvent.VK_UP) setText(0);
+		if(e.getKeyCode() == KeyEvent.VK_DOWN) setText(1);
 	}
 
 	public void keyReleased(KeyEvent e) {}

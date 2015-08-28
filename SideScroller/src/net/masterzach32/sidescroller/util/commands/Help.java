@@ -7,11 +7,11 @@ import net.masterzach32.sidescroller.util.LogHelper;
 public class Help extends ConsoleCommand {
 
 	public Help() {
-		super("help", new String[] {""}, "list", "Lists all available commands");
+		super("help", new String[] {""}, "list", "Lists all available commands.");
 	}
 
 	protected void execute() {
-		LogHelper.logInfo("List of available commands:");
+		LogHelper.logInfo("List of available commands: Parameters: [required] <not required>");
 		ArrayList<ConsoleCommand> commands = getCommands();
 		for(int i = 0; i < commands.size(); i++) {
 			LogHelper.logInfo("/" + commands.get(i).getIdentifier() + " - " + commands.get(i).getHelpText());

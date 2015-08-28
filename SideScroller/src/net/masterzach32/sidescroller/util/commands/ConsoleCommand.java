@@ -46,6 +46,10 @@ public abstract class ConsoleCommand {
 	
 	public static void enableCommands() {
 		new Help();
+		new Startup();
+		new Damage();
+		new Health();
+		new AddEffect();
 	}
 
 	public String getIdentifier() {
