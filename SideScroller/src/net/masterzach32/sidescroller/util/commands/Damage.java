@@ -5,10 +5,10 @@ import net.masterzach32.sidescroller.util.LogHelper;
 public class Damage extends ConsoleCommand {
 
 	public Damage() {
-		super("setDamage", new String[] {""}, "int", "Sets the player's damage to the provided int value.");
+		super("setDamage", new String[] {"[value]"}, "int", "Sets the player's damage to the provided int value.");
 	}
 
-	protected void execute() {
+	protected void execute(String parameters) {
 		LogHelper.logInfo("setDamage 0");
 	}
 }

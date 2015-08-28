@@ -21,7 +21,7 @@ public abstract class ConsoleCommand {
 		commands.add(this);
 	}
 	
-	protected abstract void execute();
+	protected abstract void execute(String parameters);
 	
 	public static void reciveCommand(String command) {
 		try {
@@ -30,12 +30,14 @@ public abstract class ConsoleCommand {
 
 			boolean doesExist = false;
 			command = command.substring(1, command.length());
-			String identifier = command;
+			int index = command.indexOf(" ");
+			String identifier = command.substring(0, index);
+			String parameters = command.substring(index + 1, command.length());
 
 			for(int i = 0; i < commands.size(); i++) {
 				if(identifier.equals(commands.get(i).getIdentifier())) {
 					doesExist = true;
-					commands.get(i).execute();
+					commands.get(i).execute(parameters);
 				}
 			}
 			if(!doesExist) LogHelper.logInfo("Could not find command identifier: " + identifier + ". Type /help for a list of commands.");

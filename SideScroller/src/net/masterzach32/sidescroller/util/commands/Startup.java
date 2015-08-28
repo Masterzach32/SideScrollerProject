@@ -5,11 +5,11 @@ import net.masterzach32.sidescroller.util.LogHelper;
 public class Startup extends ConsoleCommand {
 
 	public Startup() {
-		super("startup", new String[] {""}, "String", "Base command for many different startup options.");
+		super("startup", new String[] {"[option]"}, "String", "Base command for many different startup options.");
 	}
 
 	@Override
-	protected void execute() {
+	protected void execute(String parameters) {
 		LogHelper.logInfo("startup 0");
 	}
 }
