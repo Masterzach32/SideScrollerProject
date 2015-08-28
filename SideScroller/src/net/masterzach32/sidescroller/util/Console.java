@@ -73,6 +73,8 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		save.addActionListener(this);
 		command.addKeyListener(this);
 		
+		ConsoleCommand.enableCommands();
+		
 		try {
 			PipedOutputStream pout = new PipedOutputStream(this.pin);
 			System.setOut(new PrintStream(pout, true)); 

@@ -10,12 +10,13 @@ public abstract class ConsoleCommand {
 	protected String identifier, type, helpText;
 	protected String[] subIdentifiers;
 	
-	private static ArrayList<ConsoleCommand> commands;
+	private static ArrayList<ConsoleCommand> commands = new ArrayList<ConsoleCommand>();
 
-	public ConsoleCommand(String identifier, String[] subIdentifiers, String type) {
+	public ConsoleCommand(String identifier, String[] subIdentifiers, String type, String helpText) {
 		this.identifier = identifier;
 		this.subIdentifiers = subIdentifiers;
 		this.type = type;
+		this.helpText = helpText;
 		
 		commands.add(this);
 	}
@@ -24,22 +25,27 @@ public abstract class ConsoleCommand {
 	
 	public static void reciveCommand(String command) {
 		try {
-		LogHelper.logInfo("User Input Command: " + command);
-		
-		boolean doesExist = false;
-		int length = command.indexOf(' ');
-		String identifier = command.substring(0, length);
-		
-		for(int i = 0; i < commands.size(); i++) {
-			if(identifier.equals(commands.get(i).getIdentifier())) {
-				doesExist = true;
-				commands.get(i).execute();
+			if(!command.startsWith("/")) return;
+			LogHelper.logInfo("User Input Command: " + command);
+
+			boolean doesExist = false;
+			command = command.substring(1, command.length());
+			String identifier = command;
+
+			for(int i = 0; i < commands.size(); i++) {
+				if(identifier.equals(commands.get(i).getIdentifier())) {
+					doesExist = true;
+					commands.get(i).execute();
+				}
 			}
-		}
-		if(!doesExist) LogHelper.logInfo("Could not find command identifier: " + identifier);
+			if(!doesExist) LogHelper.logInfo("Could not find command identifier: " + identifier + ". Type /help for a list of commands.");
 		} catch(Exception e) {
 			Utilities.createErrorDialog("Command Input Error", "The command system could not process this command: " + command + "\nTry /help for a list of commands.", e);
 		}
+	}
+	
+	public static void enableCommands() {
+		new Help();
 	}
 
 	public String getIdentifier() {
