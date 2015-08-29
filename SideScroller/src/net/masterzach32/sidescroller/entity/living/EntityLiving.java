@@ -57,6 +57,18 @@ public abstract class EntityLiving extends MapObject {
 		this.health = health;
 	}
 	
+	public void setMaxHealth(double health) {
+		this.maxHealth = health;
+	}
+	
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
 	public void heal(double health) {
 		double s = this.getHealth();
 		this.setHealth(this.getHealth() + health);

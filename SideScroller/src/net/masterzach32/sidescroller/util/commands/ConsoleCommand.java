@@ -31,8 +31,15 @@ public abstract class ConsoleCommand {
 			boolean doesExist = false;
 			command = command.substring(1, command.length());
 			int index = command.indexOf(" ");
-			String identifier = command.substring(0, index);
-			String parameters = command.substring(index + 1, command.length());
+			String identifier;
+			String parameters;
+			if(index == -1) {
+				identifier = command;
+				parameters = "";
+			} else {
+				identifier = command.substring(0, index);
+				parameters = command.substring(index + 1, command.length());
+			}
 
 			for(int i = 0; i < commands.size(); i++) {
 				if(identifier.equals(commands.get(i).getIdentifier())) {

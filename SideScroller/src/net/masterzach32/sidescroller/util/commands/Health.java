@@ -1,5 +1,6 @@
 package net.masterzach32.sidescroller.util.commands;
 
+import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.util.LogHelper;
 
 public class Health extends ConsoleCommand {
@@ -9,6 +10,9 @@ public class Health extends ConsoleCommand {
 	}
 
 	protected void execute(String parameters) {
-		LogHelper.logInfo("setHealth 0");
+		int health = Integer.parseInt(parameters);
+		LevelState.getPlayer().setMaxHealth(health);
+		LevelState.getPlayer().setHealth(health);
+		LogHelper.logInfo("Player health set to " + health);
 	}
 }
