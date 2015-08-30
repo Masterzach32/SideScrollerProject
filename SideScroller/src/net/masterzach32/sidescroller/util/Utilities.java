@@ -32,9 +32,6 @@ import net.masterzach32.sidescroller.main.Game;
 import net.masterzach32.sidescroller.main.SideScroller;
 
 public class Utilities {
-	
-	public static boolean error = false;
-	private static Exception exception;
 
 	/**
 	 * Gets the time and returns it in hh:mm:ss
@@ -98,7 +95,6 @@ public class Utilities {
 	 * @param location
 	 */
 	public static void download(String url, String location, String windowName, boolean useWindow) {
-		error = false;
 		String site = url;
 		String filename = location;
 		JFrame frame = new JFrame(windowName);
@@ -150,8 +146,6 @@ public class Utilities {
 			LogHelper.logError("An error occured while downloading: " + url);
 			e.printStackTrace();
 			createErrorDialog("Download Error", "An error occured while downloading this file:\n" + url, e);
-			error = true;
-			exception = e;
 		}
 		frame.setVisible(false);
 		frame.dispose();
@@ -244,14 +238,9 @@ public class Utilities {
 		return inRange;
 	}
 	
-	public static Exception getDownloadError() {
-		Exception e = exception;
-		exception = null;
-		return e;
-	}
-	
 	/**
 	 * Creates an error dialog and prints the stacktrace to the console.
+	 * 
 	 * @param title
 	 * @param message
 	 * @param e
@@ -260,7 +249,7 @@ public class Utilities {
 		e.printStackTrace();
 		
 	    StringBuilder sb = new StringBuilder(e.toString());
-	    for (StackTraceElement ste : e.getStackTrace()) {
+	    for(StackTraceElement ste : e.getStackTrace()) {
 	        sb.append("\n\tat ");
 	        sb.append(ste);
 	    }

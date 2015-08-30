@@ -33,6 +33,10 @@ public class OptionsFile {
 		gameOptions.put("gameVersion", SideScroller.VERSION);
 		gameOptions.put("buildType", new String(SideScroller.TYPE));
 		gameOptions.put("optionsVersion", new Integer(OPTIONS_VERSION));
+		gameOptions.put("ticksPerSec", new Integer(SideScroller.FPS));
+		gameOptions.put("enableSound", new Boolean(SideScroller.isSoundEnabled));
+		gameOptions.put("enableConsole", new Boolean(OptionsState.isConsoleEnabled()));
+		gameOptions.put("enableDebug", new Boolean(OptionsState.isDebugEnabled()));
 
 		JSONObject windowSettings = new JSONObject();
 		windowSettings.put("width", new Integer(SideScroller.WIDTH));
@@ -52,14 +56,8 @@ public class OptionsFile {
 		keyBindings.put("shiftingSands", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_SHIFTSANDS]));
 		keyBindings.put("emperorsDivide", new Integer(KeyConfigState.keyBinding[KeyConfigState.KEY_EMPERORSDIVIDE]));
 		gameOptions.put("keyBindings", keyBindings);
-
-		gameOptions.put("ticksPerSec", new Integer(SideScroller.FPS));
-		gameOptions.put("enableSound", new Boolean(SideScroller.isSoundEnabled));
-		gameOptions.put("enableConsole", new Boolean(OptionsState.isConsoleEnabled()));
-		gameOptions.put("enableDebug", new Boolean(OptionsState.isDebugEnabled()));
 		
 		JSONObject playerStats = new JSONObject();
-		// FIXME: Player exp and progression should be saved here later
 		playerStats.put("exp", LevelState.getPlayer().getExp());
 		playerStats.put("level", LevelState.getPlayer().getLevel());
 		gameOptions.put("playerStats", playerStats);

@@ -46,7 +46,7 @@ public class Console extends WindowAdapter implements WindowListener, ActionList
 		enter = new JButton("Enter");
 		enter.setToolTipText("You can also press ENTER to submit this command.");
 		save = new JButton("Save This Log");
-		enter.setToolTipText("Opens a Save As dialog to choose where you want to save this log.");
+		save.setToolTipText("Opens a Save As dialog to choose where you want to save this log.");
 		
 		command = new JTextField();
 		command.setToolTipText("You can also press ENTER to submit this command.");

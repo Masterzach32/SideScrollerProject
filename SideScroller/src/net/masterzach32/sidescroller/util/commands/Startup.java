@@ -8,7 +8,6 @@ public class Startup extends ConsoleCommand {
 		super("startup", new String[] {"[option]"}, "String", "Base command for many different startup options.");
 	}
 
-	@Override
 	protected void execute(String parameters) {
 		LogHelper.logInfo("startup 0");
 	}
