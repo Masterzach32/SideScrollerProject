@@ -12,16 +12,18 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
-/** OptionsFile contains static methods that use the JSON.simple library
- *  to manage writing and reading the game options to a file.
+/** 
+ * OptionsFile contains static methods that use the JSON.simple library
+ * to manage writing and reading the game options to a file.
  */
 @SuppressWarnings("unused")
 public class OptionsFile {
 
-	/** OPTIONS_VERSION identifies the version of the options file format.
-	 *  Increase this value whenever incompatible changes are made to the 
-	 *  options file format. (Just adding a new JSON field will not
-	 *  break compatibility).
+	/** 
+	 * OPTIONS_VERSION identifies the version of the options file format.
+	 * Increase this value whenever incompatible changes are made to the 
+	 * options file format. (Just adding a new JSON field will not
+	 * break compatibility).
 	 */
 	public static final int OPTIONS_VERSION = 1;
 	// FIXME: We should use an appropriate path, such as the user's preferences folder
@@ -65,9 +67,10 @@ public class OptionsFile {
 		return gameOptions.toString();
 	}
 	
-	/** Attempts to retrieve an integer value from obj with the given key/name.
-	 *  Returns null if the key is not present or has a non-numeric value.
-	 *  (Floating-point values will be rounded or truncated).
+	/** 
+	 * Attempts to retrieve an integer value from obj with the given key/name.
+	 * Returns null if the key is not present or has a non-numeric value.
+	 * (Floating-point values will be rounded or truncated).
 	 */
 	private static Integer getInteger(JSONObject obj, String key) {
 		Object keyobj = obj.get(key);
@@ -77,8 +80,9 @@ public class OptionsFile {
 		else return null;
 	}
 	
-	/** Attempts to retrieve a boolean value from obj with the given key/name.
-	 *  Returns null if the key is not present or has a non-boolean value.
+	/** 
+	 * Attempts to retrieve a boolean value from obj with the given key/name.
+	 * Returns null if the key is not present or has a non-boolean value.
 	 */
 	private static Boolean getBoolean(JSONObject obj, String key) {
 		Object keyobj = obj.get(key);
@@ -88,8 +92,9 @@ public class OptionsFile {
 		else return null;
 	}
 	
-	/** Attempts to retrieve a String value from obj with the given key/name.
-	 *  Returns null if the key is not present or has a non-string value.
+	/** 
+	 * Attempts to retrieve a String value from obj with the given key/name.
+	 * Returns null if the key is not present or has a non-string value.
 	 */
 	private static String getString(JSONObject obj, String key) {
 		Object keyobj = obj.get(key);
@@ -99,8 +104,9 @@ public class OptionsFile {
 		else return null;
 	}
 	
-	/** Attempts to retrieve a JSONObject from obj with the given key/name.
-	 *  Returns null if the key is not present or it is not a JSONObject.
+	/** 
+	 * Attempts to retrieve a JSONObject from obj with the given key/name.
+	 * Returns null if the key is not present or it is not a JSONObject.
 	 */
 	private static JSONObject getJSONObject(JSONObject obj, String key) {
 		Object keyobj = obj.get(key);
@@ -215,7 +221,8 @@ public class OptionsFile {
 		return true;
 	}
 
-	/** Thanks to StackOverflow user barjak for the example of reading an entire file to a String at
+	/** 
+	 * Thanks to StackOverflow user barjak for the example of reading an entire file to a String at
 	 * <http://stackoverflow.com/questions/326390/how-to-create-a-java-string-from-the-contents-of-a-file>
 	 */
 	public static boolean load() {
