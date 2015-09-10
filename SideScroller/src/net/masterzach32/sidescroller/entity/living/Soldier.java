@@ -16,6 +16,7 @@ import net.masterzach32.sidescroller.gamestate.levels.LevelState;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.TileMap;
 import net.masterzach32.sidescroller.util.Utilities;
+import net.masterzach32.sidescroller.util.Vector;
 
 public class Soldier extends MapObject {
 	
@@ -152,6 +153,7 @@ public class Soldier extends MapObject {
 	
 	protected void move(int x, int y) {
 		if(isAttacking()) return;
+		vector = new Vector(this, new Point((int) this.x, (int) this.y), new Point(x, y), this.getMaxSpeed());
 		moveHits.clear();
 		moving = true;
 		moveX = x;
@@ -194,7 +196,10 @@ public class Soldier extends MapObject {
 			} else if(this.x > moveX) {
 				facingRight = false;
 			}
-			if(facingRight) {
+			Point d = vector.getNextOffset();
+			dx = d.x;
+			dy = d.y;
+			/*if(facingRight) {
 				dx += moveSpeed;
 				if(dx > getMaxSpeed()) {
 					dx = getMaxSpeed();
@@ -210,7 +215,7 @@ public class Soldier extends MapObject {
 				if((this.x - moveX) < 10) {
 					moving = false;
 				}
-			}
+			}*/
 		}
 		
 		if(!moving) {

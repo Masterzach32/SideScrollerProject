@@ -13,6 +13,7 @@ import net.masterzach32.sidescroller.entity.packs.StemPacks;
 import net.masterzach32.sidescroller.main.SideScroller;
 import net.masterzach32.sidescroller.tilemap.Tile;
 import net.masterzach32.sidescroller.tilemap.TileMap;
+import net.masterzach32.sidescroller.util.Vector;
 
 public abstract class MapObject {
 	
@@ -29,6 +30,7 @@ public abstract class MapObject {
 	protected double y;
 	protected double dx;
 	protected double dy;
+	protected Vector vector;
 	
 	// dimensions
 	protected int width;

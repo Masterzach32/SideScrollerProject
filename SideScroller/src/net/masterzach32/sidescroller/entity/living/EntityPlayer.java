@@ -277,16 +277,10 @@ public class EntityPlayer extends EntityLiving {
 		} else if(this.y - y < -moveRange) {
 			y = (int) (this.y + moveRange);
 		}
-		int space = 0;
-		if(soldiers.size() == 1) space = 0;
-		if(soldiers.size() == 2) space = 0 - 35 / 2;
-		if(soldiers.size() == 3) space = 0 - 35;
-		if(soldiers.size() == 4) space = 0 - 35 / 2 - 35;
 		sfx.get("movement").play();
 		concSands = 240;
 		for(int i = 0; i < soldiers.size(); i++) {
-			soldiers.get(i).move((int) x + space, y);
-			space += 40 - 5 * soldiers.size();
+			soldiers.get(i).move(x, y);
 		}
 	}
 	
