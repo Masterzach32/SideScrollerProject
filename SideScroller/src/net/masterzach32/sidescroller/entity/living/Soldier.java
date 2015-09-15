@@ -153,7 +153,7 @@ public class Soldier extends MapObject {
 	
 	protected void move(int x, int y) {
 		if(isAttacking()) return;
-		vector = new Vector(this, new Point((int) this.x, (int) this.y), new Point(x, y), this.getMaxSpeed());
+		vector = new Vector(this, new Point((int) this.x, (int) this.y), new Point(x, y), 0.2);
 		moveHits.clear();
 		moving = true;
 		moveX = x;
@@ -199,23 +199,23 @@ public class Soldier extends MapObject {
 			Point d = vector.getNextOffset();
 			dx = d.x;
 			dy = d.y;
-			/*if(facingRight) {
-				dx += moveSpeed;
+			if(facingRight) {
+				/*dx += moveSpeed;
 				if(dx > getMaxSpeed()) {
 					dx = getMaxSpeed();
-				}
+				}*/
 				if((moveX - this.x) < 10) {
 					moving = false;
 				}
 			} else {
-				dx -= moveSpeed;
+				/*dx -= moveSpeed;
 				if(dx < -getMaxSpeed()) {
 					dx = -getMaxSpeed();
-				}
+				}*/
 				if((this.x - moveX) < 10) {
 					moving = false;
 				}
-			}*/
+			}
 		}
 		
 		if(!moving) {

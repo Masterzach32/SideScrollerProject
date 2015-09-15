@@ -31,8 +31,7 @@ import net.masterzach32.sidescroller.util.*;
  * @author Zachary Kozar
  * @version 0.1.6 Beta
  */
-@SuppressWarnings("serial")
-public class SideScroller extends JPanel implements Runnable, KeyListener, MouseListener, IUpdatable {
+public class SideScroller implements Runnable, KeyListener, MouseListener, IUpdatable {
 	
 	// dimensions
 	public static int WIDTH = 640;
@@ -40,13 +39,14 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Pre-Release", VERSION = "0.1.6.282";
+	public static final String TYPE = "Pre-Release", VERSION = "0.1.6.283";
 	public static final boolean isUpdateEnabled = true;
 	public static boolean isSoundEnabled = true;
 	
 	// game thread
-	private Thread tickAndRender, init;
-	private static SideScroller game;
+	private Thread tickAndRender;
+	private JPanel panel;
+	public static SideScroller game;
 	private boolean running;
 	public static int FPS = 60;
 	private long targetTime = 1000 / FPS;
@@ -70,25 +70,14 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	
 	public SideScroller() {
 		super();
-		setFocusable(true);
-		requestFocus();
-	}
-	
-	public void addNotify() {
-		super.addNotify();
+		panel = new JPanel();
+		panel.setFocusable(true);
+		panel.requestFocus();
 		if(tickAndRender == null) {
 			tickAndRender = new Thread(this);
-			addKeyListener(this);
-			addMouseListener(this);
+			panel.addKeyListener(this);
+			panel.addMouseListener(this);
 			tickAndRender.start();
-		}
-		if(init == null) {
-			init = new Thread() {
-				public void run() {
-					init();
-				}
-			};
-			///init.start();
 		}
 	}
 	
@@ -223,17 +212,17 @@ public class SideScroller extends JPanel implements Runnable, KeyListener, Mouse
 	}
 	
 	public void renderToScreen() {
-		Graphics g = getGraphics();
+		Graphics g = panel.getGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g.dispose();
 	}
 	
-	public static SideScroller getGame() {
-		return game;
-	}
-	
 	public Thread getThread() {
 		return tickAndRender;
+	}
+	
+	public JPanel getPane() {
+		return panel;
 	}
 	
 	public void keyPressed(KeyEvent e) {

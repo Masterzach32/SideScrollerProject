@@ -102,7 +102,6 @@ public class Utilities {
 		JLabel t = new JLabel();
 		t.setText("Starting...");
 		LoadingState.setInfo("Starting Update", 0);
-		SideScroller.getGame().render();
 		current.setSize(150, 50);
 		current.setValue(0);
 		current.setStringPainted(true);

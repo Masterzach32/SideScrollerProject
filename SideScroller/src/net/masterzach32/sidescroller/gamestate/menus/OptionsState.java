@@ -133,13 +133,13 @@ public class OptionsState extends MenuState {
 		if(debug) {
 			setConsole(true);
 		}
-		SideScroller.getGame().requestFocusInWindow();
+		SideScroller.game.getPane().requestFocusInWindow();
 	}
 
 	public static void setConsole(boolean enabled) {
 		console = enabled;
 		Game.getConsole().setVisible(console);
-		SideScroller.getGame().requestFocusInWindow();
+		SideScroller.game.getPane().requestFocusInWindow();
 	}
 
 	public void keyPressed(int k) {

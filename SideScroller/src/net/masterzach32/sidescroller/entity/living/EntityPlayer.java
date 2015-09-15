@@ -262,7 +262,7 @@ public class EntityPlayer extends EntityLiving {
 	}
 	
 	public void moveSoldiers() {
-		if(concSands > 0 || soldiers.size() == 0) return;
+		if(/*concSands > 0 ||*/ soldiers.size() == 0) return;
 		Soldier.moveStack.clear();
 		Point p = Utilities.getMousePosition();
 		int x = (int) (p.x / SideScroller.SCALE - xmap);

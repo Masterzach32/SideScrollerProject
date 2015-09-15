@@ -59,7 +59,7 @@ public class EndState extends GameState {
 
 	@Override
 	public void keyPressed(int k) {
-		SideScroller.getGame().stop();
+		SideScroller.game.stop();
 	}
 
 	@Override

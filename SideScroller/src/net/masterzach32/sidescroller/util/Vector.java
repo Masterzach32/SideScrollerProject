@@ -87,8 +87,7 @@ public class Vector {
 		int dy = 0;
 		dx = (int) (VectorHelper.sin(direction) * magnitude);
 		dy = (int) (VectorHelper.cos(direction) * magnitude);
-		Point p = new Point((int) dx, (int) dy);
-		return p;
+		return new Point((int) dx, (int) dy);
 	}
 	
 	public Vector getVector() {

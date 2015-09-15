@@ -1,4 +1,4 @@
-# SideScrollerProject- Alpha Build 0.1.6.282
+# SideScrollerProject- Alpha Build 0.1.6.283
 
 The SideScroller Project is an open source solution for people wanting to create an open source SideScrolling / RPG game. If you want to use my code, your code must be open source too. Thanks!
 
@@ -25,6 +25,7 @@ All changes that will be in v0.1.6 Alpha:
 - You now play as the fallen emperor Azir, who wants to take back Shurima
 - The player can now spawn soldiers that attack for him, and that he can move around
 - Options file is saved to the users home directory
+- Vectors and more reliable movement
 
 ### Bugs:
 - Sometimes sluggers spawn traveling left
