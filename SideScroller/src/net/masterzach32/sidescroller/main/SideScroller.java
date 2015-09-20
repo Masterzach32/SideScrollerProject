@@ -39,7 +39,7 @@ public class SideScroller implements Runnable, KeyListener, MouseListener, IUpda
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Pre-Release", VERSION = "0.1.6.283";
+	public static final String TYPE = "Pre-Release", VERSION = "0.1.6.284";
 	public static final boolean isUpdateEnabled = true;
 	public static boolean isSoundEnabled = true;
 	
@@ -92,24 +92,24 @@ public class SideScroller implements Runnable, KeyListener, MouseListener, IUpda
 	private void init() {
 		game = this;
 		Game.startConsole();
-		LogHelper.logInfo("Launching SideScroller Project - " + TYPE + " Build " + VERSION);
-		LogHelper.logInfo("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")");
-		LogHelper.logInfo("OS Archetecture: " + System.getProperty("os.arch") + " - " + System.getProperty("sun.arch.data.model"));
-		LogHelper.logInfo("Java Version: " + System.getProperty("java.version") + " distributed by " + System.getProperty("java.vendor"));
+		LogHelper.logger.logInfo("Launching SideScroller Project - " + TYPE + " Build " + VERSION);
+		LogHelper.logger.logInfo("OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")");
+		LogHelper.logger.logInfo("OS Archetecture: " + System.getProperty("os.arch") + " - " + System.getProperty("sun.arch.data.model"));
+		LogHelper.logger.logInfo("Java Version: " + System.getProperty("java.version") + " distributed by " + System.getProperty("java.vendor"));
 		
-		LogHelper.logInfo("Loading Java Graphics ");
+		LogHelper.logger.logInfo("Loading Java Graphics ");
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
 		
-		LogHelper.logInfo("Starting pre-initialzation");
+		LogHelper.logger.logInfo("Starting pre-initialzation");
 		Assets.preinit();
 		
 		Game.getConsole().getFrame().setIconImage(Assets.getImageAsset("icon_console"));
 		
-		LogHelper.logInfo("Creating Window");
+		LogHelper.logger.logInfo("Creating Window");
 		Game.getFrame().setVisible(true);
 		
-		LogHelper.logInfo("Creating Loading Screen");
+		LogHelper.logger.logInfo("Creating Loading Screen");
 		load = new LoadingState(this);
 		GameState.setState(load);
 		try {
@@ -125,40 +125,40 @@ public class SideScroller implements Runnable, KeyListener, MouseListener, IUpda
 		
 		LoadingState.setInfo("Loading Assets...", 20);
 		
-		LogHelper.logInfo("Loading Assets");
+		LogHelper.logger.logInfo("Loading Assets");
 		Assets.init();
 		LoadingState.setInfo("Loading GameStates...", 60);
 		
-		LogHelper.logInfo("Loading Menus");
+		LogHelper.logger.logInfo("Loading Menus");
 		menuState = new MenuState(this);
-		LogHelper.logInfo("Menu State Created");
+		LogHelper.logger.logInfo("Menu State Created");
 		aboutState = new AboutState(this);
 		helpState = new HelpState(this);
-		LogHelper.logInfo("Help State Created");
+		LogHelper.logger.logInfo("Help State Created");
 		optionsState = new OptionsState(this);
-		LogHelper.logInfo("Options State Created");
+		LogHelper.logger.logInfo("Options State Created");
 		keyConfigState = new KeyConfigState(this);
-		LogHelper.logInfo("Key Config State Created");
+		LogHelper.logger.logInfo("Key Config State Created");
 		LoadingState.setInfo("Loading Player...", 70);
 		
-		LogHelper.logInfo("Creating Player");
+		LogHelper.logger.logInfo("Creating Player");
 		LevelState.loadLevels();
 		LoadingState.setInfo("Loading Levels...", 80);
 		
-		LogHelper.logInfo("Loading Levels");
+		LogHelper.logger.logInfo("Loading Levels");
 		level1_1 = new Level1State(this);
 		LoadingState.setInfo("Loading Levels...", 90);
 		
-		LogHelper.logInfo("Level 1 Loaded");
+		LogHelper.logger.logInfo("Level 1 Loaded");
 		level1_2 = new Level2State(this);
 		
-		LogHelper.logInfo("Level 2 Loaded");
+		LogHelper.logger.logInfo("Level 2 Loaded");
 		LoadingState.setInfo("Finishing Up...", 100);
 		endgame = new EndState(this);
 		
 		OptionsFile.load();
 		GameState.setState(menuState);
-		LogHelper.logInfo("Loading Complete");
+		LogHelper.logger.logInfo("Loading Complete");
 		MenuState.bgMusic.play();
 	}
 	

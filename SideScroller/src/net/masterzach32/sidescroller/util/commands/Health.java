@@ -13,6 +13,6 @@ public class Health extends ConsoleCommand {
 		int health = Integer.parseInt(parameters);
 		LevelState.getPlayer().setMaxHealth(health);
 		LevelState.getPlayer().setHealth(health);
-		LogHelper.logInfo("Player health set to " + health);
+		LogHelper.logger.logInfo("Player health set to " + health);
 	}
 }

@@ -142,7 +142,7 @@ public class Utilities {
 		} catch(Exception e) {
 			t.setText("Download Failed!");
 			LoadingState.setInfo("Download Failed!", 0);
-			LogHelper.logError("An error occured while downloading: " + url);
+			LogHelper.logger.logError("An error occured while downloading: " + url);
 			e.printStackTrace();
 			createErrorDialog("Download Error", "An error occured while downloading this file:\n" + url, e);
 		}

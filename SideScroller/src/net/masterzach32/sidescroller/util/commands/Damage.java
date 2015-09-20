@@ -12,6 +12,6 @@ public class Damage extends ConsoleCommand {
 	protected void execute(String parameters) {
 		int damage = Integer.parseInt(parameters);
 		LevelState.getPlayer().setDamage(damage);
-		LogHelper.logInfo("Player damage set to " + damage);
+		LogHelper.logger.logInfo("Player damage set to " + damage);
 	}
 }

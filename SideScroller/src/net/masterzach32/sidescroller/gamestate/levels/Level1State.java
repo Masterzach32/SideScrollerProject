@@ -52,7 +52,7 @@ public class Level1State extends LevelState {
 	
 	public void levelCompleted() {
 		levelComplete = true;
-		LogHelper.logInfo("Level 1 Completed!");
+		LogHelper.logger.logInfo("Level 1 Completed!");
 		GameState.setState(SideScroller.level1_2);
 	}
 	

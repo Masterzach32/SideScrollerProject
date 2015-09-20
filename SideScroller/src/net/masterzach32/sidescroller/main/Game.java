@@ -64,6 +64,6 @@ public class Game {
 		System.out.println("Rerouting Console");
 		console = new Console();
 		console.setVisible(true);
-		LogHelper.logInfo("STDOUT and STDERR rerouted sucesfully");
+		LogHelper.logger.logInfo("STDOUT and STDERR rerouted sucesfully");
 	}
 }

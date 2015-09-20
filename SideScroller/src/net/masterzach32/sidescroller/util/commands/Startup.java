@@ -9,6 +9,6 @@ public class Startup extends ConsoleCommand {
 	}
 
 	protected void execute(String parameters) {
-		LogHelper.logInfo("startup 0");
+		LogHelper.logger.logInfo("startup 0");
 	}
 }

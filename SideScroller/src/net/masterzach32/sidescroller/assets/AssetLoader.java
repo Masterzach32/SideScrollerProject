@@ -27,10 +27,10 @@ public class AssetLoader {
 		try {
 			URL imageLocation = getClass().getResource(path);
 			bi = ImageIO.read(imageLocation);
-			LogHelper.logInfo(s + "Loaded Image: " + path);
+			LogHelper.logger.logInfo(s + "Loaded Image: " + path);
 			return bi;
 		} catch (Exception e) {
-			LogHelper.logWarning(s + "Missing Image: " + path + ".");
+			LogHelper.logger.logWarning(s + "Missing Image: " + path + ".");
 			Utilities.createErrorDialog("Missing Image Asset!", "SideScroller Project can't seem to find this asset: " + path, e);
 			return null;
 		}
@@ -46,15 +46,15 @@ public class AssetLoader {
 		AudioInputStream ais;
 		try {
 			ais = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(path));
-			LogHelper.logInfo(s + "Loaded Audio File: " + path);
+			LogHelper.logger.logInfo(s + "Loaded Audio File: " + path);
 			return ais;
 		} catch (UnsupportedAudioFileException e) {
-			LogHelper.logError(s + "Unsupported Audio File: " + path);
+			LogHelper.logger.logError(s + "Unsupported Audio File: " + path);
 			e.printStackTrace();
 			Utilities.createErrorDialog("Unsupported Audio File!", "SideScroller Project can't use this asset: " + path, e);
 			return null;
 		} catch (Exception e) {
-			LogHelper.logWarning(s + "Missing Audio File: " + path);
+			LogHelper.logger.logWarning(s + "Missing Audio File: " + path);
 			Utilities.createErrorDialog("Missing Audio Asset!", "SideScroller Project can't seem to find this asset: " + path, e);
 			return null;
 		}
@@ -64,10 +64,10 @@ public class AssetLoader {
 		LoadingState.setInfo("Loading Asset: " + path, 60);
 		URL imageLocation = getClass().getResource(path);
 		if(imageLocation != null) {
-			LogHelper.logInfo(s + "Loaded Map: " + path);
+			LogHelper.logger.logInfo(s + "Loaded Map: " + path);
 			return path;
 		} else {
-			LogHelper.logWarning(s + "Missing Asset: " + path);
+			LogHelper.logger.logWarning(s + "Missing Asset: " + path);
 			return null;
 		}
 	}

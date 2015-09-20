@@ -26,7 +26,7 @@ public abstract class ConsoleCommand {
 	public static void reciveCommand(String command) {
 		try {
 			if(!command.startsWith("/")) return;
-			LogHelper.logInfo("User Input Command: " + command);
+			LogHelper.logger.logInfo("User Input Command: " + command);
 
 			boolean doesExist = false;
 			command = command.substring(1, command.length());
@@ -47,7 +47,7 @@ public abstract class ConsoleCommand {
 					commands.get(i).execute(parameters);
 				}
 			}
-			if(!doesExist) LogHelper.logInfo("Could not find command identifier: " + identifier + ". Type /help for a list of commands.");
+			if(!doesExist) LogHelper.logger.logInfo("Could not find command identifier: " + identifier + ". Type /help for a list of commands.");
 		} catch(Exception e) {
 			Utilities.createErrorDialog("Command Input Error", "The command system could not process this command: " + command + "\nTry /help for a list of commands.", e);
 		}

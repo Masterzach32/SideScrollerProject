@@ -125,12 +125,12 @@ public class OptionsFile {
 			obj = JSONValue.parseWithException(json);
 		} catch (ParseException e) {
 			
-			LogHelper.logError("Error while parsing game options file: " + e.toString());
+			LogHelper.logger.logError("Error while parsing game options file: " + e.toString());
 			return false;
 		}
 		if (!(obj instanceof JSONObject)) {
 			// give up!
-			LogHelper.logError("Options file does not begin with a JSON Object");
+			LogHelper.logger.logError("Options file does not begin with a JSON Object");
 			return false;
 		}
 		gameOptions = (JSONObject)obj;
@@ -138,12 +138,12 @@ public class OptionsFile {
 		// Check the options file version
 		Integer version = getInteger(gameOptions, "optionsVersion");
 		if (version == null) {
-			LogHelper.logWarning("Attempting to read options file without a value for 'optionsVersion'");
+			LogHelper.logger.logWarning("Attempting to read options file without a value for 'optionsVersion'");
 		}
 		else if (version > OPTIONS_VERSION) {
 			// a higher version number indicates an incompatible file that
 			// this version of the game does not know how to read
-			LogHelper.logWarning("Could not read options file from a newer version of the game: " + gameOptions.get("gameVersion"));
+			LogHelper.logger.logWarning("Could not read options file from a newer version of the game: " + gameOptions.get("gameVersion"));
 			return false;
 		}
 
@@ -205,13 +205,13 @@ public class OptionsFile {
 		BufferedWriter fout = null;
 		String path = getOptionsPath();
 		
-		LogHelper.logInfo("Saving game options");
+		LogHelper.logger.logInfo("Saving game options");
 		try {
 			// File optionsFile = new File(path);
 			fout = new BufferedWriter(new FileWriter(path));
 			fout.write(optionsToJSON());
 		} catch (IOException e) {
-			LogHelper.logError("Problem writing " + path);
+			LogHelper.logger.logError("Problem writing " + path);
 			e.printStackTrace();
 			return false;
 		} finally {
@@ -230,7 +230,7 @@ public class OptionsFile {
 		String path = getOptionsPath();
 		byte[] buffer;
 		
-		LogHelper.logInfo("Loading game options");
+		LogHelper.logger.logInfo("Loading game options");
 		try {
 			// File optionsFile = new File(path);
 			fin = new RandomAccessFile(path, "r");		// "r" = open file for reading only
@@ -240,7 +240,7 @@ public class OptionsFile {
 			// ignore missing options file
 			return false;
 		} catch (IOException e) {
-			LogHelper.logError("Problem reading " + path);
+			LogHelper.logger.logError("Problem reading " + path);
 			e.printStackTrace();
 			return false;
 		} finally {
@@ -248,7 +248,7 @@ public class OptionsFile {
 		}
 		
 		String json = new String(buffer);
-		LogHelper.logInfo(json);
+		LogHelper.logger.logInfo(json);
 		return parseOptionsFromJSON(json);
 	}
 }

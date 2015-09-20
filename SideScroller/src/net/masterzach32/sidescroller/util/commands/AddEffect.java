@@ -9,6 +9,6 @@ public class AddEffect extends ConsoleCommand {
 	}
 
 	protected void execute(String parameters) {
-		LogHelper.logInfo("addEffect command is not");
+		LogHelper.logger.logInfo("addEffect command is not");
 	}
 }
