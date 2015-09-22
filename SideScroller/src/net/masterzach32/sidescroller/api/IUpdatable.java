@@ -41,39 +41,42 @@ public interface IUpdatable {
 		LogHelper.logger.logInfo("Checking for updates");
 		Path p = Paths.get(OSUtils.getHomeDirectory("latest.txt"));
 		String[] s = Utilities.readTextFile(SideScroller.game.getServerVersionURL(), p, false);
-		
-		if(s == null || s[0] == null) {
+		if(s != null) {
 			LogHelper.logger.logInfo("Error while checking for updates: Could not read server update file.");
-		} else if(!s[0].equals(SideScroller.game.getLocalVersion())) {
-			LogHelper.logger.logInfo("An update is available, you have build " + SideScroller.game.getLocalVersion() + ", Server build is " + s[0]);
-			LogHelper.logger.logInfo("You can download the update here: " + SideScroller.game.getUpdateURL());
-			LogHelper.logger.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
+			int server = Integer.parseInt(s[0].substring(6, s[0].length()));
+			int local = Integer.parseInt(SideScroller.game.getLocalVersion().substring(6, SideScroller.game.getLocalVersion().length()));
 			
-			int result = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "An update is available!\nLocal Build: " + SideScroller.game.getLocalVersion() + " Server Build: " + s[0] + "\nDo you want to update now?", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-			try {
-			    Files.delete(p);
-			} catch (NoSuchFileException e) {
-				e.printStackTrace();
-			} catch (DirectoryNotEmptyException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if(result == JOptionPane.YES_OPTION) {
-				Path path = Paths.get(OSUtils.getHomeDirectory("SideScroller_" + s[0] + ".jar"));
-				Utilities.download(SideScroller.game.getDownloadURL() + s[0] + ".jar", path.toString(), "Downloading Update", false);
-				int result2 = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "Update complete! Downloaded to:\n" + path.toString() + ".\nDo you want to close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-				if(result2 == JOptionPane.YES_OPTION) {
-					try {
-						ProcessBuilder pb = new ProcessBuilder("java", "-jar", path.toString());
-						pb.start();
-						System.exit(0);
-						return true;
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+			if(server > local) {
+				LogHelper.logger.logInfo("An update is available, you have build " + SideScroller.game.getLocalVersion() + ", Server build is " + s[0]);
+				LogHelper.logger.logInfo("You can download the update here: " + SideScroller.game.getUpdateURL());
+				LogHelper.logger.logInfo("NOTE: If you are testing a beta version of the game and it prompts you to update, ignore it.");
+				
+				int result = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "An update is available!\nLocal Build: " + SideScroller.game.getLocalVersion() + " Server Build: " + s[0] + "\nDo you want to update now?", "Update Available - Build " + s[0], JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				try {
+					Files.delete(p);
+				} catch (NoSuchFileException e) {
+					e.printStackTrace();
+				} catch (DirectoryNotEmptyException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
+				if(result == JOptionPane.YES_OPTION) {
+					Path path = Paths.get(OSUtils.getHomeDirectory("SideScroller_" + s[0] + ".jar"));
+					Utilities.download(SideScroller.game.getDownloadURL() + s[0] + ".jar", path.toString(), "Downloading Update", false);
+					int result2 = JOptionPane.showConfirmDialog(Game.getFrame(), (Object) "Update complete! Downloaded to:\n" + path.toString() + ".\nDo you want to close this instance and run the new build?", "Update Complete", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					if(result2 == JOptionPane.YES_OPTION) {
+						try {
+							ProcessBuilder pb = new ProcessBuilder("java", "-jar", path.toString());
+							pb.start();
+							System.exit(0);
+							return true;
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 				else if(result2 == JOptionPane.NO_OPTION) return true;
+				}
 			} else {
 				return false;
 			}

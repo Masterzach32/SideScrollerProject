@@ -39,7 +39,7 @@ public class SideScroller implements Runnable, KeyListener, MouseListener, IUpda
 	public static int TOP = 0;
 	public static int LEFT = 0;
 	public static int SCALE = 2;
-	public static final String TYPE = "Pre-Release", VERSION = "0.1.6.284";
+	public static final String TYPE = "Pre-Release", VERSION = "0.1.6.285";
 	public static final boolean isUpdateEnabled = true;
 	public static boolean isSoundEnabled = true;
 	
