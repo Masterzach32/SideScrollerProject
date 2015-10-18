@@ -361,8 +361,8 @@ public class EntityPlayer extends EntityLiving {
 	}
 	
 	public void tick() {
+		super.tick();
 		if(!isDead()) {
-			super.tick();
 			checkTileMapCollision();
 			setPosition(xtemp, ytemp);
 			Stats.setStat("distance", (int) dx);

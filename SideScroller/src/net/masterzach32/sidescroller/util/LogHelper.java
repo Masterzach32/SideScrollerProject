@@ -4,20 +4,23 @@ import net.masterzach32.sidescroller.main.SideScroller;
 
 public class LogHelper {
 	
-	public static LogHelper logger = new LogHelper();
+	private String name;
 	
-	public LogHelper() {}
+	public static LogHelper logger = new LogHelper(SideScroller.game.getThread().getName());
+	
+	public LogHelper(String name) {
+		this.name = name;
+	}
 
 	public void logInfo(String s) {
-		System.out.println("[" + Utilities.getTime() + "] " + "[" + SideScroller.game.getThread().getName() + "] " + "[INFO] " + s);
+		System.out.println("[" + Utilities.getTime() + "] " + "[" + name + "] " + "[INFO] " + s);
 	}
 	
 	public void logWarning(String s) {
-		System.out.println("[" + Utilities.getTime() + "] " + "[" + SideScroller.game.getThread().getName() + "] " + "[WARNING] " + s);
+		System.out.println("[" + Utilities.getTime() + "] " + "[" + name + "] " + "[WARNING] " + s);
 	}
 	
 	public void logError(String s) {
-		System.out.println("[" + Utilities.getTime() + "] " + "[" + SideScroller.game.getThread().getName() + "] " + "[ERROR] " + s);
-	}
-	
+		System.out.println("[" + Utilities.getTime() + "] " + "[" + name + "] " + "[ERROR] " + s);
+	}	
 }
